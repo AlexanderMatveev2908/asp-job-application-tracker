@@ -1,0 +1,11 @@
+.header {
+  @apply h-[80px] border-b-3 border-gray-300 grid grid-cols-2 items-center;
+
+  .logo_wrap {
+    @apply w-[50px] h-[50px];
+
+    .logo {
+      @apply text-w__0 transition-all duration-300 cursor-pointer hover:text-blue-600;
+    }
+  }
+}

@@ -3,6 +3,7 @@
 @use './tokens/etc.scss';
 @use './tokens/txt.scss';
 @use './tokens/SVGs.scss';
+@use './tokens/animations.scss';
 
 html {
   @apply bg-neutral-950;
