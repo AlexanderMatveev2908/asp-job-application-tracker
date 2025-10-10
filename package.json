@@ -1,0 +1,19 @@
+{
+  "name": "asp-job-application-tracker",
+  "packageManager": "yarn@4.10.3",
+  "devDependencies": {
+    "tsx": "^4.20.6",
+    "turbo": "^2.5.8"
+  },
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "install_pkg": "turbo install_pkg --parallel",
+    "dev": "turbo dev --parallel",
+    "build": "turbo build --parallel",
+    "start": "turbo run start --parallel",
+    "check": "turbo check --parallel",
+    "test": "turbo test --parallel"
+  }
+}

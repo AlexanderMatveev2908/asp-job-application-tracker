@@ -1,0 +1,145 @@
+name: 🧪 check && deploy 🚀
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: 🧪 check 🧪
+    runs-on: ubuntu-latest
+
+    env:
+      PSN_JOB_APPLICATION_TRACKER_CLIENT: ${{secrets.PSN_JOB_APPLICATION_TRACKER_CLIENT}}
+      PSN_JOB_APPLICATION_TRACKER_SERVER: ${{secrets.PSN_JOB_APPLICATION_TRACKER_SERVER}}
+      APP_NAME: ${{secrets.APP_NAME}}
+      ENV_MODE: "test"
+      BACK_URL: ${{secrets.BACK_URL}}
+      BACK_URL_DEV: ${{secrets.BACK_URL_DEV}}
+      FRONT_URL: ${{secrets.FRONT_URL}}
+      FRONT_URL_DEV: ${{secrets.FRONT_URL_DEV}}
+      BACK_URL_TEST: ${{secrets.BACK_URL_TEST}}
+      FRONT_URL_TEST: ${{secrets.FRONT_URL_TEST}}
+      SMTP_FROM: ${{secrets.SMTP_FROM}}
+      DB_URL: ${{secrets.DB_URL}}
+      DB_US: ${{secrets.DB_US}}
+      DB_PWD: ${{secrets.DB_PWD}}
+      SUPABASE_CA: ${{secrets.SUPABASE_CA}}
+      REDIS_URL: ${{secrets.REDIS_URL}}
+      BREVO_SMPT_SERVER: ${{secrets.BREVO_SMPT_SERVER}}
+      BREVO_SMPT_PORT: ${{secrets.BREVO_SMPT_PORT}}
+      BREVO_SMPT_USER: ${{secrets.BREVO_SMPT_USER}}
+      BREVO_SMPT_PWD: ${{secrets.BREVO_SMPT_PWD}}
+      CLOUD_NAME: ${{secrets.CLOUD_NAME}}
+      CLOUD_API_KEY: ${{secrets.CLOUD_API_KEY}}
+      CLOUD_API_SECRET: ${{secrets.CLOUD_API_SECRET}}
+      JWT_SECRET: ${{secrets.JWT_SECRET}}
+      JWE_PRIVATE: ${{secrets.JWE_PRIVATE}}
+      JWE_PUBLIC: ${{secrets.JWE_PUBLIC}}
+      HKDF_MASTER: ${{secrets.HKDF_MASTER}}
+      HKDF_SALT: ${{secrets.HKDF_SALT}}
+      DB_HASH_KEY: ${{secrets.DB_HASH_KEY}}
+      GCM_KEY: ${{secrets.GCM_KEY}}
+
+    steps:
+      - name: 📂 clone code
+        uses: actions/checkout@v4
+
+      - name: 🟩 setup node && yarn
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 🔧 enable corepack && set yarn version berry
+        run: |
+          corepack enable
+          corepack prepare yarn@4.9.2 --activate
+
+      - name: 🗃️ yarn cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+
+      - name: 📦 install client pkg
+        run: yarn install && yarn workspace client playwright install
+
+      - name: ☕ setup Java 21 Eclipse
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: gradle
+
+      - name: 🔧 make gradlew executable
+        run: chmod +x apps/server/gradlew
+
+        # ? ~ 1.5 minutes
+      - name: 🔎 lint && types check
+        run: yarn check
+
+        # ? ~ 1 minute
+      - name: 🛠️ build app
+        run: yarn build
+
+      - name: 🔒 generate .env server file
+        run: printenv > apps/server/.env
+
+      - name: ⏳ start servers & wait
+        run: |
+          set -euo pipefail
+          yarn start &
+          SERVER_PID=$!
+          echo "SERVER_PID=$SERVER_PID" >> $GITHUB_ENV
+          yarn dlx wait-on \
+            --timeout $((1000 * 30)) \
+            http-get://localhost:3000/api/v1/test \
+            http-get://localhost:3001
+
+        # ? ~ 3 minutes
+      - name: 💻 run test client
+        run: yarn workspace client test
+
+      - name: 🛑 stop server
+        run: kill $SERVER_PID || true
+
+        # ? ~ 5 minutes
+      - name: ☕ run test server
+        run: yarn workspace server test
+
+  deploy:
+    name: 🚀 deploy server && client 🚀
+    needs: [check]
+    if: github.event_name == 'push' && needs.check.result == 'success'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📂 clone code
+        uses: actions/checkout@v4
+
+      - name: 🛠️ install fly CLI lib
+        uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: ☕ deploy server
+        working-directory: apps/server
+        run: flyctl deploy --remote-only --config fly.toml
+        env:
+          FLY_API_TOKEN: ${{ secrets.PSN_JOB_APPLICATION_TRACKER_SERVER }}
+
+      - name: 💻 deploy client
+        working-directory: apps/client
+        run: |
+          flyctl deploy \
+            --remote-only \
+            --config fly.toml \
+            --build-arg ENV_MODE=${{ secrets.ENV_MODE }} \
+            --build-arg FRONT_URL=${{ secrets.FRONT_URL }} \
+            --build-arg BACK_URL=${{ secrets.BACK_URL }} \
+            --build-arg SMTP_FROM=${{ secrets.SMTP_FROM }}
+        env:
+          FLY_API_TOKEN: ${{ secrets.PSN_JOB_APPLICATION_TRACKER_CLIENT }}
