@@ -2,17 +2,21 @@
 
 ## 📌 About This Project
 
-This app was inspired by my own job search journey. I first tracked applications in a simple notepad, but quickly realized I needed something more structured. The app was originally built with a Python backend, but I decided to rebuild it in Java since the client side was already complete and thoroughly tested with both unit and end-to-end tests. That let me fully focus on the server side while also broadening and strengthening my tech stack
+This app was inspired by my own job search journey. I started by tracking applications in a notepad, but quickly realized I needed something more structured.
+
+The first version was built with **Next.js** on the frontend and **Python** on the backend. Later, I rebuilt the backend in **Java**, focusing on scalability and cleaner API design while keeping the **Next.js** client.
+
+Now, I’m rebuilding the client in **Angular**, and with the backend already developed and tested, I can focus entirely on the interface.
 
 ---
 
 ## 🧱 Tech Stack
 
-The name **PSN** comes from the core stack that powers the project:
+The name **ASP** comes from the core stack that powers the project:
 
-- **P** → **PostgreSQL** for relational database storage
-- **S** → **Spring Boot** for the backend REST API
-- **N** → **Next.js (App Router)** for the client-side application
+- **A** => **Angular** for building the client interface
+- **S** => **Spring Boot** for the backend logic and API layer
+- **P** => **PostgreSQL** for handling data persistence and storage
 
 Together they form a clean, modern **full-stack architecture** 🚀
 
@@ -20,13 +24,14 @@ Together they form a clean, modern **full-stack architecture** 🚀
 
 ### 🖥️ **Client**
 
-- **Next.js** (App Router) — Framework for React with built-in SSR, ISR, routing, and SEO optimization
-- **React** + **TypeScript** — Component-based UI with static typing for maintainable, scalable front-ends
-- **React Hook Form** + **Zod** — Type-safe form handling with schema-based validation
-- **Redux Toolkit** + **RTK Query** — Centralized state and API caching
-- **Axios** — Preconfigured HTTP client integrated with RTK Query
-- **Framer Motion** — Smooth, customizable UI animations
-- **Tailwind CSS** + **Sass** — Utility-first styling with support for custom, complex styles
+- **Angular 20** — Zoneless frontend framework with SSR support and Signals for fine-grained reactivity
+- **TypeScript** — A typed superset of JavaScript for safer, maintainable code
+- **RxJS** — Reactive programming library for handling asynchronous data streams
+- **NgRx (Store + Effects)** — Predictable global state management and side-effect handling built on **RxJS**
+- **Angular Forms + Zod** — Reactive form handling with schema-based, type-safe validation
+- **Angular HTTPClient** — Built-in HTTP module with interceptors for secure API integration
+- **Tailwind CSS** + **Sass** — Utility-first CSS with extended support for custom and complex designs
+- **Custom Python CLI Tool** — Custom CLI tool that parses SVG files into Angular components with dynamic color and size bindings
 
 ---
 
@@ -97,8 +102,6 @@ This file not only configures the server but also declares the environment varia
 
 - **Database connection** settings are under **spring.r2dbc**.
 
-There’s no strict separation between client and server variables, but variables used by the client are easy to identify because **Next.js** requires them to start with **NEXT_PUBLIC**.
-
 - **💡Note**:
   The same variables must also be present in a **kind-secrets.yml** file (not committed to git). This file is required if you want to run the app in a local **Kubernetes cluster** via **Kind**.
   A template for this file looks like:
@@ -144,10 +147,10 @@ To start a development session, run:
 yarn dev
 ```
 
-This command uses **Turborepo** to run both the **Java server** and the **Next.js client** in parallel:
+This command uses **Turborepo** to run both the **Java server** and the **Angular client** in parallel:
 
 - ☕ **Java** runs at [http://localhost:3000](http://localhost:3000)
-- 🖥️ **Next.js** runs at [http://localhost:3001](http://localhost:3001)
+- 🟦 **Angular** runs at [http://localhost:3001](http://localhost:3001)
 
 ---
 
@@ -159,9 +162,9 @@ yarn build
 
 This triggers **Turborepo** to build both the client and server in parallel:
 
-- ☕ **Java** compiles to bytecode and produces a `.jar` file at [apps/server/app/build/libs/server-1.0.0.jar](apps/server/app/build/libs/server-1.0.0.jar)
+- ☕ **Java** Compiles to bytecode and produces a `.jar` file at [apps/server/app/build/libs/server-1.0.0.jar](apps/server/app/build/libs/server-1.0.0.jar)
 
-- 🖥️ **Next.js** follows its standard build flow, generating **SSR** or **CSR** pages depending on page configuration and data fetching logic.
+- 🟦 **Angular** Runs the Angular build pipeline and generates output according to the rendering configuration defined in [apps/client/src/app/app.routes.server.ts](apps/client/src/app/app.routes.server.ts)
 
 ---
 
@@ -174,7 +177,7 @@ yarn start
 This again uses **Turborepo** to launch both the **Java server** and the **Next.js client** in parallel:
 
 - ☕ **Python** runs at [http://localhost:3000](http://localhost:3000)
-- 🖥️ **Next.js** is served at [http://localhost:3001](http://localhost:3001)
+- 🟦 **Angular** is served at [http://localhost:3001](http://localhost:3001)
 
 ---
 
@@ -218,7 +221,8 @@ dsi 1
 
 #### 🔗 Result
 
-- 🖥️ **Next.js** is packaged into a Docker image and served from a container at [http://localhost:3001](http://localhost:3001)
+- 🟦 **Angular** is packaged into a Docker image and served from a container at [http://localhost:3001](http://localhost:3001)
+
 - ☕ **Java** compile to bytecode and the generated **.jar** file is run inside a container at [http://localhost:3000/api/v1](http://localhost:3000/api/v1)
 
 ---
@@ -229,12 +233,12 @@ To mirror the production setup, I use an **Nginx reverse proxy** that listens on
 
 - In **development**:
 
-  - ☕ Server → port **3000**
-  - 🖥️ Client → port **3001**
+  - ☕ Server => port **3000**
+  - 🟦 Client => port **3001**
 
 - In **Kubernetes**:
-  - ☕ Server → port **30080**
-  - 🖥️ Client → port **30081**
+  - ☕ Server => port **30080**
+  - 🟦 Client => port **30081**
 
 This setup provides a **single HTTPS entrypoint** while internally forwarding traffic to the right service.  
 It also avoids the need for a separate `kind` mode (like `PY_ENV=kind` or `NEXT_PUBLIC_ENV=kind`) — Nginx handles all routing automatically.
@@ -253,12 +257,12 @@ Instead of hardcoding routes, the last line **include /etc/nginx/env/active.conf
 
 The script [`ngx`](scripts/nginx/ngx) in **scripts/nginx** manages a **symlink** (active.conf) that points to the right environment file:
 
-- **Development** → /etc/nginx/env/dev.conf
-- **Kubernetes** → /etc/nginx/env/kind.conf
+- **Development** => /etc/nginx/env/dev.conf
+- **Kubernetes** => /etc/nginx/env/kind.conf
 
 ---
 
-##### Development config
+##### 🛠️ Development config
 
 Running
 
@@ -270,7 +274,7 @@ Activates dev.conf
 
 ---
 
-##### Kind config
+##### 💾 Kind config
 
 Running
 
@@ -303,8 +307,8 @@ The script present in **scripts/kind.zsh** will
 
 #### 🔗 Access
 
-- **Client** → available at **[http://localhost:30081](http://localhost:30081)**
-- **Server** → available at **[http://localhost:30080](http://localhost:30080)**
+- **Client** => available at **[http://localhost:30081](http://localhost:30081)**
+- **Server** => available at **[http://localhost:30080](http://localhost:30080)**
 
 If you’ve set up the **Nginx reverse proxy** (see section above), it will automatically route these internal ports behind a single HTTPS entrypoint (port 443).
 
@@ -377,12 +381,6 @@ A ready-to-use **Postman setup** is available at the root of the repo in the **p
 **📑 Notes**:
 
 - Variables like **email** and **pwd** are only **placeholders**. You need to configure them with your **own test credentials**.
-- Variables like **URL** (for **HTTPS endpoints**) and **DEF_URL** (for **plain HTTP endpoints**) are already preset to match the **expected app configuration**, so you don’t need to change them.
-- To use in Postman, click **Import → Choose Files** and select both the collection and environment JSON.
-- To add the **scripts** to your **workspace**:
-  1. Open a **request tab** in Postman and go to **Scripts**.
-  2. Click **Packages → Open Package Library → New Package**
-  3. For each file in[ /postman/scripts/](/postman/scripts/), create a **separate package** and paste its **JavaScript** code.
 
 ---
 
@@ -437,6 +435,7 @@ erDiagram
     string position_name
     applications_status_type status
     bigint applied_at
+    string notes
   }
 
   token_type {
@@ -496,7 +495,7 @@ This way it:
 
 - Ensures **zero broken builds** reach production.
 - Keeps **frontend and backend deployments independent** but coordinated.
-- Automates the whole dev → deploy cycle with minimal manual intervention.
+- Automates the whole dev => deploy cycle with minimal manual intervention.
 
 ---
 
@@ -507,18 +506,14 @@ To allow GitHub Actions to deploy the app, you’ll need to configure deployment
 #### 🐈 GitHub Secrets
 
 - GitHub requires the same environment variables you used in development (with adjustments for production, e.g. `NEXT_PUBLIC_ENV`, or API URLs).
-- You can manage them in your repo under **Settings → Secrets and variables → Actions**.
+- You can manage them in your repo under **Settings => Secrets and variables => Actions**.
 - Alternatively, you can use the **GitHub CLI** to upload local environment variables automatically — reducing the risk of forgetting or mistyping values.
 
 #### 🎈 Fly.io Secrets
 
 - Fly.io also requires environment variables for deployment.
-- You can set them manually in your Fly.io dashboard **(App → Settings → Secrets)**.
+- You can set them manually in your Fly.io dashboard **(App => Settings => Secrets)**.
 - Or use the **Fly CLI (`flyctl secrets set`)**, which is faster and less error-prone than updating them one by one in the dashboard.
-
----
-
-Got it buddy 😎 let’s make your **Python CLI section** read smooth, professional, and clear while still keeping it developer-friendly. Here’s a polished version of what you wrote:
 
 ---
 
@@ -580,8 +575,8 @@ poetry run python -m java_pkg_cli example_group:example_artifact:1.2.3-cool_vers
 
 - **config type** — optional with **i(implementation)** as default, Gradle configuration type (2nd positional argument). Examples:
 
-  - `i` → implementation
-  - `tr` → testRuntimeOnly
+  - `i` => implementation
+  - `tr` => testRuntimeOnly
   - …more available via `-h`
 
   ```bash
@@ -612,19 +607,19 @@ This makes the development process easier to follow because you can see the **�
 
 Recently, I also started adopting an emoji system in my commits to add extra clarity:
 
-- **⚠️ Critical** → local build works, but errors appear at **deploy** / **CI/CD**
+- **⚠️ Critical** => local build works, but errors appear at **deploy** / **CI/CD**
 
-- **📜 Docs** → documentation updates
+- **📜 Docs** => documentation updates
 
-- **🐛 Bugfix** → fixes for reported issues or errors
+- **🐛 Bugfix** => fixes for reported issues or errors
 
-- **🔥 New** → new features
+- **🔥 New** => new features
 
-- **🎨 Refactor** → code cleanups / restructuring without changing behavior
+- **🎨 Refactor** => code cleanups / restructuring without changing behavior
 
-- **🧪 Tests** → adding or improving test coverage
+- **🧪 Tests** => adding or improving test coverage
 
-- **🛠️ Default** → normal workflow / maintenance
+- **🛠️ Default** => normal workflow / maintenance
 
 For example:
 
