@@ -5,7 +5,7 @@
     @apply w-[50px] h-[50px];
 
     .logo {
-      @apply text-w__0 transition-all duration-300 cursor-pointer hover:text-blue-600;
+      @apply text-w__0 hover:text-blue-600 transition-all duration-300 cursor-pointer;
     }
   }
 }
