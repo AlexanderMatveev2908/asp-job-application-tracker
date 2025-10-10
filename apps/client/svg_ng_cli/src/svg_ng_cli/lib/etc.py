@@ -1,6 +1,8 @@
 import sys
 import re
 
+from svg_ng_cli.lib.svg_type import SvgT
+
 
 def to_kebab(arg: str) -> str:
     return arg.replace("_", "-")
@@ -10,14 +12,9 @@ def to_pascal(arg: str) -> str:
     return arg.replace("-", " ").replace("_", " ").title().replace(" ", "")
 
 
-def err(msg: str) -> None:
-    print(f"❌ {msg}")
-    sys.exit(1)
-
-
 def patch_svg_attributes(svg: str) -> str:
-    svg = re.sub(r'<\?xml[^>]*\?>', '', svg).strip()
-    svg = re.sub(r'<!--.*?-->', '', svg, flags=re.DOTALL)
+    svg = re.sub(r"<\?xml[^>]*\?>", "", svg).strip()
+    svg = re.sub(r"<!--.*?-->", "", svg, flags=re.DOTALL)
 
     def replacer(arg: re.Match) -> str:
         tag = arg.group(0)
@@ -35,7 +32,15 @@ def patch_svg_attributes(svg: str) -> str:
     return svg
 
 
-def gen_template(selector: str, svg_data: str, class_name: str) -> str:
+CURR_COLOR_TEMPLATE: str = "input<string>('currentColor')"
+NULL_COLOR_TEMPLATE: str = "input<string | null>(null)"
+
+
+def get_clr(curr_t: SvgT, input_t: SvgT) -> str:
+    return CURR_COLOR_TEMPLATE if curr_t == input_t else NULL_COLOR_TEMPLATE
+
+
+def gen_template(selector: str, svg_data: str, class_name: str, svg_type: SvgT) -> str:
     return f"""
 import {{ Component, input }} from '@angular/core';
 
@@ -46,7 +51,7 @@ import {{ Component, input }} from '@angular/core';
 export class {class_name} {{
     width = input<'auto' | string>('100%');
     height = input<'auto' | string>('100%');
-    fill = input<string>('currentColor');
-    stroke = input<string | null>(null);
+    fill = {get_clr(SvgT.F,svg_type) };
+    stroke = {get_clr(SvgT.S,svg_type)};
 }}
   """
