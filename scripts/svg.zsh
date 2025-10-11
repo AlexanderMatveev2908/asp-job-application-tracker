@@ -27,7 +27,7 @@ ngcv() {
 
     setopt NULL_GLOB  
 
-    for type in fill stroke; do
+    for type in fill stroke advanced; do
       local input_dir="$assets_dir/$type"
       local output_dir="$output_base/$type"
 
@@ -43,8 +43,10 @@ ngcv() {
       local type_flag
       if [[ "$type" == "fill" ]]; then
         type_flag="f"
-      else
+      elif [[ "$type" == "stroke" ]]; then
         type_flag="s"
+      elif [[ "$type" == "advanced" ]]; then
+        type_flag="a"
       fi
 
       for svg_file in "$input_dir"/*.svg; do

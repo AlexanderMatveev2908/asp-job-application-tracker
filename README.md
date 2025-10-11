@@ -163,7 +163,6 @@ yarn build
 This triggers **Turborepo** to build both the client and server in parallel:
 
 - ☕ **Java** Compiles to bytecode and produces a `.jar` file at [apps/server/app/build/libs/server-1.0.0.jar](apps/server/app/build/libs/server-1.0.0.jar)
-
 - 🟦 **Angular** Runs the Angular build pipeline and generates output according to the rendering configuration defined in [apps/client/src/app/app.routes.server.ts](apps/client/src/app/app.routes.server.ts)
 
 ---
@@ -222,7 +221,6 @@ dsi 1
 #### 🔗 Result
 
 - 🟦 **Angular** is packaged into a Docker image and served from a container at [http://localhost:3001](http://localhost:3001)
-
 - ☕ **Java** compile to bytecode and the generated **.jar** file is run inside a container at [http://localhost:3000/api/v1](http://localhost:3000/api/v1)
 
 ---
@@ -241,19 +239,15 @@ To mirror the production setup, I use an **Nginx reverse proxy** that listens on
   - 🟦 Client => port **30081**
 
 This setup provides a **single HTTPS entrypoint** while internally forwarding traffic to the right service.  
-It also avoids the need for a separate `kind` mode (like `PY_ENV=kind` or `NEXT_PUBLIC_ENV=kind`) — Nginx handles all routing automatically.
+It also avoids the need for a separate `kind` mode (like `ENV_M0DE=kind`) — Nginx handles all routing automatically.
 
 Configuration files can be found at [nginx](nginx)
 
 ---
 
-#### 🚦 Root nginx.conf
-
-Instead of hardcoding routes, the last line **include /etc/nginx/env/active.conf** acts as an entrypoint for environment-specific configs.
-
----
-
 #### 🔄 Switching Between Environments
+
+Instead of hardcoding routes, the last line **include /etc/nginx/env/active.conf** in the [nginx/nginx.conf](nginx/nginx.conf) file acts as an entrypoint for environment-specific configs.
 
 The script [`ngx`](scripts/nginx/ngx) in **scripts/nginx** manages a **symlink** (active.conf) that points to the right environment file:
 
@@ -312,7 +306,7 @@ The script present in **scripts/kind.zsh** will
 
 If you’ve set up the **Nginx reverse proxy** (see section above), it will automatically route these internal ports behind a single HTTPS entrypoint (port 443).
 
-This way, your local Kubernetes environment behaves just like your development setup — URLs stay consistent and you don’t need a separate `PY_ENV=kind` or `NEXT_PUBLIC_ENV=kind` mode.
+This way, your local Kubernetes environment behaves just like your development setup — URLs stay consistent and you don’t need a separate `ENV_MODE=kind`.
 
 ---
 
@@ -336,14 +330,11 @@ yarn check
 
 #### 🧪 Tests
 
-If your development environment uses **HTTPS** (via Nginx or another proxy), you’ll need an additional set of environment variables for testing.  
-These variables point the **client** and **server** directly to their respective **HTTP endpoints**, bypassing the proxy.
-
-For this reason,`NEXT_PUBLIC_ENV` should be set to **test** when running tests.
+If your development environment uses **HTTPS** (via Nginx or another proxy), you’ll need an additional set of environment variables for testing.
 
 ---
 
-Running tests directly on a Next.js app can be slow and flaky because of rebuild times.  
+Running every test with `ng serve` directly can be slow and flaky due to rebuild times.  
 To improve stability and speed, the recommended workflow is:
 
 1. **Build** the app
@@ -373,8 +364,8 @@ A ready-to-use **Postman setup** is available at the root of the repo in the **p
 - [TEST_API.postman_collection.json](/postman/TEST_API.postman_collection.json) — Contains all API request
 - [ENV_VAR.postman_environment.json](postman/ENV_VAR.postman_environment.json) — Contains the required environment variables
 - [scripts](/postman/scripts/) — Contains reusable scripts used during testing to improve **efficiency**:
-  - [get_tokens](/postman/scripts/get_tokens.js) — Extracts **access_token** and **cbc_hmac_token** from a response and sets them as **environment variables**.
-  - [refresh_token](postman/scripts/refresh_token.js) — If a response returns status **401**, attempts to obtain a **new access_token **by calling the **refresh endpoint**.
+  - [get_tokens](/postman/scripts/get_tokens.js) — Extracts **accessToken** and **cbcHmacToken** from a response and sets them as **environment variables**.
+  - [refresh_token](postman/scripts/refresh_token.js) — If a response returns status **401**, attempts to obtain a **new accessToken** by calling the **refresh endpoint**.
 
 ---
 
@@ -391,9 +382,9 @@ erDiagram
   users ||--o{ tokens : has
   users ||--o{ backup_codes : has
   users ||--o{ applications : has
-  tokens }o--|| token_type : uses
-  tokens }o--|| alg_type : uses
-  applications }o--||application_status_type : uses
+  tokens }o--|| token_t : uses
+  tokens }o--|| alg_t : uses
+  applications }o--||application_status_t : uses
   root_table ||--|| users : extends
   root_table ||--|| tokens : extends
   root_table ||--|| backup_codes : extends
@@ -412,7 +403,7 @@ erDiagram
     string email
     string tmp_email
     string password
-    bytes totp_secret
+    string totp_secret
     boolean is_verified
   }
 
@@ -423,9 +414,9 @@ erDiagram
 
   tokens {
     uuid user_id
-    token_type token_t
-    alg_type alg
-    bytes hashed
+    token_t token_type
+    alg_t alg_type
+    string hashed
     bigint exp
   }
 
@@ -433,12 +424,12 @@ erDiagram
     uuid user_id
     string company_name
     string position_name
-    applications_status_type status
-    bigint applied_at
+    applications_status_t status
     string notes
+    bigint applied_at
   }
 
-  token_type {
+  token_t {
     enum REFRESH
     enum CONF_EMAIL
     enum RECOVER_PWD
@@ -451,13 +442,13 @@ erDiagram
     enum MANAGE_ACC_2FA
   }
 
-  alg_type {
+  alg_t {
     enum AES_CBC_HMAC_SHA256
     enum RSA_OAEP_256_A256GCM
     enum HMAC_SHA256
   }
 
-  application_status_type {
+  application_status_t {
   enum APPLIED
   enum UNDER_REVIEW
   enum INTERVIEW
@@ -517,43 +508,54 @@ To allow GitHub Actions to deploy the app, you’ll need to configure deployment
 
 ---
 
-## ⚙️ Python CLI
+## ⚙️ Python CLI Tools
 
-### Working Directory
+### 📂 Working Directory
 
-The following commands can be run directly inside the **java_pkg_cli** directory.
-Alternatively, to avoid changing the directory each time, you can use the script **ja** present at [scripts/java.zsh](scripts/java.zsh) which is implemented using a **subshell** to keep directory changes isolated.
+Each CLI tool can be executed directly from its relative project directory:
+
+- **Java package manager CLI:** [`apps/server/java_pkg_cli`](apps/server/java_pkg_cli)
+- **SVG parser CLI:** [`apps/client/svg_ng_cli`](apps/client/svg_ng_cli)
+
+Alternatively, you can use helper shell scripts to run the tools from anywhere without changing directories:
+
+- 📦 **ja** => located at [`scripts/java.zsh`](scripts/java.zsh)
+- 🎨 **ngcv** => located at [`scripts/svg.zsh`](scripts/svg.zsh)
+
+> Both scripts execute in a **subshell**, so your current terminal directory remains unchanged after they finish.
 
 ---
 
-### Installation
+### 🔋 Installation
 
-To install dependencies run:
+To install project dependencies (using [Poetry](https://python-poetry.org/)), run:
 
 ```bash
 poetry install
 ```
 
+This will automatically create a virtual environment (if not already present) and install all dependencies defined in `pyproject.toml`.
+
 ---
 
-### Build
+### 🛠️ Build
 
-To build the package, run:
+To build the Python package, use:
 
 ```bash
 poetry build
 ```
 
-This generates two artifacts inside `dist/`:
+This command generates two distribution files inside the `dist/` folder:
 
-- A **wheel (.whl)** — bundled, installable build of your code
-- A **source tarball (.tar.gz)** — gzipped archive of the source code
+- **Wheel (`.whl`)** — a prebuilt installable package
+- **Source tarball (`.tar.gz`)** — a gzipped archive of your source code
 
 ---
 
-### Local Installation
+### 📦 Local Installation
 
-Install the wheel into the project’s local virtual environment (not globally or in the user’s workspace `.venv`):
+To install the built wheel into your **local Poetry environment** (not globally or in the system environment):
 
 ```bash
 poetry run pip install dist/java_pkg_cli-1.0.0-py3-none-any.whl
@@ -561,27 +563,61 @@ poetry run pip install dist/java_pkg_cli-1.0.0-py3-none-any.whl
 
 ---
 
-### Running
+### 🚀 Running the CLIs
 
-Once installed, you can launch the CLI with:
+#### 🧰 java_pkg_cli
+
+Run the Java package manager CLI using:
+
+```bash
+poetry run python -m java_pkg_cli group:artifact:version i
+```
+
+Example:
 
 ```bash
 poetry run python -m java_pkg_cli example_group:example_artifact:1.2.3-cool_version_released i
 ```
 
-### CLI Parameters
+##### 🔧 Parameters
 
-- **library** — required, `group:artifact:optional-version` format (1st positional argument)
+| Parameter       | Description                                                              | Example                                                                  |
+| --------------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| **library**     | Required — Gradle dependency in `group:artifact:optional-version` format | `io.projectreactor:reactor-core:3.6.6`                                   |
+| **config type** | Optional — Gradle configuration type (`i` by default)                    | `i` => implementation<br>`tr` => testRuntimeOnly<br>...and more via `-h` |
 
-- **config type** — optional with **i(implementation)** as default, Gradle configuration type (2nd positional argument). Examples:
+Show all options:
 
-  - `i` => implementation
-  - `tr` => testRuntimeOnly
-  - …more available via `-h`
+```bash
+poetry run python -m java_pkg_cli -h
+```
 
-  ```bash
-  poetry run python -m java_pkg_cli -h
-  ```
+---
+
+#### 🎨 svg_ng_cli
+
+Run the SVG parser CLI using:
+
+```bash
+poetry run python -m svg_ng_cli path_to_svg_file output_folder_path [svg_type]
+```
+
+##### 🔧 Parameters
+
+| Parameter              | Description                                                 | Example                                                           |
+| ---------------------- | ----------------------------------------------------------- | ----------------------------------------------------------------- |
+| **SVG file path**      | Required — path to the input `.svg` file                    | `assets/icons/user.svg`                                           |
+| **Output folder path** | Required — folder where parsed components will be generated | `src/app/icons/`                                                  |
+| **SVG type**           | Optional — determines how the SVG should be processed       | `f` => fill<br>`s` => stroke<br>`a` => advanced _(default: fill)_ |
+
+---
+
+### 🧠 Summary
+
+| CLI              | Purpose                              | Location                                             | Shortcut |
+| ---------------- | ------------------------------------ | ---------------------------------------------------- | -------- |
+| **java_pkg_cli** | Generate Gradle dependency snippets  | [apps/server/java_pkg_cli](apps/server/java_pkg_cli) | `ja`     |
+| **svg_ng_cli**   | Convert SVGs into Angular components | [apps/client/svg_ng_cli](apps/client/svg_ng_cli)     | `ngcv`   |
 
 ---
 
@@ -592,7 +628,7 @@ When looking at the **Git history**, you’ll notice a recurring pattern where e
 For example:
 
 ```bash
-recover_pwd_2FA_backup_code => validated endpoint
+🪾 recover_pwd_2FA_backup_code => 🛠️ validated endpoint
 ```
 
 This is the convention I follow to make it obvious which branch the work came from. That way, even after I **merge** and **delete** a branch, its commits still carry a **clear trace** of their **origin**.
@@ -604,8 +640,6 @@ This makes the development process easier to follow because you can see the **�
 ---
 
 ### 📑 Emoji Legend
-
-Recently, I also started adopting an emoji system in my commits to add extra clarity:
 
 - **⚠️ Critical** => local build works, but errors appear at **deploy** / **CI/CD**
 
