@@ -1,4 +1,3 @@
-
 import { Component, input } from '@angular/core';
 
 @Component({
@@ -6,11 +5,9 @@ import { Component, input } from '@angular/core';
   templateUrl: `./burger.html`,
 })
 export class SvgStrokeBurger {
-    width = input<'auto' | string>('100%');
-    height = input<'auto' | string>('100%');
-    
-    fill = input<string | null>(null);
-    stroke = input<string>('currentColor');
-    
+  width = input<'auto' | string>('100%');
+  height = input<'auto' | string>('100%');
+
+  fill = input<string | null>(null);
+  stroke = input<string>('currentColor');
 }
-  

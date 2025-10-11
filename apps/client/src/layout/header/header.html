@@ -1,6 +1,6 @@
 <div class="header">
   <div class="left">
-    <a routerLink="/" class="svg__2xl app__clr">
+    <a routerLink="/" class="svg__2xl app__hvr">
       <app-ghost />
     </a>
   </div>
@@ -10,8 +10,16 @@
       <app-user-write />
     </button>
 
-    <button class="svg__4xl btn__clr">
+    <button
+      class="btn__scl"
+      [ngClass]="isOpen() ? 'text-red-600 svg__3xl' : 'text-gray-300 hover:text-blue-600 svg__4xl'"
+      (click)="handleToggle()"
+    >
+      @if (isOpen()) {
+      <app-close />
+      } @else {
       <app-burger />
+      }
     </button>
   </div>
 </div>

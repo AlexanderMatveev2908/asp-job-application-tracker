@@ -16,7 +16,6 @@
 }
 
 .app__clr {
-  @extend .trs;
   @apply text-gray-300;
 
   &:hover {
@@ -24,7 +23,18 @@
   }
 }
 
+.app__hvr {
+  @extend .app__clr;
+  @extend .trs;
+}
+
 .btn__clr {
   @extend .btn__scl;
   @extend .app__clr;
+}
+
+.btn__err {
+  @extend .btn__scl;
+
+  @apply text-red-600;
 }
