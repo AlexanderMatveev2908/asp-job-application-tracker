@@ -2,12 +2,7 @@
   @apply transition-all duration-300;
 }
 
-.trs__p {
-  @extend .trs;
-  @apply cursor-pointer;
-}
-
-.with_hover {
+.btn__scl {
   transition: all 0.3s ease;
 
   &:hover {
@@ -20,7 +15,16 @@
   }
 }
 
-.with_hover__p {
-  @extend .with_hover;
-  cursor: pointer;
+.app__clr {
+  @extend .trs;
+  @apply text-gray-300;
+
+  &:hover {
+    @apply text-blue-600;
+  }
+}
+
+.btn__clr {
+  @extend .btn__scl;
+  @extend .app__clr;
 }
