@@ -16,7 +16,12 @@ primary_region = 'fra'
   min_machines_running = 0
   processes = ['app']
 
+[[statics]]
+  guest_path = "/browser"
+  url_prefix = "/"
+
 [[vm]]
   memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
+
