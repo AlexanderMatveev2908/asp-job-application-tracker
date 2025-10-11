@@ -4,7 +4,7 @@
 #
 
 app = 'asp-job-application-tracker-server'
-primary_region = 'otp'
+primary_region = 'fra'
 
 [build]
 
