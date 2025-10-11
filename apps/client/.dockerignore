@@ -1,40 +1,6 @@
 # ? ignore server
 apps/server/
 
-# ? python
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-*.so
-*.egg
-*.egg-info/
-.eggs/
-.Python
-env/
-.venv/
-venv/
-pip-wheel-metadata/
-
-
-# ? pytest
-htmlcov/
-.cache/
-.tox/
-.coverage
-.coverage.*
-.pytest_cache/
-nosetests.xml
-test-results.xml
-.pytest_cache/
-
-# ? mypy / ruff / linting
-.mypy_cache/
-.dmypy.json
-ruff_cache/
-*.lint
-*.typecheck
-
 # ? yarn
 .yarn/*
 !.yarn/patches/
@@ -54,22 +20,15 @@ node_modules/
 turbo/
 .turbo/
 
-# ? build apps
+# ? build app
 dist/
 build/
 
 # ? loggers
 logger/
-logs/
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
 # ? client
-apps/*/.next/
 apps/*/out/
 
 # ? assets
 uploads/
-assets/

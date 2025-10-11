@@ -60,10 +60,6 @@
         "serve": {
           "builder": "@angular/build:dev-server",
           "configurations": {
-            "production": {
-              "buildTarget": "client:build:production",
-              "port": 3001
-            },
             "development": {
               "buildTarget": "client:build:development",
               "port": 3001
@@ -73,14 +69,6 @@
         },
         "extract-i18n": {
           "builder": "@angular/build:extract-i18n"
-        },
-        "test": {
-          "builder": "@angular/build:unit-test",
-          "options": {
-            "tsConfig": "tsconfig.spec.json",
-            "runner": "vitest",
-            "buildTarget": "::development"
-          }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
@@ -92,9 +80,7 @@
     }
   },
   "cli": {
-    "schematicCollections": [
-      "angular-eslint"
-    ],
+    "schematicCollections": ["angular-eslint"],
     "analytics": false
   }
 }

@@ -83,7 +83,7 @@ kind-secrets.yml
 
 # ? assets
 uploads/
-assets/
+server_assets/
 
 # ? tests
 playwright-report/
