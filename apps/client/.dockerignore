@@ -1,5 +1,5 @@
-# ? ignore server
-apps/server/
+# ? ignore server stuff
+/apps/client
 
 # ? yarn
 .yarn/*
@@ -20,15 +20,9 @@ node_modules/
 turbo/
 .turbo/
 
-# ? build app
+# ? build apps
 dist/
 build/
 
 # ? loggers
 logger/
-
-# ? client
-apps/*/out/
-
-# ? assets
-uploads/

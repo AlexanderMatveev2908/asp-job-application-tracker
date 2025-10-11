@@ -13,9 +13,6 @@ env/
 venv/
 pip-wheel-metadata/
 
-# ? useless
-.editorconfig
-
 # ? keep .vscode because it have useful settings for formatting
 # ? keep cheat_sheet because can be useful as reminder for some concepts 
 
