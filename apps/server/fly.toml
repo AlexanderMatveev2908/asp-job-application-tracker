@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for psn-job-application-tracker-server on 2025-09-21T09:34:02+03:00
+# fly.toml app configuration file generated for asp-job-application-tracker-server on 2025-10-11T14:06:05+03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'psn-job-application-tracker-server'
+app = 'asp-job-application-tracker-server'
 primary_region = 'otp'
 
 [build]

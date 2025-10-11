@@ -14,8 +14,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      PSN_JOB_APPLICATION_TRACKER_CLIENT: ${{secrets.PSN_JOB_APPLICATION_TRACKER_CLIENT}}
-      PSN_JOB_APPLICATION_TRACKER_SERVER: ${{secrets.PSN_JOB_APPLICATION_TRACKER_SERVER}}
+      ASP_JOB_APPLICATION_TRACKER__CLIENT: ${{secrets.ASP_JOB_APPLICATION_TRACKER__CLIENT}}
+      ASP_JOB_APPLICATION_TRACKER__SERVER: ${{secrets.ASP_JOB_APPLICATION_TRACKER__SERVER}}
       APP_NAME: ${{secrets.APP_NAME}}
       ENV_MODE: "test"
       BACK_URL: ${{secrets.BACK_URL}}
@@ -129,7 +129,7 @@ jobs:
         working-directory: apps/server
         run: flyctl deploy --remote-only --config fly.toml
         env:
-          FLY_API_TOKEN: ${{ secrets.PSN_JOB_APPLICATION_TRACKER_SERVER }}
+          FLY_API_TOKEN: ${{ secrets.ASP_JOB_APPLICATION_TRACKER__SERVER }}
 
       - name: 💻 deploy client
         working-directory: apps/client
@@ -142,4 +142,4 @@ jobs:
             --build-arg BACK_URL=${{ secrets.BACK_URL }} \
             --build-arg SMTP_FROM=${{ secrets.SMTP_FROM }}
         env:
-          FLY_API_TOKEN: ${{ secrets.PSN_JOB_APPLICATION_TRACKER_CLIENT }}
+          FLY_API_TOKEN: ${{ secrets.ASP_JOB_APPLICATION_TRACKER__CLIENT }}

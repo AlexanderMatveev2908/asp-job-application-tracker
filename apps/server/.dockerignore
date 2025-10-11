@@ -1,5 +1,5 @@
-# ? ignore server
-apps/server/
+# ? ignore client stuff
+/apps/client
 
 # ? python
 __pycache__/
@@ -16,6 +16,22 @@ env/
 venv/
 pip-wheel-metadata/
 
+# ? java
+*.class
+*.log
+*.jar
+*.war
+*.ear
+out/
+bin/
+.gradle
+
+# ? useless
+.editorconfig
+
+# ? keep .vscode because it have useful settings for python formatting
+
+# ? keep cheat_sheet because can be useful as reminder for some concepts 
 
 # ? pytest
 htmlcov/
@@ -73,3 +89,8 @@ apps/*/out/
 # ? assets
 uploads/
 assets/
+
+# ? tests
+playwright-report/
+test-results/
+

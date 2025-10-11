@@ -1,4 +1,4 @@
-# PSN-job-application-tracker 📈
+# ASP JOB APPLICATION TRACKER 📈
 
 ## 📌 About This Project
 
@@ -110,10 +110,10 @@ This file not only configures the server but also declares the environment varia
   apiVersion: v1
   kind: Secret
   metadata:
-  name: psn-job-application-tracker
+  name: asp-job-application-tracker
   type: Opaque
   stringData:
-  APP_NAME: "psn-job-application-tracker"
+  APP_NAME: "asp-job-application-tracker"
   ...rest key value pairs variables
   ```
 
