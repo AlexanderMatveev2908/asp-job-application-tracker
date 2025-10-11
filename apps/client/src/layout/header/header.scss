@@ -1,3 +1,11 @@
 .header {
-  @apply h-[80px] border-b-3 border-gray-300 grid grid-cols-2 items-center;
+  @apply h-[80px] border-b-3 border-gray-300 grid grid-cols-[1fr_200px] items-center px-3;
+
+  .left {
+    @apply w-full flex justify-start;
+  }
+
+  .right {
+    @apply grid grid-cols-2 justify-items-end items-center;
+  }
 }
