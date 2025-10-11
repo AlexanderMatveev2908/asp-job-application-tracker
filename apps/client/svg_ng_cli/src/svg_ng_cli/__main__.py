@@ -1,33 +1,15 @@
 from pathlib import Path
 import argparse
 
-from svg_ng_cli.lib.err import err
-from svg_ng_cli.lib.etc import gen_template, to_kebab, to_pascal
+from svg_ng_cli.lib.setup_parser import setup_parser
+from svg_ng_cli.lib.err_mng import err
+from svg_ng_cli.lib.templates import gen_template_html, gen_template_ts
+from svg_ng_cli.lib.name_parse import get_svg_prefix, to_kebab, to_pascal
 from svg_ng_cli.lib.svg_type import SvgT
 
 
 def mng() -> None:
-    parser = argparse.ArgumentParser(
-        prog="svg_ng_cli",
-        description="🐍 convert SVG files into Angular components.",
-    )
-
-    parser.add_argument("input", type=Path, help="path to the input SVG file")
-
-    parser.add_argument(
-        "output",
-        type=Path,
-        help="directory where the Angular component will be generated",
-    )
-
-    parser.add_argument(
-        "type",
-        nargs="?",
-        choices=["f", "s"],
-        default="f",
-        help="(optional) Type of SVG: 'f' for filled, 's' for stroke-only [default: f]",
-    )
-
+    parser = setup_parser()
     args = parser.parse_args()
 
     svg: Path = args.input
@@ -35,8 +17,8 @@ def mng() -> None:
     svg_type: SvgT = SvgT.from_input(args.type)
 
     prefix = svg.stem
-    class_name = ("SvgFill" if svg_type == SvgT.F else "SvgStroke") + to_pascal(prefix)
-    selector = "app-" + to_kebab(prefix)
+    kebab_name: str = to_kebab(prefix)
+    class_name = get_svg_prefix(svg_type) + to_pascal(kebab_name)
 
     try:
         svg_data = svg.read_text(encoding="utf-8")
@@ -45,17 +27,28 @@ def mng() -> None:
         return
 
     output_dir.mkdir(parents=True, exist_ok=True)
-    out_file = output_dir / f"{to_kebab(prefix)}.ts"
+    helper_read_nested = output_dir / "_"
+    helper_read_nested.mkdir(parents=True, exist_ok=True)
+    out_component_dir: Path = output_dir / prefix
+    out_component_dir.mkdir(parents=True, exist_ok=True)
 
-    if out_file.exists():
-        print(f"🧹 deleting existing {selector}")
-        out_file.unlink()
+    out_file_html = out_component_dir / f"{kebab_name}.html"
+    out_file_ts = out_component_dir / f"{kebab_name}.ts"
 
-    out_file.write_text(
-        gen_template(selector, svg_data, class_name, svg_type), encoding="utf-8"
+    if out_component_dir.exists():
+        print(f"🧹 deleting existing {class_name}")
+        for f in [out_file_ts, out_file_html]:
+            try:
+                f.unlink()
+            except FileNotFoundError:
+                pass
+
+    out_file_html.write_text(gen_template_html(svg_data, svg_type), encoding="utf-8")
+    out_file_ts.write_text(
+        gen_template_ts(kebab_name, class_name, svg_type), encoding="utf-8"
     )
 
-    print(f"🛠️ generated component {selector}")
+    print(f"🛠️ generated component {class_name}")
 
 
 if __name__ == "__main__":

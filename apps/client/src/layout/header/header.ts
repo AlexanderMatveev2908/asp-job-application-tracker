@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { SvgFillGhost } from '../../common/components/svgs/fill/ghost';
-import { SvgStrokeUserWrite } from '../../common/components/svgs/stroke/user-write';
+import { SvgFillGhost } from '../../common/components/svgs/fill/ghost/ghost';
+import { SvgStrokeUserWrite } from '../../common/components/svgs/stroke/user_write/user-write';
 
 @Component({
   selector: 'app-header',
