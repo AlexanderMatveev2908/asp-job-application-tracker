@@ -1,0 +1,25 @@
+import { inject, Injectable, Signal } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { StoreStateT } from '../../core/store';
+import { getSideState } from './reducer/selectors';
+import { SideStateT } from './reducer/reducer';
+import { SidebarActT } from './reducer/actions';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class SidebarSlice {
+  private readonly store = inject(Store<StoreStateT>);
+
+  public get sideState(): Signal<SideStateT> {
+    return this.store.selectSignal(getSideState);
+  }
+
+  public toggle(): void {
+    this.store.dispatch(SidebarActT.TOGGLE());
+  }
+
+  public close(): void {
+    this.store.dispatch(SidebarActT.CLOSE());
+  }
+}

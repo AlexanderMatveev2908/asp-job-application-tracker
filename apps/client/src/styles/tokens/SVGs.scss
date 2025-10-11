@@ -6,6 +6,9 @@ $svg-sizes: (
   lg: 40,
   xl: 45,
   2xl: 50,
+  3xl: 55,
+  4xl: 60,
+  5xl: 70,
 );
 
 @each $k, $v in $svg-sizes {

@@ -51,13 +51,3 @@
   scrollbar-width: auto;
   scrollbar-color: var(--white__0) transparent;
 }
-
-// ? base colors
-
-.app__clr {
-  @apply text-gray-300;
-
-  &:hover {
-    @apply text-blue-600;
-  }
-}
