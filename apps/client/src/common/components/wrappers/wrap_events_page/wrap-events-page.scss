@@ -16,8 +16,12 @@
       }
     }
 
-    .content__span_msg {
-      @apply flex justify-center items-center;
+    .content__body {
+      @apply w-full flex flex-col gap-6;
+
+      .body__span {
+        @apply w-full flex justify-center items-center;
+      }
     }
   }
 }

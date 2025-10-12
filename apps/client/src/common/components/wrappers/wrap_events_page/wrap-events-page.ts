@@ -8,9 +8,10 @@ import {
   PLATFORM_ID,
   ViewChild,
 } from '@angular/core';
-import { AppEvent, AppEventMeta, AppEventT } from '../../../types/events';
+import { AppEventMeta, AppEventT } from '../../../types/events';
 import { isPlatformBrowser, NgClass, NgComponentOutlet } from '@angular/common';
-import { animate } from '@motionone/dom';
+import { animate, AnimationOptionsWithOverrides } from '@motionone/dom';
+import { UseAppEventsSvc } from '../../../../core/hooks/use_app_events';
 
 @Component({
   selector: 'app-wrap-events-page',
@@ -20,19 +21,25 @@ import { animate } from '@motionone/dom';
 })
 export class WrapEventsPage implements AfterViewInit {
   private readonly platformID = inject(PLATFORM_ID);
+  private readonly useAppEvents = inject(UseAppEventsSvc);
 
   public eventT = input.required<AppEventT>();
-  public metaEvent = computed((): AppEventMeta => AppEvent[this.eventT()]);
+  public metaEvent = computed((): AppEventMeta => this.useAppEvents.getByT(this.eventT()));
   public msg = input.required<string>();
+  public status = input.required<number>();
 
   @ViewChild('svgWrap') svgWrap!: ElementRef<HTMLElement>;
   @ViewChild('spanMsg') spanMsg!: ElementRef<HTMLElement>;
+  @ViewChild('spanStatus') spanStatus!: ElementRef<HTMLElement>;
+  @ViewChild('content') content!: ElementRef<HTMLElement>;
 
   ngAfterViewInit() {
     if (!isPlatformBrowser(this.platformID)) return;
 
     const svgDOM = this.svgWrap.nativeElement;
-    const spanDOM = this.spanMsg.nativeElement;
+    const spanMsgDOM = this.spanMsg.nativeElement;
+    const spanStatusDOM = this.spanStatus.nativeElement;
+    const contentDOM = this.content.nativeElement;
 
     animate(
       svgDOM,
@@ -46,16 +53,37 @@ export class WrapEventsPage implements AfterViewInit {
       }
     );
 
+    const cmnConf: AnimationOptionsWithOverrides = {
+      delay: 0.2,
+      duration: 1,
+      easing: 'ease-in-out',
+    };
+
     animate(
-      spanDOM,
+      spanMsgDOM,
       {
         x: ['-100%', '40%', '-40%', '20%', '-20%', '10%', '0'],
+      },
+      cmnConf
+    );
+
+    animate(
+      spanStatusDOM,
+      {
+        x: ['100%', '-40%', '40%', '-20%', '20%', '-10%', '0'],
+      },
+      cmnConf
+    );
+
+    animate(
+      contentDOM,
+      {
         opacity: [0, 1],
       },
       {
         delay: 0.2,
-        duration: 1,
-        easing: 'ease-in-out',
+        duration: 0.6,
+        easing: 'ease',
       }
     );
   }

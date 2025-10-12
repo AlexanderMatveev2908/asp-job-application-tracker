@@ -1,5 +1,9 @@
 <app-wrap-events-page
   [eventT]="'INFO'"
   [msg]="'The treasure chest is empty. Someone got here before you... 💰'"
+  [status]="404"
 >
+  <div footer class="wrap">
+    <app-link-shadow [path]="'/'" [label]="'Home'" [eventT]="'INFO'" />
+  </div>
 </app-wrap-events-page>
