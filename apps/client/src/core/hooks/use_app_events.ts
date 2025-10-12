@@ -9,10 +9,34 @@ import { AppEventMeta, AppEventT } from '../../common/types/events';
 })
 export class UseAppEventsSvc {
   private readonly eventsData: Record<AppEventT, AppEventMeta> = {
-    OK: { Svg: SvgFillCheck, css: 'var(--green__600)', twd: 'text-green-600' },
-    INFO: { Svg: SvgFillInfo, css: 'var(--blue__600)', twd: 'text-blue-600' },
-    WARN: { Svg: SvgFillError, css: 'var(--yellow__600)', twd: 'text-yellow-600' },
-    ERR: { Svg: SvgFillError, css: 'var(--red__600)', twd: 'text-red-600' },
+    OK: {
+      Svg: SvgFillCheck,
+      clr: 'green__600',
+      txtTwd: 'text-green-600',
+      bdTwd: 'border-green-600',
+      css: 'var(--green__600)',
+    },
+    INFO: {
+      Svg: SvgFillInfo,
+      clr: 'blue__600',
+      txtTwd: 'text-blue-600',
+      bdTwd: 'border-blue-600',
+      css: 'var(--blue__600)',
+    },
+    WARN: {
+      Svg: SvgFillError,
+      clr: 'yellow__600',
+      txtTwd: 'text-yellow-600',
+      bdTwd: 'border-yellow-600',
+      css: 'var(--yellow__600)',
+    },
+    ERR: {
+      Svg: SvgFillError,
+      clr: 'red__600',
+      txtTwd: 'text-red-600',
+      bdTwd: 'border-red-600',
+      css: 'var(--red__600)',
+    },
   };
 
   public getByT(e: AppEventT): AppEventMeta {

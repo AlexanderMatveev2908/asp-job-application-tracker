@@ -70,7 +70,7 @@ html {
 }
 
 body {
-  @apply text-gray-300;
+  @apply text-gray-300 overflow-x-hidden;
 }
 
 button {
