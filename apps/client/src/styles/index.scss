@@ -7,15 +7,6 @@
 @use './tokens/z.scss';
 @use './tokens/page.scss';
 
-html {
-  @apply bg-neutral-950;
-  scroll-behavior: smooth;
-}
-
-body {
-  @apply text-gray-300;
-}
-
 :root {
   --white__0: #f5f5f5;
 
@@ -39,6 +30,47 @@ body {
   --neutral__800: #262626;
   --neutral__900: #171717;
   --neutral__950: #0a0a0a;
+}
+
+@font-face {
+  font-family: 'Sour Gummy';
+  src: url('/fonts/Sour_Gummy/static/SourGummy-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Sour Gummy';
+  src: url('/fonts/Sour_Gummy/static/SourGummy-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Sour Gummy';
+  src: url('/fonts/Sour_Gummy/static/SourGummy-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Sour Gummy';
+  src: url('/fonts/Sour_Gummy/static/SourGummy-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+* {
+  font-family: 'Sour Gummy';
+}
+
+html {
+  @apply bg-neutral-950;
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply text-gray-300;
 }
 
 button {

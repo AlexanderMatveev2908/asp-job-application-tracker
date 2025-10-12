@@ -1,4 +1,4 @@
-.sidebar {
+.root {
   height: calc(100% - 80px);
   transition: transform 0.4s ease, opacity 0.3s ease;
 
@@ -8,14 +8,14 @@
     @apply w-[500px];
   }
 
-  .span_mail {
+  .root__span_mail {
     @apply px-3 py-3 border-b-3 border-gray-300;
   }
 
-  .body {
+  .root__body {
     @apply px-3 py-5 overflow-y-auto max-h-full;
 
-    .wrap_links {
+    .body__wrap_links {
       @apply w-full grid grid-cols-1 gap-6 justify-items-start;
     }
   }

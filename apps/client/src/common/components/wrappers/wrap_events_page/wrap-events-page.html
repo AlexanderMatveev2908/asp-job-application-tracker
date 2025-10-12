@@ -1,3 +1,12 @@
-<div class="app__page tb">
-  <ng-content />
+<div class="root app__page">
+  <div class="root__content">
+    <div #svgWrap class="content__svg_wrap" [ngClass]="metaEvent().twd">
+      <ng-container *ngComponentOutlet="metaEvent().Svg" />
+    </div>
+
+    <div #spanMsg class="content__span_msg" [ngClass]="metaEvent().twd">
+      <span class="txt__xl">{{ msg() }}</span>
+    </div>
+    <ng-content />
+  </div>
 </div>
