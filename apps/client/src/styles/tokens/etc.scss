@@ -43,11 +43,11 @@
 }
 
 .scroll__app::-webkit-scrollbar-thumb {
-  background: var(--white__0);
+  background: var(--gray__300);
   border-radius: 10px;
 }
 
 .scroll__app {
   scrollbar-width: auto;
-  scrollbar-color: var(--white__0) transparent;
+  scrollbar-color: var(--gray__300) transparent;
 }

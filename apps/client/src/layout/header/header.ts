@@ -16,7 +16,6 @@ import { SvgFillClose } from '../../common/components/svgs/fill/close/close';
 })
 export class Header {
   public readonly sideSlice = inject(SidebarSlice);
-  public readonly sideState = this.sideSlice.sideState;
   public readonly isOpen = computed(() => this.sideSlice.sideState().isOpen);
 
   private readonly log = effect(() => {
