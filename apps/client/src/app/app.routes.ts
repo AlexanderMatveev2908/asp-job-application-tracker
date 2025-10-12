@@ -5,6 +5,7 @@ import { JobApplicationsPost } from '../pages/job_applications/job_applications_
 import { JobApplicationsGetOne } from '../pages/job_applications/job_applications_get_one/job-applications-get-one';
 import { JobApplicationsReadAll } from '../pages/job_applications/job_applications_read_all/job-applications-read-all';
 import { JobApplicationsPut } from '../pages/job_applications/job_applications_put/job-applications-put';
+import { NotFound } from '../pages/not_found/not-found';
 
 export const routes: Routes = [
   {
@@ -32,5 +33,9 @@ export const routes: Routes = [
         component: JobApplicationsReadAll,
       },
     ],
+  },
+  {
+    path: '**',
+    component: NotFound,
   },
 ];

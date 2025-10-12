@@ -5,6 +5,7 @@
 @use './tokens/SVGs.scss';
 @use './tokens/anm.scss';
 @use './tokens/z.scss';
+@use './tokens/page.scss';
 
 html {
   @apply bg-neutral-950;
