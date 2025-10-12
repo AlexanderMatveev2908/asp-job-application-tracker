@@ -4,7 +4,7 @@ import { USE_MOUSE_OUT__CB, USE_MOUSE_OUT__IS_OPEN } from './tokens';
 @Directive({
   selector: '[appUseMouseOut]',
 })
-export class UseMouseOut {
+export class UseMouseOutDir {
   private readonly isOpen = inject<Signal<boolean>>(USE_MOUSE_OUT__IS_OPEN);
   private readonly cb = inject<() => void>(USE_MOUSE_OUT__CB);
   private readonly el = inject(ElementRef<HTMLElement>);

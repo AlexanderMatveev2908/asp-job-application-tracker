@@ -4,7 +4,7 @@ import { SidebarSlice } from '../../features/sidebar_slice';
 import { NgClass } from '@angular/common';
 import { TxtClamp } from '../../common/components/txt/txt_clamp/txt-clamp';
 import { Lorem } from '../../core/lib/etc';
-import { UseMouseOut } from '../../core/directives/use_mouse_out/use-mouse-out';
+import { UseMouseOutDir } from '../../core/directives/use_mouse_out/use_mouse_out';
 import {
   USE_MOUSE_OUT__CB,
   USE_MOUSE_OUT__IS_OPEN,
@@ -12,7 +12,7 @@ import {
 
 @Component({
   selector: 'app-sidebar',
-  imports: [BlackBg, NgClass, TxtClamp, UseMouseOut],
+  imports: [BlackBg, NgClass, TxtClamp, UseMouseOutDir],
   providers: [
     {
       provide: USE_MOUSE_OUT__IS_OPEN,
