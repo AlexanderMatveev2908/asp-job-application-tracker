@@ -2,10 +2,10 @@
 import { Component, input } from '@angular/core';
 
 @Component({
-  selector: 'app-burger',
-  templateUrl: `./burger.html`,
+  selector: 'app-home',
+  templateUrl: `./home.html`,
 })
-export class SvgStrokeBurger {
+export class SvgStrokeHome {
     width = input<'auto' | string>('100%');
     height = input<'auto' | string>('100%');
     

@@ -10,6 +10,10 @@
   </div>
 
   <div class="body scroll__app">
-    {{ genLorem(10) }}
+    <div class="wrap_links">
+      @for(lk of allUsersLinks; track lk.id){
+      <app-side-link [lk]="lk" [currPath]="currPath()" />
+      }
+    </div>
   </div>
 </div>

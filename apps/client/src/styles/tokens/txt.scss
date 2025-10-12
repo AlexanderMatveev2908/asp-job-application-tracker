@@ -33,3 +33,19 @@
 .txt__clr {
   @apply text-neutral-300;
 }
+
+.grad__txt {
+  background: linear-gradient(to right, var(--white__0), var(--neutral__500));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.clamp__txt {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  word-break: break-word;
+}

@@ -1,0 +1,9 @@
+<a [routerLink]="lk().path" [ngClass]="isCurrPath() ? 'active' : ''" class="side_link app__link">
+  <div class="svg__xl">
+    <ng-container *ngComponentOutlet="lk().Svg"> </ng-container>
+  </div>
+
+  <span class="txt__lg">
+    {{ lk().label }}
+  </span>
+</a>
