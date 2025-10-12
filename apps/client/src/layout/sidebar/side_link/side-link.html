@@ -1,4 +1,9 @@
-<a [routerLink]="lk().path" [ngClass]="isCurrPath() ? 'active' : ''" class="side_link app__link">
+<a
+  [routerLink]="lk().path"
+  (click)="onSideClick()()"
+  [ngClass]="isCurrPath() ? 'active' : ''"
+  class="side_link app__link"
+>
   <div class="svg__xl">
     <ng-container *ngComponentOutlet="lk().Svg"> </ng-container>
   </div>

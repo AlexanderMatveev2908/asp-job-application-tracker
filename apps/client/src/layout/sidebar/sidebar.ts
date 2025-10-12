@@ -37,6 +37,9 @@ export class Sidebar {
 
   public readonly isOpen = computed((): boolean => this.sideSlice.sideState().isOpen);
   public readonly allUsersLinks = this.linksSvc.allUsersLinks;
-
   public readonly currPath = this.usePath.currPath;
+
+  public onSideClick = (): void => {
+    this.sideSlice.close();
+  };
 }

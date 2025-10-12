@@ -12,7 +12,7 @@
   <div class="body scroll__app">
     <div class="wrap_links">
       @for(lk of allUsersLinks; track lk.id){
-      <app-side-link [lk]="lk" [currPath]="currPath()" />
+      <app-side-link [lk]="lk" [currPath]="currPath()" [onSideClick]="onSideClick" />
       }
     </div>
   </div>
