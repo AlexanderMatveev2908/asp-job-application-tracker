@@ -11,6 +11,10 @@ html {
   scroll-behavior: smooth;
 }
 
+body {
+  @apply text-gray-300;
+}
+
 :root {
   --white__0: #f5f5f5;
 
