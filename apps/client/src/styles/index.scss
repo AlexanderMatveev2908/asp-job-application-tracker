@@ -4,10 +4,15 @@
 @use './tokens/txt.scss';
 @use './tokens/SVGs.scss';
 @use './tokens/anm.scss';
+@use './tokens/z.scss';
 
 html {
   @apply bg-neutral-950;
   scroll-behavior: smooth;
+}
+
+body {
+  @apply text-gray-300;
 }
 
 :root {

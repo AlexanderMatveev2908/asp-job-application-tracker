@@ -15,23 +15,6 @@
   @apply border-3 border-gray-300 rounded-xl;
 }
 
-// ? txt helpers
-.grad__txt {
-  background: linear-gradient(to right, var(--white__0), var(--neutral__500));
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
-
-.clamp__txt {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  white-space: normal;
-  word-break: break-word;
-}
-
 // ?  scroll
 .scroll__app::-webkit-scrollbar {
   width: 10px;
@@ -43,11 +26,11 @@
 }
 
 .scroll__app::-webkit-scrollbar-thumb {
-  background: var(--white__0);
+  background: var(--gray__300);
   border-radius: 10px;
 }
 
 .scroll__app {
   scrollbar-width: auto;
-  scrollbar-color: var(--white__0) transparent;
+  scrollbar-color: var(--gray__300) transparent;
 }

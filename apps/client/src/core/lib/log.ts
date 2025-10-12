@@ -1,5 +1,5 @@
-import { isStr } from './data_structure/etc';
-import { formatDateDev } from './data_structure/formatters';
+import { Prs } from './data_structure/formatters';
+import { ShapeCheck } from './data_structure/shape';
 
 export class Log {
   private static _log(title: string | null, ...args: unknown[]): void {
@@ -12,20 +12,23 @@ export class Log {
       if (t.includes('@')) caller = t.split('@')?.[0] ?? '';
       else if (t.includes('at')) caller = t.split('at')?.[1]?.split('.')?.[0] ?? '';
 
-      if (isStr(caller) && ['error', 'log'].every((str) => !caller.toLowerCase().includes(str))) {
+      if (
+        ShapeCheck.isStr(caller) &&
+        ['error', 'log'].every((str) => !caller.toLowerCase().includes(str))
+      ) {
         clsCaller = caller.replace(/[<>/]/g, '');
         break;
       }
     }
 
-    const existsTtl: boolean = isStr(title);
+    const existsTtl: boolean = ShapeCheck.isStr(title);
     const ttl: string = existsTtl ? title! : clsCaller;
 
     console.log('\n');
     console.group(
-      `${existsTtl ? '📌' : '🧩'} ${ttl}${
-        existsTtl ? ` • 🧩 ${clsCaller}` : ''
-      }\n⏰ ${formatDateDev(Date.now())}`
+      `${existsTtl ? '📌' : '🧩'} ${ttl}${existsTtl ? ` • 🧩 ${clsCaller}` : ''}\n⏰ ${Prs.devDate(
+        Date.now()
+      )}`
     );
 
     for (const el of args) console.log(el);

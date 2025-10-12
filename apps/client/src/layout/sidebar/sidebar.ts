@@ -1,0 +1,45 @@
+import { Component, computed, inject } from '@angular/core';
+import { BlackBg } from '../../common/components/black_bg/black-bg';
+import { SidebarSlice } from '../../features/sidebar_slice';
+import { NgClass } from '@angular/common';
+import { TxtClamp } from '../../common/components/txt/txt_clamp/txt-clamp';
+import { UseMouseOutDir } from '../../core/directives/use_mouse_out/use_mouse_out';
+import {
+  USE_MOUSE_OUT__CB,
+  USE_MOUSE_OUT__IS_OPEN,
+} from '../../core/directives/use_mouse_out/tokens';
+import { LinksSvc } from '../../core/ui_factory/links';
+import { SideLink } from './side_link/side-link';
+import { UsePathnameSvc } from '../../core/hooks/use_pathname';
+
+@Component({
+  selector: 'app-sidebar',
+  imports: [BlackBg, NgClass, TxtClamp, UseMouseOutDir, SideLink],
+  providers: [
+    {
+      provide: USE_MOUSE_OUT__IS_OPEN,
+      useFactory: (slice: SidebarSlice) => computed(() => slice.sideState().isOpen),
+      deps: [SidebarSlice],
+    },
+    {
+      provide: USE_MOUSE_OUT__CB,
+      useFactory: (slice: SidebarSlice) => () => slice.close(),
+      deps: [SidebarSlice],
+    },
+  ],
+  templateUrl: './sidebar.html',
+  styleUrl: './sidebar.scss',
+})
+export class Sidebar {
+  private readonly sideSlice = inject(SidebarSlice);
+  private readonly linksSvc = inject(LinksSvc);
+  private readonly usePath = inject(UsePathnameSvc);
+
+  public readonly isOpen = computed((): boolean => this.sideSlice.sideState().isOpen);
+  public readonly allUsersLinks = this.linksSvc.allUsersLinks;
+  public readonly currPath = this.usePath.currPath;
+
+  public onSideClick = (): void => {
+    this.sideSlice.close();
+  };
+}
