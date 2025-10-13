@@ -1,6 +1,6 @@
 import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
+import { WrapPage } from '@/common/components/hoc/page/wrap_page/wrap-page';
 import { SvgFillBash } from '@/common/components/svgs/fill/bash/bash';
-import { WrapPage } from '@/common/components/wrappers/page/wrap_page/wrap-page';
 import { BtnEvPropsT, BtnStatePropsT } from '@/common/types/btns';
 import { BaseElPropsT } from '@/common/types/els';
 import { ChangeDetectionStrategy, Component, signal, WritableSignal } from '@angular/core';
