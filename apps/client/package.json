@@ -2,18 +2,15 @@
   "name": "client",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
     "start": "node ./dist/client/server/server.mjs",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "run-p test:unit test:e2e && echo \"🟦 angular tests passed 🎉\"",
-    "serve:ssr:client": "node dist/client/server/server.mjs",
     "test:unit": "yarn vitest run --reporter=default --coverage",
     "test:e2e": "yarn playwright test --reporter=list,html",
     "install_pkg": "yarn install && yarn playwright install",
     "dev": "ng serve",
-    "check": "ng lint && echo \"🟦 angular check passed 🎉\"",
-    "lint": "ng lint"
+    "check": "ng lint && echo \"🟦 angular check passed 🎉\""
   },
   "prettier": {
     "printWidth": 100,
@@ -74,6 +71,7 @@
     "tailwindcss": "3.4.15",
     "typescript": "~5.9.2",
     "typescript-eslint": "8.40.0",
+    "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.4"
   }
 }
