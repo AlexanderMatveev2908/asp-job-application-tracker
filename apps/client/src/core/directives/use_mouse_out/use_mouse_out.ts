@@ -5,12 +5,12 @@ import { USE_MOUSE_OUT__CB, USE_MOUSE_OUT__IS_OPEN } from './tokens';
   selector: '[appUseMouseOut]',
 })
 export class UseMouseOutDir {
-  private readonly isOpen = inject<Signal<boolean>>(USE_MOUSE_OUT__IS_OPEN);
-  private readonly cb = inject<() => void>(USE_MOUSE_OUT__CB);
-  private readonly el = inject(ElementRef<HTMLElement>);
+  private readonly isOpen: Signal<boolean> = inject(USE_MOUSE_OUT__IS_OPEN);
+  private readonly cb: () => void = inject(USE_MOUSE_OUT__CB);
+  private readonly el: ElementRef<HTMLElement> = inject(ElementRef<HTMLElement>);
 
   @HostListener('document:mousedown', ['$event'])
-  public onMouseOut(e: MouseEvent) {
+  public onMouseOut(e: MouseEvent): void {
     if (!this.isOpen()) return;
 
     const target = e.target as HTMLElement;

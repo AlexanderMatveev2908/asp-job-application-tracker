@@ -1,10 +1,13 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   computed,
   ElementRef,
   inject,
   input,
+  InputSignal,
+  Signal,
   ViewChild,
 } from '@angular/core';
 import { NgClass, NgComponentOutlet } from '@angular/common';
@@ -19,20 +22,23 @@ import { UsePlatformSvc } from '@/core/hooks/use_platform';
   imports: [NgComponentOutlet, NgClass],
   templateUrl: './wrap-events-page.html',
   styleUrl: './wrap-events-page.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WrapEventsPage implements AfterViewInit {
-  private readonly useAppEvents = inject(UseAppEvSvc);
-  private readonly usePlatform = inject(UsePlatformSvc);
+  private readonly useAppEvents: UseAppEvSvc = inject(UseAppEvSvc);
+  private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
-  public readonly props = input.required<WrapEventsPropsT>();
-  public metaEvent = computed<AppEvMeta>(() => this.useAppEvents.getByT(this.props().eventT));
+  public readonly props: InputSignal<WrapEventsPropsT> = input.required<WrapEventsPropsT>();
+  public metaEvent: Signal<AppEvMeta> = computed(() =>
+    this.useAppEvents.getByT(this.props().eventT)
+  );
 
   @ViewChild('svgWrap') svgWrap!: ElementRef<HTMLElement>;
   @ViewChild('spanMsg') spanMsg!: ElementRef<HTMLElement>;
   @ViewChild('spanStatus') spanStatus!: ElementRef<HTMLElement>;
   @ViewChild('content') content!: ElementRef<HTMLElement>;
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (!this.usePlatform.isClient) return;
 
     const svgDOM = this.svgWrap.nativeElement;
@@ -43,7 +49,9 @@ export class WrapEventsPage implements AfterViewInit {
     animate(
       svgDOM,
       {
+        // eslint-disable-next-line no-magic-numbers
         scaleX: [0, 1.6, 0.6, 1.3, 0.9, 1.05, 1],
+        // eslint-disable-next-line no-magic-numbers
         scaleY: [0, 0.4, 1.4, 0.7, 1.2, 0.95, 1],
       },
       {

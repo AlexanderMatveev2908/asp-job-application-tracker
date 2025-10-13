@@ -13,6 +13,6 @@ export class RootUiSvc {
   }
 
   protected arrWithIDs<T>(arg: T[]): (T & { id: string })[] {
-    return arg.map((el) => this.withID(el));
+    return arg.map((el: T) => this.withID(el));
   }
 }

@@ -1,4 +1,11 @@
-import { Component, computed, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  Signal,
+  WritableSignal,
+} from '@angular/core';
 import { NgClass } from '@angular/common';
 import { SideLink } from './side_link/side-link';
 import { BlackBg } from '@/common/components/black_bg/black-bg';
@@ -10,6 +17,7 @@ import { UsePathSvc } from '@/core/hooks/use_path';
 import { TxtClampPropsT } from '@/common/components/txt/txt_clamp/etc/types';
 import { UseMouseOutDir } from '@/core/directives/use_mouse_out/use_mouse_out';
 import { BlackBgPropsT } from '@/common/components/black_bg/etc/types';
+import { LinkT } from '@/common/types/links';
 
 @Component({
   selector: 'app-sidebar',
@@ -28,22 +36,23 @@ import { BlackBgPropsT } from '@/common/components/black_bg/etc/types';
   ],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Sidebar {
-  private readonly sideSlice = inject(SidebarSlice);
-  private readonly linksSvc = inject(LinksSvc);
-  private readonly usePath = inject(UsePathSvc);
+  private readonly sideSlice: SidebarSlice = inject(SidebarSlice);
+  private readonly linksSvc: LinksSvc = inject(LinksSvc);
+  private readonly usePath: UsePathSvc = inject(UsePathSvc);
 
-  public readonly isOpen = computed<boolean>(() => this.sideSlice.sideState().isOpen);
-  public readonly allUsersLinks = this.linksSvc.allUsersLinks;
-  public readonly currPath = this.usePath.currPath;
+  public readonly isOpen: Signal<boolean> = computed(() => this.sideSlice.sideState().isOpen);
+  public readonly allUsersLinks: LinkT[] = this.linksSvc.allUsersLinks;
+  public readonly currPath: WritableSignal<string | null> = this.usePath.currPath;
 
-  public readonly blackBgProps = computed<BlackBgPropsT>(() => ({
+  public readonly blackBgProps: Signal<BlackBgPropsT> = computed(() => ({
     isDark: this.isOpen(),
     zBg: 'z__sidebar__bg',
   }));
 
-  public readonly onSideClick = (): void => {
+  public readonly onSideClick: () => void = (): void => {
     this.sideSlice.close();
   };
 

@@ -4,13 +4,14 @@ import { SvgStrokeHome } from '@/common/components/svgs/stroke/home/home';
 import { WrapEventsPropsT } from '@/common/components/wrappers/page/wrap_events_page/etc/types';
 import { WrapEventsPage } from '@/common/components/wrappers/page/wrap_events_page/wrap-events-page';
 import { AppEvT } from '@/common/types/events';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-not-found',
   imports: [WrapEventsPage, LinkShadow],
   templateUrl: './not-found.html',
   styleUrl: './not-found.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotFound {
   private readonly eventT: AppEvT = 'INFO';

@@ -1,4 +1,12 @@
-import { Component, computed, inject, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  InputSignal,
+  Signal,
+} from '@angular/core';
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
 import { AppEvMeta } from '@/common/types/events';
 import { WrapBtnApiPropsT } from '../../wrappers/btns/wrap_btn_api/etc/types';
@@ -13,24 +21,25 @@ import { PairTxtSvgPropsT } from '../../pair_txt_svg/etc/types';
   imports: [PairTxtSvg, WrapBtnApi],
   templateUrl: './btn-shadow.html',
   styleUrl: './btn-shadow.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BtnShadow {
-  private readonly useAppEvents = inject(UseAppEvSvc);
+  private readonly useAppEvents: UseAppEvSvc = inject(UseAppEvSvc);
 
-  public readonly baseProps = input.required<BaseElPropsT>();
-  public readonly btnProps = input.required<BtnStatePropsT>();
-  public readonly eventsProps = input.required<BtnEvPropsT>();
+  public readonly baseProps: InputSignal<BaseElPropsT> = input.required();
+  public readonly btnProps: InputSignal<BtnStatePropsT> = input.required();
+  public readonly eventsProps: InputSignal<BtnEvPropsT> = input.required();
 
-  public readonly pairTxtProps = computed<PairTxtSvgPropsT>(() => ({
+  public readonly pairTxtProps: Signal<PairTxtSvgPropsT> = computed(() => ({
     label: this.baseProps().label,
     Svg: this.baseProps().Svg,
   }));
 
-  public readonly metaEvents = computed<AppEvMeta>(() =>
+  public readonly metaEvents: Signal<AppEvMeta> = computed(() =>
     this.useAppEvents.getByT(this.baseProps().eventT)
   );
 
-  public readonly wrapBtnApiProps = computed<WrapBtnApiPropsT>(() => ({
+  public readonly wrapBtnApiProps: Signal<WrapBtnApiPropsT> = computed(() => ({
     eventT: this.baseProps().eventT,
     isPending: this.btnProps().isPending,
   }));

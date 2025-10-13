@@ -9,6 +9,6 @@ export type SideStateT = typeof initState;
 
 export const sideReducer = createReducer(
   initState,
-  on(SidebarActT.TOGGLE, (state) => ({ ...state, isOpen: !state.isOpen })),
-  on(SidebarActT.CLOSE, (state) => ({ ...state, isOpen: false }))
+  on(SidebarActT.TOGGLE, (state: SideStateT) => ({ ...state, isOpen: !state.isOpen })),
+  on(SidebarActT.CLOSE, (state: SideStateT) => ({ ...state, isOpen: false }))
 );

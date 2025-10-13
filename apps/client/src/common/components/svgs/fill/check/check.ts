@@ -1,16 +1,14 @@
-
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, Signal } from '@angular/core';
 
 @Component({
   selector: 'app-check',
   templateUrl: `./check.html`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SvgFillCheck {
-    width = input<'auto' | string>('100%');
-    height = input<'auto' | string>('100%');
-    
-    fill = input<string>('currentColor');
-    stroke = input<string | null>(null);
-    
+  width: Signal<'auto' | string> = input('100%');
+  height: Signal<'auto' | string> = input('100%');
+
+  fill: Signal<string> = input('currentColor');
+  stroke: Signal<string | null> = input(null);
 }
-  

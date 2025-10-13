@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { SvgFillGhost } from '@/common/components/svgs/fill/ghost/ghost';
@@ -12,10 +12,11 @@ import { SidebarSlice } from '@/features/sidebar_slice';
   imports: [SvgFillGhost, SvgStrokeUserWrite, RouterLink, SvgStrokeBurger, SvgFillClose, NgClass],
   templateUrl: './header.html',
   styleUrl: './header.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
-  public readonly sideSlice = inject(SidebarSlice);
-  public readonly isOpen = computed<boolean>(() => this.sideSlice.sideState().isOpen);
+  public readonly sideSlice: SidebarSlice = inject(SidebarSlice);
+  public readonly isOpen: Signal<boolean> = computed(() => this.sideSlice.sideState().isOpen);
 
   public handleToggle(): void {
     this.sideSlice.toggle();

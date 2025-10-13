@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
 import { BlackBgPropsT } from './etc/types';
 
 @Component({
@@ -7,7 +7,8 @@ import { BlackBgPropsT } from './etc/types';
   imports: [NgClass],
   templateUrl: './black-bg.html',
   styleUrl: './black-bg.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BlackBg {
-  public props = input.required<BlackBgPropsT>();
+  public props: InputSignal<BlackBgPropsT> = input.required();
 }

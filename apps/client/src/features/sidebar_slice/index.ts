@@ -9,7 +9,7 @@ import { StoreStateT } from '@/core/store';
   providedIn: 'root',
 })
 export class SidebarSlice {
-  private readonly store = inject(Store<StoreStateT>);
+  private readonly store: Store<StoreStateT> = inject(Store<StoreStateT>);
 
   public get sideState(): Signal<SideStateT> {
     return this.store.selectSignal(getSideState);

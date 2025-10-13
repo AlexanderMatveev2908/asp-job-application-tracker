@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import { Prs } from './data_structure/formatters';
 import { ShapeCheck } from './data_structure/shape';
 
@@ -14,7 +15,7 @@ export class Log {
 
       if (
         ShapeCheck.isStr(caller) &&
-        ['error', 'log'].every((str) => !caller.toLowerCase().includes(str))
+        ['error', 'log'].every((str: string) => !caller.toLowerCase().includes(str))
       ) {
         clsCaller = caller.replace(/[<>/]/g, '');
         break;
