@@ -24,11 +24,13 @@
       @apply absolute inset-0;
 
       &::after {
-        box-shadow: 0 0 10px var(--blue__600), 0 0 20px var(--blue__600), 0 0 30px var(--blue__600),
-          0 0 40px var(--blue__600), 0 0 50px var(--blue__600), 0 0 60px var(--blue__600),
-          0 0 70px var(--blue__600), 0 0 80px var(--blue__600);
+        background: var(--clr);
+        box-shadow: 0 0 10px var(--clr), 0 0 20px var(--clr), 0 0 30px var(--clr),
+          0 0 40px var(--clr), 0 0 50px var(--clr), 0 0 60px var(--clr), 0 0 70px var(--clr),
+          0 0 80px var(--clr);
 
-        @apply content-[''] absolute top-0 left-0 w-[30px] h-[30px] bg-blue-600 rounded-full;
+        @apply content-[''] absolute top-0 left-0 w-[30px] h-[30px] rounded-full;
+
         transform: scale(0);
         animation: spin 1s linear infinite;
         animation-delay: var(--del);

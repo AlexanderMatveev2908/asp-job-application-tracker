@@ -11,6 +11,7 @@ import { v4 } from 'uuid';
 })
 export class SpinPageSsr {
   public readonly minH: InputSignal<string> = input('min-h-screen');
+  public readonly clr: InputSignal<string> = input('var(--white__0)');
 
   public readonly IDs: string[] = Array.from({ length: 10 }, () => v4());
   private readonly dotsCount: number = this.IDs.length;
