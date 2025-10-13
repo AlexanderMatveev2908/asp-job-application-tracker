@@ -1,9 +1,21 @@
-<a [routerLink]="conf().path" class="root btn__scl__sm" [style.--clr]="metaEvent().css">
-  @let svg = conf().Svg; @if(svg){
-  <div class="svg__sm root__svg_wrap">
-    <ng-container *ngComponentOutlet="svg" />
-  </div>
-  }
+@let confData = conf();
 
-  <span class="txt__lg">{{ conf().label }}</span>
+<a
+  [routerLink]="isExternal() ? null : confData.path"
+  [attr.href]="isExternal() ? confData.path : null"
+  [attr.target]="isExternal() ? '_blank' : null"
+  [attr.rel]="isExternal() ? 'noopener noreferrer' : null"
+  class="root btn__res"
+  [style.--clr]="metaEvent().css"
+>
+  <ng-container *ngTemplateOutlet="content"></ng-container>
 </a>
+
+<ng-template #content>
+  <app-pair-txt-svg
+    [conf]="{
+      label: confData.label,
+      Svg: confData.Svg ?? null
+    }"
+  />
+</ng-template>

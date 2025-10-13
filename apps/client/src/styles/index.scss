@@ -6,6 +6,11 @@
 @use './tokens/anm.scss';
 @use './tokens/z.scss';
 @use './tokens/page.scss';
+@use './tokens/shapes.scss';
+
+// ? all files inside tokens are imported here
+// ! exports are never imported here
+// ! files inside exports are used inside components only
 
 :root {
   --white__0: #f5f5f5;

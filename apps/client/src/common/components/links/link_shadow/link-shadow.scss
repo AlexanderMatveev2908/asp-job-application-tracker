@@ -1,18 +1,10 @@
+@use 'exports/mix.scss' as mix;
+
 :host {
   @apply block w-full;
 }
 
 .root {
-  @apply flex w-full max-w-full justify-center items-center gap-5 border-2 py-1 px-4 rounded-xl text-gray-300;
-
-  border-color: var(--clr);
-
-  &:hover {
-    color: var(--clr);
-    box-shadow: 0 0 5px var(--clr), 0 0 10px var(--clr), 0 0 15px var(--clr), 0 0 20px var(--clr),
-      0 0 25px var(--clr);
-  }
-
-  .root__svg_wrap {
-  }
+  @include mix.el__shw(var(--clr));
+  @include mix.el__scl(1.15);
 }

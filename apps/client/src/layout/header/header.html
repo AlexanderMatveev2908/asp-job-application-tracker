@@ -6,12 +6,11 @@
   </div>
 
   <div class="root__right">
-    <button class="svg__3xl btn__scl__lg app__clr">
+    <button class="svg__3xl app__clr">
       <app-user-write />
     </button>
 
     <button
-      class="btn__scl__lg"
       [ngClass]="isOpen() ? 'text-red-600 svg__3xl' : 'text-gray-300 hover:text-blue-600 svg__4xl'"
       (click)="handleToggle()"
     >
