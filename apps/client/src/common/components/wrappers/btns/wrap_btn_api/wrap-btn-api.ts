@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
 import { WrapBtnApiPropsT } from './etc/types';
 import { SpinBtn } from '@/common/components/spins/spin_btn/spin-btn';
 
@@ -7,7 +7,8 @@ import { SpinBtn } from '@/common/components/spins/spin_btn/spin-btn';
   imports: [SpinBtn],
   templateUrl: './wrap-btn-api.html',
   styleUrl: './wrap-btn-api.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WrapBtnApi {
-  public readonly props = input.required<WrapBtnApiPropsT>();
+  public readonly props: InputSignal<WrapBtnApiPropsT> = input.required();
 }

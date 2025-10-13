@@ -3,12 +3,15 @@ import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   computed,
   ElementRef,
   inject,
   input,
+  InputSignal,
   QueryList,
+  Signal,
   ViewChildren,
 } from '@angular/core';
 import { animate } from '@motionone/dom';
@@ -19,15 +22,18 @@ import { v4 } from 'uuid';
   imports: [],
   templateUrl: './spin-btn.html',
   styleUrl: './spin-btn.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpinBtn implements AfterViewInit {
-  private readonly useAppEvents = inject(UseAppEvSvc);
-  public readonly eventT = input.required<AppEvT>();
-  private readonly usePlatform = inject(UsePlatformSvc);
+  private readonly useAppEvents: UseAppEvSvc = inject(UseAppEvSvc);
+  public readonly eventT: InputSignal<AppEvT> = input.required();
+  private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
-  public readonly metaEvent = computed<AppEvMeta>(() => this.useAppEvents.getByT(this.eventT()));
+  public readonly metaEvent: Signal<AppEvMeta> = computed(() =>
+    this.useAppEvents.getByT(this.eventT())
+  );
 
-  public readonly IDs = Array.from({ length: 4 }, () => v4());
+  public readonly IDs: string[] = Array.from({ length: 4 }, () => v4());
 
   @ViewChildren('dot') dots!: QueryList<ElementRef<HTMLDivElement>>;
 
@@ -41,6 +47,7 @@ export class SpinBtn implements AfterViewInit {
 
       animate(
         curr.nativeElement,
+        // eslint-disable-next-line no-magic-numbers
         { scale: [1, 1.25, 1], y: [0, 35, 0] },
         {
           duration: 1,

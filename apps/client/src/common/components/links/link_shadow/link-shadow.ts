@@ -1,4 +1,12 @@
-import { Component, computed, inject, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  InputSignal,
+  Signal,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgTemplateOutlet } from '@angular/common';
 import { LinkShadowPropsT } from './etc/types';
@@ -11,16 +19,17 @@ import { PairTxtSvg } from '../../pair_txt_svg/pair-txt-svg';
   imports: [RouterLink, NgTemplateOutlet, PairTxtSvg],
   templateUrl: './link-shadow.html',
   styleUrl: './link-shadow.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LinkShadow {
-  private readonly useAppEvents = inject(UseAppEvSvc);
+  private readonly useAppEvents: UseAppEvSvc = inject(UseAppEvSvc);
 
-  public readonly props = input.required<LinkShadowPropsT>();
+  public readonly props: InputSignal<LinkShadowPropsT> = input.required();
 
-  public readonly metaEvent = computed<AppEvMeta>(() =>
+  public readonly metaEvent: Signal<AppEvMeta> = computed(() =>
     this.useAppEvents.getByT(this.props().eventT)
   );
-  public readonly isExternal = computed<boolean>(() =>
+  public readonly isExternal: Signal<boolean> = computed(() =>
     /^(https?:\/\/|mailto:|tel:)/.test(this.props().path)
   );
 }

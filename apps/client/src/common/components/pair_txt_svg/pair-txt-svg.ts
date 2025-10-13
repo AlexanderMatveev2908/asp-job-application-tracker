@@ -1,5 +1,5 @@
 import { NgComponentOutlet } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
 import { PairTxtSvgPropsT } from './etc/types';
 
 @Component({
@@ -7,7 +7,8 @@ import { PairTxtSvgPropsT } from './etc/types';
   imports: [NgComponentOutlet],
   templateUrl: './pair-txt-svg.html',
   styleUrl: './pair-txt-svg.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PairTxtSvg {
-  public readonly props = input.required<PairTxtSvgPropsT>();
+  public readonly props: InputSignal<PairTxtSvgPropsT> = input.required();
 }
