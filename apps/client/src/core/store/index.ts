@@ -1,5 +1,5 @@
+import { sideReducer, SideStateT } from '@/features/sidebar_slice/reducer/reducer';
 import { ActionReducerMap } from '@ngrx/store';
-import { sideReducer, SideStateT } from '../../features/sidebar_slice/reducer/reducer';
 
 export interface StoreStateT {
   side: SideStateT;

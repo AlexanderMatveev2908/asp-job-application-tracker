@@ -1,8 +1,8 @@
 import { Component, computed, input } from '@angular/core';
-import { LinkT } from '../../../common/types/links';
 import { NgClass, NgComponentOutlet } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { LinksSvc } from '../../../core/ui_factory/links';
+import { LinkT } from '@/common/types/links';
+import { LinksSvc } from '@/core/ui_factory/links';
 
 @Component({
   selector: 'app-side-link',

@@ -1,9 +1,9 @@
 import { inject, Injectable, Signal } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { StoreStateT } from '../../core/store';
 import { getSideState } from './reducer/selectors';
 import { SideStateT } from './reducer/reducer';
 import { SidebarActT } from './reducer/actions';
+import { StoreStateT } from '@/core/store';
 
 @Injectable({
   providedIn: 'root',

@@ -1,4 +1,4 @@
-import { TxtClsT } from '../../../types/txt';
+import { TxtClsT } from '@/common/types/txt';
 
 export interface TxtConfT {
   txt: string;

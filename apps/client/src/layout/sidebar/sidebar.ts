@@ -1,17 +1,14 @@
 import { Component, computed, inject } from '@angular/core';
-import { BlackBg } from '../../common/components/black_bg/black-bg';
-import { SidebarSlice } from '../../features/sidebar_slice';
 import { NgClass } from '@angular/common';
-import { TxtClamp } from '../../common/components/txt/txt_clamp/txt-clamp';
-import { UseMouseOutDir } from '../../core/directives/use_mouse_out/use_mouse_out';
-import {
-  USE_MOUSE_OUT__CB,
-  USE_MOUSE_OUT__IS_OPEN,
-} from '../../core/directives/use_mouse_out/tokens';
-import { LinksSvc } from '../../core/ui_factory/links';
 import { SideLink } from './side_link/side-link';
-import { UsePathnameSvc } from '../../core/hooks/use_pathname';
-import { TxtClampConfT } from '../../common/components/txt/txt_clamp/etc/types';
+import { BlackBg } from '@/common/components/black_bg/black-bg';
+import { TxtClamp } from '@/common/components/txt/txt_clamp/txt-clamp';
+import { USE_MOUSE_OUT__CB, USE_MOUSE_OUT__IS_OPEN } from '@/core/directives/use_mouse_out/tokens';
+import { SidebarSlice } from '@/features/sidebar_slice';
+import { LinksSvc } from '@/core/ui_factory/links';
+import { UsePathnameSvc } from '@/core/hooks/use_pathname';
+import { TxtClampConfT } from '@/common/components/txt/txt_clamp/etc/types';
+import { UseMouseOutDir } from '@/core/directives/use_mouse_out/use_mouse_out';
 
 @Component({
   selector: 'app-sidebar',

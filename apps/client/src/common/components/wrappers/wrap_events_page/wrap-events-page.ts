@@ -8,11 +8,11 @@ import {
   PLATFORM_ID,
   ViewChild,
 } from '@angular/core';
-import { AppEventMeta } from '../../../types/events';
 import { isPlatformBrowser, NgClass, NgComponentOutlet } from '@angular/common';
 import { animate, AnimationOptionsWithOverrides } from '@motionone/dom';
-import { UseAppEventsSvc } from '../../../../core/hooks/use_app_events';
 import { WrapEventsConfT } from './etc/types';
+import { UseAppEventsSvc } from '@/core/hooks/use_app_events';
+import { AppEventMeta } from '@/common/types/events';
 
 @Component({
   selector: 'app-wrap-events-page',

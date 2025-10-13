@@ -1,9 +1,9 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { AppEventMeta } from '../../../types/events';
-import { UseAppEventsSvc } from '../../../../core/hooks/use_app_events';
 import { NgComponentOutlet } from '@angular/common';
 import { LinkShadowConfT } from './etc/types';
+import { AppEventMeta } from '@/common/types/events';
+import { UseAppEventsSvc } from '@/core/hooks/use_app_events';
 
 @Component({
   selector: 'app-link-shadow',

@@ -1,11 +1,11 @@
 import { Component, computed, inject } from '@angular/core';
-import { SvgFillGhost } from '../../common/components/svgs/fill/ghost/ghost';
-import { SvgStrokeUserWrite } from '../../common/components/svgs/stroke/user_write/user-write';
 import { RouterLink } from '@angular/router';
-import { SvgStrokeBurger } from '../../common/components/svgs/stroke/burger/burger';
-import { SidebarSlice } from '../../features/sidebar_slice';
 import { NgClass } from '@angular/common';
-import { SvgFillClose } from '../../common/components/svgs/fill/close/close';
+import { SvgFillGhost } from '@/common/components/svgs/fill/ghost/ghost';
+import { SvgStrokeUserWrite } from '@/common/components/svgs/stroke/user_write/user-write';
+import { SvgStrokeBurger } from '@/common/components/svgs/stroke/burger/burger';
+import { SvgFillClose } from '@/common/components/svgs/fill/close/close';
+import { SidebarSlice } from '@/features/sidebar_slice';
 
 @Component({
   selector: 'app-header',

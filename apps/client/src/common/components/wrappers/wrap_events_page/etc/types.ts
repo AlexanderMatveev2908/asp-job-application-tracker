@@ -1,4 +1,4 @@
-import { AppEventT } from '../../../../types/events';
+import { AppEventT } from '@/common/types/events';
 
 export interface WrapEventsConfT {
   eventT: AppEventT;

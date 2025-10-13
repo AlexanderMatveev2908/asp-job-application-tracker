@@ -1,8 +1,8 @@
+import { SvgFillCheck } from '@/common/components/svgs/fill/check/check';
+import { SvgFillError } from '@/common/components/svgs/fill/error/error';
+import { SvgFillInfo } from '@/common/components/svgs/fill/info/info';
+import { AppEventMeta, AppEventT } from '@/common/types/events';
 import { Injectable } from '@angular/core';
-import { SvgFillCheck } from '../../common/components/svgs/fill/check/check';
-import { SvgFillError } from '../../common/components/svgs/fill/error/error';
-import { SvgFillInfo } from '../../common/components/svgs/fill/info/info';
-import { AppEventMeta, AppEventT } from '../../common/types/events';
 
 @Injectable({
   providedIn: 'root',
