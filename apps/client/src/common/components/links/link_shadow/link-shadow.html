@@ -1,9 +1,24 @@
-<a [routerLink]="conf().path" class="root btn__scl__sm" [style.--clr]="metaEvent().css">
-  @let svg = conf().Svg; @if(svg){
+@let confData = conf();
+
+<a
+  [routerLink]="isExternal() ? null : confData.path"
+  [attr.href]="isExternal() ? confData.path : null"
+  [attr.target]="isExternal() ? '_blank' : null"
+  [attr.rel]="isExternal() ? 'noopener noreferrer' : null"
+  class="root btn__scl__sm"
+  [style.--clr]="metaEvent().css"
+>
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</a>
+
+<ng-template #content>
+  @let svg = confData.Svg;
+  <!--  -->
+  @if (svg) {
   <div class="svg__sm root__svg_wrap">
     <ng-container *ngComponentOutlet="svg" />
   </div>
   }
 
-  <span class="txt__lg">{{ conf().label }}</span>
-</a>
+  <span class="txt__lg">{{ confData.label }}</span>
+</ng-template>
