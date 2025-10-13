@@ -13,7 +13,7 @@ import { LinksSvc } from '../../../core/ui_factory/links';
 export class SideLink {
   public readonly lk = input.required<LinkT>();
   public readonly currPath = input.required<string | null>();
-  public onSideClick = input.required<() => void>();
+  public readonly onSideClick = input.required<() => void>();
 
   public readonly isCurrPath = computed(() => LinksSvc.isCurrPath(this.currPath(), this.lk().path));
 }

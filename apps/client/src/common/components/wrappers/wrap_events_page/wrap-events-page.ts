@@ -8,10 +8,11 @@ import {
   PLATFORM_ID,
   ViewChild,
 } from '@angular/core';
-import { AppEventMeta, AppEventT } from '../../../types/events';
+import { AppEventMeta } from '../../../types/events';
 import { isPlatformBrowser, NgClass, NgComponentOutlet } from '@angular/common';
 import { animate, AnimationOptionsWithOverrides } from '@motionone/dom';
 import { UseAppEventsSvc } from '../../../../core/hooks/use_app_events';
+import { WrapEventsConfT } from './etc/types';
 
 @Component({
   selector: 'app-wrap-events-page',
@@ -23,10 +24,8 @@ export class WrapEventsPage implements AfterViewInit {
   private readonly platformID = inject(PLATFORM_ID);
   private readonly useAppEvents = inject(UseAppEventsSvc);
 
-  public eventT = input.required<AppEventT>();
-  public metaEvent = computed((): AppEventMeta => this.useAppEvents.getByT(this.eventT()));
-  public msg = input.required<string>();
-  public status = input.required<number>();
+  public readonly conf = input.required<WrapEventsConfT>();
+  public metaEvent = computed((): AppEventMeta => this.useAppEvents.getByT(this.conf().eventT));
 
   @ViewChild('svgWrap') svgWrap!: ElementRef<HTMLElement>;
   @ViewChild('spanMsg') spanMsg!: ElementRef<HTMLElement>;

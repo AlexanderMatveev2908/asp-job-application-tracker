@@ -8,11 +8,11 @@
       <ng-content select="[header]" />
 
       <div #spanStatus class="body__span">
-        <span class="text-5xl sm:text-8xl font-extrabold">{{ status() }}</span>
+        <span class="text-5xl sm:text-8xl font-extrabold">{{ conf().status }}</span>
       </div>
 
       <div #spanMsg class="body__span">
-        <span class="txt__xl">{{ msg() }}</span>
+        <span class="txt__xl">{{ conf().msg }}</span>
       </div>
 
       <ng-content select="[footer]" />
