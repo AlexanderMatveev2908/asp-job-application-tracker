@@ -1,8 +1,10 @@
-<button class="root btn__res" [style.--clr]="metaEvents().css" [disabled]="conf().meta.isDisabled">
-  <app-pair-txt-svg
-    [conf]="{
-      label: conf().label,
-      Svg: conf().Svg
-    }"
-  />
-</button>
+<app-wrap-btn-api [conf]="wrapBtnApiConf()">
+  <button
+    (click)="confEvents().onClick()"
+    class="root btn__res"
+    [style.--clr]="metaEvents().css"
+    [disabled]="confBtn().isDisabled"
+  >
+    <app-pair-txt-svg [conf]="confPairTxt()" />
+  </button>
+</app-wrap-btn-api>

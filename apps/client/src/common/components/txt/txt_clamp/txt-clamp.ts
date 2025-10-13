@@ -11,5 +11,5 @@ import { TxtClampConfT } from './etc/types';
 export class TxtClamp {
   public readonly conf = input.required<TxtClampConfT>();
 
-  public txtCls = computed(() => `txt__${this.conf().size}`);
+  public txtCls = computed<string>(() => `txt__${this.conf().size}`);
 }

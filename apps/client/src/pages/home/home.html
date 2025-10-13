@@ -1,7 +1,11 @@
 <app-wrap-page>
   <div class="root">
     <div class="root__wrap_btn">
-      <app-btn-shadow [conf]="confBtnScript()" />
+      <app-btn-shadow
+        [baseConf]="baseElConfT"
+        [confBtn]="btnStateT()"
+        [confEvents]="confBtnEvents"
+      />
     </div>
   </div>
 </app-wrap-page>

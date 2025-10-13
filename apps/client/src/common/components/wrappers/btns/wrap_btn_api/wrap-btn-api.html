@@ -1,0 +1,7 @@
+@if(!conf().isPending){
+<ng-content />
+}@else{
+<div class="wrap_spin">
+  <app-spin-btn [eventT]="conf().eventT" />
+</div>
+}

@@ -11,5 +11,5 @@ import { TxtConfT } from '../etc/types';
 export class TxtScroll {
   public conf = input.required<TxtConfT>();
 
-  public txtCls = computed(() => `txt__${this.conf().size}`);
+  public txtCls = computed<string>(() => `txt__${this.conf().size}`);
 }

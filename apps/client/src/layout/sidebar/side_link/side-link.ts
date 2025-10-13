@@ -15,5 +15,7 @@ export class SideLink {
   public readonly currPath = input.required<string | null>();
   public readonly onSideClick = input.required<() => void>();
 
-  public readonly isCurrPath = computed(() => LinksSvc.isCurrPath(this.currPath(), this.lk().path));
+  public readonly isCurrPath = computed<boolean>(() =>
+    LinksSvc.isCurrPath(this.currPath(), this.lk().path)
+  );
 }

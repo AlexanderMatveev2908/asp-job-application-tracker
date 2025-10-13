@@ -5,7 +5,7 @@ import { filter } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class UsePathnameSvc {
+export class UsePathSvc {
   private readonly router = inject(Router);
 
   public readonly currPath = signal<string | null>(null);

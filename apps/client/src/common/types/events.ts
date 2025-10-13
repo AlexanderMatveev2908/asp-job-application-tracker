@@ -1,8 +1,8 @@
 import { Type } from '@angular/core';
 
-export type AppEventT = 'OK' | 'ERR' | 'WARN' | 'INFO';
+export type AppEvT = 'OK' | 'ERR' | 'WARN' | 'INFO';
 
-export interface AppEventMeta {
+export interface AppEvMeta {
   Svg: Type<unknown>;
   css: string;
   txtTwd: string;
