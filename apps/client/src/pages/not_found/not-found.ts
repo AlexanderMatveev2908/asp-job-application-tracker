@@ -14,6 +14,7 @@ import { AppEventT } from '../../common/types/events';
 })
 export class NotFound {
   private readonly eventT: AppEventT = 'INFO';
+
   public readonly wrapEventsConf: WrapEventsConfT = {
     eventT: this.eventT,
     msg: 'The treasure chest is empty. Someone got here before you... 💰',
