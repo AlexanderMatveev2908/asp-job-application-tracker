@@ -1,8 +1,8 @@
-export interface BtnStateConfT {
+export interface BtnStatePropsT {
   isPending: boolean;
   isDisabled: boolean;
 }
 
-export interface BtnEvConfT {
+export interface BtnEvPropsT {
   onClick: () => void;
 }

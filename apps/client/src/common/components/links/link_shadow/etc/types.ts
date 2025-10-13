@@ -1,5 +1,5 @@
-import { BaseElConfT } from '@/common/types/els';
+import { BaseElPropsT } from '@/common/types/els';
 
-export interface LinkShadowConfT extends BaseElConfT {
+export interface LinkShadowPropsT extends BaseElPropsT {
   path: string;
 }

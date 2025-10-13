@@ -1,4 +1,4 @@
-export interface BlackBgConfT {
+export interface BlackBgPropsT {
   isDark: boolean;
   zBg: string;
 }

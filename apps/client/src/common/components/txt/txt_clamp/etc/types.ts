@@ -1,5 +1,5 @@
-import { TxtConfT } from '../../etc/types';
+import { TxtPropsT } from '../../etc/types';
 
-export interface TxtClampConfT extends TxtConfT {
+export interface TxtClampPropsT extends TxtPropsT {
   lines: number;
 }

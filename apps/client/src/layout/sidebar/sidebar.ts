@@ -7,9 +7,9 @@ import { USE_MOUSE_OUT__CB, USE_MOUSE_OUT__IS_OPEN } from '@/core/directives/use
 import { SidebarSlice } from '@/features/sidebar_slice';
 import { LinksSvc } from '@/core/ui_factory/links';
 import { UsePathSvc } from '@/core/hooks/use_path';
-import { TxtClampConfT } from '@/common/components/txt/txt_clamp/etc/types';
+import { TxtClampPropsT } from '@/common/components/txt/txt_clamp/etc/types';
 import { UseMouseOutDir } from '@/core/directives/use_mouse_out/use_mouse_out';
-import { BlackBgConfT } from '@/common/components/black_bg/etc/types';
+import { BlackBgPropsT } from '@/common/components/black_bg/etc/types';
 
 @Component({
   selector: 'app-sidebar',
@@ -38,7 +38,7 @@ export class Sidebar {
   public readonly allUsersLinks = this.linksSvc.allUsersLinks;
   public readonly currPath = this.usePath.currPath;
 
-  public readonly blackBgConf = computed<BlackBgConfT>(() => ({
+  public readonly blackBgProps = computed<BlackBgPropsT>(() => ({
     isDark: this.isOpen(),
     zBg: 'z__sidebar__bg',
   }));
@@ -47,7 +47,7 @@ export class Sidebar {
     this.sideSlice.close();
   };
 
-  public readonly txtClampConf: TxtClampConfT = {
+  public readonly txtClampProps: TxtClampPropsT = {
     txt: 'john@gmail.com',
     size: 'lg',
     lines: 1,

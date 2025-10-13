@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { WrapBtnApiConfT } from './etc/types';
+import { WrapBtnApiPropsT } from './etc/types';
 import { SpinBtn } from '@/common/components/spins/spin_btn/spin-btn';
 
 @Component({
@@ -9,5 +9,5 @@ import { SpinBtn } from '@/common/components/spins/spin_btn/spin-btn';
   styleUrl: './wrap-btn-api.scss',
 })
 export class WrapBtnApi {
-  public readonly conf = input.required<WrapBtnApiConfT>();
+  public readonly props = input.required<WrapBtnApiPropsT>();
 }

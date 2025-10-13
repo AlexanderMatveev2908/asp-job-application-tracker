@@ -1,6 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { TxtClampConfT } from './etc/types';
+import { TxtClampPropsT } from './etc/types';
 
 @Component({
   selector: 'app-txt-clamp',
@@ -9,7 +9,7 @@ import { TxtClampConfT } from './etc/types';
   styleUrl: './txt-clamp.scss',
 })
 export class TxtClamp {
-  public readonly conf = input.required<TxtClampConfT>();
+  public readonly props = input.required<TxtClampPropsT>();
 
-  public txtCls = computed<string>(() => `txt__${this.conf().size}`);
+  public txtCls = computed<string>(() => `txt__${this.props().size}`);
 }

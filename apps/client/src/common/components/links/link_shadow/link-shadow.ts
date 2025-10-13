@@ -1,7 +1,7 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgTemplateOutlet } from '@angular/common';
-import { LinkShadowConfT } from './etc/types';
+import { LinkShadowPropsT } from './etc/types';
 import { AppEvMeta } from '@/common/types/events';
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
 import { PairTxtSvg } from '../../pair_txt_svg/pair-txt-svg';
@@ -15,12 +15,12 @@ import { PairTxtSvg } from '../../pair_txt_svg/pair-txt-svg';
 export class LinkShadow {
   private readonly useAppEvents = inject(UseAppEvSvc);
 
-  public readonly conf = input.required<LinkShadowConfT>();
+  public readonly props = input.required<LinkShadowPropsT>();
 
   public readonly metaEvent = computed<AppEvMeta>(() =>
-    this.useAppEvents.getByT(this.conf().eventT)
+    this.useAppEvents.getByT(this.props().eventT)
   );
   public readonly isExternal = computed<boolean>(() =>
-    /^(https?:\/\/|mailto:|tel:)/.test(this.conf().path)
+    /^(https?:\/\/|mailto:|tel:)/.test(this.props().path)
   );
 }

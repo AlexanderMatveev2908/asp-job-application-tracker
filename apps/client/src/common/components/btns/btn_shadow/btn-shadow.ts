@@ -1,12 +1,12 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
 import { AppEvMeta } from '@/common/types/events';
-import { WrapBtnApiConfT } from '../../wrappers/btns/wrap_btn_api/etc/types';
+import { WrapBtnApiPropsT } from '../../wrappers/btns/wrap_btn_api/etc/types';
 import { WrapBtnApi } from '../../wrappers/btns/wrap_btn_api/wrap-btn-api';
 import { PairTxtSvg } from '../../pair_txt_svg/pair-txt-svg';
-import { BtnEvConfT, BtnStateConfT } from '@/common/types/btns';
-import { BaseElConfT } from '@/common/types/els';
-import { PairTxtSvgConfT } from '../../pair_txt_svg/etc/types';
+import { BtnEvPropsT, BtnStatePropsT } from '@/common/types/btns';
+import { BaseElPropsT } from '@/common/types/els';
+import { PairTxtSvgPropsT } from '../../pair_txt_svg/etc/types';
 
 @Component({
   selector: 'app-btn-shadow',
@@ -17,21 +17,21 @@ import { PairTxtSvgConfT } from '../../pair_txt_svg/etc/types';
 export class BtnShadow {
   private readonly useAppEvents = inject(UseAppEvSvc);
 
-  public readonly baseConf = input.required<BaseElConfT>();
-  public readonly confBtn = input.required<BtnStateConfT>();
-  public readonly confEvents = input.required<BtnEvConfT>();
+  public readonly baseProps = input.required<BaseElPropsT>();
+  public readonly btnProps = input.required<BtnStatePropsT>();
+  public readonly eventsProps = input.required<BtnEvPropsT>();
 
-  public readonly confPairTxt = computed<PairTxtSvgConfT>(() => ({
-    label: this.baseConf().label,
-    Svg: this.baseConf().Svg,
+  public readonly pairTxtProps = computed<PairTxtSvgPropsT>(() => ({
+    label: this.baseProps().label,
+    Svg: this.baseProps().Svg,
   }));
 
   public readonly metaEvents = computed<AppEvMeta>(() =>
-    this.useAppEvents.getByT(this.baseConf().eventT)
+    this.useAppEvents.getByT(this.baseProps().eventT)
   );
 
-  public readonly wrapBtnApiConf = computed<WrapBtnApiConfT>(() => ({
-    eventT: this.baseConf().eventT,
-    isPending: this.confBtn().isPending,
+  public readonly wrapBtnApiProps = computed<WrapBtnApiPropsT>(() => ({
+    eventT: this.baseProps().eventT,
+    isPending: this.btnProps().isPending,
   }));
 }

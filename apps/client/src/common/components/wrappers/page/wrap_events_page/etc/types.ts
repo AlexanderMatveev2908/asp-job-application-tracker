@@ -1,6 +1,6 @@
 import { AppEvT } from '@/common/types/events';
 
-export interface WrapEventsConfT {
+export interface WrapEventsPropsT {
   eventT: AppEvT;
   msg: string;
   status: number;

@@ -1,7 +1,7 @@
-import { LinkShadowConfT } from '@/common/components/links/link_shadow/etc/types';
+import { LinkShadowPropsT } from '@/common/components/links/link_shadow/etc/types';
 import { LinkShadow } from '@/common/components/links/link_shadow/link-shadow';
 import { SvgStrokeHome } from '@/common/components/svgs/stroke/home/home';
-import { WrapEventsConfT } from '@/common/components/wrappers/page/wrap_events_page/etc/types';
+import { WrapEventsPropsT } from '@/common/components/wrappers/page/wrap_events_page/etc/types';
 import { WrapEventsPage } from '@/common/components/wrappers/page/wrap_events_page/wrap-events-page';
 import { AppEvT } from '@/common/types/events';
 import { Component } from '@angular/core';
@@ -15,12 +15,12 @@ import { Component } from '@angular/core';
 export class NotFound {
   private readonly eventT: AppEvT = 'INFO';
 
-  public readonly wrapEventsConf: WrapEventsConfT = {
+  public readonly wrapEventsProps: WrapEventsPropsT = {
     eventT: this.eventT,
     msg: 'The treasure chest is empty. Someone got here before you... 💰',
     status: 404,
   };
-  public readonly linkConf: LinkShadowConfT = {
+  public readonly linkProps: LinkShadowPropsT = {
     path: '/',
     label: 'Home',
     eventT: this.eventT,

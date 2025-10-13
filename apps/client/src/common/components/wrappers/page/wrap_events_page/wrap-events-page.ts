@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { NgClass, NgComponentOutlet } from '@angular/common';
 import { animate, AnimationOptionsWithOverrides } from '@motionone/dom';
-import { WrapEventsConfT } from './etc/types';
+import { WrapEventsPropsT } from './etc/types';
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
 import { AppEvMeta } from '@/common/types/events';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
@@ -24,8 +24,8 @@ export class WrapEventsPage implements AfterViewInit {
   private readonly useAppEvents = inject(UseAppEvSvc);
   private readonly usePlatform = inject(UsePlatformSvc);
 
-  public readonly conf = input.required<WrapEventsConfT>();
-  public metaEvent = computed<AppEvMeta>(() => this.useAppEvents.getByT(this.conf().eventT));
+  public readonly props = input.required<WrapEventsPropsT>();
+  public metaEvent = computed<AppEvMeta>(() => this.useAppEvents.getByT(this.props().eventT));
 
   @ViewChild('svgWrap') svgWrap!: ElementRef<HTMLElement>;
   @ViewChild('spanMsg') spanMsg!: ElementRef<HTMLElement>;

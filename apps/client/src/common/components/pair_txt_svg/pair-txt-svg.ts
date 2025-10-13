@@ -1,6 +1,6 @@
 import { NgComponentOutlet } from '@angular/common';
 import { Component, input } from '@angular/core';
-import { PairTxtSvgConfT } from './etc/types';
+import { PairTxtSvgPropsT } from './etc/types';
 
 @Component({
   selector: 'app-pair-txt-svg',
@@ -9,5 +9,5 @@ import { PairTxtSvgConfT } from './etc/types';
   styleUrl: './pair-txt-svg.scss',
 })
 export class PairTxtSvg {
-  public readonly conf = input.required<PairTxtSvgConfT>();
+  public readonly props = input.required<PairTxtSvgPropsT>();
 }

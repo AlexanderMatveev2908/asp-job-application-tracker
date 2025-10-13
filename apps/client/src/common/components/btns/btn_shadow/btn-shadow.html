@@ -1,10 +1,10 @@
-<app-wrap-btn-api [conf]="wrapBtnApiConf()">
+<app-wrap-btn-api [props]="wrapBtnApiProps()">
   <button
-    (click)="confEvents().onClick()"
+    (click)="eventsProps().onClick()"
     class="root btn__res"
     [style.--clr]="metaEvents().css"
-    [disabled]="confBtn().isDisabled"
+    [disabled]="btnProps().isDisabled"
   >
-    <app-pair-txt-svg [conf]="confPairTxt()" />
+    <app-pair-txt-svg [props]="pairTxtProps()" />
   </button>
 </app-wrap-btn-api>
