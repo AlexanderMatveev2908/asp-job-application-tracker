@@ -1,0 +1,12 @@
+<div class="root">
+  @if (conf().Svg) {
+  <div class="svg__sm">
+    <ng-container *ngComponentOutlet="conf().Svg" />
+  </div>
+  }
+  <!--  -->
+  @if(conf().label){
+
+  <span class="txt__lg">{{ conf().label }}</span>
+  }
+</div>

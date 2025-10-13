@@ -1,9 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Type } from '@angular/core';
-import { AppEventT } from '../../../../types/events';
-import { BaseLinkFields } from '../../../../types/links';
+import { CmnShadowConfT } from '@/common/components/shapes/shadow/types';
 
-export interface LinkShadowConfT extends BaseLinkFields {
-  Svg?: Type<any>;
-  eventT: AppEventT;
+export interface LinkShadowConfT extends CmnShadowConfT {
+  path: string;
 }

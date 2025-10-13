@@ -12,13 +12,10 @@
 </a>
 
 <ng-template #content>
-  @let svg = confData.Svg;
-  <!--  -->
-  @if (svg) {
-  <div class="svg__sm root__svg_wrap">
-    <ng-container *ngComponentOutlet="svg" />
-  </div>
-  }
-
-  <span class="txt__lg">{{ confData.label }}</span>
+  <app-pair-txt-svg
+    [conf]="{
+      label: confData.label,
+      Svg: confData.Svg ?? null
+    }"
+  />
 </ng-template>
