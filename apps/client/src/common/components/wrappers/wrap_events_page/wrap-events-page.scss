@@ -1,0 +1,27 @@
+.root {
+  @apply w-full h-full flex items-center justify-center;
+
+  .root__content {
+    @apply flex flex-col items-center gap-8;
+
+    .content__svg_wrap {
+      @apply w-[200px] h-[200px];
+
+      @media (min-width: 400px) {
+        @apply w-[300px] h-[300px];
+      }
+
+      @media (min-width: 600px) {
+        @apply w-[350px] h-[350px];
+      }
+    }
+
+    .content__body {
+      @apply w-full flex flex-col gap-6;
+
+      .body__span {
+        @apply w-full flex justify-center items-center;
+      }
+    }
+  }
+}

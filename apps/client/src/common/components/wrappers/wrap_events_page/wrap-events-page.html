@@ -1,3 +1,21 @@
-<div class="app__page tb">
-  <ng-content />
+<div class="root app__page">
+  <div class="root__content" [ngClass]="metaEvent().txtTwd">
+    <div #svgWrap class="content__svg_wrap">
+      <ng-container *ngComponentOutlet="metaEvent().Svg" />
+    </div>
+
+    <div #content class="content__body">
+      <ng-content select="[header]" />
+
+      <div #spanStatus class="body__span">
+        <span class="text-5xl sm:text-8xl font-extrabold">{{ conf().status }}</span>
+      </div>
+
+      <div #spanMsg class="body__span">
+        <span class="txt__xl">{{ conf().msg }}</span>
+      </div>
+
+      <ng-content select="[footer]" />
+    </div>
+  </div>
 </div>

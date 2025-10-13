@@ -1,16 +1,16 @@
 <app-black-bg [isDark]="isOpen()" [zBg]="'z__sidebar__bg'"></app-black-bg>
 
 <div
-  class="sidebar z__sidebar"
+  class="root z__sidebar"
   appUseMouseOut
   [ngClass]="isOpen() ? '-translate-x-full opacity-100' : 'translate-x-0 opacity-0'"
 >
-  <div class="span_mail">
+  <div class="root__span_mail">
     <app-txt-clamp [txt]="'example@gmail.com'" [size]="'lg'" [lines]="1" />
   </div>
 
-  <div class="body scroll__app">
-    <div class="wrap_links">
+  <div class="root__body scroll__app">
+    <div class="body__wrap_links">
       @for(lk of allUsersLinks; track lk.id){
       <app-side-link [lk]="lk" [currPath]="currPath()" [onSideClick]="onSideClick" />
       }

@@ -1,17 +1,17 @@
-<div class="header z__header">
-  <div class="left">
-    <a routerLink="/" class="svg__2xl app__hvr">
+<div class="root z__header">
+  <div class="root__left">
+    <a routerLink="/" class="svg__2xl app__clr">
       <app-ghost />
     </a>
   </div>
 
-  <div class="right">
-    <button class="svg__3xl btn__clr">
+  <div class="root__right">
+    <button class="svg__3xl btn__scl__lg app__clr">
       <app-user-write />
     </button>
 
     <button
-      class="btn__scl"
+      class="btn__scl__lg"
       [ngClass]="isOpen() ? 'text-red-600 svg__3xl' : 'text-gray-300 hover:text-blue-600 svg__4xl'"
       (click)="handleToggle()"
     >

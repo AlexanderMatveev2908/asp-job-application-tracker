@@ -1,8 +1,11 @@
 import { Type } from '@angular/core';
 
-export interface LinkT {
-  id: string;
-  Svg: Type<unknown>;
+export interface BaseLinkFields {
   path: string;
   label: string;
+}
+
+export interface LinkT extends BaseLinkFields {
+  id: string;
+  Svg: Type<unknown>;
 }
