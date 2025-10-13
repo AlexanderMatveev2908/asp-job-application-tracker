@@ -26,8 +26,8 @@ def patch_svg_attributes(svg: str, svg_type: SvgT) -> str:
     return svg
 
 
-CURR_COLOR_TEMPLATE: str = "input<string>('currentColor')"
-NULL_COLOR_TEMPLATE: str = "input<string | null>(null)"
+CURR_COLOR_TEMPLATE: str = ": Signal<string> = input('currentColor')"
+NULL_COLOR_TEMPLATE: str = ": Signal<string | null> = input(null)"
 
 
 def get_clr(curr_t: SvgT, input_t: SvgT) -> str:
@@ -37,8 +37,8 @@ def get_clr(curr_t: SvgT, input_t: SvgT) -> str:
 def needs_colors(svg_type) -> str:
     return (
         f"""
-    fill = {get_clr(SvgT.F,svg_type) };
-    stroke = {get_clr(SvgT.S,svg_type)};
+    fill{get_clr(SvgT.F,svg_type) };
+    stroke{get_clr(SvgT.S,svg_type)};
     """
         if svg_type != SvgT.A
         else ""
@@ -53,15 +53,16 @@ def gen_template_ts(kebab_name: str, class_name: str, svg_type: SvgT) -> str:
     selector = "app-" + kebab_name
 
     return f"""
-import {{ Component, input }} from '@angular/core';
+import {{ ChangeDetectionStrategy, Component, input, Signal }} from '@angular/core';
 
 @Component({{
   selector: '{selector}',
   templateUrl: `./{kebab_name}.html`,
+  changeDetection: ChangeDetectionStrategy.OnPush
 }})
 export class {class_name} {{
-    width = input<'auto' | string>('100%');
-    height = input<'auto' | string>('100%');
+    width: Signal<'auto' | string> = input('100%');
+    height: Signal<'auto' | string> = input('100%');
     {needs_colors(svg_type)}
 }}
-  """
+"""

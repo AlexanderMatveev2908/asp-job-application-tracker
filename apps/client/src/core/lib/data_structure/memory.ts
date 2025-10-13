@@ -1,4 +1,5 @@
 export class MemoryMng {
+  // eslint-disable-next-line complexity
   public static cpy<T>(arg: T): T {
     if (arg === null || typeof arg === 'function' || typeof arg !== 'object') return arg;
 
@@ -6,14 +7,14 @@ export class MemoryMng {
 
     if (arg instanceof RegExp) return new RegExp(arg.source, arg.flags) as T;
 
-    if (arg instanceof Set) return new Set(Array.from(arg, (v) => MemoryMng.cpy(v))) as T;
+    if (arg instanceof Set) return new Set(Array.from(arg, (v: T) => MemoryMng.cpy(v))) as T;
 
     if (arg instanceof Map)
       return new Map(
-        Array.from(arg.entries(), ([k, v]) => [MemoryMng.cpy(k), MemoryMng.cpy(v)])
+        Array.from(arg.entries(), ([k, v]: [T, T]) => [MemoryMng.cpy(k), MemoryMng.cpy(v)])
       ) as T;
 
-    if (Array.isArray(arg)) return arg.map((v) => MemoryMng.cpy(v)) as T;
+    if (Array.isArray(arg)) return arg.map((v: T) => MemoryMng.cpy(v)) as T;
 
     const obj: Record<string, unknown> = {};
 
@@ -23,10 +24,11 @@ export class MemoryMng {
     return obj as T;
   }
 
+  // eslint-disable-next-line complexity
   public static isSame<T>(a: T, b: T): boolean {
     if (a === b) return true;
 
-    if ([a, b].some((el) => typeof el !== 'object' || el === null)) return false;
+    if ([a, b].some((el: T) => typeof el !== 'object' || el === null)) return false;
 
     if (a instanceof Date && b instanceof Date) return a.getTime() === b.getTime();
 
@@ -42,9 +44,11 @@ export class MemoryMng {
 
     if (a instanceof Set && b instanceof Set) {
       if (a.size !== b.size) return false;
+
       for (const item of a) {
         let found = false;
         for (const other of b) {
+          // eslint-disable-next-line max-depth
           if (MemoryMng.isSame(item, other)) {
             found = true;
             break;
@@ -85,14 +89,14 @@ export class MemoryMng {
     if (Object.isFrozen(arg)) return arg;
 
     if (Array.isArray(arg)) {
-      arg.forEach((v) => MemoryMng.freeze(v));
+      arg.forEach((v: T) => MemoryMng.freeze(v));
     } else if (arg instanceof Map) {
-      arg.forEach((v, k) => {
+      arg.forEach((v: T, k: T) => {
         MemoryMng.freeze(k);
         MemoryMng.freeze(v);
       });
     } else if (arg instanceof Set) {
-      arg.forEach((v) => MemoryMng.freeze(v));
+      arg.forEach((v: T) => MemoryMng.freeze(v));
     } else {
       for (const k in arg)
         if (Object.prototype.hasOwnProperty.call(arg, k))

@@ -1,16 +1,17 @@
 
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, Signal } from '@angular/core';
 
 @Component({
   selector: 'app-ghost',
   templateUrl: `./ghost.html`,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SvgFillGhost {
-    width = input<'auto' | string>('100%');
-    height = input<'auto' | string>('100%');
+    width: Signal<'auto' | string> = input('100%');
+    height: Signal<'auto' | string> = input('100%');
     
-    fill = input<string>('currentColor');
-    stroke = input<string | null>(null);
+    fill: Signal<string> = input('currentColor');
+    stroke: Signal<string | null> = input(null);
     
 }
   
