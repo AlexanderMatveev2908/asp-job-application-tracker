@@ -2,29 +2,6 @@
   @apply transition-all duration-300;
 }
 
-@mixin btn__scl($scale_hover) {
-  transition: all 0.3s ease;
-
-  &:hover {
-    transform: scale($scale_hover);
-  }
-
-  &:active {
-    transform: scale(0.8);
-    transition: transform 0.1s ease, color 0.3s ease;
-  }
-}
-
-.btn__scl__sm {
-  @include btn__scl(1.15);
-}
-.btn__scl__md {
-  @include btn__scl(1.2);
-}
-.btn__scl__lg {
-  @include btn__scl(1.3);
-}
-
 .app__link {
   @apply relative cursor-pointer;
   @extend .trs;
