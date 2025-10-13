@@ -16,10 +16,11 @@ import { WrapEventsPropsT } from './etc/types';
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
 import { AppEvMeta } from '@/common/types/events';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
+import { WrapPage } from '../wrap_page/wrap-page';
 
 @Component({
   selector: 'app-wrap-events-page',
-  imports: [NgComponentOutlet, NgClass],
+  imports: [NgComponentOutlet, NgClass, WrapPage],
   templateUrl: './wrap-events-page.html',
   styleUrl: './wrap-events-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

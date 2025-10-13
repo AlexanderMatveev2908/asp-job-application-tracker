@@ -1,21 +1,25 @@
-<div class="root app__page">
-  <div class="root__content" [ngClass]="metaEvent().txtTwd">
-    <div #svgWrap class="content__svg_wrap">
-      <ng-container *ngComponentOutlet="metaEvent().Svg" />
-    </div>
-
-    <div #content class="content__body">
-      <ng-content select="[header]" />
-
-      <div #spanStatus class="body__span">
-        <span class="text-5xl sm:text-8xl font-extrabold">{{ props().status }}</span>
+<app-wrap-page [waitClient]="true">
+  <div class="root">
+    <div class="root__content" [ngClass]="metaEvent().txtTwd">
+      <div #svgWrap class="content__svg_wrap">
+        <ng-container *ngComponentOutlet="metaEvent().Svg" />
       </div>
 
-      <div #spanMsg class="body__span">
-        <span class="txt__xl">{{ props().msg }}</span>
-      </div>
+      <div #content class="content__body">
+        <div class="body__header">
+          <ng-content select="[header]" />
+        </div>
 
-      <ng-content select="[footer]" />
+        <div #spanStatus class="body__span">
+          <span class="text-5xl sm:text-8xl font-extrabold">{{ props().status }}</span>
+        </div>
+
+        <div #spanMsg class="body__span">
+          <span class="txt__xl">{{ props().msg }}</span>
+        </div>
+
+        <ng-content select="[footer]" />
+      </div>
     </div>
   </div>
-</div>
+</app-wrap-page>

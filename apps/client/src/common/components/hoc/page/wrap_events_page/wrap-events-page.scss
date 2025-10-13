@@ -1,5 +1,5 @@
 .root {
-  @apply w-full h-full flex items-center justify-center;
+  @apply w-full min-h-[80vh] h-full flex items-center justify-center;
 
   .root__content {
     @apply flex flex-col items-center gap-8;
@@ -21,6 +21,10 @@
 
       .body__span {
         @apply w-full flex justify-center items-center;
+      }
+
+      .body__header {
+        @apply w-full flex justify-center;
       }
     }
   }
