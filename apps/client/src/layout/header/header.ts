@@ -15,7 +15,7 @@ import { SidebarSlice } from '@/features/sidebar_slice';
 })
 export class Header {
   public readonly sideSlice = inject(SidebarSlice);
-  public readonly isOpen = computed(() => this.sideSlice.sideState().isOpen);
+  public readonly isOpen = computed<boolean>(() => this.sideSlice.sideState().isOpen);
 
   public handleToggle(): void {
     this.sideSlice.toggle();

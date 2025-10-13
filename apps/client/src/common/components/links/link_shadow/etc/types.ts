@@ -1,5 +1,5 @@
-import { CmnShadowConfT } from '@/common/components/shapes/shadow/types';
+import { BaseElPropsT } from '@/common/types/els';
 
-export interface LinkShadowConfT extends CmnShadowConfT {
+export interface LinkShadowPropsT extends BaseElPropsT {
   path: string;
 }

@@ -1,8 +1,6 @@
-@let confData = conf();
-
 <a
-  [routerLink]="isExternal() ? null : confData.path"
-  [attr.href]="isExternal() ? confData.path : null"
+  [routerLink]="isExternal() ? null : props().path"
+  [attr.href]="isExternal() ? props().path : null"
   [attr.target]="isExternal() ? '_blank' : null"
   [attr.rel]="isExternal() ? 'noopener noreferrer' : null"
   class="root btn__res"
@@ -13,9 +11,9 @@
 
 <ng-template #content>
   <app-pair-txt-svg
-    [conf]="{
-      label: confData.label,
-      Svg: confData.Svg ?? null
+    [props]="{
+      label: props().label,
+      Svg: props().Svg ?? null
     }"
   />
 </ng-template>

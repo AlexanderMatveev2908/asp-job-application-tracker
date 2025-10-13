@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common';
 import { Component, input } from '@angular/core';
+import { BlackBgPropsT } from './etc/types';
 
 @Component({
   selector: 'app-black-bg',
@@ -8,6 +9,5 @@ import { Component, input } from '@angular/core';
   styleUrl: './black-bg.scss',
 })
 export class BlackBg {
-  public isDark = input.required<boolean>();
-  public zBg = input.required<string>();
+  public props = input.required<BlackBgPropsT>();
 }

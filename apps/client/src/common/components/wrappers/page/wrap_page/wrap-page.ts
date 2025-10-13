@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-wrap-page',
   imports: [],
   templateUrl: './wrap-page.html',
-  styleUrl: './wrap-page.scss'
+  styleUrl: './wrap-page.scss',
 })
-export class WrapPage {
-
-}
+export class WrapPage {}

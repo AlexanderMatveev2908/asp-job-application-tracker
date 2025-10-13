@@ -1,14 +1,14 @@
 import { SvgFillCheck } from '@/common/components/svgs/fill/check/check';
 import { SvgFillError } from '@/common/components/svgs/fill/error/error';
 import { SvgFillInfo } from '@/common/components/svgs/fill/info/info';
-import { AppEventMeta, AppEventT } from '@/common/types/events';
+import { AppEvMeta, AppEvT } from '@/common/types/events';
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UseAppEventsSvc {
-  private readonly eventsData: Record<AppEventT, AppEventMeta> = {
+export class UseAppEvSvc {
+  private readonly eventsData: Record<AppEvT, AppEvMeta> = {
     OK: {
       Svg: SvgFillCheck,
       clr: 'green__600',
@@ -39,7 +39,7 @@ export class UseAppEventsSvc {
     },
   };
 
-  public getByT(e: AppEventT): AppEventMeta {
+  public getByT(e: AppEvT): AppEvMeta {
     return this.eventsData[e];
   }
 }

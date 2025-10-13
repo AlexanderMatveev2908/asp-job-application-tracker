@@ -6,9 +6,10 @@ import { TxtClamp } from '@/common/components/txt/txt_clamp/txt-clamp';
 import { USE_MOUSE_OUT__CB, USE_MOUSE_OUT__IS_OPEN } from '@/core/directives/use_mouse_out/tokens';
 import { SidebarSlice } from '@/features/sidebar_slice';
 import { LinksSvc } from '@/core/ui_factory/links';
-import { UsePathnameSvc } from '@/core/hooks/use_pathname';
-import { TxtClampConfT } from '@/common/components/txt/txt_clamp/etc/types';
+import { UsePathSvc } from '@/core/hooks/use_path';
+import { TxtClampPropsT } from '@/common/components/txt/txt_clamp/etc/types';
 import { UseMouseOutDir } from '@/core/directives/use_mouse_out/use_mouse_out';
+import { BlackBgPropsT } from '@/common/components/black_bg/etc/types';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,7 +17,7 @@ import { UseMouseOutDir } from '@/core/directives/use_mouse_out/use_mouse_out';
   providers: [
     {
       provide: USE_MOUSE_OUT__IS_OPEN,
-      useFactory: (slice: SidebarSlice) => computed(() => slice.sideState().isOpen),
+      useFactory: (slice: SidebarSlice) => computed<boolean>(() => slice.sideState().isOpen),
       deps: [SidebarSlice],
     },
     {
@@ -31,17 +32,22 @@ import { UseMouseOutDir } from '@/core/directives/use_mouse_out/use_mouse_out';
 export class Sidebar {
   private readonly sideSlice = inject(SidebarSlice);
   private readonly linksSvc = inject(LinksSvc);
-  private readonly usePath = inject(UsePathnameSvc);
+  private readonly usePath = inject(UsePathSvc);
 
-  public readonly isOpen = computed((): boolean => this.sideSlice.sideState().isOpen);
+  public readonly isOpen = computed<boolean>(() => this.sideSlice.sideState().isOpen);
   public readonly allUsersLinks = this.linksSvc.allUsersLinks;
   public readonly currPath = this.usePath.currPath;
+
+  public readonly blackBgProps = computed<BlackBgPropsT>(() => ({
+    isDark: this.isOpen(),
+    zBg: 'z__sidebar__bg',
+  }));
 
   public readonly onSideClick = (): void => {
     this.sideSlice.close();
   };
 
-  public readonly txtClampConf: TxtClampConfT = {
+  public readonly txtClampProps: TxtClampPropsT = {
     txt: 'john@gmail.com',
     size: 'lg',
     lines: 1,

@@ -1,12 +1,12 @@
 <div class="root">
-  @if (conf().Svg) {
+  @if (props().Svg) {
   <div class="svg__sm">
-    <ng-container *ngComponentOutlet="conf().Svg" />
+    <ng-container *ngComponentOutlet="props().Svg" />
   </div>
   }
   <!--  -->
-  @if(conf().label){
+  @if(props().label){
 
-  <span class="txt__lg">{{ conf().label }}</span>
+  <span class="txt__lg">{{ props().label }}</span>
   }
 </div>
