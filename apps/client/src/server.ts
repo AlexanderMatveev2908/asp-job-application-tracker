@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/typedef */
 import {
   AngularNodeAppEngine,
   createNodeRequestHandler,
@@ -50,7 +51,9 @@ app.use((req, res, next) => {
  * The server listens on the port defined by the `PORT` environment variable, or defaults to 4000.
  */
 if (isMainModule(import.meta.url)) {
-  const port = +(process.env['PORT'] ?? 3001);
+  const DEF_PORT = 3001;
+
+  const port = +(process.env['PORT'] ?? DEF_PORT);
   const host = '0.0.0.0';
 
   app.listen(port, host, (error) => {
