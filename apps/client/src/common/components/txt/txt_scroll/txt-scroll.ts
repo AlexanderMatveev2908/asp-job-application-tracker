@@ -1,6 +1,6 @@
 import { Component, computed, input } from '@angular/core';
-import { TxtClsT } from '../../../types/txt';
 import { NgClass } from '@angular/common';
+import { TxtConfT } from '../etc/types';
 
 @Component({
   selector: 'app-txt-scroll',
@@ -9,8 +9,7 @@ import { NgClass } from '@angular/common';
   styleUrl: './txt-scroll.scss',
 })
 export class TxtScroll {
-  public txt = input.required<string>();
-  public size = input.required<TxtClsT>();
+  public conf = input.required<TxtConfT>();
 
-  public txtCls = computed(() => `txt__${this.size()}`);
+  public txtCls = computed(() => `txt__${this.conf().size}`);
 }

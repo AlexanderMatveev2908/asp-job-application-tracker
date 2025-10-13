@@ -1,5 +1,5 @@
 <div class="txt_clamp">
-  <span class="clamp__txt" [ngClass]="txtCls()" [style.-webkit-line-clamp]="lines()">
-    {{ txt() }}
+  <span class="clamp__txt" [ngClass]="txtCls()" [style.-webkit-line-clamp]="conf().lines">
+    {{ conf().txt }}
   </span>
 </div>

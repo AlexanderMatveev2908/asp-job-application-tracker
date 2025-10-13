@@ -11,6 +11,7 @@ import {
 import { LinksSvc } from '../../core/ui_factory/links';
 import { SideLink } from './side_link/side-link';
 import { UsePathnameSvc } from '../../core/hooks/use_pathname';
+import { TxtClampConfT } from '../../common/components/txt/txt_clamp/etc/types';
 
 @Component({
   selector: 'app-sidebar',
@@ -39,7 +40,13 @@ export class Sidebar {
   public readonly allUsersLinks = this.linksSvc.allUsersLinks;
   public readonly currPath = this.usePath.currPath;
 
-  public onSideClick = (): void => {
+  public readonly onSideClick = (): void => {
     this.sideSlice.close();
+  };
+
+  public readonly txtClampConf: TxtClampConfT = {
+    txt: 'john@gmail.com',
+    size: 'lg',
+    lines: 1,
   };
 }

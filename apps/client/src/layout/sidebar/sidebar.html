@@ -6,7 +6,7 @@
   [ngClass]="isOpen() ? '-translate-x-full opacity-100' : 'translate-x-0 opacity-0'"
 >
   <div class="root__span_mail">
-    <app-txt-clamp [txt]="'example@gmail.com'" [size]="'lg'" [lines]="1" />
+    <app-txt-clamp [conf]="txtClampConf" />
   </div>
 
   <div class="root__body scroll__app">
