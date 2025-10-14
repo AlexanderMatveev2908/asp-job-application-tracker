@@ -1,4 +1,3 @@
-import { GenericVoidCbT, GenericVoidT } from '@/common/types/etc';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 
@@ -11,7 +10,11 @@ export class UsePlatformSvc {
   public readonly isClient: boolean = isPlatformBrowser(this.platformID);
   public readonly isServer: boolean = isPlatformServer(this.platformID);
 
-  public runOnClient(arg: GenericVoidCbT): GenericVoidT | null {
+  public runOnClientSync<T>(arg: () => T): T | null {
     return this.isServer ? null : arg();
+  }
+
+  public async runOnClientPromise<T>(arg: () => Promise<T>): Promise<T | null> {
+    return this.isServer ? null : await arg();
   }
 }
