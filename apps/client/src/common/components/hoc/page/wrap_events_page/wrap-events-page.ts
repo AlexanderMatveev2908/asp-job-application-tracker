@@ -14,9 +14,8 @@ import {
 } from '@angular/core';
 import { NgClass, NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
 import { animate, AnimationOptionsWithOverrides } from '@motionone/dom';
-import { WrapEventsPropsT } from './etc/types';
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
-import { AppEvMeta } from '@/common/types/events';
+import { AppEventMeta, AppEventPayload } from '@/common/types/events';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { WrapPage } from '../wrap_page/wrap-page';
 
@@ -31,8 +30,8 @@ export class WrapEventsPage implements AfterViewInit {
   private readonly useAppEvents: UseAppEvSvc = inject(UseAppEvSvc);
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
-  public readonly props: InputSignal<WrapEventsPropsT> = input.required<WrapEventsPropsT>();
-  public metaEvent: Signal<AppEvMeta> = computed(() =>
+  public readonly props: InputSignal<AppEventPayload> = input.required<AppEventPayload>();
+  public metaEvent: Signal<AppEventMeta> = computed(() =>
     this.useAppEvents.getByT(this.props().eventT)
   );
 

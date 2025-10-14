@@ -15,7 +15,16 @@ export class NoticeSlice {
     return this.store.selectSignal(getNoticeState);
   }
 
-  public set noticeState(arg: NoticeStateT) {
+  public set noticeState(arg: Omit<NoticeStateT, 'cb'>) {
+    this.store.dispatch(
+      NoticeActT.SET_NOTICE({
+        ...arg,
+        cb: null,
+      })
+    );
+  }
+
+  public set noticeStateWithCb(arg: NoticeStateT) {
     this.store.dispatch(NoticeActT.SET_NOTICE(arg));
   }
 }

@@ -1,17 +1,16 @@
 import { createReducer, on } from '@ngrx/store';
 import { NoticeActT } from './actions';
-import { AppEvT } from '@/common/types/events';
+import { AppEventPayload } from '@/common/types/events';
 
-export interface NoticeStateT {
-  msg: string;
-  eventT: AppEvT | null;
-  status: number;
+export interface NoticeStateT extends AppEventPayload {
+  cb: (() => void | (() => Promise<void>)) | null;
 }
 
 export const initState: NoticeStateT = {
   msg: '',
-  status: 500,
+  status: 0,
   eventT: 'NONE',
+  cb: null,
 };
 
 export const noticeReducer = createReducer(

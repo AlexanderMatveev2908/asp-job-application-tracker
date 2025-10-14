@@ -9,7 +9,10 @@
         <ng-container *ngTemplateOutlet="headerTpl" />
 
         <div #spanStatus class="body__span">
-          <span class="text-5xl sm:text-8xl font-extrabold">{{ props().status }}</span>
+          @let dataStatus = props().status|| props().eventT;
+          <span class="text-5xl sm:text-8xl font-extrabold">
+            {{ dataStatus }}
+          </span>
         </div>
 
         <div #spanMsg class="body__span">
