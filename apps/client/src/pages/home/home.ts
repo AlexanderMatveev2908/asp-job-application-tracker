@@ -3,7 +3,9 @@ import { WrapPage } from '@/common/components/hoc/page/wrap_page/wrap-page';
 import { SvgFillBash } from '@/common/components/svgs/fill/bash/bash';
 import { BtnEvPropsT, BtnStatePropsT } from '@/common/types/btns';
 import { BaseElPropsT } from '@/common/types/els';
-import { ChangeDetectionStrategy, Component, signal, WritableSignal } from '@angular/core';
+import { UseNavSvc } from '@/core/hooks/use_nav';
+import { NoticeSlice } from '@/features/notice/slice';
+import { ChangeDetectionStrategy, Component, inject, signal, WritableSignal } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +15,9 @@ import { ChangeDetectionStrategy, Component, signal, WritableSignal } from '@ang
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Home {
+  private readonly noticeSlice: NoticeSlice = inject(NoticeSlice);
+  private readonly useNav: UseNavSvc = inject(UseNavSvc);
+
   public readonly btnStateProps: WritableSignal<BtnStatePropsT> = signal({
     isDisabled: false,
     isPending: false,
@@ -24,19 +29,14 @@ export class Home {
   };
 
   public readonly btnEventsProps: BtnEvPropsT = {
-    onClick: (): void => {
-      this.btnStateProps.update((prev: BtnStatePropsT) => ({
-        ...prev,
-        isPending: true,
-      }));
+    onClick: async (): Promise<void> => {
+      this.noticeSlice.noticeState = {
+        eventT: 'WARN',
+        msg: 'some warn msg',
+        status: 0,
+      };
 
-      setTimeout(() => {
-        this.btnStateProps.update((prev: BtnStatePropsT) => ({
-          ...prev,
-          isPending: false,
-        }));
-        // eslint-disable-next-line no-magic-numbers
-      }, 2000);
+      await this.useNav.navTo('/notice');
     },
   };
 }

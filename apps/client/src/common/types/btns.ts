@@ -4,5 +4,5 @@ export interface BtnStatePropsT {
 }
 
 export interface BtnEvPropsT {
-  onClick: () => void;
+  onClick: (() => void) | (() => Promise<void>);
 }

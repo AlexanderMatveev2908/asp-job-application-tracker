@@ -16,6 +16,13 @@ export class UseAppEvSvc {
       bdTwd: 'border-green-600',
       css: 'var(--green__600)',
     },
+    NONE: {
+      Svg: SvgFillCheck,
+      clr: 'gray__300',
+      txtTwd: 'text-gray-300',
+      bdTwd: 'border-gray-300',
+      css: 'var(--gray__300)',
+    },
     INFO: {
       Svg: SvgFillInfo,
       clr: 'blue__600',

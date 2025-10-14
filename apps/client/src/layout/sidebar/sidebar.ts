@@ -11,7 +11,7 @@ import { SideLink } from './side_link/side-link';
 import { BlackBg } from '@/common/components/black_bg/black-bg';
 import { TxtClamp } from '@/common/components/txt/txt_clamp/txt-clamp';
 import { USE_MOUSE_OUT__CB, USE_MOUSE_OUT__IS_OPEN } from '@/core/directives/use_mouse_out/tokens';
-import { SidebarSlice } from '@/features/sidebar_slice';
+import { SidebarSlice } from '@/features/sidebar/slice';
 import { LinksSvc } from '@/core/ui_factory/links';
 import { UsePathSvc } from '@/core/hooks/use_path';
 import { TxtClampPropsT } from '@/common/components/txt/txt_clamp/etc/types';
