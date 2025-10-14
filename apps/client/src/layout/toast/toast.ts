@@ -22,6 +22,7 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { ToastAnimationsSvc } from './etc/toast_animations';
+import { ErrApi } from '@/core/lib/err';
 
 @Component({
   selector: 'app-toast',
@@ -43,7 +44,6 @@ export class Toast implements AfterViewInit {
   public readonly isClient: boolean = this.usePlatform.isClient;
 
   // ? 📜 message trim
-
   @ViewChild('msgContainer') msgContainer!: ElementRef<HTMLElement>;
 
   public readonly trimmedMsg: WritableSignal<string> = signal('');
@@ -72,39 +72,99 @@ export class Toast implements AfterViewInit {
     this.setCutMsg();
   }
 
-  // ? ⏳ timer
-
+  // ? 🎨 toast render
   @ViewChild('toast') toast!: ElementRef<HTMLElement>;
   @ViewChild('timerToast') timerToast!: ElementRef<HTMLElement>;
 
-  private readonly timerID: WritableSignal<NodeJS.Timeout | null> = signal(null);
+  public closeClick(): void {
+    // ? always first clear timer on close
+    // ? it means process finished completely
+    this.clearTimerID();
+    this.toastSlice.closeToast();
+  }
 
+  // ? ⏳ timer
+  private timerID: NodeJS.Timeout | null = null;
+
+  private clearTimerID(): void {
+    // ? by default be ready to receive null
+    if (this.timerID) clearTimeout(this.timerID);
+    this.timerID = null;
+  }
+
+  private programClose(): void {
+    const IN_ANIMATION_LAST = 5000;
+
+    this.timerID = setTimeout(() => {
+      const isToast: boolean = this.toastState().isToast;
+      // ! memory leak to manage
+      if (this.timerID && !isToast) {
+        this.clearTimerID();
+        return;
+      }
+      // ? if timer is null or toast is false means process
+      // ? has already been closed by an existing new call
+      else if (!this.timerID || !isToast) return;
+
+      this.closeClick();
+    }, IN_ANIMATION_LAST);
+  }
+
+  // ? main logic 🛠️
+  private handleToastOpen(
+    prevID: string | null,
+    { toastDOM, timerDOM }: { toastDOM: HTMLElement; timerDOM: HTMLElement }
+  ): void {
+    const OUT_ANIMATION_LAST = 300;
+    // ? first run will have prev as null because openToast set:
+    // ? - curr => new uuid
+    // ? - prev => curr (which if has been closed properly ill be null)
+    // ? so normally this block will handle base cases
+    if (!prevID) {
+      this.toastAnimations.toastIn(toastDOM, timerDOM);
+      this.programClose();
+    } else {
+      // ? existing toast
+      // ? clear existing timer to avoid memory leaks
+      // ? close it with animations and trigger animation again
+      // ? only after `out` one has finished
+      this.clearTimerID();
+      this.toastAnimations.toastOut(toastDOM, timerDOM);
+      setTimeout(() => {
+        this.toastAnimations.toastIn(toastDOM, timerDOM);
+        this.programClose();
+      }, OUT_ANIMATION_LAST);
+    }
+  }
+
+  private handleCloseToast({
+    timerDOM,
+    toastDOM,
+  }: {
+    toastDOM: HTMLElement;
+    timerDOM: HTMLElement;
+  }): void {
+    // ? normal close flow
+    this.clearTimerID();
+    this.toastAnimations.toastOut(toastDOM, timerDOM);
+  }
+
+  // eslint-disable-next-line complexity
   private readonly timerEffect: EffectRef = effect(() => {
-    const isToast: boolean = this.toastState().isToast;
-    const TIME_TOAST_LAST = 5000;
-
-    if (isToast)
-      this.timerID.set(
-        setTimeout(() => {
-          this.toastSlice.closeToast();
-          this.timerID.set(null);
-        }, TIME_TOAST_LAST)
-      );
-  });
-
-  // ? 🎬 animations
-  private readonly animationEffect: EffectRef = effect(() => {
     const toastDOM: HTMLElement = this.toast?.nativeElement;
     const timerDOM: HTMLElement = this.timerToast?.nativeElement;
 
-    const isToast: boolean = this.toastState().isToast;
+    const { isToast, currID, prevID } = this.toastState();
 
     if (!this.isClient || !toastDOM || !timerDOM) return;
 
-    if (isToast) {
-      this.toastAnimations.toastIn(toastDOM, timerDOM);
-    } else {
-      this.toastAnimations.toastOut(toastDOM, timerDOM);
+    if (isToast && currID) {
+      this.handleToastOpen(prevID, { toastDOM, timerDOM });
+    } else if (isToast && !currID) {
+      // ! error if by a toast exists with no ID
+      throw new ErrApi('toast should never be alive without a currID set');
+    } else if (!isToast) {
+      this.handleCloseToast({ toastDOM, timerDOM });
     }
   });
 }

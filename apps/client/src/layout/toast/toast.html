@@ -5,7 +5,7 @@
 <ng-template #toastTpl>
   <div #toast class="root z__toast" [style.--clr]="eventMeta().css">
     <div class="root__close_row">
-      <button class="close_row__btn svg__lg">
+      <button (click)="closeClick()" class="close_row__btn svg__lg">
         <app-close />
       </button>
     </div>

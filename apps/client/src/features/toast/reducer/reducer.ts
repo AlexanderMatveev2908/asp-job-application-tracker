@@ -5,12 +5,14 @@ import { v4 } from 'uuid';
 import { IdPayloadT } from '@/common/types/etc';
 
 export interface ToastStateT extends AppEventPayload {
-  id: string;
+  currID: string | null;
+  prevID: string | null;
   isToast: boolean;
 }
 
 export const initState: ToastStateT = {
-  id: '',
+  currID: null,
+  prevID: null,
   eventT: 'OK',
   status: 0,
   isToast: false,
@@ -19,13 +21,23 @@ export const initState: ToastStateT = {
 
 export const toastReducer = createReducer(
   initState,
-  on(ToastActT.OPEN_TOAST, (_: ToastStateT, action: AppEventPayload) => ({
-    id: v4(),
+  on(ToastActT.OPEN_TOAST, (state: ToastStateT, action: AppEventPayload) => ({
+    prevID: state.currID,
+    currID: v4(),
     eventT: action.eventT,
     msg: action.msg,
     status: action.status,
     isToast: true,
   })),
-  on(ToastActT.SET_ID, (state: ToastStateT, action: IdPayloadT) => ({ ...state, id: action.id })),
-  on(ToastActT.CLOSE_TOAST, (state: ToastStateT) => ({ ...state, id: '', isToast: false }))
+  on(ToastActT.SET_ID, (state: ToastStateT, action: IdPayloadT) => ({
+    ...state,
+    prevID: state.currID,
+    currID: action.id,
+  })),
+  on(ToastActT.CLOSE_TOAST, (state: ToastStateT) => ({
+    ...state,
+    prevID: state.currID,
+    currID: null,
+    isToast: false,
+  }))
 );
