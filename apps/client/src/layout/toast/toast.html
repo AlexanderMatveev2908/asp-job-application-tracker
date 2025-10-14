@@ -1,9 +1,9 @@
 @if(isClient){
-<ng-container *ngTemplateOutlet="toast" />
+<ng-container *ngTemplateOutlet="toastTpl" />
 }
 
-<ng-template #toast>
-  <div class="root z__toast" [style.--clr]="eventMeta().css">
+<ng-template #toastTpl>
+  <div #toast class="root z__toast" [style.--clr]="eventMeta().css">
     <div class="root__close_row">
       <button class="close_row__btn svg__lg">
         <app-close />
@@ -12,7 +12,7 @@
 
     <div class="root__status_row" [style.--clr]="eventMeta().css">
       <div class="status_row__status">
-        <span class="txt__3xl">200</span>
+        <span class="txt__3xl">{{ toastState().status }}</span>
       </div>
     </div>
 
@@ -20,6 +20,6 @@
       <span #msgContainer class="txt__lg content__msg">{{ trimmedMsg() }}</span>
     </div>
 
-    <div class="root__timer" [style.--clr]="eventMeta().css"></div>
+    <div #timerToast class="root__timer" [style.--clr]="eventMeta().css"></div>
   </div>
 </ng-template>

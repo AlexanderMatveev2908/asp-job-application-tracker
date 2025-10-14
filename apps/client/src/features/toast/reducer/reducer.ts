@@ -14,7 +14,7 @@ export const initState: ToastStateT = {
   eventT: 'OK',
   status: 0,
   isToast: false,
-  msg: `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Id ratione, animi assumenda optio perferendis recusandae doloremque possimus iusto quidem facere, accusantium, blanditiis itaque quas commodi laboriosam sint excepturi in vel?`,
+  msg: '',
 };
 
 export const toastReducer = createReducer(
@@ -26,5 +26,6 @@ export const toastReducer = createReducer(
     status: action.status,
     isToast: true,
   })),
-  on(ToastActT.SET_ID, (state: ToastStateT, action: IdPayloadT) => ({ ...state, id: action.id }))
+  on(ToastActT.SET_ID, (state: ToastStateT, action: IdPayloadT) => ({ ...state, id: action.id })),
+  on(ToastActT.CLOSE_TOAST, (state: ToastStateT) => ({ ...state, id: '', isToast: false }))
 );

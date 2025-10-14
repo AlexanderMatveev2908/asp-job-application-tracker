@@ -43,10 +43,13 @@ export class SpinBtn implements AfterViewInit {
     const dots = this.dots.toArray();
 
     for (let i = 0; i < dots.length; i++) {
-      const curr = dots[i];
+      const curr: ElementRef<HTMLElement> = dots[i];
+      const currDOM: HTMLElement = curr.nativeElement;
+
+      if (!currDOM) return;
 
       animate(
-        curr.nativeElement,
+        currDOM,
         // eslint-disable-next-line no-magic-numbers
         { scale: [1, 1.25, 1], y: [0, 35, 0] },
         {

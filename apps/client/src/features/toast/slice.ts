@@ -16,11 +16,15 @@ export class ToastSlice {
     return this.store.selectSignal(getToastState);
   }
 
-  public set toastState(arg: AppEventPayload) {
+  public set toastID(id: string) {
+    this.store.dispatch(ToastActT.SET_ID({ id }));
+  }
+
+  public openToast(arg: AppEventPayload): void {
     this.store.dispatch(ToastActT.OPEN_TOAST(arg));
   }
 
-  public set toastID(id: string) {
-    this.store.dispatch(ToastActT.SET_ID({ id }));
+  public closeToast(): void {
+    this.store.dispatch(ToastActT.CLOSE_TOAST());
   }
 }

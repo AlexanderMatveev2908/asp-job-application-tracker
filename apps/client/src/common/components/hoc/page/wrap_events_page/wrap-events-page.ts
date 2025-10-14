@@ -46,10 +46,12 @@ export class WrapEventsPage implements AfterViewInit {
   ngAfterViewInit(): void {
     if (!this.usePlatform.isClient) return;
 
-    const svgDOM = this.svgWrap.nativeElement;
-    const spanMsgDOM = this.spanMsg.nativeElement;
-    const spanStatusDOM = this.spanStatus.nativeElement;
-    const contentDOM = this.content.nativeElement;
+    const svgDOM: HTMLElement = this.svgWrap?.nativeElement;
+    const spanMsgDOM: HTMLElement = this.spanMsg?.nativeElement;
+    const spanStatusDOM: HTMLElement = this.spanStatus?.nativeElement;
+    const contentDOM: HTMLElement = this.content?.nativeElement;
+
+    if ([svgDOM, spanMsgDOM, spanStatusDOM, contentDOM].some((el: HTMLElement) => !el)) return;
 
     animate(
       svgDOM,
