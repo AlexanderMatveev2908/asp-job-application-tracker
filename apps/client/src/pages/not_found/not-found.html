@@ -1,9 +1,7 @@
 <app-wrap-events-page [props]="wrapEventsProps">
-  <div header class="text-blue-600">
-    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum, ipsum? Aperiam numquam
-  </div>
-
-  <div footer class="footer">
-    <app-link-shadow [props]="linkProps" />
-  </div>
+  <ng-template #footer>
+    <div class="footer">
+      <app-link-shadow [props]="linkProps" />
+    </div>
+  </ng-template>
 </app-wrap-events-page>

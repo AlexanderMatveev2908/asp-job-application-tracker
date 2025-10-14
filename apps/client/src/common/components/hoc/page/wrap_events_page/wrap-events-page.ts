@@ -3,14 +3,16 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  ContentChild,
   ElementRef,
   inject,
   input,
   InputSignal,
   Signal,
+  TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { NgClass, NgComponentOutlet } from '@angular/common';
+import { NgClass, NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
 import { animate, AnimationOptionsWithOverrides } from '@motionone/dom';
 import { WrapEventsPropsT } from './etc/types';
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
@@ -20,7 +22,7 @@ import { WrapPage } from '../wrap_page/wrap-page';
 
 @Component({
   selector: 'app-wrap-events-page',
-  imports: [NgComponentOutlet, NgClass, WrapPage],
+  imports: [NgComponentOutlet, NgClass, WrapPage, NgTemplateOutlet],
   templateUrl: './wrap-events-page.html',
   styleUrl: './wrap-events-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -38,6 +40,9 @@ export class WrapEventsPage implements AfterViewInit {
   @ViewChild('spanMsg') spanMsg!: ElementRef<HTMLElement>;
   @ViewChild('spanStatus') spanStatus!: ElementRef<HTMLElement>;
   @ViewChild('content') content!: ElementRef<HTMLElement>;
+
+  @ContentChild('header', { read: TemplateRef }) headerTpl?: TemplateRef<unknown>;
+  @ContentChild('footer', { read: TemplateRef }) footerTpl?: TemplateRef<unknown>;
 
   ngAfterViewInit(): void {
     if (!this.usePlatform.isClient) return;
@@ -67,10 +72,15 @@ export class WrapEventsPage implements AfterViewInit {
       easing: 'ease-in-out',
     };
 
+    const baseFlow: string[] = ['-100%', '40%', '-40%', '20%', '-20%', '10%', '0'];
+    const reverseFlow: string[] = baseFlow.map((el: string) =>
+      el.startsWith('-') ? el.replace('-', '') : '-' + el
+    );
+
     animate(
       spanMsgDOM,
       {
-        x: ['-100%', '40%', '-40%', '20%', '-20%', '10%', '0'],
+        x: baseFlow,
       },
       cmnConf
     );
@@ -78,7 +88,7 @@ export class WrapEventsPage implements AfterViewInit {
     animate(
       spanStatusDOM,
       {
-        x: ['100%', '-40%', '40%', '-20%', '20%', '-10%', '0'],
+        x: reverseFlow,
       },
       cmnConf
     );
