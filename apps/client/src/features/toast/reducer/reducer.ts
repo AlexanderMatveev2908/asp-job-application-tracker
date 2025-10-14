@@ -10,9 +10,9 @@ export interface ToastStateT extends AppEventPayload {
 
 export const initState: ToastStateT = {
   id: '',
-  eventT: 'NONE',
+  eventT: 'OK',
   status: 0,
-  msg: '',
+  msg: `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Id ratione, animi assumenda optio perferendis recusandae doloremque possimus iusto quidem facere, accusantium, blanditiis itaque quas commodi laboriosam sint excepturi in vel?`,
 };
 
 export const toastReducer = createReducer(
