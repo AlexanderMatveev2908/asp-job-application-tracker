@@ -1,6 +1,6 @@
-import { AppEvT } from '@/common/types/events';
+import { AppEventT } from '@/common/types/events';
 
 export interface WrapBtnApiPropsT {
   isPending: boolean;
-  eventT: AppEvT;
+  eventT: AppEventT;
 }

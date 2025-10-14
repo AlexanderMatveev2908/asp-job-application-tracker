@@ -1,4 +1,4 @@
-import { AppEvMeta, AppEvT } from '@/common/types/events';
+import { AppEventMeta, AppEventT } from '@/common/types/events';
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import {
@@ -26,10 +26,10 @@ import { v4 } from 'uuid';
 })
 export class SpinBtn implements AfterViewInit {
   private readonly useAppEvents: UseAppEvSvc = inject(UseAppEvSvc);
-  public readonly eventT: InputSignal<AppEvT> = input.required();
+  public readonly eventT: InputSignal<AppEventT> = input.required();
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
-  public readonly metaEvent: Signal<AppEvMeta> = computed(() =>
+  public readonly metaEvent: Signal<AppEventMeta> = computed(() =>
     this.useAppEvents.getByT(this.eventT())
   );
 

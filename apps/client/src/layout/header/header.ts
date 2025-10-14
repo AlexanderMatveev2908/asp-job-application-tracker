@@ -5,7 +5,7 @@ import { SvgFillGhost } from '@/common/components/svgs/fill/ghost/ghost';
 import { SvgStrokeUserWrite } from '@/common/components/svgs/stroke/user_write/user-write';
 import { SvgStrokeBurger } from '@/common/components/svgs/stroke/burger/burger';
 import { SvgFillClose } from '@/common/components/svgs/fill/close/close';
-import { SidebarSlice } from '@/features/sidebar_slice';
+import { SidebarSlice } from '@/features/sidebar/slice';
 
 @Component({
   selector: 'app-header',

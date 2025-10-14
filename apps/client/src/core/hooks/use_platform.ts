@@ -9,4 +9,12 @@ export class UsePlatformSvc {
 
   public readonly isClient: boolean = isPlatformBrowser(this.platformID);
   public readonly isServer: boolean = isPlatformServer(this.platformID);
+
+  public runOnClientSync<T>(arg: () => T): T | null {
+    return this.isServer ? null : arg();
+  }
+
+  public async runOnClientPromise<T>(arg: () => Promise<T>): Promise<T | null> {
+    return this.isServer ? null : await arg();
+  }
 }

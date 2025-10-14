@@ -1,9 +1,8 @@
-import { WrapEventsPropsT } from '@/common/components/hoc/page/wrap_events_page/etc/types';
 import { WrapEventsPage } from '@/common/components/hoc/page/wrap_events_page/wrap-events-page';
 import { LinkShadowPropsT } from '@/common/components/links/link_shadow/etc/types';
 import { LinkShadow } from '@/common/components/links/link_shadow/link-shadow';
 import { SvgStrokeHome } from '@/common/components/svgs/stroke/home/home';
-import { AppEvT } from '@/common/types/events';
+import { AppEventPayload, AppEventT } from '@/common/types/events';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
@@ -14,9 +13,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotFound {
-  private readonly eventT: AppEvT = 'INFO';
+  private readonly eventT: AppEventT = 'INFO';
 
-  public readonly wrapEventsProps: WrapEventsPropsT = {
+  public readonly wrapEventsProps: AppEventPayload = {
     eventT: this.eventT,
     msg: 'The treasure chest is empty. Someone got here before you... 💰',
     status: 404,

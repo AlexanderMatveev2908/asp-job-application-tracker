@@ -8,7 +8,7 @@ import {
   Signal,
 } from '@angular/core';
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
-import { AppEvMeta } from '@/common/types/events';
+import { AppEventMeta } from '@/common/types/events';
 import { PairTxtSvg } from '../../pair_txt_svg/pair-txt-svg';
 import { BtnEvPropsT, BtnStatePropsT } from '@/common/types/btns';
 import { BaseElPropsT } from '@/common/types/els';
@@ -35,7 +35,7 @@ export class BtnShadow {
     Svg: this.baseProps().Svg,
   }));
 
-  public readonly metaEvents: Signal<AppEvMeta> = computed(() =>
+  public readonly metaEvents: Signal<AppEventMeta> = computed(() =>
     this.useAppEvents.getByT(this.baseProps().eventT)
   );
 

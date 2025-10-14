@@ -10,7 +10,7 @@ import {
 import { RouterLink } from '@angular/router';
 import { NgTemplateOutlet } from '@angular/common';
 import { LinkShadowPropsT } from './etc/types';
-import { AppEvMeta } from '@/common/types/events';
+import { AppEventMeta } from '@/common/types/events';
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
 import { PairTxtSvg } from '../../pair_txt_svg/pair-txt-svg';
 
@@ -26,7 +26,7 @@ export class LinkShadow {
 
   public readonly props: InputSignal<LinkShadowPropsT> = input.required();
 
-  public readonly metaEvent: Signal<AppEvMeta> = computed(() =>
+  public readonly metaEvent: Signal<AppEventMeta> = computed(() =>
     this.useAppEvents.getByT(this.props().eventT)
   );
   public readonly isExternal: Signal<boolean> = computed(() =>

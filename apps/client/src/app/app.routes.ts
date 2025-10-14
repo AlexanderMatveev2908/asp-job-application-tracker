@@ -7,11 +7,16 @@ import { ReadAllJobApplications } from '@/pages/job_applications/read_all/read-a
 import { Home } from '@/pages/home/home';
 import { NotFound } from '@/pages/not_found/not-found';
 import { WrapPageJobApplications } from '@/features/job_applications/components/wrap_page/wrap-page-job-applications';
+import { Notice } from '@/pages/notice/notice';
 
 export const routes: Routes = [
   {
     path: '',
     component: Home,
+  },
+  {
+    path: 'notice',
+    component: Notice,
   },
   {
     path: 'job-applications',
