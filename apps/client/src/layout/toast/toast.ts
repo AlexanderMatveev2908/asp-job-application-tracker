@@ -16,8 +16,10 @@ import {
   ElementRef,
   HostListener,
   inject,
+  signal,
   Signal,
   ViewChild,
+  WritableSignal,
 } from '@angular/core';
 
 @Component({
@@ -42,13 +44,16 @@ export class Toast implements AfterViewInit {
     this.useAppEvent.getByT(this.toastState().eventT)
   );
   public readonly isClient: boolean = this.usePlatform.isClient;
+  public readonly trimmedMsg: WritableSignal<string> = signal('');
 
   private setCutMsg(): void {
     if (!this.msgContainer) return;
 
     const msg = this.toastState().msg;
 
-    TxtDOM.binaryTrim(msg, { el: this.msgContainer.nativeElement, maxLines: this.MAX_LINES });
+    this.trimmedMsg.set(
+      TxtDOM.binaryTrim(msg, { el: this.msgContainer.nativeElement, maxLines: this.MAX_LINES })
+    );
   }
 
   @HostListener('window:resize')

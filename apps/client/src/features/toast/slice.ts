@@ -17,7 +17,7 @@ export class ToastSlice {
   }
 
   public set toastState(arg: AppEventPayload) {
-    this.store.dispatch(ToastActT.SET_TOAST(arg));
+    this.store.dispatch(ToastActT.OPEN_TOAST(arg));
   }
 
   public set toastID(id: string) {

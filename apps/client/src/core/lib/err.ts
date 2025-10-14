@@ -7,7 +7,7 @@ export class ErrApi extends Error {
 
   constructor(msg: string, status?: number) {
     super(msg);
-    this.msg = msg;
+    this.msg = `❌ ${msg}`;
     // eslint-disable-next-line no-magic-numbers
     this.status = status ?? 500;
   }

@@ -1,8 +1,18 @@
 @use 'exports/mix' as mix;
 
+@keyframes reduce {
+  0% {
+    width: 100%;
+  }
+
+  100% {
+    width: 0%;
+  }
+}
+
 .root {
   border-color: var(--clr);
-  @apply fixed top-5 right-5 w-[90%] max-w-[600px] border-3 p-3 bg-neutral-950 rounded-xl min-h-[75px];
+  @apply fixed top-5 right-5 w-[90%] max-w-[600px] border-3 p-3 bg-neutral-950 rounded-xl min-h-[75px] overflow-hidden translate-x-[150%];
 
   @media (min-width: 600px) {
     @apply w-[80%];
@@ -30,5 +40,12 @@
     .content__msg {
       @apply px-3;
     }
+  }
+
+  .root__timer {
+    background: var(--clr);
+    @apply absolute bottom-0 left-0 w-full h-[7.5px];
+
+    animation: reduce 5s linear forwards;
   }
 }

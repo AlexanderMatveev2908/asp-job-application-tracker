@@ -17,7 +17,9 @@
     </div>
 
     <div class="root__content">
-      <span #msgContainer class="txt__lg content__msg">{{ toastState().msg }}</span>
+      <span #msgContainer class="txt__lg content__msg">{{ trimmedMsg() }}</span>
     </div>
+
+    <div class="root__timer" [style.--clr]="eventMeta().css"></div>
   </div>
 </ng-template>
