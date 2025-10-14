@@ -1,0 +1,24 @@
+@use 'exports/mix' as mix;
+
+.root {
+  @apply fixed top-5 right-5 w-[90%] max-w-[550px] border-3 p-5 bg-neutral-950 rounded-xl min-h-[100px];
+
+  @media (min-width: 600px) {
+    @apply w-[80%];
+  }
+
+  .root__close_row {
+    @apply absolute top-1 right-1;
+    .close_row__btn {
+      @include mix.btn__scl(1.4);
+      @apply text-red-600;
+    }
+  }
+
+  .root__status_row {
+    @apply absolute top-1 left-4;
+    .status_row__status {
+      @apply flex justify-start items-center;
+    }
+  }
+}
