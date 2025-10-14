@@ -30,7 +30,7 @@ export class Home {
 
   public readonly btnEventsProps: BtnEvPropsT = {
     onClick: async (): Promise<void> => {
-      this.noticeSlice.noticeState = {
+      this.noticeSlice.noticeWithoutCb = {
         eventT: 'WARN',
         msg: 'some warn msg',
         status: 0,

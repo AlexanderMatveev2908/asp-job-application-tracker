@@ -1,33 +1,21 @@
-/* eslint-disable complexity */
 import { Prs } from './data_structure/formatters';
 import { ShapeCheck } from './data_structure/shape';
+import { Stack } from './stack';
 
 export class Log {
   private static _log(title: string | null, ...args: unknown[]): void {
-    const err: Error = new Error();
-    const traces: string[] | undefined = err.stack?.split('\n');
-
-    let clsCaller = 'unknown caller';
-    for (const t of traces ?? []) {
-      let caller = '';
-      if (t.includes('@')) caller = t.split('@')?.[0] ?? '';
-      else if (t.includes('at')) caller = t.split('at')?.[1]?.split('.')?.[0] ?? '';
-
-      if (
-        ShapeCheck.isStr(caller) &&
-        ['error', 'log'].every((str: string) => !caller.toLowerCase().includes(str))
-      ) {
-        clsCaller = caller.replace(/[<>/]/g, '');
-        break;
-      }
-    }
+    // ? 0 private log
+    // ? 1 public log
+    // ? 2 real caller
+    // eslint-disable-next-line no-magic-numbers
+    const caller: string = Stack.getCallerLess(2);
 
     const existsTtl: boolean = ShapeCheck.isStr(title);
-    const ttl: string = existsTtl ? title! : clsCaller;
+    const ttl: string = existsTtl ? title! : caller;
 
     console.log('\n');
     console.group(
-      `${existsTtl ? '📌' : '🧩'} ${ttl}${existsTtl ? ` • 🧩 ${clsCaller}` : ''}\n⏰ ${Prs.devDate(
+      `${existsTtl ? '📌' : '🧩'} ${ttl}${existsTtl ? ` • 🧩 ${caller}` : ''}\n⏰ ${Prs.devDate(
         Date.now()
       )}`
     );

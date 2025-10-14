@@ -1,9 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
 import { NoticeActT } from './actions';
 import { AppEventPayload } from '@/common/types/events';
+import { GenericVoidCbT } from '@/common/types/etc';
 
 export interface NoticeStateT extends AppEventPayload {
-  cb: (() => void | (() => Promise<void>)) | null;
+  cb: GenericVoidCbT | null;
 }
 
 export const initState: NoticeStateT = {
@@ -12,6 +13,8 @@ export const initState: NoticeStateT = {
   eventT: 'NONE',
   cb: null,
 };
+
+export type NoticeWithoutCb = Omit<NoticeStateT, 'cb'>;
 
 export const noticeReducer = createReducer(
   initState,

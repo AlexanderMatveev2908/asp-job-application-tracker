@@ -13,4 +13,13 @@ export class Prs {
       }).format(param);
     }
   }
+
+  public static strToBool(arg: string): boolean {
+    const map = {
+      true: true,
+      false: false,
+    };
+
+    return map[arg as keyof typeof map];
+  }
 }
