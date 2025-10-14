@@ -1,8 +1,8 @@
+import { WrapEventsPropsT } from '@/common/components/hoc/page/wrap_events_page/etc/types';
+import { WrapEventsPage } from '@/common/components/hoc/page/wrap_events_page/wrap-events-page';
 import { LinkShadowPropsT } from '@/common/components/links/link_shadow/etc/types';
 import { LinkShadow } from '@/common/components/links/link_shadow/link-shadow';
 import { SvgStrokeHome } from '@/common/components/svgs/stroke/home/home';
-import { WrapEventsPropsT } from '@/common/components/wrappers/page/wrap_events_page/etc/types';
-import { WrapEventsPage } from '@/common/components/wrappers/page/wrap_events_page/wrap-events-page';
 import { AppEvT } from '@/common/types/events';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 

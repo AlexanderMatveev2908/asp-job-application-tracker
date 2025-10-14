@@ -1,0 +1,7 @@
+<div class="app__page">
+  @if(isServer && waitClient()){
+  <app-spin-page-ssr />
+  }@else {
+  <ng-content />
+  }
+</div>
