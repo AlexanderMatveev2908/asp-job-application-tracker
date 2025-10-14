@@ -77,6 +77,7 @@ apps/*/out/
 .env.*
 certs/
 kind-secrets.yml
+apps/client/src/environments/
 
 # ? assets
 uploads/

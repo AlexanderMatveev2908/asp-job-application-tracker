@@ -1,16 +1,19 @@
 {
   "name": "client",
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "node ./dist/client/server/server.mjs",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "install_pkg": "yarn install && yarn playwright install",
+    "dev": "ts-node src/scripts_env/gen_env.ts dev && ng serve --configuration=development",
+    "dev:test": "ts-node src/scripts_env/gen_env.ts test && ng serve --configuration=test",
+    "check": "ng lint && echo \"🟦 angular check passed 🎉\"",
     "test": "run-p test:unit test:e2e && echo \"🟦 angular tests passed 🎉\"",
     "test:unit": "yarn vitest run --reporter=default --coverage",
     "test:e2e": "yarn playwright test --reporter=list,html",
-    "install_pkg": "yarn install && yarn playwright install",
-    "dev": "ng serve",
-    "check": "ng lint && echo \"🟦 angular check passed 🎉\""
+    "build": "ts-node src/scripts_env/gen_env.ts prod && ng build --configuration=production",
+    "build:dev": "ts-node src/scripts_env/gen_env.ts prod && ng build --configuration=development",
+    "build:test": "ts-node src/scripts_env/gen_env.ts test && ng build --configuration=test",
+    "start": "node ./dist/client/server/server.mjs"
   },
   "prettier": {
     "printWidth": 100,
@@ -73,6 +76,7 @@
     "npm-run-all": "^4.1.5",
     "postcss": "^8.5.6",
     "tailwindcss": "3.4.15",
+    "ts-node": "^10.9.2",
     "typescript": "~5.9.2",
     "typescript-eslint": "8.40.0",
     "vite-tsconfig-paths": "^5.1.4",

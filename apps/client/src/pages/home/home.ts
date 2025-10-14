@@ -3,8 +3,18 @@ import { WrapPage } from '@/common/components/hoc/page/wrap_page/wrap-page';
 import { SvgFillBash } from '@/common/components/svgs/fill/bash/bash';
 import { BtnEvPropsT, BtnStatePropsT } from '@/common/types/btns';
 import { BaseElPropsT } from '@/common/types/els';
+import { Log } from '@/core/lib/log';
+import { envVars } from '@/environments/environment';
 import { ToastSlice } from '@/features/toast/slice';
-import { ChangeDetectionStrategy, Component, inject, signal, WritableSignal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  EffectRef,
+  inject,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -35,4 +45,8 @@ export class Home {
       });
     },
   };
+
+  public readonly run: EffectRef = effect(() => {
+    Log.log(envVars);
+  });
 }
