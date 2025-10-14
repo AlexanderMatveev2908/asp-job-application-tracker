@@ -12,9 +12,12 @@ export class UseMouseOutDir {
   @HostListener('document:mousedown', ['$event'])
   public onMouseOut(e: MouseEvent): void {
     if (!this.isOpen()) return;
+    const elDOM: HTMLElement = this.el.nativeElement;
+
+    if (!elDOM) return;
 
     const target = e.target as HTMLElement;
-    const isIn: boolean = this.el.nativeElement.contains(target);
+    const isIn: boolean = elDOM.contains(target);
 
     if (!isIn) this.cb();
   }

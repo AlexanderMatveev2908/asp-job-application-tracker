@@ -3,8 +3,7 @@ import { WrapPage } from '@/common/components/hoc/page/wrap_page/wrap-page';
 import { SvgFillBash } from '@/common/components/svgs/fill/bash/bash';
 import { BtnEvPropsT, BtnStatePropsT } from '@/common/types/btns';
 import { BaseElPropsT } from '@/common/types/els';
-import { UseNavSvc } from '@/core/hooks/use_nav';
-import { NoticeSlice } from '@/features/notice/slice';
+import { ToastSlice } from '@/features/toast/slice';
 import { ChangeDetectionStrategy, Component, inject, signal, WritableSignal } from '@angular/core';
 
 @Component({
@@ -15,8 +14,7 @@ import { ChangeDetectionStrategy, Component, inject, signal, WritableSignal } fr
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Home {
-  private readonly noticeSlice: NoticeSlice = inject(NoticeSlice);
-  private readonly useNav: UseNavSvc = inject(UseNavSvc);
+  private readonly toastSlice: ToastSlice = inject(ToastSlice);
 
   public readonly btnStateProps: WritableSignal<BtnStatePropsT> = signal({
     isDisabled: false,
@@ -29,14 +27,12 @@ export class Home {
   };
 
   public readonly btnEventsProps: BtnEvPropsT = {
-    onClick: async (): Promise<void> => {
-      this.noticeSlice.noticeWithoutCb = {
+    onClick: (): void => {
+      this.toastSlice.openToast({
         eventT: 'WARN',
         msg: 'some warn msg',
         status: 0,
-      };
-
-      await this.useNav.navTo('/notice');
+      });
     },
   };
 }
