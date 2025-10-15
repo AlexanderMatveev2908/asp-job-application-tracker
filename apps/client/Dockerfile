@@ -16,7 +16,13 @@ ARG SMPT_FROM
 
 RUN yarn install
 
-RUN yarn build
+RUN if [ "$ENV_MODE" = "development" ]; then \
+      yarn build:dev && echo "🛠️ build DEV mode"; \
+    elif [ "$ENV_MODE" = "test" ]; then \
+      yarn build:test && echo "🧪 build TEST mode"; \
+    else \
+      yarn build && echo "🏛️ build PRODUCTION mode"; \
+    fi
 
 EXPOSE 3001
 
