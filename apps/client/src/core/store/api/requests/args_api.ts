@@ -1,12 +1,12 @@
 import { HttpParams } from '@angular/common/http';
-import { ToastOptApiT } from '../etc/types';
+import { OptToastApiT } from '../etc/types';
 import { FormPrs } from '@/core/lib/data_structure/form_parser';
 import { ErrApi } from '@/core/lib/err';
 
 export class ArgsApi {
   private readonly _url: string = '';
   private _params: HttpParams | null = null;
-  private _optToast: ToastOptApiT | null = null;
+  private _optToast: OptToastApiT | null = null;
   private _body: Record<string, object> | FormData | null = null;
 
   constructor(url: string) {
@@ -18,8 +18,8 @@ export class ArgsApi {
     return new HttpParams({ fromString: FormPrs.genParamsURL(query) });
   }
 
-  private isOptToastEmpty(): void {
-    if (!this._optToast) this._optToast = {} as ToastOptApiT;
+  private ifOptToastEmpty(): void {
+    if (!this._optToast) this._optToast = {} as OptToastApiT;
   }
 
   public static withURL(url: string): ArgsApi {
@@ -37,13 +37,20 @@ export class ArgsApi {
   }
 
   public toastOnOk(): ArgsApi {
-    this.isOptToastEmpty();
+    this.ifOptToastEmpty();
     this._optToast!.toastOk = true;
     return this;
   }
 
   public toastOnErr(): ArgsApi {
-    this.isOptToastEmpty();
+    this.ifOptToastEmpty();
+    this._optToast!.toastErr = true;
+    return this;
+  }
+
+  public toastOnFulfilled(): ArgsApi {
+    this.ifOptToastEmpty();
+    this._optToast!.toastOk = true;
     this._optToast!.toastErr = true;
     return this;
   }
@@ -64,7 +71,7 @@ export class ArgsApi {
     return this._body;
   }
 
-  public getOptToast(): ToastOptApiT | null {
+  public getOptToast(): OptToastApiT | null {
     return this._optToast;
   }
 

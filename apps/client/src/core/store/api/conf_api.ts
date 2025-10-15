@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ConfApiT } from './etc/types';
 
 @Injectable({
@@ -16,5 +16,9 @@ export class ConfApiSvc {
 
   get(): ConfApiT | null {
     return this.conf.value;
+  }
+
+  obs(): Observable<ConfApiT | null> {
+    return this.conf.asObservable();
   }
 }

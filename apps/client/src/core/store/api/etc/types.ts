@@ -1,4 +1,5 @@
 import { GenericObjT } from '@/common/types/etc';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export interface ConfApiT {
   url: string | null;
@@ -17,7 +18,11 @@ export type ResApiT<T> = {
   status: number;
 } & T;
 
-export interface ToastOptApiT {
+export interface ErrApiT<T> extends HttpErrorResponse {
+  error: ResApiT<T>;
+}
+
+export interface OptToastApiT {
   toastOk: boolean;
   toastErr: boolean;
 }

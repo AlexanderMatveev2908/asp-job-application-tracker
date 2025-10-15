@@ -4,6 +4,7 @@ import { SvgFillBash } from '@/common/components/svgs/fill/bash/bash';
 import { BtnEvPropsT, BtnStatePropsT } from '@/common/types/btns';
 import { BaseElPropsT } from '@/common/types/els';
 import { ApiSvc } from '@/core/store/api/api';
+import { ResApiT } from '@/core/store/api/etc/types';
 import { ArgsApi } from '@/core/store/api/requests/args_api';
 import { ChangeDetectionStrategy, Component, inject, signal, WritableSignal } from '@angular/core';
 
@@ -29,19 +30,13 @@ export class Home {
 
   public readonly btnEventsProps: BtnEvPropsT = {
     onClick: (): void => {
-      const arg = {
-        keyA: {
-          keyB: {
-            keyC: 'final value',
-          },
+      this.api.post(ArgsApi.withURL('/test').toastOnFulfilled()).subscribe({
+        next: (res: ResApiT<Record<string, unknown>>) => {
+          void res;
         },
-        keyArr: {
-          finalArr: ['val arr A', 'val arr B'],
+        error: (err: any) => {
+          void err;
         },
-      };
-
-      this.api.get(ArgsApi.withURL('/test').query(arg).toastOnOk()).subscribe((res: object) => {
-        void res;
       });
     },
   };

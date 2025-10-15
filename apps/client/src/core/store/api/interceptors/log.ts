@@ -1,40 +1,49 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Log } from '@/core/lib/log';
 import { envVars } from '@/environments/environment';
 import {
+  HttpErrorResponse,
   HttpEvent,
   HttpHandlerFn,
   HttpInterceptorFn,
   HttpRequest,
-  HttpResponse,
 } from '@angular/common/http';
-import { catchError, map, Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { ConfApiSvc } from '../conf_api';
 import { inject } from '@angular/core';
-import { ApiShape } from '@/core/store/api/etc/api_shape';
+import { ApiShape, HttpResT } from '@/core/store/api/etc/api_shape';
+import { ConfApiT } from '../etc/types';
+
+const mng = (
+  e: HttpEvent<unknown> | HttpErrorResponse,
+  confData: Observable<ConfApiT | null>,
+  emoji: string
+): void => {
+  if (!ApiShape.isHttpRes(e)) return;
+
+  const baseURL: string = envVars.backURL;
+  const res: HttpResT = e as HttpResT;
+
+  let url: string = res.url ?? 'unknown url';
+  url = url.replace(baseURL, '').split('?')[0];
+
+  const content: Record<string, unknown> = res instanceof HttpErrorResponse ? res.error : res.body;
+
+  confData.subscribe((conf: ConfApiT | null) => {
+    Log.logTtl(`${emoji} ${url}`, conf, content);
+  });
+};
 
 export const logApiMdw: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> => {
   const confApi: ConfApiSvc = inject(ConfApiSvc);
-  const baseURL: string = envVars.backURL;
+  const confData: Observable<ConfApiT | null> = confApi.obs();
 
   return next(req).pipe(
-    map((e: HttpEvent<unknown>) => {
-      if (!(e instanceof HttpResponse)) return e;
-
-      let url: string = e.url ?? 'unknown url';
-      url = url.replace(baseURL, '').split('?')[0];
-
-      const emoji: string = ApiShape.emojiByStatus(e.status);
-
-      Log.logTtl(`${emoji} ${url}`, confApi.get(), e.body);
-
-      return e;
-    }),
-    catchError((err: any) => {
-      throw err;
+    tap({
+      next: (res: HttpEvent<unknown>) => mng(res, confData, '✅'),
+      error: (res: HttpErrorResponse) => mng(res, confData, '❌'),
     })
   );
 };

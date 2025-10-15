@@ -1,4 +1,6 @@
-import { AppEventT } from '@/common/types/events';
+import { HttpErrorResponse, HttpEvent, HttpResponse } from '@angular/common/http';
+
+export type HttpResT = HttpResponse<unknown> | HttpErrorResponse;
 
 export class ApiShape {
   public static isResOk(status: number): boolean {
@@ -6,10 +8,7 @@ export class ApiShape {
     return status >= 200 && status < 300;
   }
 
-  public static emojiByStatus(status: number): string {
-    return this.isResOk(status) ? '✅' : '❌';
-  }
-  public static appEventByStatus(status: number): AppEventT {
-    return this.isResOk(status) ? 'OK' : 'ERR';
+  public static isHttpRes(e: HttpEvent<unknown> | HttpErrorResponse): boolean {
+    return e instanceof HttpResponse || e instanceof HttpErrorResponse;
   }
 }
