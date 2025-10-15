@@ -1,8 +1,9 @@
 import { GenericObjT } from '@/common/types/etc';
 
 export interface ConfApiT {
-  fullURL: string | null;
+  url: string | null;
   method: string;
+  responseType: string | null;
   accessToken: string | null;
   params: GenericObjT;
   body: GenericObjT;

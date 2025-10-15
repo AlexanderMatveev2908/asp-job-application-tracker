@@ -30,9 +30,11 @@ export const addConfApiMdw: HttpInterceptorFn = (
       const params: Record<string, unknown> = {};
       for (const k of reqParams.keys()) params[k] = reqParams.get(k);
 
+      const urlReq: string = (e.url ?? '').split('?')[0];
       const conf: ConfApiT = {
-        fullURL: e.url,
+        url: urlReq,
         method: req.method,
+        responseType: e.headers.get('Content-Type'),
         accessToken: e.headers.get('Authorization'),
         params: ShapeCheck.hasObjData(params) ? params : null,
         body: dataSent,

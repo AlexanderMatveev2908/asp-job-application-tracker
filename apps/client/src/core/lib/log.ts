@@ -1,3 +1,4 @@
+import { Reg } from '../paperwork/reg';
 import { Prs } from './data_structure/formatters';
 import { ShapeCheck } from './data_structure/shape';
 import { Stack } from './stack';
@@ -12,12 +13,17 @@ export class Log {
 
     const existsTtl: boolean = ShapeCheck.isStr(title);
     const ttl: string = existsTtl ? title! : caller;
+    let emoji: string = '';
+    if (existsTtl) {
+      const firstPart: string = ttl.split(' ')[0];
+      if (!Reg.isEmoji(firstPart)) emoji = '📌';
+    } else {
+      emoji = '🧩';
+    }
 
     console.log('\n');
     console.group(
-      `${existsTtl ? '📌' : '🧩'} ${ttl}${existsTtl ? ` • 🧩 ${caller}` : ''}\n⏰ ${Prs.devDate(
-        Date.now()
-      )}`
+      `${emoji} ${ttl}${existsTtl ? ` • 🧩 ${caller}` : ''}\n⏰ ${Prs.devDate(Date.now())}`
     );
 
     for (const el of args) console.log(el);

@@ -24,7 +24,7 @@ export const logApiMdw: HttpInterceptorFn = (
       if (!(e instanceof HttpResponse)) return e;
 
       let url: string = e.url ?? 'unknown url';
-      url = url.replace(baseURL, '');
+      url = url.replace(baseURL, '').split('?')[0];
 
       // eslint-disable-next-line no-magic-numbers
       const isSuccess: boolean = e.status >= 200 && e.status < 300;
