@@ -12,7 +12,7 @@ def patch_env(
     for p in existing:
         trimmed: str = p.strip()
         if len(trimmed) and not trimmed.startswith("#"):
-            pair: list[str] = trimmed.split("=", 2)
+            pair: list[str] = trimmed.split("=", 1)
             if len(pair) != 2:
                 continue
 
@@ -32,9 +32,20 @@ def patch_env(
 def patch_git(git_pipeline: Path, new_env: list[str]) -> None:
     content: str = git_pipeline.read_text()
 
-    pattern: Pattern = re.compile(r"(env:\s*?)(.*?)(?=\n\s*steps:)", re.DOTALL)
+    pattern: Pattern = re.compile(r"(env:\s*?)(.*?)(?=\n\s*steps:\n\s*\-)", re.DOTALL)
 
-    new_block: str = (" " * 4 + "\n").join(new_env)
-    new_content: str = pattern.sub(rf"\1{new_block}\n", content)
+    formatted: list[str] = []
+    for s in new_env:
+        k, *_ = s.split("=", 1)
+
+        if not s.strip():
+            continue
+
+        value = "\"test\"" if k == "ENV_MODE" else f"${{{{secrets.{k}}}}}"
+
+        formatted.append(f"{' ' *6}{k}: {value}")
+    joined: str = "\n".join(formatted)
+
+    new_content: str = pattern.sub(rf"\1\n{joined}", content)
 
     git_pipeline.write_text(new_content)
