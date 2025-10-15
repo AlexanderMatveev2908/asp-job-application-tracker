@@ -3,6 +3,7 @@ import { GenericObjT } from '@/common/types/etc';
 export interface ConfApiT {
   url: string | null;
   method: string;
+  requestType: string | null;
   responseType: string | null;
   accessToken: string | null;
   params: GenericObjT;

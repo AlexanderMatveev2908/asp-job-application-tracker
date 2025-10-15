@@ -17,7 +17,6 @@ export const baseApiMdw: HttpInterceptorFn = (
     url: `${baseURL}${req.url}`,
     setHeaders: {
       Authorization: jwt ? `Bearer ${jwt}` : '',
-      'Content-Type': req.headers.get('Content-Type') ?? 'application/json',
     },
     withCredentials: true,
   });

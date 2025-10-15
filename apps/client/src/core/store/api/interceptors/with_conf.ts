@@ -35,6 +35,7 @@ export const addConfApiMdw: HttpInterceptorFn = (
         url: urlReq,
         method: req.method,
         responseType: e.headers.get('Content-Type'),
+        requestType: req.headers.get('Content-Type'),
         accessToken: e.headers.get('Authorization'),
         params: ShapeCheck.hasObjData(params) ? params : null,
         body: dataSent,

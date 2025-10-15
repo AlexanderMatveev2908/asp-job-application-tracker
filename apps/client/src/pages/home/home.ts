@@ -39,7 +39,7 @@ export class Home {
         },
       };
 
-      this.api.getWithParams('/test', arg).subscribe((res: object) => {
+      this.api.getWithQuery('/test', arg).subscribe((res: object) => {
         void res;
       });
     },
