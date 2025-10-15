@@ -7,7 +7,7 @@ export class ShapeCheck {
     return typeof arg === 'object' && arg !== null;
   }
 
-  public static hasData(arg: unknown): boolean {
+  public static hasObjData(arg: unknown): boolean {
     return this.isObj(arg) && !!Object.keys(arg as Record<string, unknown>).length;
   }
 

@@ -28,7 +28,18 @@ export class Home {
 
   public readonly btnEventsProps: BtnEvPropsT = {
     onClick: (): void => {
-      this.api.get('/test').subscribe((res: object) => {
+      const arg = {
+        keyA: {
+          keyB: {
+            keyC: 'final value',
+          },
+        },
+        keyArr: {
+          finalArr: ['val arr A', 'val arr B'],
+        },
+      };
+
+      this.api.getWithParams('/test', arg).subscribe((res: object) => {
         void res;
       });
     },
