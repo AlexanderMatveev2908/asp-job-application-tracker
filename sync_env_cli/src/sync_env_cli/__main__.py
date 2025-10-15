@@ -14,12 +14,11 @@ def main() -> None:
     arr = get_existing_vars(ctx.root_env)
 
     env_dev_work: list[str] = patch_env(arr, mode)
-    env_kind_secrets: list[str] = patch_env(arr, EnvMode.K)
-    env_git_pipeline: list[str] = patch_env(arr, EnvMode.T)
+    env_kind_secrets: list[str] = patch_env(arr, EnvMode.K, exclude=["LINUX_PWD"])
+    env_git_pipeline: list[str] = patch_env(arr, EnvMode.T, exclude=["LINUX_PWD"])
 
-    target_sync = [ctx.root_env, ctx.client_env, ctx.server_env]
-
-    for f in target_sync:
+    base_flow_sync = [ctx.root_env, ctx.client_env, ctx.server_env]
+    for f in base_flow_sync:
         f.write_text("\n".join(env_dev_work))
 
 
