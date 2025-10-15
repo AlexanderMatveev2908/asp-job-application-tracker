@@ -28,7 +28,7 @@ export class NoticeSlice {
       })
     );
 
-    this.useStorage.setItem('NOTICE', rst);
+    this.useStorage.setItem('notice', rst);
   }
 
   public set noticeWithCb(arg: Omit<NoticeStateT, 'cb'> & { cb: GenericVoidCbT }) {

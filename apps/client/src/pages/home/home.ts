@@ -3,18 +3,8 @@ import { WrapPage } from '@/common/components/hoc/page/wrap_page/wrap-page';
 import { SvgFillBash } from '@/common/components/svgs/fill/bash/bash';
 import { BtnEvPropsT, BtnStatePropsT } from '@/common/types/btns';
 import { BaseElPropsT } from '@/common/types/els';
-import { Log } from '@/core/lib/log';
-import { envVars } from '@/environments/environment';
-import { ToastSlice } from '@/features/toast/slice';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  effect,
-  EffectRef,
-  inject,
-  signal,
-  WritableSignal,
-} from '@angular/core';
+import { ApiSvc } from '@/core/store/api/api';
+import { ChangeDetectionStrategy, Component, inject, signal, WritableSignal } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +14,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Home {
-  private readonly toastSlice: ToastSlice = inject(ToastSlice);
+  private readonly api: ApiSvc = inject(ApiSvc);
 
   public readonly btnStateProps: WritableSignal<BtnStatePropsT> = signal({
     isDisabled: false,
@@ -38,15 +28,9 @@ export class Home {
 
   public readonly btnEventsProps: BtnEvPropsT = {
     onClick: (): void => {
-      this.toastSlice.openToast({
-        eventT: 'WARN',
-        msg: 'some warn msg',
-        status: 0,
+      this.api.get('/test').subscribe((res: object) => {
+        void res;
       });
     },
   };
-
-  public readonly run: EffectRef = effect(() => {
-    Log.log(envVars);
-  });
 }
