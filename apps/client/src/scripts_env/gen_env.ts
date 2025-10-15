@@ -67,4 +67,4 @@ const filePath =
 fs.mkdirSync('src/environments', { recursive: true });
 fs.writeFileSync(filePath, content);
 
-console.log(`🔐 Generated ${mode.toUpperCase()} ENV file => ${filePath}`);
+console.log(`🔐 Generated ${fullName.toUpperCase()} env file => ${filePath}`);
