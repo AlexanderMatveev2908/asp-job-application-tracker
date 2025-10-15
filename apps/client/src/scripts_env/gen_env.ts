@@ -11,7 +11,7 @@ if (!mode) {
 }
 
 if (!['dev', 'test', 'prod'].includes(mode)) {
-  console.error('❌ Invalid MODE provided');
+  console.error("❌ Invalid MODE provided • choices => ['dev', 'test', 'prod']");
   exit(1);
 }
 
@@ -67,4 +67,4 @@ const filePath =
 fs.mkdirSync('src/environments', { recursive: true });
 fs.writeFileSync(filePath, content);
 
-console.log(`🔐 Generated ${mode.toUpperCase()} env file => ${filePath}`);
+console.log(`🔐 Generated ${mode.toUpperCase()} ENV file => ${filePath}`);

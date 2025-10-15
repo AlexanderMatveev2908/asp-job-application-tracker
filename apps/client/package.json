@@ -11,7 +11,7 @@
     "test:unit": "yarn vitest run --reporter=default --coverage",
     "test:e2e": "yarn playwright test --reporter=list,html",
     "build": "ts-node src/scripts_env/gen_env.ts prod && ng build --configuration=production",
-    "build:dev": "ts-node src/scripts_env/gen_env.ts prod && ng build --configuration=development",
+    "build:dev": "ts-node src/scripts_env/gen_env.ts dev && ng build --configuration=development",
     "build:test": "ts-node src/scripts_env/gen_env.ts test && ng build --configuration=test",
     "start": "node ./dist/client/server/server.mjs"
   },

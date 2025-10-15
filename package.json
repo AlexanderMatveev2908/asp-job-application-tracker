@@ -11,7 +11,10 @@
   "scripts": {
     "install_pkg": "turbo install_pkg --parallel",
     "dev": "turbo dev --parallel",
+    "dev:test": "turbo dev:test --parallel",
     "build": "turbo build --parallel",
+    "build:dev": "turbo build:dev --parallel",
+    "build:test": "turbo build:test --parallel",
     "start": "turbo run start --parallel",
     "check": "turbo check --parallel",
     "test": "turbo test --parallel"
