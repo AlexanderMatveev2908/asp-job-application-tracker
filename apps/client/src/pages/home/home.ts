@@ -4,6 +4,7 @@ import { SvgFillBash } from '@/common/components/svgs/fill/bash/bash';
 import { BtnEvPropsT, BtnStatePropsT } from '@/common/types/btns';
 import { BaseElPropsT } from '@/common/types/els';
 import { ApiSvc } from '@/core/store/api/api';
+import { ArgsApi } from '@/core/store/api/requests/args_api';
 import { ChangeDetectionStrategy, Component, inject, signal, WritableSignal } from '@angular/core';
 
 @Component({
@@ -39,7 +40,7 @@ export class Home {
         },
       };
 
-      this.api.getWithQuery('/test', arg).subscribe((res: object) => {
+      this.api.get(ArgsApi.withURL('/test').query(arg).toastOnOk()).subscribe((res: object) => {
         void res;
       });
     },

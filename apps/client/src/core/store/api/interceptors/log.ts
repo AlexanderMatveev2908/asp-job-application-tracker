@@ -11,6 +11,7 @@ import {
 import { catchError, map, Observable } from 'rxjs';
 import { ConfApiSvc } from '../conf_api';
 import { inject } from '@angular/core';
+import { ApiShape } from '@/core/store/api/etc/api_shape';
 
 export const logApiMdw: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
@@ -26,9 +27,7 @@ export const logApiMdw: HttpInterceptorFn = (
       let url: string = e.url ?? 'unknown url';
       url = url.replace(baseURL, '').split('?')[0];
 
-      // eslint-disable-next-line no-magic-numbers
-      const isSuccess: boolean = e.status >= 200 && e.status < 300;
-      const emoji: string = isSuccess ? '✅' : '❌';
+      const emoji: string = ApiShape.emojiByStatus(e.status);
 
       Log.logTtl(`${emoji} ${url}`, confApi.get(), e.body);
 

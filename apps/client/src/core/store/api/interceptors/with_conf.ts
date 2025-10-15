@@ -7,7 +7,7 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { ConfApiT } from '../etc/types';
+import { ConfApiT, HttpMethod } from '../etc/types';
 import { inject } from '@angular/core';
 import { ConfApiSvc } from '../conf_api';
 import { ShapeCheck } from '@/core/lib/data_structure/shape';
@@ -33,7 +33,7 @@ export const addConfApiMdw: HttpInterceptorFn = (
       const urlReq: string = (e.url ?? '').split('?')[0];
       const conf: ConfApiT = {
         url: urlReq,
-        method: req.method,
+        method: req.method as HttpMethod,
         responseType: e.headers.get('Content-Type'),
         requestType: req.headers.get('Content-Type'),
         accessToken: e.headers.get('Authorization'),

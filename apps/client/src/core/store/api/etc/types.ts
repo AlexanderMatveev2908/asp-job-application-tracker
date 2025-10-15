@@ -2,7 +2,7 @@ import { GenericObjT } from '@/common/types/etc';
 
 export interface ConfApiT {
   url: string | null;
-  method: string;
+  method: HttpMethod;
   requestType: string | null;
   responseType: string | null;
   accessToken: string | null;
@@ -10,8 +10,14 @@ export interface ConfApiT {
   body: GenericObjT;
 }
 
+export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+
 export type ResApiT<T> = {
-  conf: ConfApiT;
   msg: string;
   status: number;
 } & T;
+
+export interface ToastOptApiT {
+  toastOk: boolean;
+  toastErr: boolean;
+}
