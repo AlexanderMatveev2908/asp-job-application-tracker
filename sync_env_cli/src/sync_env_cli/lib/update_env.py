@@ -41,7 +41,7 @@ def patch_git(git_pipeline: Path, new_env: list[str]) -> None:
         if not s.strip():
             continue
 
-        value = "\"test\"" if k == "ENV_MODE" else f"${{{{secrets.{k}}}}}"
+        value = '"test"' if k == "ENV_MODE" else f"${{{{secrets.{k}}}}}"
 
         formatted.append(f"{' ' *6}{k}: {value}")
     joined: str = "\n".join(formatted)
@@ -49,3 +49,22 @@ def patch_git(git_pipeline: Path, new_env: list[str]) -> None:
     new_content: str = pattern.sub(rf"\1\n{joined}", content)
 
     git_pipeline.write_text(new_content)
+
+
+def patch_kind(kind_secrets: Path, new_env: list[str]) -> None:
+    content: str = kind_secrets.read_text()
+
+    formatted: list[str] = []
+
+    for s in new_env:
+        if not s.strip():
+            continue
+        k, v = s.split("=", 1)
+        formatted.append(f'{" "*2}{k}: "{v}"')
+
+    joined: str = "\n".join(formatted)
+
+    pattern = re.compile(r"(stringData:\s*?)(.*?)(?=\n\S|\Z)", re.DOTALL)
+    new_content: str = pattern.sub(rf"\1\n{joined}", content)
+
+    kind_secrets.write_text(new_content)

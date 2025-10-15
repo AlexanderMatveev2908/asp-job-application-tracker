@@ -6,7 +6,6 @@ from sync_env_cli.lib.errors import err
 class EnvMode(Enum):
     D = "d"
     T = "t"
-    K = "k"
     P = "p"
 
     @classmethod
@@ -21,7 +20,6 @@ class EnvMode(Enum):
         map = {
             EnvMode.D: "development",
             EnvMode.T: "test",
-            EnvMode.K: "kind",
             EnvMode.P: "production",
         }
 

@@ -6,6 +6,7 @@ from sync_env_cli.lib.errors import err
 
 @dataclass
 class CtxPaths:
+    repo_root: Path
     root_env: Path
     client_env: Path
     server_env: Path
@@ -13,13 +14,13 @@ class CtxPaths:
     kind_secrets: Path
 
 
-def ensure_repo_shape(cwd: Path) -> CtxPaths:
-    client: Path = (cwd / "../apps/client").resolve()
-    server: Path = (cwd / "../apps/server").resolve()
+def ensure_repo_shape(repo_root: Path) -> CtxPaths:
+    client: Path = repo_root / "apps/client"
+    server: Path = repo_root / "apps/server"
     # ? update based on your needs
-    git_pipeline: Path = (cwd / "../.github/workflows/check_deploy.yml").resolve()
-    kind_secrets: Path = (cwd / "../kind-secrets.yml").resolve()
-    root_env: Path = (cwd / "../.env").resolve()
+    git_pipeline: Path = repo_root / ".github/workflows/check_deploy.yml"
+    kind_secrets: Path = repo_root / "kind-secrets.yml"
+    root_env: Path = repo_root / ".env"
 
     if not root_env.is_file():
         err("root env file not present")
@@ -33,11 +34,11 @@ def ensure_repo_shape(cwd: Path) -> CtxPaths:
         err("kind secrets file not present")
 
     client_env: Path = client / ".env"
-    client_env.touch(exist_ok=True)
     server_env: Path = server / ".env"
-    server_env.touch(exist_ok=True)
 
-    return CtxPaths(root_env, client_env, server_env, git_pipeline, kind_secrets)
+    return CtxPaths(
+        repo_root, root_env, client_env, server_env, git_pipeline, kind_secrets
+    )
 
 
 def get_existing_vars(root_env: Path) -> list[str]:
