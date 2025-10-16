@@ -29,7 +29,7 @@ export class WakeUp implements AfterViewInit {
   public readonly popupStaticProps: PopupStaticPropsT = {
     cls: 'wake_up',
     closeOnMouseOut: false,
-    eventT: 'INFO',
+    eventT: 'WARN',
     closePop: this.closePop,
   };
 
@@ -39,9 +39,9 @@ export class WakeUp implements AfterViewInit {
         Log.log(this.isPop());
         this.isPop.set(true);
 
-        setTimeout(() => {
-          this.isPop.set(false);
-        }, 1000);
+        // setTimeout(() => {
+        //   this.isPop.set(false);
+        // }, 1000);
       }, 1500);
     });
   }
