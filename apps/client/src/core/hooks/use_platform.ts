@@ -1,6 +1,7 @@
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { ApplicationRef, inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { filter, Observable, take } from 'rxjs';
+import { EMPTY, filter, Observable, take, switchMap } from 'rxjs';
+import { ResApiT } from '../store/api/etc/types';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,13 @@ export class UsePlatformSvc {
     return this.isServer ? null : await arg();
   }
 
-  public isStable(): Observable<boolean> {
-    return this.appRef.isStable.pipe(filter(Boolean), take(1));
+  public whenClientStable<T>(cb: Observable<ResApiT<T>>): Observable<ResApiT<T> | never> {
+    return this.isClient
+      ? this.appRef.isStable.pipe(
+          filter(Boolean),
+          take(1),
+          switchMap(() => cb)
+        )
+      : EMPTY;
   }
 }
