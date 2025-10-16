@@ -5,9 +5,10 @@ import { BtnEvPropsT, BtnStatePropsT } from '@/common/types/btns';
 import { BaseElPropsT } from '@/common/types/els';
 import { Log } from '@/core/lib/log';
 import { ApiSvc } from '@/core/store/api/api';
+import { TrackerSvc } from '@/core/store/api/etc/tracker';
 import { ErrApiT, ResApiT } from '@/core/store/api/etc/types';
 import { ArgsApi } from '@/core/store/api/requests/args_api';
-import { ChangeDetectionStrategy, Component, inject, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -18,11 +19,12 @@ import { ChangeDetectionStrategy, Component, inject, signal, WritableSignal } fr
 })
 export class Home {
   private readonly api: ApiSvc = inject(ApiSvc);
+  private readonly tracker: TrackerSvc = inject(TrackerSvc);
 
-  public readonly btnStateProps: WritableSignal<BtnStatePropsT> = signal({
+  public readonly btnStateProps: Signal<BtnStatePropsT> = computed(() => ({
     isDisabled: false,
-    isPending: false,
-  });
+    isPending: this.tracker.isPending(),
+  }));
   public readonly baseElProps: BaseElPropsT = {
     label: 'Script worked 🎉',
     Svg: SvgFillBash,
@@ -31,9 +33,11 @@ export class Home {
 
   public readonly btnEventsProps: BtnEvPropsT = {
     onClick: (): void => {
-      this.api
-        .post<ResApiT<void>>(
-          ArgsApi.withURL('/test').body({ msg: 'some txt...' }).toastOnFulfilled().pushOnErr()
+      this.tracker
+        .trackPending(
+          this.api.post<ResApiT<void>>(
+            ArgsApi.withURL('/test').body({ msg: 'some txt...' }).toastOnFulfilled().pushOnErr()
+          )
         )
         .subscribe({
           next: (res: ResApiT<void>) => Log.logTtl('subscription ok', res),
