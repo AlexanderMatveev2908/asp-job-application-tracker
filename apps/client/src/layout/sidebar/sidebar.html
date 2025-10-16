@@ -14,6 +14,10 @@
       @for(lk of allUsersLinks; track lk.id){
       <app-side-link [lk]="lk" [currPath]="currPath()" [onSideClick]="onSideClick" />
       }
+
+      <div class="body__wrap_links">
+        <app-drop-static [spanProps]="spanUserProps()" />
+      </div>
     </div>
   </div>
 </div>

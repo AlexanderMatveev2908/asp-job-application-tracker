@@ -1,4 +1,4 @@
-import { TxtClsT } from '@/common/types/txt';
+import { TxtClsT } from '@/common/types/sizes';
 
 export interface TxtPropsT {
   txt: string;

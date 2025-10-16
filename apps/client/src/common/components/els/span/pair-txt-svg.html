@@ -1,0 +1,15 @@
+<div class="root">
+  @let Svg = spanProps().Svg;
+  <!--  -->
+  @if (Svg) {
+  <div [class]="svgCls()">
+    <ng-container *ngComponentOutlet="Svg" />
+  </div>
+  }
+  <!--  -->
+  @let label =spanProps().label;
+  <!--  -->
+  @if(label){
+  <span [class]="txtCls()">{{ label }}</span>
+  }
+</div>

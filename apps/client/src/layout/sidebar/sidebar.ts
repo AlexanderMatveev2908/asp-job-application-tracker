@@ -3,6 +3,7 @@ import {
   Component,
   computed,
   inject,
+  signal,
   Signal,
   WritableSignal,
 } from '@angular/core';
@@ -18,10 +19,13 @@ import { TxtClampPropsT } from '@/common/components/els/txt/txt_clamp/etc/types'
 import { UseMouseOutDir } from '@/core/directives/use_mouse_out/use_mouse_out';
 import { BlackBgPropsT } from '@/layout/black_bg/etc/types';
 import { LinkT } from '@/common/types/links';
+import { DropStatic } from '@/common/components/drop/static/drop-static';
+import { SpanPropsT } from '@/common/components/els/span/etc/types';
+import { spanUserNotLogged } from './ui_factory';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [BlackBg, NgClass, TxtClamp, UseMouseOutDir, SideLink],
+  imports: [BlackBg, NgClass, TxtClamp, UseMouseOutDir, SideLink, DropStatic],
   providers: [
     {
       provide: USE_MOUSE_OUT__IS_OPEN,
@@ -46,6 +50,8 @@ export class Sidebar {
   public readonly isOpen: Signal<boolean> = computed(() => this.sideSlice.sideState().isOpen);
   public readonly allUsersLinks: LinkT[] = this.linksSvc.allUsersLinks;
   public readonly currPath: WritableSignal<string | null> = this.usePath.currPath;
+
+  public readonly spanUserProps: WritableSignal<SpanPropsT> = signal(spanUserNotLogged);
 
   public readonly blackBgProps: Signal<BlackBgPropsT> = computed(() => ({
     isDark: this.isOpen(),
