@@ -49,8 +49,9 @@ export class Sidebar extends Lorem {
   private readonly usePath: UsePathSvc = inject(UsePathSvc);
 
   public readonly isOpen: Signal<boolean> = computed(() => this.sideSlice.sideState().isOpen);
-  public readonly allUsersLinks: LinkT[] = this.linksSvc.allUsers;
   public readonly currPath: WritableSignal<string | null> = this.usePath.currPath;
+  public readonly allUsersLinks: LinkT[] = this.linksSvc.allUsers;
+  public readonly notLoggedLinks: LinkT[] = this.linksSvc.notLogged;
 
   public readonly spanUserProps: WritableSignal<SpanPropsT> = signal(spanUserNotLogged);
 

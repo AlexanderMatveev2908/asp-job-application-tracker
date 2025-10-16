@@ -16,6 +16,7 @@ import { Login2fa } from '@/pages/auth/login_2fa/login-2fa';
 import { RecoverPwd2fa } from '@/pages/auth/recover_pwd_2fa/recover-pwd-2fa';
 import { AuthReqMailConfMail } from '@/pages/auth/req_mail/conf_mail/auth-req-mail-conf-mail';
 import { AuthReqMailRecoverPwd } from '@/pages/auth/req_mail/recover_pwd/auth-req-mail-recover-pwd';
+import { LayoutReqMailAuth } from '@/pages/auth/req_mail/layout/layout-req-mail-auth';
 
 export const routes: Routes = [
   {
@@ -52,6 +53,7 @@ export const routes: Routes = [
       },
       {
         path: 'require-email',
+        component: LayoutReqMailAuth,
         children: [
           {
             path: 'confirm-email',

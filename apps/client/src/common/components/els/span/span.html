@@ -3,7 +3,7 @@
   <!--  -->
   @if (Svg) {
   <div [class]="svgCls()">
-    <ng-container *ngComponentOutlet="Svg" />
+    <ng-container *ngComponentOutlet="Svg; inputs: {}" />
   </div>
   }
   <!--  -->

@@ -15,15 +15,15 @@
       <app-side-link [lk]="lk" [currPath]="currPath()" [onSideClick]="onSideClick" />
       }
 
-      <div class="body__wrap_links">
-        <app-drop-static [spanProps]="spanUserProps()">
-          <ng-template #dropContent>
-            <div class="">
-              {{ genLorem(5) }}
-            </div>
-          </ng-template>
-        </app-drop-static>
-      </div>
+      <app-drop-static [spanProps]="spanUserProps()">
+        <ng-template #dropContent>
+          <div class="body__wrap_links">
+            @for(lk of notLoggedLinks; track lk.id){
+            <app-side-link [lk]="lk" [currPath]="currPath()" [onSideClick]="onSideClick" />
+            }
+          </div>
+        </ng-template>
+      </app-drop-static>
     </div>
   </div>
 </div>
