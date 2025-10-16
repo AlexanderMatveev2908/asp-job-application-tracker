@@ -4218,6 +4218,7 @@ __metadata:
     rxjs: "npm:~7.8.0"
     tailwindcss: "npm:3.4.15"
     tslib: "npm:^2.3.0"
+    tsx: "npm:^4.20.6"
     typescript: "npm:~5.9.2"
     typescript-eslint: "npm:8.40.0"
     uuid: "npm:^13.0.0"

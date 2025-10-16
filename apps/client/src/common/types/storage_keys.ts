@@ -1,1 +1,1 @@
-export type StorageKeyT = 'NOTICE';
+export type StorageKeyT = 'notice' | 'accessToken';

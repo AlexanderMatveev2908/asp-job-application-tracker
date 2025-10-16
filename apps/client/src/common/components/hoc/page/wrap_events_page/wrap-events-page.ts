@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -56,9 +57,7 @@ export class WrapEventsPage implements AfterViewInit {
     animate(
       svgDOM,
       {
-        // eslint-disable-next-line no-magic-numbers
         scaleX: [0, 1.6, 0.6, 1.3, 0.9, 1.05, 1],
-        // eslint-disable-next-line no-magic-numbers
         scaleY: [0, 0.4, 1.4, 0.7, 1.2, 0.95, 1],
       },
       {

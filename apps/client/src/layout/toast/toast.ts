@@ -22,7 +22,7 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { ToastAnimationsSvc } from './etc/toast_animations';
-import { ErrApi } from '@/core/lib/err';
+import { ErrApp } from '@/core/lib/err';
 
 @Component({
   selector: 'app-toast',
@@ -162,7 +162,7 @@ export class Toast implements AfterViewInit {
       this.handleToastOpen(prevID, { toastDOM, timerDOM });
     } else if (isToast && !currID) {
       // ! error if by a toast exists with no ID
-      throw new ErrApi('toast should never be alive without a currID set');
+      throw new ErrApp('toast should never be alive without a currID set');
     } else if (!isToast) {
       this.handleCloseToast({ toastDOM, timerDOM });
     }

@@ -62,8 +62,8 @@ module.exports = tseslint.config(
       '@typescript-eslint/no-explicit-any': 'warn',
       // ? do not ignore promises
       '@typescript-eslint/no-floating-promises': 'error',
-      // ? declare any var type even if possible to infer
-      '@typescript-eslint/no-inferrable-types': 'warn',
+      // ? allow redeclare typed even inferred
+      '@typescript-eslint/no-inferrable-types': 'off',
       // ? do not pass promises where not handled properly
       '@typescript-eslint/no-misused-promises': 'error',
       // ? skip force assertion
