@@ -12,7 +12,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { LinkShadowPropsT } from './etc/types';
 import { AppEventMeta } from '@/common/types/events';
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
-import { PairTxtSvg } from '../../pair_txt_svg/pair-txt-svg';
+import { PairTxtSvg } from '../../els/pair_txt_svg/pair-txt-svg';
 
 @Component({
   selector: 'app-link-shadow',

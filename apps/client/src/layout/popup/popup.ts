@@ -12,8 +12,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { PopupStaticPropsT } from './etc/types';
-import { BlackBgPropsT } from '@/common/components/black_bg/etc/types';
-import { BlackBg } from '@/common/components/black_bg/black-bg';
+import { BlackBgPropsT } from '@/layout/black_bg/etc/types';
+import { BlackBg } from '@/layout/black_bg/black-bg';
 import { NgClass } from '@angular/common';
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
 import { AppEventMeta } from '@/common/types/events';

@@ -9,10 +9,10 @@ import {
 } from '@angular/core';
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
 import { AppEventMeta } from '@/common/types/events';
-import { PairTxtSvg } from '../../pair_txt_svg/pair-txt-svg';
+import { PairTxtSvg } from '../../els/pair_txt_svg/pair-txt-svg';
 import { BtnEvPropsT, BtnStatePropsT } from '@/common/types/btns';
 import { BaseElPropsT } from '@/common/types/els';
-import { PairTxtSvgPropsT } from '../../pair_txt_svg/etc/types';
+import { PairTxtSvgPropsT } from '../../els/pair_txt_svg/etc/types';
 import { WrapBtnApi } from '../../hoc/btns/wrap_btn_api/wrap-btn-api';
 import { WrapBtnApiPropsT } from '../../hoc/btns/wrap_btn_api/etc/types';
 

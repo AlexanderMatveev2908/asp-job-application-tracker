@@ -8,15 +8,15 @@ import {
 } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { SideLink } from './side_link/side-link';
-import { BlackBg } from '@/common/components/black_bg/black-bg';
-import { TxtClamp } from '@/common/components/txt/txt_clamp/txt-clamp';
+import { BlackBg } from '@/layout/black_bg/black-bg';
+import { TxtClamp } from '@/common/components/els/txt/txt_clamp/txt-clamp';
 import { USE_MOUSE_OUT__CB, USE_MOUSE_OUT__IS_OPEN } from '@/core/directives/use_mouse_out/tokens';
 import { SidebarSlice } from '@/features/sidebar/slice';
 import { LinksSvc } from '@/core/ui_factory/links';
 import { UsePathSvc } from '@/core/hooks/use_path';
-import { TxtClampPropsT } from '@/common/components/txt/txt_clamp/etc/types';
+import { TxtClampPropsT } from '@/common/components/els/txt/txt_clamp/etc/types';
 import { UseMouseOutDir } from '@/core/directives/use_mouse_out/use_mouse_out';
-import { BlackBgPropsT } from '@/common/components/black_bg/etc/types';
+import { BlackBgPropsT } from '@/layout/black_bg/etc/types';
 import { LinkT } from '@/common/types/links';
 
 @Component({
