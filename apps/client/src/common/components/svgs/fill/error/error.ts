@@ -2,7 +2,7 @@
 import { ChangeDetectionStrategy, Component, input, Signal } from '@angular/core';
 
 @Component({
-  selector: 'app-error',
+  selector: 'app-svg-fill-error',
   templateUrl: `./error.html`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -14,4 +14,3 @@ export class SvgFillError {
     stroke: Signal<string | null> = input(null);
     
 }
-  

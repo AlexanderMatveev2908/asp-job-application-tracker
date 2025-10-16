@@ -50,7 +50,7 @@ def gen_template_html(svg_data: str, svg_type: SvgT) -> str:
 
 
 def gen_template_ts(kebab_name: str, class_name: str, svg_type: SvgT) -> str:
-    selector = "app-" + kebab_name
+    selector = f"{svg_type.selector_prefix()}-{kebab_name}"
 
     return f"""
 import {{ ChangeDetectionStrategy, Component, input, Signal }} from '@angular/core';

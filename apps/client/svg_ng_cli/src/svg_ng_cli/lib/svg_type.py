@@ -16,3 +16,15 @@ class SvgT(Enum):
             err(
                 "invalid type. Use 'f' for filled, 's' for stroke or 'a' for advanced pre-styed."
             )
+
+    def selector_prefix(self) -> str:
+        base: str = "app-svg-"
+
+        if self == SvgT.A:
+            base += "advanced"
+        elif self == SvgT.F:
+            base += "fill"
+        elif self == SvgT.S:
+            base += "stroke"
+
+        return base

@@ -2,7 +2,7 @@
 import { ChangeDetectionStrategy, Component, input, Signal } from '@angular/core';
 
 @Component({
-  selector: 'app-briefcase',
+  selector: 'app-svg-fill-briefcase',
   templateUrl: `./briefcase.html`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -14,4 +14,3 @@ export class SvgFillBriefcase {
     stroke: Signal<string | null> = input(null);
     
 }
-  

@@ -2,7 +2,7 @@
 import { ChangeDetectionStrategy, Component, input, Signal } from '@angular/core';
 
 @Component({
-  selector: 'app-info',
+  selector: 'app-svg-fill-info',
   templateUrl: `./info.html`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -14,4 +14,3 @@ export class SvgFillInfo {
     stroke: Signal<string | null> = input(null);
     
 }
-  

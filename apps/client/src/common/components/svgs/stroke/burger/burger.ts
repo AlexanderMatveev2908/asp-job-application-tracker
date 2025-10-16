@@ -2,7 +2,7 @@
 import { ChangeDetectionStrategy, Component, input, Signal } from '@angular/core';
 
 @Component({
-  selector: 'app-burger',
+  selector: 'app-svg-stroke-burger',
   templateUrl: `./burger.html`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -14,4 +14,3 @@ export class SvgStrokeBurger {
     stroke: Signal<string> = input('currentColor');
     
 }
-  
