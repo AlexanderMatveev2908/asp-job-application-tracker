@@ -1,7 +1,18 @@
 <div class="root">
-  <app-span [spanProps]="spanProps()" [sizesProps]="spanSizesProps" />
+  <button class="root__btn" (click)="onClick()" [ngClass]="rootCls()">
+    <app-span [spanProps]="spanProps()" [sizesProps]="spanSizesProps" />
 
-  <div class="svg__2xl">
-    <app-svg-fill-up />
+    <div class="svg__2xl btn__arrow" [ngClass]="arrowCls()">
+      <app-svg-fill-up />
+    </div>
+  </button>
+
+  <div
+    class="root__content scroll__app tb"
+    #wrapContent
+    [style.max-height]="maxH()"
+    [ngClass]="contentCls()"
+  >
+    <ng-container *ngTemplateOutlet="dropContentRef" />
   </div>
 </div>

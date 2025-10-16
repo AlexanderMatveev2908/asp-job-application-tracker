@@ -16,7 +16,13 @@
       }
 
       <div class="body__wrap_links">
-        <app-drop-static [spanProps]="spanUserProps()" />
+        <app-drop-static [spanProps]="spanUserProps()">
+          <ng-template #dropContent>
+            <div class="">
+              {{ genLorem(5) }}
+            </div>
+          </ng-template>
+        </app-drop-static>
       </div>
     </div>
   </div>

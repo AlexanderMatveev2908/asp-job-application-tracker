@@ -22,6 +22,7 @@ import { LinkT } from '@/common/types/links';
 import { DropStatic } from '@/common/components/drop/static/drop-static';
 import { SpanPropsT } from '@/common/components/els/span/etc/types';
 import { spanUserNotLogged } from './ui_factory';
+import { Lorem } from '@/core/lib/etc';
 
 @Component({
   selector: 'app-sidebar',
@@ -42,7 +43,7 @@ import { spanUserNotLogged } from './ui_factory';
   styleUrl: './sidebar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Sidebar {
+export class Sidebar extends Lorem {
   private readonly sideSlice: SidebarSlice = inject(SidebarSlice);
   private readonly linksSvc: LinksSvc = inject(LinksSvc);
   private readonly usePath: UsePathSvc = inject(UsePathSvc);

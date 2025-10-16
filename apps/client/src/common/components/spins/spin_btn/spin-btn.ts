@@ -1,3 +1,4 @@
+import { ElDomT, RefDomT } from '@/common/types/etc';
 import { AppEventMeta, AppEventT } from '@/common/types/events';
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
@@ -6,7 +7,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  ElementRef,
   inject,
   input,
   InputSignal,
@@ -35,16 +35,18 @@ export class SpinBtn implements AfterViewInit {
 
   public readonly IDs: string[] = Array.from({ length: 4 }, () => v4());
 
-  @ViewChildren('dot') dots!: QueryList<ElementRef<HTMLDivElement>>;
+  @ViewChildren('dot') dots: QueryList<RefDomT> | undefined;
 
   ngAfterViewInit(): void {
     if (!this.usePlatform.isClient) return;
 
-    const dots = this.dots.toArray();
+    if (!this.dots) return;
 
-    for (let i = 0; i < dots.length; i++) {
-      const curr: ElementRef<HTMLElement> = dots[i];
-      const currDOM: HTMLElement = curr.nativeElement;
+    const dotsDOM = this.dots.toArray();
+
+    for (let i = 0; i < dotsDOM.length; i++) {
+      const curr: RefDomT = dotsDOM[i];
+      const currDOM: ElDomT = curr?.nativeElement;
 
       if (!currDOM) return;
 
@@ -54,7 +56,7 @@ export class SpinBtn implements AfterViewInit {
         { scale: [1, 1.25, 1], y: [0, 35, 0] },
         {
           duration: 1,
-          delay: (i * 1) / dots.length,
+          delay: (i * 1) / dotsDOM.length,
           easing: 'ease-in-out',
           repeat: Infinity,
         }
