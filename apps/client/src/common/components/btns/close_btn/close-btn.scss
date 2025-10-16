@@ -1,1 +1,6 @@
-.root{}
+@use 'exports/mix' as mix;
+
+.root {
+  @include mix.btn__scl(1.4);
+  @apply text-red-600;
+}

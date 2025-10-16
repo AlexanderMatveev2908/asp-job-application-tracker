@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular
 import { SvgFillClose } from '../../svgs/fill/close/close';
 
 @Component({
-  selector: 'app-svg-fill-close-btn',
+  selector: 'app-close-btn',
   imports: [SvgFillClose],
   templateUrl: './close-btn.html',
   styleUrl: './close-btn.scss',

@@ -3,11 +3,10 @@ import { Sidebar } from '@/layout/sidebar/sidebar';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Toast } from '@/layout/toast/toast';
-import { WakeUp } from '@/layout/wake_up/wake-up';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, Sidebar, Toast, WakeUp],
+  imports: [RouterOutlet, Header, Sidebar, Toast],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
