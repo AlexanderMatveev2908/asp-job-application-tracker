@@ -67,7 +67,7 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 
       - name: 📦 install client pkg
-        run: yarn install && yarn workspace client playwright install
+        run: yarn install && yarn workspace client install_pkg
 
       - name: ☕ setup Java 21 Eclipse
         uses: actions/setup-java@v4
@@ -83,12 +83,12 @@ jobs:
       - name: 🔎 lint && types check
         run: yarn check
 
+      - name: 🔒 generate .env client & server workspaces
+        run: printenv > apps/client/.env & printenv > apps/server/.env
+
         # ? ~ 1 minute
       - name: 🛠️ build app
         run: yarn build
-
-      - name: 🔒 generate .env server file
-        run: printenv > apps/server/.env
 
       - name: ⏳ start servers & wait
         run: |
