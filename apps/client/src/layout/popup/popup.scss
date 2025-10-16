@@ -1,4 +1,8 @@
 .root {
-  border-color: var(--clr);
-  @apply fixed left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-[90%] max-w-[600px] h-[75%] max-h-[500px] border-3 bg-neutral-950 rounded-xl;
+  @apply fixed inset-0 flex justify-center items-center;
+
+  .root__pop {
+    border-color: var(--clr);
+    @apply w-[90%] max-w-[600px] h-[75%] max-h-[500px] border-3 bg-neutral-950 rounded-xl scale-0;
+  }
 }

@@ -38,6 +38,10 @@ export class WakeUp implements AfterViewInit {
       setTimeout(() => {
         Log.log(this.isPop());
         this.isPop.set(true);
+
+        setTimeout(() => {
+          this.isPop.set(false);
+        }, 1000);
       }, 1500);
     });
   }

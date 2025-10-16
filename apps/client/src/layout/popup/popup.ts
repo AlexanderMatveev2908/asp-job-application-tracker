@@ -52,7 +52,9 @@ export class Popup {
 
     if (!popDOM) return;
 
-    if (isPop) this.animationsPop.popIn(popDOM);
-    else this.animationsPop.popOut(popDOM);
+    this.usePlatform.runOnClientSync(() => {
+      if (isPop) this.animationsPop.popIn(popDOM);
+      else if (!isPop && isPop !== null) this.animationsPop.popOut(popDOM);
+    });
   });
 }
