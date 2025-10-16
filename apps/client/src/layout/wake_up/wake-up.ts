@@ -9,8 +9,8 @@ import {
 import { Popup } from '../popup/popup';
 import { PopupStaticPropsT } from '../popup/etc/types';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
-import { Lorem } from '@/core/lib/etc';
 import { SpinBtn } from '@/common/components/spins/spin_btn/spin-btn';
+import { WakeUpApiSvc } from '@/features/wake_up/api';
 
 @Component({
   selector: 'app-wake-up',
@@ -19,7 +19,8 @@ import { SpinBtn } from '@/common/components/spins/spin_btn/spin-btn';
   styleUrl: './wake-up.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WakeUp extends Lorem implements AfterViewInit {
+export class WakeUp implements AfterViewInit {
+  private readonly wakeUpApi: WakeUpApiSvc = inject(WakeUpApiSvc);
   public readonly isPop: WritableSignal<boolean | null> = signal(null);
   public readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
@@ -35,13 +36,6 @@ export class WakeUp extends Lorem implements AfterViewInit {
   };
 
   ngAfterViewInit(): void {
-    this.usePlatform.runOnClientSync(() => {
-      setTimeout(() => {
-        this.isPop.set(true);
-        // setTimeout(() => {
-        //   this.isPop.set(false);
-        // }, 1000);
-      }, 500);
-    });
+    this.wakeUpApi.wrap();
   }
 }
