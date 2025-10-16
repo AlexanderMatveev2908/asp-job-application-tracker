@@ -16,7 +16,7 @@ import { UseStorageSvc } from '@/core/hooks/use_storage';
 import { Prs } from '@/core/lib/data_structure/formatters';
 import { WakeUpSlice } from '@/features/wake_up/slice';
 import { ErrApiT, ResApiT } from '@/core/store/api/etc/types';
-import { finalize } from 'rxjs';
+import { finalize, tap } from 'rxjs';
 
 @Component({
   selector: 'app-wake-up',
@@ -63,26 +63,22 @@ export class WakeUp implements AfterViewInit {
   ngAfterViewInit(): void {
     if (!this.pollIf()) return;
 
-    this.isPop.set(true);
-
-    this.wakeUpApi
-      .poll()
-      .pipe(
-        finalize(() => {
-          this.isPop.set(false);
-        })
+    this.usePlatform
+      .whenStable<ResApiT<void>>(
+        this.wakeUpApi.poll().pipe(
+          tap(() => this.isPop.set(true)),
+          finalize(() => this.isPop.set(false))
+        )
       )
       .subscribe({
         next: (res: ResApiT<void>) => {
-          this.toastSlice.openToast({
+          this.toastSlice.ifNotPresent({
             msg: res.msg ?? 'server available',
             eventT: 'OK',
             status: res.status,
           });
-
-          const now: number = Date.now();
-          this.wakeUpSlice.setLastCall(now);
-          this.useStorage.setItem('wakeUp', now);
+          const now = Date.now();
+          this.wakeUpSlice.setLastCallWithStorage(now);
         },
         error: (err: ErrApiT<void>) => {
           this.toastSlice.ifNotPresent({
