@@ -2,6 +2,12 @@
 
 <div class="root" [ngClass]="cssZ()" [style.pointer-events]="isPop() ? 'auto' : 'none'">
   <div #popup class="root__pop" [style.--clr]="eventMeta().css">
-    <ng-content />
+    <div class="pop__close_row">
+      <app-close-btn [closeClick]="staticProps().closePop" />
+    </div>
+
+    <div class="pop__content scroll__app">
+      <ng-container *ngTemplateOutlet="popContentTpl" />
+    </div>
   </div>
 </div>

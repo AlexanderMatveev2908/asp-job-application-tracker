@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  ContentChild,
   effect,
   EffectRef,
   ElementRef,
@@ -9,20 +11,22 @@ import {
   input,
   InputSignal,
   Signal,
+  TemplateRef,
   ViewChild,
 } from '@angular/core';
 import { PopupStaticPropsT } from './etc/types';
 import { BlackBgPropsT } from '@/layout/black_bg/etc/types';
 import { BlackBg } from '@/layout/black_bg/black-bg';
-import { NgClass } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
 import { AppEventMeta } from '@/common/types/events';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { AnimationsPopSvc } from './etc/animations_pop';
+import { CloseBtn } from '@/common/components/btns/close_btn/close-btn';
 
 @Component({
   selector: 'app-popup',
-  imports: [BlackBg, NgClass],
+  imports: [BlackBg, NgClass, CloseBtn, NgTemplateOutlet],
   templateUrl: './popup.html',
   styleUrl: './popup.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -43,6 +47,7 @@ export class Popup {
   );
 
   @ViewChild('popup') popup!: ElementRef<HTMLElement>;
+  @ContentChild('popContent', { read: TemplateRef }) popContentTpl!: TemplateRef<any>;
 
   public cssZ: Signal<string> = computed(() => `z__${this.staticProps().cls}`);
 
