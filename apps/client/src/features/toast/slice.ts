@@ -27,4 +27,10 @@ export class ToastSlice {
   public closeToast(): void {
     this.store.dispatch(ToastActT.CLOSE_TOAST());
   }
+
+  public ifNotPresent(arg: AppEventPayload): void {
+    if (this.toastState().isToast) return;
+
+    this.openToast(arg);
+  }
 }

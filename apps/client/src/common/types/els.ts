@@ -1,4 +1,4 @@
-import { PairTxtSvgPropsT } from '../components/pair_txt_svg/etc/types';
+import { PairTxtSvgPropsT } from '../components/els/pair_txt_svg/etc/types';
 import { AppEventT } from './events';
 
 export interface BaseElPropsT extends PairTxtSvgPropsT {

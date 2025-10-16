@@ -1,13 +1,13 @@
 <div class="root z__header">
   <div class="root__left">
     <a routerLink="/" class="svg__2xl app__clr">
-      <app-ghost />
+      <app-svg-fill-ghost />
     </a>
   </div>
 
   <div class="root__right">
     <button class="svg__3xl app__clr">
-      <app-user-write />
+      <app-svg-stroke-user-write />
     </button>
 
     <button
@@ -15,9 +15,9 @@
       (click)="handleToggle()"
     >
       @if (isOpen()) {
-      <app-close />
+      <app-svg-fill-close />
       } @else {
-      <app-burger />
+      <app-svg-stroke-burger />
       }
     </button>
   </div>

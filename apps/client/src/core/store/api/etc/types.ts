@@ -1,6 +1,7 @@
 /* eslint-disable no-magic-numbers */
 import { GenericObjT } from '@/common/types/etc';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface ConfApiT {
   url: string | null;
@@ -17,7 +18,11 @@ export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 export type ResApiT<T> = {
   msg?: string;
   status: number;
-} & T;
+} & T &
+  HttpEvent<unknown>;
+
+export type ObsResT<T> = Observable<ResApiT<T>>;
+export type ObsOnOkT<T> = Observable<ResApiT<T> | never>;
 
 export interface ErrApiT<T> extends HttpErrorResponse {
   error: ResApiT<T>;

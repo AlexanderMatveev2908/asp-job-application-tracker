@@ -22,4 +22,9 @@ export class Prs {
 
     return map[arg as keyof typeof map];
   }
+
+  public static minutesToMs(minutes: number): number {
+    // eslint-disable-next-line no-magic-numbers
+    return minutes * 60 * 1000;
+  }
 }

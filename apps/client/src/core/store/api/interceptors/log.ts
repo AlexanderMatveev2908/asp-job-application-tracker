@@ -42,8 +42,8 @@ export const logApiMdw: HttpInterceptorFn = (
 
   return next(req).pipe(
     tap({
-      next: (res: HttpEvent<unknown>) => mng(res, confData, '✅'),
-      error: (res: HttpErrorResponse) => mng(res, confData, '❌'),
+      next: (e: HttpEvent<unknown>) => mng(e, confData, '✅'),
+      error: (e: HttpErrorResponse) => mng(e, confData, '❌'),
     })
   );
 };

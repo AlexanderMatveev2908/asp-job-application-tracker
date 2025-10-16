@@ -1,0 +1,9 @@
+<app-popup [staticProps]="popupStaticProps" [isPop]="isPop()">
+  <ng-template #popContent>
+    <div class="root">
+      <span class="txt__xl">Server waking up... 💤</span>
+
+      <app-spin-btn [eventT]="'INFO'" />
+    </div>
+  </ng-template>
+</app-popup>

@@ -1,4 +1,3 @@
-import { SvgFillClose } from '@/common/components/svgs/fill/close/close';
 import { AppEventMeta } from '@/common/types/events';
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
@@ -23,10 +22,11 @@ import {
 } from '@angular/core';
 import { ToastAnimationsSvc } from './etc/toast_animations';
 import { ErrApp } from '@/core/lib/err';
+import { CloseBtn } from '@/common/components/btns/close_btn/close-btn';
 
 @Component({
   selector: 'app-toast',
-  imports: [SvgFillClose, NgTemplateOutlet],
+  imports: [CloseBtn, NgTemplateOutlet, CloseBtn],
   templateUrl: './toast.html',
   styleUrl: './toast.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -76,12 +76,12 @@ export class Toast implements AfterViewInit {
   @ViewChild('toast') toast!: ElementRef<HTMLElement>;
   @ViewChild('timerToast') timerToast!: ElementRef<HTMLElement>;
 
-  public closeClick(): void {
+  public closeClick: () => void = () => {
     // ? always first clear timer on close
     // ? it means process finished completely
     this.clearTimerID();
     this.toastSlice.closeToast();
-  }
+  };
 
   // ? ⏳ timer
   private timerID: NodeJS.Timeout | null = null;

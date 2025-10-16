@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { ErrApiT, OptErrApi, OptToastApiT, ResApiT, StatusT } from './types';
-import { catchError, EMPTY, from, Observable, switchMap, tap } from 'rxjs';
+import { ErrApiT, ObsOnOkT, ObsResT, OptErrApi, OptToastApiT, ResApiT, StatusT } from './types';
+import { catchError, EMPTY, from, switchMap, tap } from 'rxjs';
 import { ToastSlice } from '@/features/toast/slice';
 import { NoticeSlice } from '@/features/notice/slice';
 import { UseNavSvc } from '@/core/hooks/use_nav';
@@ -20,7 +20,7 @@ export class EventsMngSvc {
     'A wild Snorlax fall asleep blocking the road 💤. Try later';
 
   // ? 📊 manager
-  public mng<T>(cb: Observable<ResApiT<T> | never>, args: ArgsApi): Observable<ResApiT<T>> {
+  public mng<T>(cb: ObsResT<T>, args: ArgsApi): ObsOnOkT<T> {
     return this.whenErr(this.withToast(cb, args.getOptToast()), args.getOptErr());
   }
 
@@ -30,10 +30,7 @@ export class EventsMngSvc {
     pushOnStatus: [StatusT.FORBIDDEN, StatusT.TOO_MANY_REQUESTS, StatusT.INTERNAL_SERVER_ERROR],
   };
 
-  private whenErr<T>(
-    cb: Observable<ResApiT<T>>,
-    opt: Partial<OptErrApi> | null
-  ): Observable<ResApiT<T> | never> {
+  private whenErr<T>(cb: ObsResT<T>, opt: Partial<OptErrApi> | null): ObsOnOkT<T> {
     const options: Partial<OptErrApi> = opt ?? this.defOptErr;
 
     return cb.pipe(
@@ -65,10 +62,7 @@ export class EventsMngSvc {
     };
   }
 
-  private withToast<T>(
-    cb: Observable<ResApiT<T>>,
-    opt: Partial<OptToastApiT> | null
-  ): Observable<ResApiT<T>> {
+  private withToast<T>(cb: ObsResT<T>, opt: Partial<OptToastApiT> | null): ObsResT<T> {
     const options: Partial<OptToastApiT> = opt ?? this.defOptToast();
 
     return cb.pipe(

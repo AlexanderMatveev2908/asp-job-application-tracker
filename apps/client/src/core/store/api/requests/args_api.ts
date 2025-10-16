@@ -96,7 +96,7 @@ export class ArgsApi {
   }
 
   public httpOptions(): Record<string, unknown> {
-    const options =
+    const options: Record<string, unknown> =
       !this._body || this._body instanceof FormData
         ? {}
         : { headers: { 'Content-Type': 'application/json' } };

@@ -2,7 +2,7 @@
 import { ChangeDetectionStrategy, Component, input, Signal } from '@angular/core';
 
 @Component({
-  selector: 'app-user-write',
+  selector: 'app-svg-stroke-user-write',
   templateUrl: `./user-write.html`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -14,4 +14,3 @@ export class SvgStrokeUserWrite {
     stroke: Signal<string> = input('currentColor');
     
 }
-  

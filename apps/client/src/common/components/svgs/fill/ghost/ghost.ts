@@ -2,7 +2,7 @@
 import { ChangeDetectionStrategy, Component, input, Signal } from '@angular/core';
 
 @Component({
-  selector: 'app-ghost',
+  selector: 'app-svg-fill-ghost',
   templateUrl: `./ghost.html`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -14,4 +14,3 @@ export class SvgFillGhost {
     stroke: Signal<string | null> = input(null);
     
 }
-  

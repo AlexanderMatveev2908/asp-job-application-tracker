@@ -59,8 +59,8 @@ export const addConfApiMdw: HttpInterceptorFn = (
 
   return next(req).pipe(
     tap({
-      next: (res: HttpEvent<unknown>) => mng(req, res, confApi),
-      error: (res: HttpEvent<unknown>) => mng(req, res, confApi),
+      next: (e: HttpEvent<unknown>) => mng(req, e, confApi),
+      error: (e: HttpEvent<unknown>) => mng(req, e, confApi),
     })
   );
 };

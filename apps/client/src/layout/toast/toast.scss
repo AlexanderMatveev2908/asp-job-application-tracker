@@ -10,10 +10,6 @@
 
   .root__close_row {
     @apply absolute top-1 right-1;
-    .close_row__btn {
-      @include mix.btn__scl(1.4);
-      @apply text-red-600;
-    }
   }
 
   .root__status_row {

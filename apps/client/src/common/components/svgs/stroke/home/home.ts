@@ -2,7 +2,7 @@
 import { ChangeDetectionStrategy, Component, input, Signal } from '@angular/core';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-svg-stroke-home',
   templateUrl: `./home.html`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -14,4 +14,3 @@ export class SvgStrokeHome {
     stroke: Signal<string> = input('currentColor');
     
 }
-  
