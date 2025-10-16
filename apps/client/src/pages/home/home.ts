@@ -3,6 +3,7 @@ import { WrapPage } from '@/common/components/hoc/page/wrap_page/wrap-page';
 import { SvgFillBash } from '@/common/components/svgs/fill/bash/bash';
 import { BtnEvPropsT, BtnStatePropsT } from '@/common/types/btns';
 import { BaseElPropsT } from '@/common/types/els';
+import { Log } from '@/core/lib/log';
 import { ApiSvc } from '@/core/store/api/api';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { ArgsApi } from '@/core/store/api/requests/args_api';
@@ -30,12 +31,12 @@ export class Home {
 
   public readonly btnEventsProps: BtnEvPropsT = {
     onClick: (): void => {
-      this.api.post(ArgsApi.withURL('/test').toastOnFulfilled()).subscribe({
+      this.api.post(ArgsApi.withURL('/test').toastOnFulfilled().pushOnErr()).subscribe({
         next: (res: ResApiT<Record<string, unknown>>) => {
-          void res;
+          Log.logTtl('subscribe ok', res);
         },
         error: (err: any) => {
-          void err;
+          Log.logTtl('subscribe err', err);
         },
       });
     },

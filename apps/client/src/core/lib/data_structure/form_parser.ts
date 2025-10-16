@@ -1,5 +1,5 @@
 import { ShapeCheck } from './shape';
-import { ErrApi } from '../err';
+import { ErrApp } from '../err';
 
 export class FormPrs {
   private static appendPrimitive(params: URLSearchParams | FormData, k: string, v: unknown): void {
@@ -24,7 +24,7 @@ export class FormPrs {
     prefix: string = ''
   ): URLSearchParams | FormData {
     if (!ShapeCheck.hasObjData(arg))
-      throw new ErrApi('passed falsy value where expect Record<string,unknown>');
+      throw new ErrApp('passed falsy value where expect Record<string,unknown>');
 
     for (const [k, v] of Object.entries(arg as Record<string, unknown>)) {
       if (ShapeCheck.isNone(v)) continue;
@@ -46,7 +46,7 @@ export class FormPrs {
   public static genFormData(obj: unknown): FormData {
     const result: FormData | URLSearchParams = this.nestingMng(obj, new FormData());
 
-    if (!(result instanceof FormData)) throw new ErrApi('bug generating dynamic nested forms');
+    if (!(result instanceof FormData)) throw new ErrApp('bug generating dynamic nested forms');
 
     return result;
   }

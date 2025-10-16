@@ -1,4 +1,4 @@
-export class ErrApi extends Error {
+export class ErrApp extends Error {
   private readonly msg: string;
   private readonly status: number;
 

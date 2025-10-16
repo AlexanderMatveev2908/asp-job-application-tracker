@@ -1,12 +1,13 @@
 import { HttpParams } from '@angular/common/http';
-import { OptToastApiT } from '../etc/types';
+import { OptErrApi, OptToastApiT } from '../etc/types';
 import { FormPrs } from '@/core/lib/data_structure/form_parser';
-import { ErrApi } from '@/core/lib/err';
+import { ErrApp } from '@/core/lib/err';
 
 export class ArgsApi {
   private readonly _url: string = '';
   private _params: HttpParams | null = null;
-  private _optToast: OptToastApiT | null = null;
+  private _optToast: Partial<OptToastApiT> | null = null;
+  private _optErr: Partial<OptErrApi> | null = null;
   private _body: Record<string, object> | FormData | null = null;
 
   constructor(url: string) {
@@ -14,12 +15,15 @@ export class ArgsApi {
   }
 
   private parseQuery(query: Record<string, unknown>): HttpParams {
-    if (!query) throw new ErrApi('invalid arg parseQuery');
+    if (!query) throw new ErrApp('invalid arg parseQuery');
     return new HttpParams({ fromString: FormPrs.genParamsURL(query) });
   }
 
   private ifOptToastEmpty(): void {
-    if (!this._optToast) this._optToast = {} as OptToastApiT;
+    if (!this._optToast) this._optToast = {};
+  }
+  private ifOptErrEmpty(): void {
+    if (!this._optErr) this._optErr = {};
   }
 
   public static withURL(url: string): ArgsApi {
@@ -55,6 +59,18 @@ export class ArgsApi {
     return this;
   }
 
+  public pushOnErr(): ArgsApi {
+    this.ifOptErrEmpty();
+    this._optErr!.pushOnErr = true;
+    return this;
+  }
+
+  public pushOnStatus(codes: number[]): ArgsApi {
+    this.ifOptErrEmpty();
+    this._optErr!.pushOnStatus = codes;
+    return this;
+  }
+
   public freeze(): Readonly<this> {
     return Object.freeze(this);
   }
@@ -71,8 +87,12 @@ export class ArgsApi {
     return this._body;
   }
 
-  public getOptToast(): OptToastApiT | null {
+  public getOptToast(): Partial<OptToastApiT> | null {
     return this._optToast;
+  }
+
+  public getOptErr(): Partial<OptErrApi> | null {
+    return this._optErr;
   }
 
   public httpOptions(): Record<string, unknown> {

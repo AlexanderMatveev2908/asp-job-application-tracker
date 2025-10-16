@@ -26,3 +26,8 @@ export interface OptToastApiT {
   toastOk: boolean;
   toastErr: boolean;
 }
+
+export interface OptErrApi {
+  pushOnErr: boolean;
+  pushOnStatus: number[];
+}

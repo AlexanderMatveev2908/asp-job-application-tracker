@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { UsePlatformSvc } from './use_platform';
 import { Log } from '../lib/log';
 import { StorageKeyT } from '@/common/types/storage_keys';
-import { ErrApi } from '../lib/err';
+import { ErrApp } from '../lib/err';
 import { ShapeCheck } from '../lib/data_structure/shape';
 import { Prs } from '../lib/data_structure/formatters';
 import { Stack } from '../lib/stack';
@@ -30,7 +30,7 @@ export class UseStorageSvc {
 
   public setItem<T>(key: StorageKeyT, data: T): void | null {
     return this.checkEnv(() => {
-      if (ShapeCheck.isNone(data)) throw new ErrApi('passed None to set storage');
+      if (ShapeCheck.isNone(data)) throw new ErrApp('passed None to set storage');
       else if (ShapeCheck.isPrimitive(data)) sessionStorage.setItem(key, data + '');
       else sessionStorage.setItem(key, JSON.stringify(data));
     });

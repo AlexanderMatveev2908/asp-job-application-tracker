@@ -1,4 +1,4 @@
-import { ErrApi } from '../err';
+import { ErrApp } from '../err';
 
 export class TxtDOM {
   public static binaryTrim(
@@ -35,7 +35,7 @@ export class TxtDOM {
     el.textContent = res;
     void el.offsetHeight;
 
-    if (el.scrollHeight > maxH) throw new ErrApi('height calculated wrong');
+    if (el.scrollHeight > maxH) throw new ErrApp('height calculated wrong');
 
     return res;
   }
