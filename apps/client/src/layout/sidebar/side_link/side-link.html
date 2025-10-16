@@ -4,11 +4,5 @@
   [ngClass]="isCurrPath() ? 'active' : ''"
   class="root app__link"
 >
-  <div class="svg__xl">
-    <ng-container *ngComponentOutlet="lk().Svg" />
-  </div>
-
-  <span class="txt__lg">
-    {{ lk().label }}
-  </span>
+  <app-span [spanProps]="lk()" [sizesProps]="spanSizesProps" />
 </a>

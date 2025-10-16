@@ -6,14 +6,16 @@ import {
   InputSignal,
   Signal,
 } from '@angular/core';
-import { NgClass, NgComponentOutlet } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { LinkT } from '@/common/types/links';
 import { LinksSvc } from '@/core/ui_factory/links';
+import { Span } from '@/common/components/els/span/span';
+import { SpanSizesPropsT } from '@/common/components/els/span/etc/types';
 
 @Component({
   selector: 'app-side-link',
-  imports: [NgComponentOutlet, RouterLink, NgClass],
+  imports: [RouterLink, NgClass, Span],
   templateUrl: './side-link.html',
   styleUrl: './side-link.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,4 +28,9 @@ export class SideLink {
   public readonly isCurrPath: Signal<boolean> = computed(() =>
     LinksSvc.isCurrPath(this.currPath(), this.lk().path)
   );
+
+  public readonly spanSizesProps: SpanSizesPropsT = {
+    txt: 'lg',
+    svg: 'xl',
+  };
 }

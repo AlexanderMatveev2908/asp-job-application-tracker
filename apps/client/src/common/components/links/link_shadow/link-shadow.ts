@@ -12,11 +12,11 @@ import { NgTemplateOutlet } from '@angular/common';
 import { LinkShadowPropsT } from './etc/types';
 import { AppEventMeta } from '@/common/types/events';
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
-import { PairTxtSvg } from '../../els/pair_txt_svg/pair-txt-svg';
+import { Span } from '../../els/span/span';
 
 @Component({
   selector: 'app-link-shadow',
-  imports: [RouterLink, NgTemplateOutlet, PairTxtSvg],
+  imports: [RouterLink, NgTemplateOutlet, Span],
   templateUrl: './link-shadow.html',
   styleUrl: './link-shadow.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -21,13 +21,15 @@ export class UsePlatformSvc {
     return this.isServer ? null : await arg();
   }
 
+  private isStable(): Observable<boolean> {
+    return this.appRef.isStable.pipe(filter(Boolean), take(1));
+  }
+
+  public whenStable<T>(cb: Observable<ResApiT<T>>): Observable<ResApiT<T>> {
+    return this.isStable().pipe(switchMap(() => cb));
+  }
+
   public whenClientStable<T>(cb: Observable<ResApiT<T>>): Observable<ResApiT<T> | never> {
-    return this.isClient
-      ? this.appRef.isStable.pipe(
-          filter(Boolean),
-          take(1),
-          switchMap(() => cb)
-        )
-      : EMPTY;
+    return this.isClient ? this.isStable().pipe(switchMap(() => cb)) : EMPTY;
   }
 }

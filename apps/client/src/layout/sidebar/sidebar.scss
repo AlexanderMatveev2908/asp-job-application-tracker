@@ -9,10 +9,11 @@
   }
 
   .root__span_mail {
-    @apply px-3 py-3 border-b-3 border-gray-300;
+    @apply flex items-center px-3 border-b-3 h-[70px] border-gray-300;
   }
 
   .root__body {
+    height: calc(100% - 70px);
     @apply px-3 py-5 overflow-y-auto max-h-full;
 
     .body__wrap_links {

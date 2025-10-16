@@ -12,7 +12,6 @@ import {
   computed,
   effect,
   EffectRef,
-  ElementRef,
   HostListener,
   inject,
   signal,
@@ -23,6 +22,7 @@ import {
 import { ToastAnimationsSvc } from './etc/toast_animations';
 import { ErrApp } from '@/core/lib/err';
 import { CloseBtn } from '@/common/components/btns/close_btn/close-btn';
+import { ElDomT, RefDomT } from '@/common/types/etc';
 
 @Component({
   selector: 'app-toast',
@@ -44,7 +44,7 @@ export class Toast implements AfterViewInit {
   public readonly isClient: boolean = this.usePlatform.isClient;
 
   // ? 📜 message trim
-  @ViewChild('msgContainer') msgContainer!: ElementRef<HTMLElement>;
+  @ViewChild('msgContainer') msgContainer: RefDomT;
 
   public readonly trimmedMsg: WritableSignal<string> = signal('');
 
@@ -52,11 +52,10 @@ export class Toast implements AfterViewInit {
     const msg: string = this.toastState().msg;
     const MAX_LINES = 3;
 
-    if (!this.msgContainer) return;
+    const elDOM: ElDomT = this.msgContainer?.nativeElement;
+    if (!elDOM) return;
 
-    this.trimmedMsg.set(
-      TxtDOM.binaryTrim(msg, { el: this.msgContainer.nativeElement, maxLines: MAX_LINES })
-    );
+    this.trimmedMsg.set(TxtDOM.binaryTrim(msg, { el: elDOM, maxLines: MAX_LINES }));
   }
 
   @HostListener('window:resize')
@@ -73,8 +72,8 @@ export class Toast implements AfterViewInit {
   }
 
   // ? 🎨 toast render
-  @ViewChild('toast') toast!: ElementRef<HTMLElement>;
-  @ViewChild('timerToast') timerToast!: ElementRef<HTMLElement>;
+  @ViewChild('toast') toast: RefDomT;
+  @ViewChild('timerToast') timerToast: RefDomT;
 
   public closeClick: () => void = () => {
     // ? always first clear timer on close
@@ -151,8 +150,8 @@ export class Toast implements AfterViewInit {
 
   // eslint-disable-next-line complexity
   private readonly timerEffect: EffectRef = effect(() => {
-    const toastDOM: HTMLElement = this.toast?.nativeElement;
-    const timerDOM: HTMLElement = this.timerToast?.nativeElement;
+    const toastDOM: ElDomT = this.toast?.nativeElement;
+    const timerDOM: ElDomT = this.timerToast?.nativeElement;
 
     const { isToast, currID, prevID } = this.toastState();
 

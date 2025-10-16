@@ -6,7 +6,6 @@ import {
   ContentChild,
   effect,
   EffectRef,
-  ElementRef,
   inject,
   input,
   InputSignal,
@@ -23,6 +22,7 @@ import { AppEventMeta } from '@/common/types/events';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { AnimationsPopSvc } from './etc/animations_pop';
 import { CloseBtn } from '@/common/components/btns/close_btn/close-btn';
+import { ElDomT, RefDomT } from '@/common/types/etc';
 
 @Component({
   selector: 'app-popup',
@@ -46,14 +46,14 @@ export class Popup {
     this.useAppEvents.getByT(this.staticProps().eventT)
   );
 
-  @ViewChild('popup') popup!: ElementRef<HTMLElement>;
+  @ViewChild('popup') popup: RefDomT;
   @ContentChild('popContent', { read: TemplateRef }) popContentTpl!: TemplateRef<any>;
 
   public cssZ: Signal<string> = computed(() => `z__${this.staticProps().cls}`);
 
   public animationsEff: EffectRef = effect(() => {
     const isPop = this.isPop();
-    const popDOM: HTMLElement = this.popup?.nativeElement;
+    const popDOM: ElDomT = this.popup?.nativeElement;
 
     if (!popDOM) return;
 

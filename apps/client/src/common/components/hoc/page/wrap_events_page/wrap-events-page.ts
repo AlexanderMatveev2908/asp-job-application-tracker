@@ -5,7 +5,6 @@ import {
   Component,
   computed,
   ContentChild,
-  ElementRef,
   inject,
   input,
   InputSignal,
@@ -19,6 +18,7 @@ import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
 import { AppEventMeta, AppEventPayload } from '@/common/types/events';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { WrapPage } from '../wrap_page/wrap-page';
+import { ElDomT, RefDomT } from '@/common/types/etc';
 
 @Component({
   selector: 'app-wrap-events-page',
@@ -36,26 +36,31 @@ export class WrapEventsPage implements AfterViewInit {
     this.useAppEvents.getByT(this.props().eventT)
   );
 
-  @ViewChild('svgWrap') svgWrap!: ElementRef<HTMLElement>;
-  @ViewChild('spanMsg') spanMsg!: ElementRef<HTMLElement>;
-  @ViewChild('spanStatus') spanStatus!: ElementRef<HTMLElement>;
-  @ViewChild('content') content!: ElementRef<HTMLElement>;
+  @ViewChild('svgWrap') svgWrap: RefDomT;
+  @ViewChild('spanMsg') spanMsg: RefDomT;
+  @ViewChild('spanStatus') spanStatus: RefDomT;
+  @ViewChild('content') content: RefDomT;
 
   @ContentChild('header', { read: TemplateRef }) headerTpl?: TemplateRef<unknown>;
   @ContentChild('footer', { read: TemplateRef }) footerTpl?: TemplateRef<unknown>;
 
+  private elsAreT<T>(els: (T | null | undefined)[]): asserts els is T[] {
+    if (els.some((el: T | null | undefined) => !el))
+      throw new Error('One or more required DOM elements are missing.');
+  }
+
   ngAfterViewInit(): void {
     if (!this.usePlatform.isClient) return;
 
-    const svgDOM: HTMLElement = this.svgWrap?.nativeElement;
-    const spanMsgDOM: HTMLElement = this.spanMsg?.nativeElement;
-    const spanStatusDOM: HTMLElement = this.spanStatus?.nativeElement;
-    const contentDOM: HTMLElement = this.content?.nativeElement;
+    const svgDOM: ElDomT = this.svgWrap?.nativeElement;
+    const spanMsgDOM: ElDomT = this.spanMsg?.nativeElement;
+    const spanStatusDOM: ElDomT = this.spanStatus?.nativeElement;
+    const contentDOM: ElDomT = this.content?.nativeElement;
 
-    if ([svgDOM, spanMsgDOM, spanStatusDOM, contentDOM].some((el: HTMLElement) => !el)) return;
+    if ([svgDOM, spanMsgDOM, spanStatusDOM, contentDOM].some((el: ElDomT) => !el)) return;
 
     animate(
-      svgDOM,
+      svgDOM!,
       {
         scaleX: [0, 1.6, 0.6, 1.3, 0.9, 1.05, 1],
         scaleY: [0, 0.4, 1.4, 0.7, 1.2, 0.95, 1],
@@ -78,7 +83,7 @@ export class WrapEventsPage implements AfterViewInit {
     );
 
     animate(
-      spanMsgDOM,
+      spanMsgDOM!,
       {
         x: baseFlow,
       },
@@ -86,7 +91,7 @@ export class WrapEventsPage implements AfterViewInit {
     );
 
     animate(
-      spanStatusDOM,
+      spanStatusDOM!,
       {
         x: reverseFlow,
       },
@@ -94,7 +99,7 @@ export class WrapEventsPage implements AfterViewInit {
     );
 
     animate(
-      contentDOM,
+      contentDOM!,
       {
         opacity: [0, 1],
       },
