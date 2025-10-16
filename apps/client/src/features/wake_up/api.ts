@@ -17,7 +17,7 @@ export class WakeUpApiSvc {
   }
 
   // eslint-disable-next-line no-magic-numbers
-  private readonly MAX_CALLS: number = 15;
+  private readonly MAX_CALLS: number = 30;
 
   public poll(): Observable<ResApiT<void>> {
     return this.wakeUp().pipe(

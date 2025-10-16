@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-wrap-page-job-applications',
+  selector: 'app-layout-job-applications',
   imports: [RouterOutlet],
-  templateUrl: './wrap-page-job-applications.html',
-  styleUrl: './wrap-page-job-applications.scss',
+  templateUrl: './layout-job-applications.html',
+  styleUrl: './layout-job-applications.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WrapPageJobApplications {}
+export class LayoutJobApplications {}
