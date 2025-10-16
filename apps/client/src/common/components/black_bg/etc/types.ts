@@ -1,4 +1,4 @@
 export interface BlackBgPropsT {
-  isDark: boolean;
+  isDark: boolean | null;
   zBg: string;
 }

@@ -1,0 +1,5 @@
+<app-black-bg [props]="blackBgProps()" />
+
+<div #popup class="root" [ngClass]="cssZ()" [style.--clr]="eventMeta().css">
+  <ng-content />
+</div>
