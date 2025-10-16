@@ -48,7 +48,7 @@ export class Sidebar {
   private readonly usePath: UsePathSvc = inject(UsePathSvc);
 
   public readonly isOpen: Signal<boolean> = computed(() => this.sideSlice.sideState().isOpen);
-  public readonly allUsersLinks: LinkT[] = this.linksSvc.allUsersLinks;
+  public readonly allUsersLinks: LinkT[] = this.linksSvc.allUsers;
   public readonly currPath: WritableSignal<string | null> = this.usePath.currPath;
 
   public readonly spanUserProps: WritableSignal<SpanPropsT> = signal(spanUserNotLogged);

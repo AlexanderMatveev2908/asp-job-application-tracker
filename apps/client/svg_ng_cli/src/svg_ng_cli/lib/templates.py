@@ -26,8 +26,8 @@ def patch_svg_attributes(svg: str, svg_type: SvgT) -> str:
     return svg
 
 
-CURR_COLOR_TEMPLATE: str = ": Signal<string> = input('currentColor')"
-NULL_COLOR_TEMPLATE: str = ": Signal<string | null> = input(null)"
+CURR_COLOR_TEMPLATE: str = ": InputSignal<string> = input<string>('currentColor')"
+NULL_COLOR_TEMPLATE: str = ": InputSignal<string | null> = input<string | null>(null)"
 
 
 def get_clr(curr_t: SvgT, input_t: SvgT) -> str:
@@ -53,7 +53,7 @@ def gen_template_ts(kebab_name: str, class_name: str, svg_type: SvgT) -> str:
     selector = f"{svg_type.selector_prefix()}-{kebab_name}"
 
     return f"""
-import {{ ChangeDetectionStrategy, Component, input, Signal }} from '@angular/core';
+import {{ ChangeDetectionStrategy, Component, input, InputSignal }} from '@angular/core';
 
 @Component({{
   selector: '{selector}',
@@ -61,8 +61,8 @@ import {{ ChangeDetectionStrategy, Component, input, Signal }} from '@angular/co
   changeDetection: ChangeDetectionStrategy.OnPush
 }})
 export class {class_name} {{
-    width: Signal<'auto' | string> = input('100%');
-    height: Signal<'auto' | string> = input('100%');
+    width: InputSignal<'auto' | string> = input('100%');
+    height: InputSignal<'auto' | string> = input('100%');
     {needs_colors(svg_type)}
 }}
 """

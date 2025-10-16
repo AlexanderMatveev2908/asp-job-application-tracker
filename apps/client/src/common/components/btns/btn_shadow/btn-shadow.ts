@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
 import { AppEventMeta } from '@/common/types/events';
-import { PairTxtSvg } from '../../els/span/pair-txt-svg';
+import { Span } from '../../els/span/span';
 import { BtnEvPropsT, BtnStatePropsT } from '@/common/types/btns';
 import { BaseElPropsT } from '@/common/types/els';
 import { SpanPropsT } from '../../els/span/etc/types';
@@ -18,7 +18,7 @@ import { WrapBtnApiPropsT } from '../../hoc/btns/wrap_btn_api/etc/types';
 
 @Component({
   selector: 'app-btn-shadow',
-  imports: [PairTxtSvg, WrapBtnApi],
+  imports: [Span, WrapBtnApi],
   templateUrl: './btn-shadow.html',
   styleUrl: './btn-shadow.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

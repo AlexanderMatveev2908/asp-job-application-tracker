@@ -9,7 +9,7 @@ import { ShapeCheck } from '../lib/data_structure/shape';
   providedIn: 'root',
 })
 export class LinksSvc extends RootUiSvc {
-  private readonly allUsers: Partial<LinkT>[] = [
+  private readonly _allUsers: Partial<LinkT>[] = [
     {
       label: 'Home',
       path: '/',
@@ -22,8 +22,8 @@ export class LinksSvc extends RootUiSvc {
     },
   ];
 
-  public get allUsersLinks(): LinkT[] {
-    return this.arrWithIDs(this.allUsers) as LinkT[];
+  public get allUsers(): LinkT[] {
+    return this.arrWithIDs(this._allUsers) as LinkT[];
   }
 
   private static cutPath(arg: string): string {

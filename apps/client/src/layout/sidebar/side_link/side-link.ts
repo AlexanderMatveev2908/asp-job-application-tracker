@@ -10,12 +10,12 @@ import { NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { LinkT } from '@/common/types/links';
 import { LinksSvc } from '@/core/ui_factory/links';
-import { PairTxtSvg } from '@/common/components/els/span/pair-txt-svg';
+import { Span } from '@/common/components/els/span/span';
 import { SpanSizesPropsT } from '@/common/components/els/span/etc/types';
 
 @Component({
   selector: 'app-side-link',
-  imports: [RouterLink, NgClass, PairTxtSvg],
+  imports: [RouterLink, NgClass, Span],
   templateUrl: './side-link.html',
   styleUrl: './side-link.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -2,11 +2,11 @@
 import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
 
 @Component({
-  selector: 'app-svg-fill-ghost',
-  templateUrl: `./ghost.html`,
+  selector: 'app-svg-fill-up',
+  templateUrl: `./up.html`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SvgFillGhost {
+export class SvgFillUp {
     width: InputSignal<'auto' | string> = input('100%');
     height: InputSignal<'auto' | string> = input('100%');
     

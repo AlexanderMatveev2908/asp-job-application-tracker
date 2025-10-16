@@ -1,5 +1,5 @@
 
-import { ChangeDetectionStrategy, Component, input, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
 
 @Component({
   selector: 'app-svg-fill-briefcase',
@@ -7,10 +7,10 @@ import { ChangeDetectionStrategy, Component, input, Signal } from '@angular/core
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SvgFillBriefcase {
-    width: Signal<'auto' | string> = input('100%');
-    height: Signal<'auto' | string> = input('100%');
+    width: InputSignal<'auto' | string> = input('100%');
+    height: InputSignal<'auto' | string> = input('100%');
     
-    fill: Signal<string> = input('currentColor');
-    stroke: Signal<string | null> = input(null);
+    fill: InputSignal<string> = input<string>('currentColor');
+    stroke: InputSignal<string | null> = input<string | null>(null);
     
 }

@@ -10,13 +10,13 @@ import {
 import { SpanPropsT, SpanSizesPropsT } from './etc/types';
 
 @Component({
-  selector: 'app-pair-txt-svg',
+  selector: 'app-span',
   imports: [NgComponentOutlet],
-  templateUrl: './pair-txt-svg.html',
-  styleUrl: './pair-txt-svg.scss',
+  templateUrl: './span.html',
+  styleUrl: './span.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PairTxtSvg {
+export class Span {
   public readonly spanProps: InputSignal<SpanPropsT> = input.required();
   public readonly sizesProps: InputSignal<SpanSizesPropsT> = input<SpanSizesPropsT>({
     svg: 'sm',
