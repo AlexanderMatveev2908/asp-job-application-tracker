@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 import { GenericObjT } from '@/common/types/etc';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -14,7 +15,7 @@ export interface ConfApiT {
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 export type ResApiT<T> = {
-  msg: string;
+  msg?: string;
   status: number;
 } & T;
 
@@ -30,4 +31,16 @@ export interface OptToastApiT {
 export interface OptErrApi {
   pushOnErr: boolean;
   pushOnStatus: number[];
+}
+
+export enum StatusT {
+  OK = 200,
+  CREATED = 201,
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+  FORBIDDEN = 403,
+  CONFLICT = 409,
+  ENTITY_UNPROCESSABLE = 422,
+  TOO_MANY_REQUESTS = 429,
+  INTERNAL_SERVER_ERROR = 500,
 }

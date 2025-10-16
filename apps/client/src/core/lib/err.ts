@@ -1,3 +1,5 @@
+import { StatusT } from '../store/api/etc/types';
+
 export class ErrApp extends Error {
   private readonly msg: string;
   private readonly status: number;
@@ -8,8 +10,7 @@ export class ErrApp extends Error {
   constructor(msg: string, status?: number) {
     super(msg);
     this.msg = `❌ ${msg}`;
-    // eslint-disable-next-line no-magic-numbers
-    this.status = status ?? 500;
+    this.status = status ?? StatusT.INTERNAL_SERVER_ERROR;
   }
 
   public getMsg(): string {

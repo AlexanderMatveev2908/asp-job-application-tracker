@@ -8,7 +8,7 @@ export class ArgsApi {
   private _params: HttpParams | null = null;
   private _optToast: Partial<OptToastApiT> | null = null;
   private _optErr: Partial<OptErrApi> | null = null;
-  private _body: Record<string, object> | FormData | null = null;
+  private _body: Record<string, unknown> | FormData | null = null;
 
   constructor(url: string) {
     this._url = url;
@@ -30,12 +30,12 @@ export class ArgsApi {
     return new ArgsApi(url);
   }
 
-  public query(query: Record<string, object>): ArgsApi {
+  public query(query: Record<string, unknown>): ArgsApi {
     this._params = this.parseQuery(query);
     return this;
   }
 
-  public body(body: Record<string, object>): ArgsApi {
+  public body(body: Record<string, unknown>): ArgsApi {
     this._body = body;
     return this;
   }

@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { ErrApiT, OptErrApi, OptToastApiT, ResApiT } from './types';
-import { catchError, Observable, tap } from 'rxjs';
+import { ErrApiT, OptErrApi, OptToastApiT, ResApiT, StatusT } from './types';
+import { catchError, EMPTY, from, Observable, switchMap, tap } from 'rxjs';
 import { ToastSlice } from '@/features/toast/slice';
 import { NoticeSlice } from '@/features/notice/slice';
 import { UseNavSvc } from '@/core/hooks/use_nav';
@@ -16,27 +16,28 @@ export class EventsMngSvc {
   private readonly useNav: UseNavSvc = inject(UseNavSvc);
   private readonly confApi: ConfApiSvc = inject(ConfApiSvc);
 
-  public mng<T>(cb: Observable<ResApiT<T>>, args: ArgsApi): Observable<ResApiT<T>> {
+  public readonly DEF_CLIENT_ERR_MSG: string =
+    'A wild Snorlax fall asleep blocking the road 💤. Try later';
+
+  // ? 📊 manager
+  public mng<T>(cb: Observable<ResApiT<T> | never>, args: ArgsApi): Observable<ResApiT<T>> {
     return this.whenErr(this.withToast(cb, args.getOptToast()), args.getOptErr());
   }
 
   // ? ☢️ notice error
-  private defOptErr(): OptErrApi {
-    return {
-      pushOnErr: false,
-      // eslint-disable-next-line no-magic-numbers
-      pushOnStatus: [403, 429, 500],
-    };
-  }
+  private readonly defOptErr: OptErrApi = {
+    pushOnErr: false,
+    pushOnStatus: [StatusT.FORBIDDEN, StatusT.TOO_MANY_REQUESTS, StatusT.INTERNAL_SERVER_ERROR],
+  };
 
   private whenErr<T>(
     cb: Observable<ResApiT<T>>,
     opt: Partial<OptErrApi> | null
-  ): Observable<ResApiT<T>> {
-    const options: Partial<OptErrApi> = opt ?? this.defOptErr();
+  ): Observable<ResApiT<T> | never> {
+    const options: Partial<OptErrApi> = opt ?? this.defOptErr;
 
     return cb.pipe(
-      catchError(async (err: ErrApiT<T>) => {
+      catchError((err: ErrApiT<T>) => {
         if (
           !options.pushOnErr &&
           !options.pushOnStatus?.some((code: number) => code === err.status)
@@ -45,12 +46,13 @@ export class EventsMngSvc {
 
         this.noticeSlice.noticeWithoutCb = {
           eventT: 'ERR',
-          msg: err.error.msg,
+          msg: err.error.msg ?? this.DEF_CLIENT_ERR_MSG,
           status: err.status,
         };
-        await this.useNav.navWithReplace('/notice');
 
-        throw err;
+        const navigation: Promise<boolean> = this.useNav.navWithReplace('/notice');
+
+        return from(navigation).pipe(switchMap(() => EMPTY));
       })
     );
   }
@@ -76,7 +78,7 @@ export class EventsMngSvc {
 
           this.toastSlice.openToast({
             eventT: 'OK',
-            msg: res.msg,
+            msg: res.msg ?? '✅ operation successful',
             status: res.status,
           });
         },
@@ -85,7 +87,7 @@ export class EventsMngSvc {
 
           this.toastSlice.openToast({
             eventT: 'ERR',
-            msg: res.error.msg,
+            msg: res.error.msg ?? this.DEF_CLIENT_ERR_MSG,
             status: res.status,
           });
         },
