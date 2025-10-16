@@ -1,14 +1,13 @@
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { ApiSvc } from '@/core/store/api/api';
-import { ErrApiT, ResApiT } from '@/core/store/api/etc/types';
+import { ResApiT } from '@/core/store/api/etc/types';
 import { ArgsApi } from '@/core/store/api/requests/args_api';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, retry } from 'rxjs';
 import { WakeUpSlice } from './slice';
 import { Prs } from '@/core/lib/data_structure/formatters';
 import { WakeUpStateT } from './reducer/reducer';
 import { ToastSlice } from '../toast/slice';
-import { Log } from '@/core/lib/log';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +24,6 @@ export class WakeUpApiSvc {
 
   // eslint-disable-next-line no-magic-numbers
   private readonly MAX_CALLS: number = 5;
-  private count: number = 0;
 
   private runIf(): boolean {
     if (this.usePlatform.isServer) return false;
@@ -40,44 +38,35 @@ export class WakeUpApiSvc {
     return true;
   }
 
-  private poll(): void {
-    this.wakeUp().subscribe({
-      next: (res: ResApiT<void>) => {
-        this.wakeUpSlice.setLastCall(Date.now());
+  public poll(): void {
+    if (!this.runIf()) return;
 
-        this.toastSlice.openToast({
-          msg: res.msg ?? 'wake up',
-          eventT: 'OK',
-          status: res.status,
-        });
-      },
-      error: (_: ErrApiT<void>) => {
-        if (this.count >= this.MAX_CALLS) {
+    this.wakeUp()
+      .pipe(
+        retry({
+          delay: 1000,
+          count: this.MAX_CALLS,
+          resetOnSuccess: false,
+        })
+      )
+      .subscribe({
+        next: (res: ResApiT<void>) => {
+          this.wakeUpSlice.setLastCall(Date.now());
+
+          this.toastSlice.openToast({
+            msg: res.msg as string,
+            eventT: 'OK',
+            status: res.status,
+          });
+        },
+        error: () => {
           if (!this.toastSlice.toastState().isToast)
             this.toastSlice.openToast({
               msg: 'server not available',
               status: 500,
               eventT: 'ERR',
             });
-
-          return;
-        }
-
-        this.count++;
-
-        setTimeout(() => {
-          this.poll();
-          // eslint-disable-next-line no-magic-numbers
-        }, 1000);
-      },
-    });
-  }
-
-  public wrap(): void {
-    if (!this.runIf()) return;
-
-    this.usePlatform.isStable().subscribe(() => {
-      this.poll();
-    });
+        },
+      });
   }
 }

@@ -36,6 +36,6 @@ export class WakeUp implements AfterViewInit {
   };
 
   ngAfterViewInit(): void {
-    this.wakeUpApi.wrap();
+    this.wakeUpApi.poll();
   }
 }
