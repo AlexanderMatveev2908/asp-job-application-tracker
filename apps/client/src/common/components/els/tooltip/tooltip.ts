@@ -23,7 +23,7 @@ export class Tooltip {
   public readonly eventT: InputSignal<AppEventT> = input.required();
 
   public readonly twd: Signal<string> = computed(() =>
-    this.isHover() && this.msg() ? 'translate-y-[-100%] opacity-1' : 'translate-y-[25px] opacity-0'
+    this.isHover() && this.msg() ? 'translate-y-[-20px] opacity-1' : 'translate-y-[100%] opacity-0'
   );
   public readonly eventMeta: Signal<AppEventMetaT> = computed(() =>
     UseEventMeta.getByT(this.eventT())
