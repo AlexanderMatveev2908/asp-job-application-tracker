@@ -13,7 +13,9 @@ $svg-sizes: (
 
 @each $k, $v in $svg-sizes {
   .svg__#{$k} {
+    min-width: #{$v}px;
     width: #{$v}px;
+    min-height: #{$v}px;
     height: #{$v}px;
   }
 }

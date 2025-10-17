@@ -13,5 +13,9 @@
     button {
       @include mix.el__scl(1.3);
     }
+
+    .right__drop_content {
+      @apply w-full min-w-[275px] flex flex-col items-start gap-5;
+    }
   }
 }

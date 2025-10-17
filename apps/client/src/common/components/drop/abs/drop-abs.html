@@ -1,3 +1,9 @@
-<div class="root">
-  <p>DropAbs generated 🎉</p>
+<div #drop class="root">
+  <button class="root__btn" (click)="onClick()">
+    <app-span [spanProps]="spanProps()" [sizesProps]="spanSizesProps()" />
+  </button>
+
+  <div class="root__content" [ngClass]="translation()">
+    <ng-container *ngTemplateOutlet="dropContentRef" />
+  </div>
 </div>

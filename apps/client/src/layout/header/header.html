@@ -6,15 +6,33 @@
   </div>
 
   <div class="root__right">
-    <button class="svg__3xl app__clr">
+    <!-- <button class="svg__3xl app__clr">
       <app-svg-stroke-user-write />
-    </button>
+    </button> -->
+
+    <app-drop-abs
+      [isOpen]="isDropOpen()"
+      [setIsOpen]="setIsDropOpen"
+      [spanProps]="spanDropProps()"
+      [spanSizesProps]="spanDropSizesProps"
+    >
+      <ng-template #dropContent>
+        <div class="right__drop_content">
+          <!--  -->
+          @for(lk of notLoggedLinks; track lk.id){
+          <app-nav-link [spanProps]="lk" [currPath]="currPath()" [setIsDropOpen]="setIsDropOpen" />
+          }
+        </div>
+      </ng-template>
+    </app-drop-abs>
 
     <button
-      [ngClass]="isOpen() ? 'text-red-600 svg__3xl' : 'text-gray-300 hover:text-blue-600 svg__4xl'"
-      (click)="handleToggle()"
+      [ngClass]="
+        isSideOpen() ? 'text-red-600 svg__3xl' : 'text-gray-300 hover:text-blue-600 svg__4xl'
+      "
+      (click)="toggleSide()"
     >
-      @if (isOpen()) {
+      @if (isSideOpen()) {
       <app-svg-fill-close />
       } @else {
       <app-svg-stroke-burger />

@@ -18,11 +18,13 @@ import { SpanPropsT, SpanSizesPropsT } from './etc/types';
 })
 export class Span {
   public readonly spanProps: InputSignal<SpanPropsT> = input.required();
-  public readonly sizesProps: InputSignal<SpanSizesPropsT> = input<SpanSizesPropsT>({
+  public readonly sizesProps: InputSignal<Partial<SpanSizesPropsT>> = input<
+    Partial<SpanSizesPropsT>
+  >({
     svg: 'sm',
     txt: 'lg',
   });
 
-  public txtCls: Signal<string> = computed(() => `txt__${this.sizesProps().txt}`);
-  public svgCls: Signal<string> = computed(() => `svg__${this.sizesProps().svg}`);
+  public txtCls: Signal<string> = computed(() => `txt__${this.sizesProps().txt ?? 'lg'}`);
+  public svgCls: Signal<string> = computed(() => `svg__${this.sizesProps().svg ?? 'sm'}`);
 }

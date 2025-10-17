@@ -1,0 +1,8 @@
+<a
+  class="root app__link"
+  (click)="setIsDropOpen()(false)"
+  [routerLink]="spanProps().path"
+  [ngClass]="isActive() ? 'active' : ''"
+>
+  <app-span [spanProps]="spanProps()" [sizesProps]="spanSizesProps" />
+</a>
