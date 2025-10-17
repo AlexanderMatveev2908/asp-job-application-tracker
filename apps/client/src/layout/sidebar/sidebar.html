@@ -1,9 +1,9 @@
 <app-black-bg [props]="blackBgProps()" />
 
 <div
+  #side
   class="root z__sidebar"
-  appUseMouseOut
-  [ngClass]="isOpen() ? '-translate-x-full opacity-100' : 'translate-x-0 opacity-0'"
+  [ngClass]="isSideOpen() ? '-translate-x-full opacity-100' : 'translate-x-0 opacity-0'"
 >
   <div class="root__span_mail">
     <app-txt-clamp [props]="txtClampProps" />
@@ -15,7 +15,11 @@
       <app-nav-link [spanProps]="lk" [currPath]="currPath()" [setIsDropOpen]="onSideClick" />
       }
 
-      <app-drop-static [spanProps]="spanUserProps()">
+      <app-drop-static
+        [spanProps]="spanUserProps()"
+        [isOpen]="isDropOpen()"
+        [setIsOpen]="setIsDropOpen"
+      >
         <ng-template #dropContent>
           <div class="body__wrap_links">
             @for(lk of notLoggedLinks; track lk.id){

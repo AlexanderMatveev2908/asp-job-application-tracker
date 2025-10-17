@@ -5,6 +5,8 @@ import {
   Component,
   computed,
   ContentChild,
+  HostListener,
+  inject,
   input,
   InputSignal,
   Signal,
@@ -20,6 +22,7 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ElDomT, RefDomT } from '@/common/types/etc';
 import { RecTwdClsDropT } from '../etc/types';
 import { LibDrop } from '../etc/lib_drop';
+import { UseMouseOutSvc } from '@/core/hooks/use_mouse_out';
 
 @Component({
   selector: 'app-drop-static',
@@ -29,8 +32,11 @@ import { LibDrop } from '../etc/lib_drop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DropStatic implements AfterViewInit, AfterContentChecked {
+  private readonly useMouseOut: UseMouseOutSvc = inject(UseMouseOutSvc);
+
   public readonly spanProps: InputSignal<SpanPropsT> = input.required();
-  public readonly isOpen: WritableSignal<boolean> = signal(false);
+  public readonly isOpen: InputSignal<boolean> = input.required();
+  public readonly setIsOpen: InputSignal<(val: boolean) => void> = input.required();
   public readonly spanSizesProps: SpanSizesPropsT = {
     txt: 'lg',
     svg: 'xl',
@@ -38,6 +44,7 @@ export class DropStatic implements AfterViewInit, AfterContentChecked {
   private readonly wrapperH: WritableSignal<number> = signal(0);
 
   @ViewChild('wrapContent') wrapContent: RefDomT;
+  @ViewChild('drop') drop: RefDomT;
   @ContentChild('dropContent', { read: TemplateRef }) dropContentRef!: TemplateRef<unknown>;
 
   public readonly twd: Signal<RecTwdClsDropT> = computed(() => {
@@ -50,7 +57,7 @@ export class DropStatic implements AfterViewInit, AfterContentChecked {
   );
 
   public onClick(): void {
-    this.isOpen.set(!this.isOpen());
+    this.setIsOpen()(!this.isOpen());
   }
 
   private patchH(): void {
@@ -67,5 +74,10 @@ export class DropStatic implements AfterViewInit, AfterContentChecked {
 
   ngAfterContentChecked(): void {
     this.patchH();
+  }
+
+  @HostListener('document:mousedown', ['$event'])
+  public onMouseDown(e: MouseEvent): void {
+    this.useMouseOut.onMouseOut(this.drop, e, () => this.setIsOpen()(false));
   }
 }
