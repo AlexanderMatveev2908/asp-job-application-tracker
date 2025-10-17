@@ -8,6 +8,11 @@
   }
 
   .root__input {
-    @include mix.input__sdw(5px 20px);
+    @apply w-full flex relative;
+
+    input {
+      @apply flex-1;
+      @include mix.input__sdw(5px 20px);
+    }
   }
 }

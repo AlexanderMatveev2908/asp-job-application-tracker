@@ -16,10 +16,11 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { UseDiCtxSvc } from '@/core/hooks/use_di_ctx';
 import { Observable } from 'rxjs';
 import { Log } from '@/core/lib/log';
+import { FormFieldErr } from '../form_field_err/form-field-err';
 
 @Component({
   selector: 'app-form-field-txt',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormFieldErr],
   templateUrl: './form-field-txt.html',
   styleUrl: './form-field-txt.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,7 +31,7 @@ export class FormFieldTxt implements OnInit {
   private readonly useDiCtx: UseDiCtxSvc = inject(UseDiCtxSvc);
 
   public val!: Signal<string>;
-  public errs: WritableSignal<RecErrsFieldT> = signal({
+  public recErrs: WritableSignal<RecErrsFieldT> = signal({
     prev: null,
     curr: null,
   });
@@ -50,12 +51,12 @@ export class FormFieldTxt implements OnInit {
 
         const errors: ErrsFieldT = c.errors as ErrsFieldT;
 
-        this.errs.update((prev: RecErrsFieldT) => ({
+        this.recErrs.update((prev: RecErrsFieldT) => ({
           prev: prev.curr,
           curr: errors?.zod && wasInteraction ? errors.zod : null,
         }));
 
-        Log.log(this.errs());
+        Log.log(this.recErrs());
       });
     });
   }

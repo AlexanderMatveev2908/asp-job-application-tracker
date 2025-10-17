@@ -3,10 +3,8 @@
     <span class="txt__lg">{{ f().label }}</span>
   </div>
 
-  <input
-    [formControl]="ctrl()"
-    class="root__input txt__md"
-    [type]="f().type"
-    [placeholder]="f().place"
-  />
+  <div class="root__input">
+    <input [formControl]="ctrl()" class="txt__md" [type]="f().type" [placeholder]="f().place" />
+    <app-form-field-err [recErrs]="recErrs()" />
+  </div>
 </div>
