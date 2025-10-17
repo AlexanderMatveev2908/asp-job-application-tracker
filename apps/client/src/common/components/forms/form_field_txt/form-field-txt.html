@@ -4,7 +4,13 @@
   </div>
 
   <div class="root__input">
-    <input [formControl]="ctrl()" class="txt__md" [type]="f().type" [placeholder]="f().place" />
+    <input
+      #inputTxt
+      [formControl]="ctrl()"
+      class="txt__md"
+      [type]="f().type"
+      [placeholder]="f().place"
+    />
     <app-form-field-err [ctrl]="ctrl()" />
   </div>
 </div>

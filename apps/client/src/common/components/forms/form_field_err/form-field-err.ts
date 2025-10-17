@@ -13,9 +13,9 @@ import {
 } from '@angular/core';
 import { Tooltip } from '../../els/tooltip/tooltip';
 import { FormControl } from '@angular/forms';
-import { UseDiCtxSvc } from '@/core/hooks/use_di_ctx';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Observable } from 'rxjs';
+import { UsePlatformSvc } from '@/core/hooks/use_platform';
 
 @Component({
   selector: 'app-form-field-err',
@@ -26,7 +26,7 @@ import { Observable } from 'rxjs';
 })
 export class FormFieldErr<T> implements OnInit {
   public readonly ctrl: InputSignal<FormControl<T>> = input.required();
-  private readonly useDiCtx: UseDiCtxSvc = inject(UseDiCtxSvc);
+  private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
   public val!: Signal<string>;
   public recErrs: WritableSignal<RecErrsFieldT> = signal({
@@ -37,7 +37,7 @@ export class FormFieldErr<T> implements OnInit {
   ngOnInit(): void {
     const c = this.ctrl();
 
-    this.useDiCtx.inCtx(() => {
+    this.usePlatform.inCtx(() => {
       this.val = toSignal(c.valueChanges as Observable<string>, {
         initialValue: c.value as string,
       });
