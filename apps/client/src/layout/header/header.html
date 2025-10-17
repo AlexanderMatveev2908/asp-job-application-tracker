@@ -13,14 +13,14 @@
     <app-drop-abs
       [isOpen]="isDropOpen()"
       [setIsDropOpen]="setIsDropOpen"
-      [spanProps]="spanProps()"
-      [spanSizesProps]="spanSizesProps"
+      [spanProps]="spanDropProps()"
+      [spanSizesProps]="spanDropSizesProps"
     >
       <ng-template #dropContent>
         <div class="right__drop_content">
           <!--  -->
           @for(lk of notLoggedLinks; track lk.id){
-          <app-span [spanProps]="lk" [sizesProps]="spanSizesDrop" />
+          <app-nav-link [spanProps]="lk" [currPath]="currPath()" [setIsDropOpen]="setIsDropOpen" />
           }
         </div>
       </ng-template>

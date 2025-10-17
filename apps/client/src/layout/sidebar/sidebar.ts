@@ -8,7 +8,6 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { SideLink } from './side_link/side-link';
 import { BlackBg } from '@/layout/black_bg/black-bg';
 import { TxtClamp } from '@/common/components/els/txt/txt_clamp/txt-clamp';
 import { USE_MOUSE_OUT__CB, USE_MOUSE_OUT__IS_OPEN } from '@/core/directives/use_mouse_out/tokens';
@@ -23,10 +22,11 @@ import { DropStatic } from '@/common/components/drop/static/drop-static';
 import { SpanPropsT } from '@/common/components/els/span/etc/types';
 import { spanUserNotLogged } from './ui_factory';
 import { Lorem } from '@/core/lib/etc';
+import { NavLink } from '@/common/components/links/nav_link/nav-link';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [BlackBg, NgClass, TxtClamp, UseMouseOutDir, SideLink, DropStatic],
+  imports: [BlackBg, NgClass, TxtClamp, UseMouseOutDir, DropStatic, NavLink],
   providers: [
     {
       provide: USE_MOUSE_OUT__IS_OPEN,
@@ -49,7 +49,7 @@ export class Sidebar extends Lorem {
   private readonly usePath: UsePathSvc = inject(UsePathSvc);
 
   public readonly isOpen: Signal<boolean> = computed(() => this.sideSlice.sideState().isOpen);
-  public readonly currPath: WritableSignal<string | null> = this.usePath.currPath;
+  public readonly currPath: Signal<string | null> = this.usePath.currPath;
   public readonly allUsersLinks: LinkT[] = this.linksSvc.allUsers;
   public readonly notLoggedLinks: LinkT[] = this.linksSvc.notLogged;
 

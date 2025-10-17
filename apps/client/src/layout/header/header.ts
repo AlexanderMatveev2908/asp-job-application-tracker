@@ -18,19 +18,21 @@ import { SpanPropsT, SpanSizesPropsT } from '@/common/components/els/span/etc/ty
 import { NgClass } from '@angular/common';
 import { LinksSvc } from '@/core/ui_factory/links';
 import { LinkT } from '@/common/types/links';
-import { Span } from '@/common/components/els/span/span';
+import { UsePathSvc } from '@/core/hooks/use_path';
+import { NavLink } from '@/common/components/links/nav_link/nav-link';
 
 @Component({
   selector: 'app-header',
-  imports: [SvgFillGhost, RouterLink, DropAbs, SvgFillClose, SvgStrokeBurger, NgClass, Span],
+  imports: [SvgFillGhost, RouterLink, DropAbs, SvgFillClose, SvgStrokeBurger, NgClass, NavLink],
   templateUrl: './header.html',
   styleUrl: './header.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
+  private readonly usePath: UsePathSvc = inject(UsePathSvc);
   private readonly linksSvc: LinksSvc = inject(LinksSvc);
+  private readonly sideSlice: SidebarSlice = inject(SidebarSlice);
 
-  public readonly sideSlice: SidebarSlice = inject(SidebarSlice);
   public readonly isSideOpen: Signal<boolean> = computed(() => this.sideSlice.sideState().isOpen);
   public readonly isDropOpen: WritableSignal<boolean> = signal(false);
 
@@ -41,17 +43,15 @@ export class Header {
     this.isDropOpen.set(val);
   };
 
-  public readonly notLoggedLinks: LinkT[] = this.linksSvc.notLogged;
-  public readonly spanSizesDrop: SpanSizesPropsT = {
-    svg: 'md',
-    txt: 'lg',
-  };
+  public readonly currPath: Signal<string | null> = this.usePath.currPath;
 
-  public readonly spanProps: Signal<SpanPropsT> = computed(() => ({
+  public readonly notLoggedLinks: LinkT[] = this.linksSvc.notLogged;
+
+  public readonly spanDropProps: Signal<SpanPropsT> = computed(() => ({
     label: null,
     Svg: SvgStrokeUserWrite,
   }));
-  public readonly spanSizesProps: Partial<SpanSizesPropsT> = {
+  public readonly spanDropSizesProps: Partial<SpanSizesPropsT> = {
     svg: '3xl',
   };
 }

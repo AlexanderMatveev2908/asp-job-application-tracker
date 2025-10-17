@@ -12,14 +12,14 @@
   <div class="root__body scroll__app">
     <div class="body__wrap_links">
       @for(lk of allUsersLinks; track lk.id){
-      <app-side-link [lk]="lk" [currPath]="currPath()" [onSideClick]="onSideClick" />
+      <app-nav-link [spanProps]="lk" [currPath]="currPath()" [setIsDropOpen]="onSideClick" />
       }
 
       <app-drop-static [spanProps]="spanUserProps()">
         <ng-template #dropContent>
           <div class="body__wrap_links">
             @for(lk of notLoggedLinks; track lk.id){
-            <app-side-link [lk]="lk" [currPath]="currPath()" [onSideClick]="onSideClick" />
+            <app-nav-link [spanProps]="lk" [currPath]="currPath()" [setIsDropOpen]="onSideClick" />
             }
           </div>
         </ng-template>

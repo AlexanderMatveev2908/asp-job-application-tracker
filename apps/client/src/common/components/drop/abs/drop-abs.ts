@@ -29,9 +29,7 @@ export class DropAbs {
   public readonly spanSizesProps: InputSignal<Partial<SpanSizesPropsT>> = input.required();
 
   public readonly translation: Signal<string> = computed(() =>
-    this.isOpen()
-      ? 'translate-y-[0%] opacity-1'
-      : 'translate-y-[-50%] pointer-events-none opacity-0'
+    this.isOpen() ? 'translate-y-[0%] opacity-1' : 'translate-y-[40%] pointer-events-none opacity-0'
   );
 
   @ViewChild('drop') drop: RefDomT;
@@ -43,6 +41,6 @@ export class DropAbs {
     const target: HTMLElement = e.target as HTMLElement;
     if (!elDOM) return;
 
-    if (!elDOM.contains(e.target as HTMLLIElement)) this.setIsDropOpen()(false);
+    if (!elDOM.contains(target)) this.setIsDropOpen()(false);
   }
 }
