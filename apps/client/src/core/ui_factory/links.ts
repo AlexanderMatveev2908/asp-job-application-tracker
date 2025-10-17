@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { RootUiSvc } from './root_ui';
+import { RootUiCls } from './root_ui';
 import { SvgStrokeHome } from '@/common/components/svgs/stroke/home/home';
 import { SvgFillBriefcase } from '@/common/components/svgs/fill/briefcase/briefcase';
 import { LinkT } from '@/common/types/links';
@@ -9,11 +8,8 @@ import { SvgStrokePassword } from '@/common/components/svgs/stroke/password/pass
 import { SvgFillLogin } from '@/common/components/svgs/fill/login/login';
 import { SvgFillVerify } from '@/common/components/svgs/fill/verify/verify';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class LinksSvc extends RootUiSvc {
-  private readonly _allUsers: Partial<LinkT>[] = [
+export class LinksCls extends RootUiCls {
+  private static readonly _allUsers: Partial<LinkT>[] = [
     {
       label: 'Home',
       path: '/',
@@ -26,7 +22,7 @@ export class LinksSvc extends RootUiSvc {
     },
   ];
 
-  private readonly _notLogged: Partial<LinkT>[] = [
+  private static readonly _notLogged: Partial<LinkT>[] = [
     {
       label: 'Register',
       path: '/auth/register',
@@ -49,10 +45,10 @@ export class LinksSvc extends RootUiSvc {
     },
   ];
 
-  public get allUsers(): LinkT[] {
+  public static get allUsers(): LinkT[] {
     return this.arrWithIDs(this._allUsers) as LinkT[];
   }
-  public get notLogged(): LinkT[] {
+  public static get notLogged(): LinkT[] {
     return this.arrWithIDs(this._notLogged) as LinkT[];
   }
 
@@ -63,8 +59,8 @@ export class LinksSvc extends RootUiSvc {
   public static isCurrPath(currPath: string | null, lkPath: string): boolean {
     if (!ShapeCheck.isStr(currPath)) return false;
 
-    const currCut = LinksSvc.cutPath(currPath!);
-    const lkCut = LinksSvc.cutPath(lkPath);
+    const currCut = LinksCls.cutPath(currPath!);
+    const lkCut = LinksCls.cutPath(lkPath);
 
     return currCut === lkCut;
   }

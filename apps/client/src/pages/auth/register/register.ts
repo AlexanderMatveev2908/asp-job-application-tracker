@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { RegisterFormFieldsSvc } from '@/features/auth/register/ui_factory/form_fields';
+import { CheckFieldT, TxtFieldT } from '@/common/types/forms';
+import { RegisterFormFields } from '@/features/auth/register/ui_factory/form_fields';
 
 @Component({
   selector: 'app-register',
@@ -11,8 +12,6 @@ import { RegisterFormFieldsSvc } from '@/features/auth/register/ui_factory/form_
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Register {
-  private readonly formFields: RegisterFormFieldsSvc = inject(RegisterFormFieldsSvc);
-
   public readonly form: FormGroup = new FormGroup({
     firstName: new FormControl(''),
     lastName: new FormControl(''),
@@ -20,6 +19,10 @@ export class Register {
     password: new FormControl(''),
     confirmPassword: new FormControl(''),
   });
+
+  public readonly firstSwapFields: TxtFieldT[] = RegisterFormFields.firstSwap;
+  public readonly pairPwdFields: TxtFieldT[] = RegisterFormFields.pwdFields;
+  public readonly terms: CheckFieldT = RegisterFormFields.termsField;
 
   public onSubmit(): void {
     console.log('✅ Submitted form:', this.form.value);

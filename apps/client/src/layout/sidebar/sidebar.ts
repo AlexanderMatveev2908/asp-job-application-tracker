@@ -13,7 +13,7 @@ import { NgClass } from '@angular/common';
 import { BlackBg } from '@/layout/black_bg/black-bg';
 import { TxtClamp } from '@/common/components/els/txt/txt_clamp/txt-clamp';
 import { SidebarSlice } from '@/features/sidebar/slice';
-import { LinksSvc } from '@/core/ui_factory/links';
+import { LinksCls } from '@/core/ui_factory/links';
 import { UsePathSvc } from '@/core/hooks/use_path';
 import { TxtClampPropsT } from '@/common/components/els/txt/txt_clamp/etc/types';
 import { BlackBgPropsT } from '@/layout/black_bg/etc/types';
@@ -37,7 +37,6 @@ import { RefDomT } from '@/common/types/etc';
 export class Sidebar extends Lorem {
   private readonly useMouseOut: UseMouseOutSvc = inject(UseMouseOutSvc);
   private readonly sideSlice: SidebarSlice = inject(SidebarSlice);
-  private readonly linksSvc: LinksSvc = inject(LinksSvc);
   private readonly usePath: UsePathSvc = inject(UsePathSvc);
 
   public readonly isDropOpen: WritableSignal<boolean> = signal(false);
@@ -49,8 +48,8 @@ export class Sidebar extends Lorem {
 
   public readonly isSideOpen: Signal<boolean> = computed(() => this.sideSlice.sideState().isOpen);
   public readonly currPath: Signal<string | null> = this.usePath.currPath;
-  public readonly allUsersLinks: LinkT[] = this.linksSvc.allUsers;
-  public readonly notLoggedLinks: LinkT[] = this.linksSvc.notLogged;
+  public readonly allUsersLinks: LinkT[] = LinksCls.allUsers;
+  public readonly notLoggedLinks: LinkT[] = LinksCls.notLogged;
 
   public readonly spanUserProps: WritableSignal<SpanPropsT> = signal(spanUserNotLogged);
 
