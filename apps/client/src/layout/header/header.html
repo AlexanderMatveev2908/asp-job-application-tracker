@@ -12,10 +12,19 @@
 
     <app-drop-abs
       [isOpen]="isDropOpen()"
-      [handleToggle]="toggleDrop"
+      [setIsDropOpen]="setIsDropOpen"
       [spanProps]="spanProps()"
       [spanSizesProps]="spanSizesProps"
-    />
+    >
+      <ng-template #dropContent>
+        <div class="right__drop_content">
+          <!--  -->
+          @for(lk of notLoggedLinks; track lk.id){
+          <app-span [spanProps]="lk" [sizesProps]="spanSizesDrop" />
+          }
+        </div>
+      </ng-template>
+    </app-drop-abs>
 
     <button
       [ngClass]="

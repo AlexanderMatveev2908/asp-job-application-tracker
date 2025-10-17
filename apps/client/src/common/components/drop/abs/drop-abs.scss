@@ -1,7 +1,7 @@
 @use 'exports/mix' as mix;
 
 .root {
-  @apply flex justify-center items-center;
+  @apply flex justify-center items-center relative;
 
   .root__btn {
     @apply text-gray-300;
@@ -10,5 +10,9 @@
     &:hover {
       @apply text-blue-600;
     }
+  }
+
+  .root__content {
+    @apply absolute top-full right-full bg-neutral-950 z-50 p-4 border-3 border-gray-300 rounded-xl transition-all duration-[0.4s];
   }
 }
