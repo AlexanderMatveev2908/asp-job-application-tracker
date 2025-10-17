@@ -7,15 +7,15 @@ import {
   Signal,
 } from '@angular/core';
 import { NoticeSlice } from '@/features/notice/slice';
-import { WrapEventsPage } from '@/common/components/hoc/page/wrap_events_page/wrap-events-page';
 import { AppEventPayload } from '@/common/types/events';
 import { NoticeWithoutCb } from '@/features/notice/reducer/reducer';
 import { UseStorageSvc } from '@/core/hooks/use_storage';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
+import { CsrNoticeWrapper } from '@/common/components/hoc/page/csr_notice_wrapper/csr-notice-wrapper';
 
 @Component({
   selector: 'app-notice',
-  imports: [WrapEventsPage],
+  imports: [CsrNoticeWrapper, CsrNoticeWrapper],
   templateUrl: './notice.html',
   styleUrl: './notice.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

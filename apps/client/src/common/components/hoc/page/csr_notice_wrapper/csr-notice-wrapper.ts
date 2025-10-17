@@ -1,4 +1,4 @@
-/* eslint-disable no-magic-numbers */
+import { NgClass, NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -12,22 +12,21 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { NgClass, NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
-import { animate, AnimationOptionsWithOverrides } from '@motionone/dom';
+import { PageWrapper } from '../../../../../layout/page_wrapper/page-wrapper';
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
-import { AppEventMeta, AppEventPayload } from '@/common/types/events';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
-import { WrapPage } from '../wrap_page/wrap-page';
+import { AppEventMeta, AppEventPayload } from '@/common/types/events';
 import { ElDomT, RefDomT } from '@/common/types/etc';
+import { animate, AnimationOptionsWithOverrides } from '@motionone/dom';
 
 @Component({
-  selector: 'app-wrap-events-page',
-  imports: [NgComponentOutlet, NgClass, WrapPage, NgTemplateOutlet],
-  templateUrl: './wrap-events-page.html',
-  styleUrl: './wrap-events-page.scss',
+  selector: 'app-csr-notice-wrapper',
+  imports: [NgComponentOutlet, NgClass, PageWrapper, NgTemplateOutlet, PageWrapper],
+  templateUrl: './csr-notice-wrapper.html',
+  styleUrl: './csr-notice-wrapper.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WrapEventsPage implements AfterViewInit {
+export class CsrNoticeWrapper implements AfterViewInit {
   private readonly useAppEvents: UseAppEvSvc = inject(UseAppEvSvc);
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
@@ -44,11 +43,6 @@ export class WrapEventsPage implements AfterViewInit {
   @ContentChild('header', { read: TemplateRef }) headerTpl?: TemplateRef<unknown>;
   @ContentChild('footer', { read: TemplateRef }) footerTpl?: TemplateRef<unknown>;
 
-  private elsAreT<T>(els: (T | null | undefined)[]): asserts els is T[] {
-    if (els.some((el: T | null | undefined) => !el))
-      throw new Error('One or more required DOM elements are missing.');
-  }
-
   ngAfterViewInit(): void {
     if (!this.usePlatform.isClient) return;
 
@@ -62,7 +56,9 @@ export class WrapEventsPage implements AfterViewInit {
     animate(
       svgDOM!,
       {
+        // eslint-disable-next-line no-magic-numbers
         scaleX: [0, 1.6, 0.6, 1.3, 0.9, 1.05, 1],
+        // eslint-disable-next-line no-magic-numbers
         scaleY: [0, 0.4, 1.4, 0.7, 1.2, 0.95, 1],
       },
       {
