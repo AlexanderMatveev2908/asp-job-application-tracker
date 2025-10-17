@@ -1,3 +1,11 @@
-<div class="root">
-  <p>CsrWithTitle generated 🎉</p>
-</div>
+<app-page-wrapper [waitClient]="true">
+  <div class="root">
+    <div class="root__title">
+      <span class="grad__txt txt__5xl">
+        {{ title() }}
+      </span>
+    </div>
+
+    <ng-content />
+  </div>
+</app-page-wrapper>

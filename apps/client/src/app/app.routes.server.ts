@@ -3,10 +3,14 @@ import { RenderMode, ServerRoute } from '@angular/ssr';
 export const serverRoutes: ServerRoute[] = [
   {
     path: '',
-    renderMode: RenderMode.Prerender,
+    renderMode: RenderMode.Server,
   },
   {
-    path: 'job-applications/**',
+    path: 'job-applications/(post|put)/**',
+    renderMode: RenderMode.Client,
+  },
+  {
+    path: 'job-applications/*',
     renderMode: RenderMode.Server,
   },
   {
