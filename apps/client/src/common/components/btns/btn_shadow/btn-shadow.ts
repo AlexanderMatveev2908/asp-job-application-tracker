@@ -2,12 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  inject,
   input,
   InputSignal,
   Signal,
 } from '@angular/core';
-import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
+import { UseEventMeta } from '@/core/hooks/use_event_meta';
 import { AppEventMetaT } from '@/common/types/events';
 import { Span } from '../../els/span/span';
 import { BtnEvPropsT, BtnStatePropsT, BtnT } from '@/common/types/btns';
@@ -23,15 +22,13 @@ import { WrapBtnApiPropsT } from '../../hoc/btns/wrap_btn_api/etc/types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BtnShadow {
-  private readonly useAppEvents: UseAppEvSvc = inject(UseAppEvSvc);
-
   public readonly spanProps: InputSignal<SpanEventPropsT> = input.required();
   public readonly btnProps: InputSignal<BtnStatePropsT> = input.required();
   public readonly eventsProps: InputSignal<BtnEvPropsT | null> = input<BtnEvPropsT | null>(null);
   public readonly type: InputSignal<BtnT> = input<BtnT>('button');
 
   public readonly metaEvents: Signal<AppEventMetaT> = computed(() =>
-    this.useAppEvents.getByT(this.spanProps().eventT)
+    UseEventMeta.getByT(this.spanProps().eventT)
   );
 
   public readonly wrapBtnApiProps: Signal<WrapBtnApiPropsT> = computed(() => ({

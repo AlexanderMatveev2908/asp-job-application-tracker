@@ -17,7 +17,7 @@ import { PopupStaticPropsT } from './etc/types';
 import { BlackBgPropsT } from '@/layout/black_bg/etc/types';
 import { BlackBg } from '@/layout/black_bg/black-bg';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
+import { UseEventMeta } from '@/core/hooks/use_event_meta';
 import { AppEventMetaT } from '@/common/types/events';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { AnimationsPopSvc } from './etc/animations_pop';
@@ -32,7 +32,6 @@ import { ElDomT, RefDomT } from '@/common/types/etc';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Popup {
-  private readonly useAppEvents: UseAppEvSvc = inject(UseAppEvSvc);
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
   private readonly animationsPop: AnimationsPopSvc = inject(AnimationsPopSvc);
   public readonly staticProps: InputSignal<PopupStaticPropsT> = input.required();
@@ -43,7 +42,7 @@ export class Popup {
     isDark: this.isPop(),
   }));
   public readonly eventMeta: Signal<AppEventMetaT> = computed(() =>
-    this.useAppEvents.getByT(this.staticProps().eventT)
+    UseEventMeta.getByT(this.staticProps().eventT)
   );
 
   @ViewChild('popup') popup: RefDomT;

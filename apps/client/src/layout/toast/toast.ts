@@ -1,5 +1,5 @@
 import { AppEventMetaT } from '@/common/types/events';
-import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
+import { UseEventMeta } from '@/core/hooks/use_event_meta';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { TxtDOM } from '@/core/lib/dom/txt';
 import { ToastStateT } from '@/features/toast/reducer/reducer';
@@ -33,13 +33,12 @@ import { ElDomT, RefDomT } from '@/common/types/etc';
 })
 export class Toast implements AfterViewInit {
   private readonly toastSlice: ToastSlice = inject(ToastSlice);
-  private readonly useAppEvent: UseAppEvSvc = inject(UseAppEvSvc);
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
   private readonly toastAnimations: ToastAnimationsSvc = inject(ToastAnimationsSvc);
 
   public readonly toastState: Signal<ToastStateT> = computed(() => this.toastSlice.toastState());
   public readonly eventMeta: Signal<AppEventMetaT> = computed(() =>
-    this.useAppEvent.getByT(this.toastState().eventT)
+    UseEventMeta.getByT(this.toastState().eventT)
   );
   public readonly isClient: boolean = this.usePlatform.isClient;
 

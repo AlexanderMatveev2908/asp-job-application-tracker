@@ -1,11 +1,10 @@
 import { AppEventMetaT, AppEventT } from '@/common/types/events';
-import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
+import { UseEventMeta } from '@/core/hooks/use_event_meta';
 import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  inject,
   input,
   InputSignal,
   Signal,
@@ -19,8 +18,6 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Tooltip {
-  private readonly useAppEvents: UseAppEvSvc = inject(UseAppEvSvc);
-
   public readonly isHover: InputSignal<boolean> = input.required();
   public readonly msg: InputSignal<string | null> = input.required();
   public readonly eventT: InputSignal<AppEventT> = input.required();
@@ -29,6 +26,6 @@ export class Tooltip {
     this.isHover() && this.msg() ? 'translate-y-[-100%] opacity-1' : 'translate-y-[25px] opacity-0'
   );
   public readonly eventMeta: Signal<AppEventMetaT> = computed(() =>
-    this.useAppEvents.getByT(this.eventT())
+    UseEventMeta.getByT(this.eventT())
   );
 }

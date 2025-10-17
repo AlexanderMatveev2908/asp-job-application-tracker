@@ -1,6 +1,6 @@
 import { ElDomT, RefDomT } from '@/common/types/etc';
 import { AppEventMetaT, AppEventT } from '@/common/types/events';
-import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
+import { UseEventMeta } from '@/core/hooks/use_event_meta';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import {
   AfterViewInit,
@@ -25,12 +25,11 @@ import { v4 } from 'uuid';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpinBtn implements AfterViewInit {
-  private readonly useAppEvents: UseAppEvSvc = inject(UseAppEvSvc);
   public readonly eventT: InputSignal<AppEventT> = input.required();
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
   public readonly metaEvent: Signal<AppEventMetaT> = computed(() =>
-    this.useAppEvents.getByT(this.eventT())
+    UseEventMeta.getByT(this.eventT())
   );
 
   public readonly IDs: string[] = Array.from({ length: 4 }, () => v4());

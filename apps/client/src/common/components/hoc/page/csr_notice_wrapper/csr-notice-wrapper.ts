@@ -13,7 +13,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { PageWrapper } from '../../../../../layout/page_wrapper/page-wrapper';
-import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
+import { UseEventMeta } from '@/core/hooks/use_event_meta';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { AppEventMetaT, AppEventPayloadT } from '@/common/types/events';
 import { ElDomT, RefDomT } from '@/common/types/etc';
@@ -27,12 +27,11 @@ import { animate, AnimationOptionsWithOverrides } from '@motionone/dom';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CsrNoticeWrapper implements AfterViewInit {
-  private readonly useAppEvents: UseAppEvSvc = inject(UseAppEvSvc);
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
   public readonly props: InputSignal<AppEventPayloadT> = input.required<AppEventPayloadT>();
   public metaEvent: Signal<AppEventMetaT> = computed(() =>
-    this.useAppEvents.getByT(this.props().eventT)
+    UseEventMeta.getByT(this.props().eventT)
   );
 
   @ViewChild('svgWrap') svgWrap: RefDomT;
