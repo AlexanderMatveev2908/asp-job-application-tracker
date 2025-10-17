@@ -1,5 +1,6 @@
 export class Reg {
   public static readonly NAME: RegExp = /^[\p{L}\s,`'-]*$/u;
+  public static readonly MAIL: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   public static readonly JOB_NAME: RegExp = /^[\p{L}\s,`'/-]*$/u;
   public static readonly PWD: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])\S{8,}$/;
   public static readonly TXT: RegExp = /^[\p{L}\d\s\-'".,;!?]*$/u;

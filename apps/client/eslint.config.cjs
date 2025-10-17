@@ -12,8 +12,8 @@ module.exports = tseslint.config(
         project: [
           // ? every client app ts_config file
           path.join(__dirname, 'tsconfig.app.json'),
-          path.join(__dirname, 'tsconfig.server.json'),
           path.join(__dirname, 'tsconfig.spec.json'),
+          path.join(__dirname, 'tsconfig.e2e.json'),
         ],
         tsconfigRootDir: __dirname,
       },

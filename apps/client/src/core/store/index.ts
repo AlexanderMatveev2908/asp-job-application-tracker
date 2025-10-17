@@ -1,3 +1,4 @@
+import { authReducer, AuthStateT } from '@/features/auth/reducer/reducer';
 import { noticeReducer, NoticeStateT } from '@/features/notice/reducer/reducer';
 import { sideReducer, SideStateT } from '@/features/sidebar/reducer/reducer';
 import { toastReducer, ToastStateT } from '@/features/toast/reducer/reducer';
@@ -9,6 +10,7 @@ export interface StoreStateT {
   notice: NoticeStateT;
   toast: ToastStateT;
   wakeUp: WakeUpStateT;
+  auth: AuthStateT;
 }
 
 export const rootReducer: ActionReducerMap<StoreStateT> = {
@@ -16,4 +18,5 @@ export const rootReducer: ActionReducerMap<StoreStateT> = {
   notice: noticeReducer,
   toast: toastReducer,
   wakeUp: wakeUpReducer,
+  auth: authReducer,
 };
