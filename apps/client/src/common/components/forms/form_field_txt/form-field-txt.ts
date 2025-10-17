@@ -1,4 +1,4 @@
-import { TxtFieldT } from '@/common/types/forms';
+import { ErrsFieldT, RecErrsFieldT, TxtFieldT } from '@/common/types/forms';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,7 +7,9 @@ import {
   input,
   InputSignal,
   OnInit,
+  signal,
   Signal,
+  WritableSignal,
 } from '@angular/core';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -28,6 +30,10 @@ export class FormFieldTxt implements OnInit {
   private readonly useDiCtx: UseDiCtxSvc = inject(UseDiCtxSvc);
 
   public val!: Signal<string>;
+  public errs: WritableSignal<RecErrsFieldT> = signal({
+    prev: null,
+    curr: null,
+  });
 
   ngOnInit(): void {
     const c = this.ctrl();
@@ -39,7 +45,17 @@ export class FormFieldTxt implements OnInit {
 
       effect(() => {
         void this.val();
-        Log.log(c.errors);
+
+        const wasInteraction: boolean = c.touched || c.dirty;
+
+        const errors: ErrsFieldT = c.errors as ErrsFieldT;
+
+        this.errs.update((prev: RecErrsFieldT) => ({
+          prev: prev.curr,
+          curr: errors?.zod && wasInteraction ? errors.zod : null,
+        }));
+
+        Log.log(this.errs());
       });
     });
   }
