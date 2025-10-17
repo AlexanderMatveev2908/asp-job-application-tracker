@@ -1,10 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
 import { ToastActT } from './actions';
-import { AppEventPayload } from '@/common/types/events';
+import { AppEventPayloadT } from '@/common/types/events';
 import { v4 } from 'uuid';
 import { WithIdT } from '@/common/types/etc';
 
-export interface ToastStateT extends AppEventPayload {
+export interface ToastStateT extends AppEventPayloadT {
   currID: string | null;
   prevID: string | null;
   isToast: boolean;
@@ -21,7 +21,7 @@ export const initState: ToastStateT = {
 
 export const toastReducer = createReducer(
   initState,
-  on(ToastActT.OPEN_TOAST, (state: ToastStateT, action: AppEventPayload) => ({
+  on(ToastActT.OPEN_TOAST, (state: ToastStateT, action: AppEventPayloadT) => ({
     prevID: state.currID,
     currID: v4(),
     eventT: action.eventT,

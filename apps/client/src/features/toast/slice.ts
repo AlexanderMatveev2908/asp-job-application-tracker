@@ -4,7 +4,7 @@ import { StoreStateT } from '@/core/store';
 import { ToastStateT } from './reducer/reducer';
 import { getToastState } from './reducer/selectors';
 import { ToastActT } from './reducer/actions';
-import { AppEventPayload } from '@/common/types/events';
+import { AppEventPayloadT } from '@/common/types/events';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +20,7 @@ export class ToastSlice {
     this.store.dispatch(ToastActT.SET_ID({ id }));
   }
 
-  public openToast(arg: AppEventPayload): void {
+  public openToast(arg: AppEventPayloadT): void {
     this.store.dispatch(ToastActT.OPEN_TOAST(arg));
   }
 
@@ -28,7 +28,7 @@ export class ToastSlice {
     this.store.dispatch(ToastActT.CLOSE_TOAST());
   }
 
-  public ifNotPresent(arg: AppEventPayload): void {
+  public ifNotPresent(arg: AppEventPayloadT): void {
     if (this.toastState().isToast) return;
 
     this.openToast(arg);

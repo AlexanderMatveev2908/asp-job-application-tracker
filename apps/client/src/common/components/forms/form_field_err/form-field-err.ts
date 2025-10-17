@@ -1,25 +1,59 @@
-import { RecErrsFieldT } from '@/common/types/forms';
-import { NgClass } from '@angular/common';
+import { ErrsFieldT, RecErrsFieldT } from '@/common/types/forms';
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
+  effect,
+  inject,
   input,
   InputSignal,
+  OnInit,
+  signal,
   Signal,
+  WritableSignal,
 } from '@angular/core';
+import { Tooltip } from '../../els/tooltip/tooltip';
+import { FormControl } from '@angular/forms';
+import { UseDiCtxSvc } from '@/core/hooks/use_di_ctx';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-form-field-err',
-  imports: [NgClass],
+  imports: [Tooltip],
   templateUrl: './form-field-err.html',
   styleUrl: './form-field-err.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormFieldErr {
-  public readonly recErrs: InputSignal<RecErrsFieldT> = input.required();
+export class FormFieldErr<T> implements OnInit {
+  public readonly ctrl: InputSignal<FormControl<T>> = input.required();
+  private readonly useDiCtx: UseDiCtxSvc = inject(UseDiCtxSvc);
 
-  public readonly twd: Signal<string> = computed(() =>
-    this.recErrs().curr ? 'translate-y-[-100%] opacity-1' : 'translate-y-[25px] opacity-0'
-  );
+  public val!: Signal<string>;
+  public recErrs: WritableSignal<RecErrsFieldT> = signal({
+    prev: null,
+    curr: null,
+  });
+
+  ngOnInit(): void {
+    const c = this.ctrl();
+
+    this.useDiCtx.inCtx(() => {
+      this.val = toSignal(c.valueChanges as Observable<string>, {
+        initialValue: c.value as string,
+      });
+
+      effect(() => {
+        void this.val();
+
+        const wasInteraction: boolean = c.touched || c.dirty;
+
+        const errors: ErrsFieldT = c.errors as ErrsFieldT;
+
+        this.recErrs.update((prev: RecErrsFieldT) => ({
+          prev: prev.curr,
+          curr: errors?.zod && wasInteraction ? errors.zod : null,
+        }));
+      });
+    });
+  }
 }

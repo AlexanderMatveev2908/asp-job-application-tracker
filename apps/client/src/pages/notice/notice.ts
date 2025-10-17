@@ -7,7 +7,7 @@ import {
   Signal,
 } from '@angular/core';
 import { NoticeSlice } from '@/features/notice/slice';
-import { AppEventPayload } from '@/common/types/events';
+import { AppEventPayloadT } from '@/common/types/events';
 import { NoticeWithoutCb } from '@/features/notice/reducer/reducer';
 import { UseStorageSvc } from '@/core/hooks/use_storage';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
@@ -25,7 +25,7 @@ export class Notice implements OnInit {
   private readonly useStorage: UseStorageSvc = inject(UseStorageSvc);
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
-  public readonly wrapEventsProps: Signal<AppEventPayload> = computed(() => {
+  public readonly wrapEventsProps: Signal<AppEventPayloadT> = computed(() => {
     const { cb: _cb, ...rst } = this.noticeSlice.noticeState();
 
     return rst;

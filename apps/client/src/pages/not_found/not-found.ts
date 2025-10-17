@@ -1,7 +1,7 @@
 import { LinkShadowPropsT } from '@/common/components/links/link_shadow/etc/types';
 import { LinkShadow } from '@/common/components/links/link_shadow/link-shadow';
 import { SvgStrokeHome } from '@/common/components/svgs/stroke/home/home';
-import { AppEventPayload, AppEventT } from '@/common/types/events';
+import { AppEventPayloadT, AppEventT } from '@/common/types/events';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CsrNoticeWrapper } from '@/common/components/hoc/page/csr_notice_wrapper/csr-notice-wrapper';
 
@@ -15,7 +15,7 @@ import { CsrNoticeWrapper } from '@/common/components/hoc/page/csr_notice_wrappe
 export class NotFound {
   private readonly eventT: AppEventT = 'INFO';
 
-  public readonly wrapEventsProps: AppEventPayload = {
+  public readonly wrapEventsProps: AppEventPayloadT = {
     eventT: this.eventT,
     msg: 'The treasure chest is empty. Someone got here before you... 💰',
     status: 404,

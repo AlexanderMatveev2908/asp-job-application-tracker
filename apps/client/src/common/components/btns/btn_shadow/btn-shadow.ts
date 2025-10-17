@@ -8,7 +8,7 @@ import {
   Signal,
 } from '@angular/core';
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
-import { AppEventMeta } from '@/common/types/events';
+import { AppEventMetaT } from '@/common/types/events';
 import { Span } from '../../els/span/span';
 import { BtnEvPropsT, BtnStatePropsT, BtnT } from '@/common/types/btns';
 import { SpanEventPropsT } from '@/common/types/els';
@@ -30,7 +30,7 @@ export class BtnShadow {
   public readonly eventsProps: InputSignal<BtnEvPropsT | null> = input<BtnEvPropsT | null>(null);
   public readonly type: InputSignal<BtnT> = input<BtnT>('button');
 
-  public readonly metaEvents: Signal<AppEventMeta> = computed(() =>
+  public readonly metaEvents: Signal<AppEventMetaT> = computed(() =>
     this.useAppEvents.getByT(this.spanProps().eventT)
   );
 

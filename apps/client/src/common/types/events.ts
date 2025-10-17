@@ -2,7 +2,7 @@ import { Type } from '@angular/core';
 
 export type AppEventT = 'OK' | 'NONE' | 'ERR' | 'WARN' | 'INFO';
 
-export interface AppEventMeta {
+export interface AppEventMetaT {
   Svg: Type<unknown>;
   css: string;
   txtTwd: string;
@@ -10,7 +10,7 @@ export interface AppEventMeta {
   clr: string;
 }
 
-export interface AppEventPayload {
+export interface AppEventPayloadT {
   status: number;
   msg: string;
   eventT: AppEventT;

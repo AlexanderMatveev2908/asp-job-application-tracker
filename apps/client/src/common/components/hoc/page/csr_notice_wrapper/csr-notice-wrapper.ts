@@ -15,7 +15,7 @@ import {
 import { PageWrapper } from '../../../../../layout/page_wrapper/page-wrapper';
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
-import { AppEventMeta, AppEventPayload } from '@/common/types/events';
+import { AppEventMetaT, AppEventPayloadT } from '@/common/types/events';
 import { ElDomT, RefDomT } from '@/common/types/etc';
 import { animate, AnimationOptionsWithOverrides } from '@motionone/dom';
 
@@ -30,8 +30,8 @@ export class CsrNoticeWrapper implements AfterViewInit {
   private readonly useAppEvents: UseAppEvSvc = inject(UseAppEvSvc);
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
-  public readonly props: InputSignal<AppEventPayload> = input.required<AppEventPayload>();
-  public metaEvent: Signal<AppEventMeta> = computed(() =>
+  public readonly props: InputSignal<AppEventPayloadT> = input.required<AppEventPayloadT>();
+  public metaEvent: Signal<AppEventMetaT> = computed(() =>
     this.useAppEvents.getByT(this.props().eventT)
   );
 

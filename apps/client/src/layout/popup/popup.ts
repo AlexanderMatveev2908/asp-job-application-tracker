@@ -18,7 +18,7 @@ import { BlackBgPropsT } from '@/layout/black_bg/etc/types';
 import { BlackBg } from '@/layout/black_bg/black-bg';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
-import { AppEventMeta } from '@/common/types/events';
+import { AppEventMetaT } from '@/common/types/events';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { AnimationsPopSvc } from './etc/animations_pop';
 import { CloseBtn } from '@/common/components/btns/close_btn/close-btn';
@@ -42,7 +42,7 @@ export class Popup {
     zBg: `z__${this.staticProps().cls}__bg`,
     isDark: this.isPop(),
   }));
-  public readonly eventMeta: Signal<AppEventMeta> = computed(() =>
+  public readonly eventMeta: Signal<AppEventMetaT> = computed(() =>
     this.useAppEvents.getByT(this.staticProps().eventT)
   );
 

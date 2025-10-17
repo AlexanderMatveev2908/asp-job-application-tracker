@@ -1,5 +1,5 @@
 import { ElDomT, RefDomT } from '@/common/types/etc';
-import { AppEventMeta, AppEventT } from '@/common/types/events';
+import { AppEventMetaT, AppEventT } from '@/common/types/events';
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import {
@@ -29,7 +29,7 @@ export class SpinBtn implements AfterViewInit {
   public readonly eventT: InputSignal<AppEventT> = input.required();
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
-  public readonly metaEvent: Signal<AppEventMeta> = computed(() =>
+  public readonly metaEvent: Signal<AppEventMetaT> = computed(() =>
     this.useAppEvents.getByT(this.eventT())
   );
 

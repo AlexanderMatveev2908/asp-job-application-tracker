@@ -1,3 +1,7 @@
-<div class="root" [ngClass]="twd()">
-  <span class="root__msg txt__sm">{{ recErrs().curr ?? recErrs().prev }}</span>
+<div class="root">
+  <app-tooltip
+    [msg]="recErrs().curr ?? recErrs().prev"
+    [eventT]="'ERR'"
+    [isHover]="!!recErrs().curr"
+  />
 </div>
