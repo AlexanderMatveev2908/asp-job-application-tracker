@@ -1,5 +1,5 @@
-import { BaseElPropsT } from '@/common/types/els';
+import { SpanEventPropsT } from '@/common/types/els';
 
-export interface LinkShadowPropsT extends BaseElPropsT {
+export interface LinkShadowPropsT extends SpanEventPropsT {
   path: string;
 }

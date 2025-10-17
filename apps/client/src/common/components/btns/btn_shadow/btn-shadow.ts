@@ -10,9 +10,8 @@ import {
 import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
 import { AppEventMeta } from '@/common/types/events';
 import { Span } from '../../els/span/span';
-import { BtnEvPropsT, BtnStatePropsT } from '@/common/types/btns';
-import { BaseElPropsT } from '@/common/types/els';
-import { SpanPropsT } from '../../els/span/etc/types';
+import { BtnEvPropsT, BtnStatePropsT, BtnT } from '@/common/types/btns';
+import { SpanEventPropsT } from '@/common/types/els';
 import { WrapBtnApi } from '../../hoc/btns/wrap_btn_api/wrap-btn-api';
 import { WrapBtnApiPropsT } from '../../hoc/btns/wrap_btn_api/etc/types';
 
@@ -26,21 +25,23 @@ import { WrapBtnApiPropsT } from '../../hoc/btns/wrap_btn_api/etc/types';
 export class BtnShadow {
   private readonly useAppEvents: UseAppEvSvc = inject(UseAppEvSvc);
 
-  public readonly baseProps: InputSignal<BaseElPropsT> = input.required();
+  public readonly spanProps: InputSignal<SpanEventPropsT> = input.required();
   public readonly btnProps: InputSignal<BtnStatePropsT> = input.required();
-  public readonly eventsProps: InputSignal<BtnEvPropsT> = input.required();
-
-  public readonly pairTxtProps: Signal<SpanPropsT> = computed(() => ({
-    label: this.baseProps().label,
-    Svg: this.baseProps().Svg,
-  }));
+  public readonly eventsProps: InputSignal<BtnEvPropsT | null> = input<BtnEvPropsT | null>(null);
+  public readonly type: InputSignal<BtnT> = input<BtnT>('button');
 
   public readonly metaEvents: Signal<AppEventMeta> = computed(() =>
-    this.useAppEvents.getByT(this.baseProps().eventT)
+    this.useAppEvents.getByT(this.spanProps().eventT)
   );
 
   public readonly wrapBtnApiProps: Signal<WrapBtnApiPropsT> = computed(() => ({
-    eventT: this.baseProps().eventT,
+    eventT: this.spanProps().eventT,
     isPending: this.btnProps().isPending,
   }));
+
+  public onClick(): (() => void) | null {
+    const clickEvent = this.eventsProps()?.onClick;
+
+    return clickEvent ?? null;
+  }
 }

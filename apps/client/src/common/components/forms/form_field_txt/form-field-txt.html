@@ -1,0 +1,12 @@
+<div class="root">
+  <div class="root__label">
+    <span class="txt__lg">{{ f().label }}</span>
+  </div>
+
+  <input
+    [formControl]="ctrl()"
+    class="root__input txt__md"
+    [type]="f().type"
+    [placeholder]="f().place"
+  />
+</div>

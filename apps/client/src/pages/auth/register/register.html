@@ -1,5 +1,16 @@
 <app-csr-with-title [title]="'Register'">
   <div class="root">
-    <div class="root__body"></div>
+    <form class="root__body" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="body__swap">
+        <!--  -->
+        @for(f of firstSwapFields; track f.id){
+        <app-form-field-txt [f]="f" [ctrl]="getCtrl(f)" />
+        }
+      </div>
+
+      <div class="body__btn">
+        <app-btn-shadow [spanProps]="spanProps" [btnProps]="btnProps" [type]="'submit'" />
+      </div>
+    </form>
   </div>
 </app-csr-with-title>

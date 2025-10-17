@@ -1,10 +1,11 @@
 <app-wrap-btn-api [props]="wrapBtnApiProps()">
   <button
-    (click)="eventsProps().onClick()"
+    (click)="onClick()"
+    [type]="type()"
     class="root btn__res"
     [style.--clr]="metaEvents().css"
     [disabled]="btnProps().isDisabled"
   >
-    <app-span [spanProps]="pairTxtProps()" />
+    <app-span [spanProps]="spanProps()" />
   </button>
 </app-wrap-btn-api>

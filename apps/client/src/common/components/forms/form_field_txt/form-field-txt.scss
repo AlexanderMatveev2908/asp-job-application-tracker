@@ -1,0 +1,13 @@
+@use 'exports/mix' as mix;
+
+.root {
+  @apply w-full flex flex-col gap-4;
+
+  .root__label {
+    @apply w-full flex justify-start;
+  }
+
+  .root__input {
+    @include mix.input__sdw(5px 20px);
+  }
+}

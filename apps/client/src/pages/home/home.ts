@@ -1,7 +1,7 @@
 import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
 import { SvgFillBash } from '@/common/components/svgs/fill/bash/bash';
 import { BtnEvPropsT, BtnStatePropsT } from '@/common/types/btns';
-import { BaseElPropsT } from '@/common/types/els';
+import { SpanEventPropsT } from '@/common/types/els';
 import { ApiSvc } from '@/core/store/api/api';
 import { TrackerSvc } from '@/core/store/api/etc/tracker';
 import { ResApiT } from '@/core/store/api/etc/types';
@@ -24,7 +24,7 @@ export class Home {
     isDisabled: false,
     isPending: this.tracker.isPending(),
   }));
-  public readonly baseElProps: BaseElPropsT = {
+  public readonly spanProps: SpanEventPropsT = {
     label: 'Script worked 🎉',
     Svg: SvgFillBash,
     eventT: 'INFO',

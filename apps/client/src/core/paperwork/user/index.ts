@@ -30,22 +30,18 @@ export const pwdSchema = z.object({
     .string()
     .min(1, 'Password required')
     .max(MAX_CHARS_TXT, 'Max length exceeded')
-    .regex(Reg.PWD),
+    .regex(Reg.PWD, 'Invalid password'),
 });
 
-export const pairPwdSchema = pwdSchema
-  .extend({
-    confirmPassword: z.string().min(1, 'Confirm password required'),
-  })
-  .refine(
-    // eslint-disable-next-line @typescript-eslint/typedef
-    (data) => {
-      const { password, confirmPassword } = data;
+export const pairPwdSchema = pwdSchema.extend({
+  confirmPassword: z.string().min(1, 'Confirm password required'),
+});
 
-      return password === confirmPassword;
-    },
-    {
-      path: ['confirmPassword'],
-      message: 'Passwords do not match',
-    }
-  );
+export interface PairPwdArgT {
+  password: string;
+  confirmPassword: string;
+}
+export const refinePairPwd = (data: PairPwdArgT): boolean => {
+  const { password, confirmPassword } = data;
+  return password === confirmPassword;
+};

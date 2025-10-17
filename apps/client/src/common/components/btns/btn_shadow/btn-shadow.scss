@@ -1,6 +1,7 @@
 @use 'exports/mix.scss' as mix;
 
 .root {
+  @apply bg-neutral-950;
   @include mix.btn__scl(1.15);
   border-color: var(--clr);
 
