@@ -1,47 +1,56 @@
-import { z } from 'zod';
+import z, { ZodObject, ZodString } from 'zod';
 import { Reg } from '../reg';
-
-const MAX_CHARS_TXT: number = 100;
-const MAX_CHARS_MAIL: number = 254;
-
-export const nameSchema = z.object({
-  firstName: z
-    .string()
-    .min(1, 'First Name required')
-    .max(MAX_CHARS_TXT, 'Max length exceeded')
-    .regex(Reg.NAME, 'First Name invalid'),
-  lastName: z
-    .string()
-    .min(1, 'Last Name required')
-    .max(MAX_CHARS_TXT, 'Max length exceeded')
-    .regex(Reg.NAME, 'Last Name invalid'),
-});
-
-export const emailSchema = z.object({
-  email: z
-    .string()
-    .min(1, 'Email required')
-    .max(MAX_CHARS_MAIL, 'Max length exceeded')
-    .regex(Reg.MAIL, 'Email Invalid'),
-});
-
-export const pwdSchema = z.object({
-  password: z
-    .string()
-    .min(1, 'Password required')
-    .max(MAX_CHARS_TXT, 'Max length exceeded')
-    .regex(Reg.PWD, 'Invalid password'),
-});
-
-export const pairPwdSchema = pwdSchema.extend({
-  confirmPassword: z.string().min(1, 'Confirm password required'),
-});
 
 export interface PairPwdArgT {
   password: string;
   confirmPassword: string;
 }
-export const refinePairPwd = (data: PairPwdArgT): boolean => {
-  const { password, confirmPassword } = data;
-  return password === confirmPassword;
-};
+
+export class UserZod {
+  // eslint-disable-next-line no-magic-numbers
+  private static readonly MAX_CHARS_TXT: number = 100;
+  // eslint-disable-next-line no-magic-numbers
+  private static readonly MAX_CHARS_MAIL: number = 254;
+
+  public static readonly namesSchema: ZodObject<{ firstName: ZodString; lastName: ZodString }> =
+    z.object({
+      firstName: z
+        .string()
+        .min(1, 'First Name required')
+        .max(this.MAX_CHARS_TXT, 'Max length exceeded')
+        .regex(Reg.NAME, 'First Name invalid'),
+      lastName: z
+        .string()
+        .min(1, 'Last Name required')
+        .max(this.MAX_CHARS_TXT, 'Max length exceeded')
+        .regex(Reg.NAME, 'Last Name invalid'),
+    });
+
+  public static readonly mailSchema: ZodObject<{ email: ZodString }> = z.object({
+    email: z
+      .string()
+      .min(1, 'Email required')
+      .max(this.MAX_CHARS_MAIL, 'Max length exceeded')
+      .regex(Reg.MAIL, 'Email Invalid'),
+  });
+
+  public static readonly pwdSchema: ZodObject<{ password: ZodString }> = z.object({
+    password: z
+      .string()
+      .min(1, 'Password required')
+      .max(this.MAX_CHARS_TXT, 'Max length exceeded')
+      .regex(Reg.PWD, 'Invalid password'),
+  });
+
+  public static readonly pairPwdSchema: ZodObject<{
+    password: ZodString;
+    confirmPassword: ZodString;
+  }> = this.pwdSchema.extend({
+    confirmPassword: z.string().min(1, 'Confirm password required'),
+  });
+
+  public static refinePairPwd(data: PairPwdArgT): boolean {
+    const { password, confirmPassword } = data;
+    return password === confirmPassword;
+  }
+}

@@ -1,22 +1,16 @@
-import {
-  emailSchema,
-  nameSchema,
-  PairPwdArgT,
-  pairPwdSchema,
-  refinePairPwd,
-} from '@/core/paperwork/user';
+import { PairPwdArgT, UserZod } from '@/core/paperwork/user';
 import z from 'zod';
 
-export const registerSchema = nameSchema
-  .extend(emailSchema.shape)
-  .extend(pairPwdSchema.shape)
+export const registerSchema = UserZod.namesSchema
+  .extend(UserZod.mailSchema.shape)
+  .extend(UserZod.pairPwdSchema.shape)
   .extend({
     terms: z
       .boolean()
       .nullable()
       .refine(Boolean, { message: 'Terms must be accepted', path: ['terms'] }),
   })
-  .refine((data: PairPwdArgT) => refinePairPwd(data), {
+  .refine((data: PairPwdArgT) => UserZod.refinePairPwd(data), {
     message: 'Passwords do not match',
     path: ['confirmPassword'],
   });
