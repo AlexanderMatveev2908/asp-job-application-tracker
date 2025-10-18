@@ -35,37 +35,47 @@ import { RefDomT } from '@/common/types/etc';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Sidebar extends Lorem {
+  // ? svc
   private readonly useMouseOut: UseMouseOutSvc = inject(UseMouseOutSvc);
   private readonly sideSlice: SidebarSlice = inject(SidebarSlice);
   private readonly usePath: UsePathSvc = inject(UsePathSvc);
 
+  // ? local state
   public readonly isDropOpen: WritableSignal<boolean> = signal(false);
   public readonly setIsDropOpen: (val: boolean) => void = (val: boolean) => {
     this.isDropOpen.set(val);
   };
 
+  // ? children
   @ViewChild('side') side: RefDomT;
 
+  // ? derived
   public readonly isSideOpen: Signal<boolean> = computed(() => this.sideSlice.sideState().isOpen);
   public readonly currPath: Signal<string | null> = this.usePath.currPath;
+
+  // ? static fields
   public readonly allUsersLinks: LinkT[] = LinksUiFkt.allUsers;
   public readonly notLoggedLinks: LinkT[] = LinksUiFkt.notLogged;
 
+  // ? app-span props
   public readonly spanUserProps: WritableSignal<SpanPropsT> = signal(spanUserNotLogged);
 
+  // ? txt-clamp props
+  public readonly txtClampProps: TxtClampPropsT = {
+    txt: 'john@gmail.com',
+    size: 'lg',
+    lines: 1,
+  };
+
+  // ? black bg overlay props
   public readonly blackBgProps: Signal<BlackBgPropsT> = computed(() => ({
     isDark: this.isSideOpen(),
     zBg: 'z__sidebar__bg',
   }));
 
+  // ? listeners
   public readonly onSideClick: () => void = (): void => {
     this.sideSlice.close();
-  };
-
-  public readonly txtClampProps: TxtClampPropsT = {
-    txt: 'john@gmail.com',
-    size: 'lg',
-    lines: 1,
   };
 
   @HostListener('document:mousedown', ['$event'])

@@ -29,23 +29,29 @@ import { NavLink } from '@/common/components/links/nav_link/nav-link';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
+  // ? svc
   private readonly usePath: UsePathSvc = inject(UsePathSvc);
   private readonly sideSlice: SidebarSlice = inject(SidebarSlice);
 
+  // ? derived
   public readonly isSideOpen: Signal<boolean> = computed(() => this.sideSlice.sideState().isOpen);
-  public readonly isDropOpen: WritableSignal<boolean> = signal(false);
+  public readonly currPath: Signal<string | null> = this.usePath.currPath;
 
+  // ? helper
   public readonly toggleSide: () => void = () => {
     this.sideSlice.toggle();
   };
+
+  // ? local state
+  public readonly isDropOpen: WritableSignal<boolean> = signal(false);
   public readonly setIsDropOpen: (val: boolean) => void = (val: boolean) => {
     this.isDropOpen.set(val);
   };
 
-  public readonly currPath: Signal<string | null> = this.usePath.currPath;
-
+  // ? static fields
   public readonly notLoggedLinks: LinkT[] = LinksUiFkt.notLogged;
 
+  // ? app-span props
   public readonly spanDropProps: Signal<SpanPropsT> = computed(() => ({
     label: null,
     Svg: SvgStrokeUserWrite,
