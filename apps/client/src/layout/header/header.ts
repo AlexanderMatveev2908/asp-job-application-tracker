@@ -17,7 +17,7 @@ import { DropAbs } from '@/common/components/drop/abs/drop-abs';
 import { SpanPropsT, SpanSizesPropsT } from '@/common/components/els/span/etc/types';
 import { NgClass } from '@angular/common';
 import { LinksCls } from '@/core/ui_factory/links';
-import { LinkT } from '@/common/types/links';
+import { LinkT } from '@/core/ui_factory/links/etc/types';
 import { UsePathSvc } from '@/core/hooks/use_path';
 import { NavLink } from '@/common/components/links/nav_link/nav-link';
 

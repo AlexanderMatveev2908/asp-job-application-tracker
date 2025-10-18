@@ -1,4 +1,4 @@
-import { SvgClsT, TxtClsT } from '@/common/types/sizes';
+import { SvgClsT, TxtClsT } from '@/common/types/css';
 import { Type } from '@angular/core';
 
 export interface SpanPropsT {

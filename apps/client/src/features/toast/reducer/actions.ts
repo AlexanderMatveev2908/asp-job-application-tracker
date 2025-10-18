@@ -1,5 +1,5 @@
 import { WithIdT } from '@/common/types/etc';
-import { AppEventPayloadT } from '@/common/types/events';
+import { AppEventPayloadT } from '@/core/hooks/use_event_meta/etc/types';
 import { createAction, props } from '@ngrx/store';
 
 export const ToastActT = {

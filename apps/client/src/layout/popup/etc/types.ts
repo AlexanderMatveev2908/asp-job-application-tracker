@@ -1,4 +1,4 @@
-import { AppEventT } from '@/common/types/events';
+import { AppEventT } from '@/core/hooks/use_event_meta/etc/types';
 
 export interface PopupPropsT {
   cls: PopupClsT;

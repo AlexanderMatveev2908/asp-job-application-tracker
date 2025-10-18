@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { NoticeActT } from './actions';
-import { AppEventPayloadT } from '@/common/types/events';
 import { GenericVoidCbT } from '@/common/types/etc';
+import { AppEventPayloadT } from '@/core/hooks/use_event_meta/etc/types';
 
 export interface NoticeStateT extends AppEventPayloadT {
   cb: GenericVoidCbT | null;

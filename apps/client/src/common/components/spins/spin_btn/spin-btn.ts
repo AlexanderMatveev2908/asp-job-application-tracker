@@ -1,6 +1,6 @@
 import { ElDomT, RefDomT } from '@/common/types/etc';
-import { AppEventMetaT, AppEventT } from '@/common/types/events';
-import { UseEventMeta } from '@/core/hooks/use_event_meta';
+import { AppEventMetaT, AppEventT } from '@/core/hooks/use_event_meta/etc/types';
+import { UseEventMeta } from '@/core/hooks/use_event_meta/use_event_meta';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import {
   AfterViewInit,

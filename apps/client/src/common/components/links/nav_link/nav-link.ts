@@ -1,4 +1,4 @@
-import { LinkT } from '@/common/types/links';
+import { LinkT } from '@/core/ui_factory/links/etc/types';
 import {
   ChangeDetectionStrategy,
   Component,

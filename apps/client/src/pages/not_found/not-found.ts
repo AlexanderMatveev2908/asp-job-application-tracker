@@ -1,9 +1,9 @@
 import { LinkShadowPropsT } from '@/common/components/links/link_shadow/etc/types';
 import { LinkShadow } from '@/common/components/links/link_shadow/link-shadow';
 import { SvgStrokeHome } from '@/common/components/svgs/stroke/home/home';
-import { AppEventPayloadT, AppEventT } from '@/common/types/events';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CsrNoticeWrapper } from '@/common/components/hoc/page/csr_notice_wrapper/csr-notice-wrapper';
+import { AppEventPayloadT, AppEventT } from '@/core/hooks/use_event_meta/etc/types';
 
 @Component({
   selector: 'app-not-found',

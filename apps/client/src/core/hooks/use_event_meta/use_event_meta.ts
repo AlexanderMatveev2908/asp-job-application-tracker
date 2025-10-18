@@ -1,7 +1,7 @@
 import { SvgFillCheck } from '@/common/components/svgs/fill/check/check';
 import { SvgFillError } from '@/common/components/svgs/fill/error/error';
 import { SvgFillInfo } from '@/common/components/svgs/fill/info/info';
-import { AppEventMetaT, AppEventT } from '@/common/types/events';
+import { AppEventMetaT, AppEventT } from './etc/types';
 
 export class UseEventMeta {
   private static readonly eventsData: Record<AppEventT, AppEventMetaT> = {

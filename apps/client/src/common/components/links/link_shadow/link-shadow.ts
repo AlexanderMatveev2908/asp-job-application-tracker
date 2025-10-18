@@ -9,9 +9,9 @@ import {
 import { RouterLink } from '@angular/router';
 import { NgTemplateOutlet } from '@angular/common';
 import { LinkShadowPropsT } from './etc/types';
-import { AppEventMetaT } from '@/common/types/events';
-import { UseEventMeta } from '@/core/hooks/use_event_meta';
+import { UseEventMeta } from '@/core/hooks/use_event_meta/use_event_meta';
 import { Span } from '../../els/span/span';
+import { AppEventMetaT } from '@/core/hooks/use_event_meta/etc/types';
 
 @Component({
   selector: 'app-link-shadow',

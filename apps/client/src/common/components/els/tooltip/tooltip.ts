@@ -1,5 +1,5 @@
-import { AppEventMetaT, AppEventT } from '@/common/types/events';
-import { UseEventMeta } from '@/core/hooks/use_event_meta';
+import { AppEventMetaT, AppEventT } from '@/core/hooks/use_event_meta/etc/types';
+import { UseEventMeta } from '@/core/hooks/use_event_meta/use_event_meta';
 import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,

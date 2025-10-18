@@ -12,12 +12,12 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { PageWrapper } from '../../../../../layout/page_wrapper/page-wrapper';
-import { UseEventMeta } from '@/core/hooks/use_event_meta';
+import { UseEventMeta } from '@/core/hooks/use_event_meta/use_event_meta';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
-import { AppEventMetaT, AppEventPayloadT } from '@/common/types/events';
 import { ElDomT, RefDomT } from '@/common/types/etc';
 import { animate, AnimationOptionsWithOverrides } from '@motionone/dom';
+import { AppEventMetaT, AppEventPayloadT } from '@/core/hooks/use_event_meta/etc/types';
+import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';
 
 @Component({
   selector: 'app-csr-notice-wrapper',

@@ -17,7 +17,7 @@ import { LinksCls } from '@/core/ui_factory/links';
 import { UsePathSvc } from '@/core/hooks/use_path';
 import { TxtClampPropsT } from '@/common/components/els/txt/txt_clamp/etc/types';
 import { BlackBgPropsT } from '@/layout/black_bg/etc/types';
-import { LinkT } from '@/common/types/links';
+import { LinkT } from '@/core/ui_factory/links/etc/types';
 import { DropStatic } from '@/common/components/drop/static/drop-static';
 import { SpanPropsT } from '@/common/components/els/span/etc/types';
 import { spanUserNotLogged } from './ui_factory';

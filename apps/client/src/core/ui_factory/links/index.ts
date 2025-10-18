@@ -1,8 +1,8 @@
-import { RootUiCls } from './root_ui';
+import { RootUiCls } from '../root_ui';
 import { SvgStrokeHome } from '@/common/components/svgs/stroke/home/home';
 import { SvgFillBriefcase } from '@/common/components/svgs/fill/briefcase/briefcase';
-import { LinkT } from '@/common/types/links';
-import { ShapeCheck } from '../lib/data_structure/shape';
+import { LinkT } from '@/core/ui_factory/links/etc/types';
+import { ShapeCheck } from '../../lib/data_structure/shape';
 import { SvgStrokeRegister } from '@/common/components/svgs/stroke/register/register';
 import { SvgStrokePassword } from '@/common/components/svgs/stroke/password/password';
 import { SvgFillLogin } from '@/common/components/svgs/fill/login/login';

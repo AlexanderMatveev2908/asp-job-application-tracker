@@ -1,13 +1,12 @@
 import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
 import { SvgFillBash } from '@/common/components/svgs/fill/bash/bash';
-import { BtnEvPropsT, BtnStatePropsT } from '@/common/types/btns';
-import { SpanEventPropsT } from '@/common/types/els';
 import { ApiSvc } from '@/core/store/api/api';
 import { TrackerSvc } from '@/core/store/api/etc/tracker';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { ArgsApi } from '@/core/store/api/requests/args_api';
 import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';
+import { BtnListenersT, BtnStatePropsT, SpanEventPropsT } from '@/common/types/etc';
 
 @Component({
   selector: 'app-home',
@@ -30,7 +29,7 @@ export class Home {
     eventT: 'INFO',
   };
 
-  public readonly btnEventsProps: BtnEvPropsT = {
+  public readonly btnEventsProps: BtnListenersT = {
     onClick: (): void => {
       this.tracker
         .trackPending(

@@ -2,14 +2,12 @@ import { Type } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 
 export type TxtInputT = 'text' | 'email' | 'password' | 'url';
-
 export type CheckInputT = 'radio' | 'checkbox';
 
 export interface RecErrsFieldT {
   prev: string | null;
   curr: string | null;
 }
-
 export type ErrsFieldT = ValidationErrors & { zod: string | null };
 
 interface BaseFieldT {

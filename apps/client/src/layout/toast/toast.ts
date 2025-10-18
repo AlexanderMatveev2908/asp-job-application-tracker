@@ -1,5 +1,4 @@
-import { AppEventMetaT } from '@/common/types/events';
-import { UseEventMeta } from '@/core/hooks/use_event_meta';
+import { UseEventMeta } from '@/core/hooks/use_event_meta/use_event_meta';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { TxtDOM } from '@/core/lib/dom/txt';
 import { ToastStateT } from '@/features/toast/reducer/reducer';
@@ -23,6 +22,7 @@ import { ToastAnimationsSvc } from './etc/toast_animations';
 import { ErrApp } from '@/core/lib/err';
 import { CloseBtn } from '@/common/components/btns/close_btn/close-btn';
 import { ElDomT, RefDomT } from '@/common/types/etc';
+import { AppEventMetaT } from '@/core/hooks/use_event_meta/etc/types';
 
 @Component({
   selector: 'app-toast',
