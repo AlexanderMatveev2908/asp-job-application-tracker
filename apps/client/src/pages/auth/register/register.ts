@@ -10,10 +10,11 @@ import { BtnStatePropsT } from '@/common/types/btns';
 import { Log } from '@/core/lib/log';
 import { checkZ } from '@/core/paperwork/zod_check';
 import { registerSchema } from '@/features/auth/register/paperwork/schema';
+import { Portal } from '@/layout/portal/portal';
 
 @Component({
   selector: 'app-register',
-  imports: [CsrWithTitle, ReactiveFormsModule, FormFieldTxt, BtnShadow],
+  imports: [CsrWithTitle, ReactiveFormsModule, FormFieldTxt, BtnShadow, Portal],
   templateUrl: './register.html',
   styleUrl: './register.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

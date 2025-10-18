@@ -12,4 +12,4 @@ export interface WithIdT {
 
 export type RefDomT = ElementRef<HTMLElement> | undefined;
 
-export type ElDomT = HTMLElement | undefined;
+export type ElDomT = HTMLElement | null | undefined;
