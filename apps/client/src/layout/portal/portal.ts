@@ -36,14 +36,12 @@ export class Portal implements AfterViewInit {
     const rootPortal: ElDomT = document.getElementById('root-portal');
     if (!rootPortal || !this.content) return;
 
-    if (!Portal.outlet) {
-      Portal.outlet = new DomPortalOutlet(rootPortal, this.appRef, this.injector);
-    }
+    if (!Portal.outlet) Portal.outlet = new DomPortalOutlet(rootPortal, this.appRef, this.injector);
 
-    if (!this.attached && Portal.outlet && !Portal.outlet.hasAttached()) {
-      const portal: TemplatePortal<unknown> = new TemplatePortal<unknown>(this.content, this.vcr);
-      Portal.outlet.attach(portal);
-      this.attached = true;
-    }
+    if (this.attached || !Portal.outlet || Portal.outlet.hasAttached()) return;
+
+    const portal: TemplatePortal<unknown> = new TemplatePortal<unknown>(this.content, this.vcr);
+    Portal.outlet.attach(portal);
+    this.attached = true;
   }
 }
