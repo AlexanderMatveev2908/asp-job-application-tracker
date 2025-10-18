@@ -18,7 +18,7 @@ import {
   ViewChild,
   WritableSignal,
 } from '@angular/core';
-import { ToastAnimationsSvc } from './etc/toast_animations';
+import { ToastAnimationsSvc } from './etc/animations';
 import { ErrApp } from '@/core/lib/err';
 import { CloseBtn } from '@/common/components/btns/close_btn/close-btn';
 import { ElDomT, RefDomT } from '@/common/types/etc';

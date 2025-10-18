@@ -21,15 +21,18 @@ import { NgClass } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavLink {
+  // ? app-span props
   public readonly spanProps: InputSignal<LinkT> = input.required();
-  public readonly currPath: InputSignal<string | null> = input.required();
-  public readonly setIsDropOpen: InputSignal<(val: boolean) => void> = input.required();
-
   public readonly spanSizesProps: SpanSizesPropsT = {
     svg: 'md',
     txt: 'lg',
   };
 
+  // ? personal props
+  public readonly currPath: InputSignal<string | null> = input.required();
+  public readonly setIsDropOpen: InputSignal<(val: boolean) => void> = input.required();
+
+  // ? derived
   public readonly isActive: Signal<boolean> = computed(() =>
     LinksUiFkt.isCurrPath(this.currPath(), this.spanProps().path)
   );

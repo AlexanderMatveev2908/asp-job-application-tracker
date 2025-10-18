@@ -30,12 +30,15 @@ import { NgComponentOutlet } from '@angular/common';
 export class FormFieldTxt implements OnInit, AfterViewInit {
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
+  // ? personal props required
   public readonly ctrl: InputSignal<FormControl<unknown>> = input.required();
   public readonly f: InputSignal<TxtFieldT | TxtSvgFieldT> = input.required();
 
+  // ? personal props optional
   public readonly focusOnMount: InputSignal<boolean> = input(false);
   public readonly onSvgClick: InputSignal<(() => void) | null> = input<(() => void) | null>(null);
   // ? additional listeners for custom needs beside normal ng flow
+  // ? rarely used
   public readonly onFocus: InputSignal<((v: string) => void) | null> = input<
     ((v: string) => void) | null
   >(null);
@@ -43,8 +46,10 @@ export class FormFieldTxt implements OnInit, AfterViewInit {
     ((val: string) => void) | null
   >(null);
 
+  // ? children
   @ViewChild('inputTxt') inputTxt!: RefDomT;
 
+  // ? derived
   public readonly Svg: Signal<Type<unknown> | null> = computed(
     () => (this.f() as TxtSvgFieldT)?.Svg ?? null
   );
@@ -54,6 +59,7 @@ export class FormFieldTxt implements OnInit, AfterViewInit {
 
   public val!: Signal<string>;
 
+  // ? ng lifecycle
   ngOnInit(): void {
     const c = this.ctrl();
 

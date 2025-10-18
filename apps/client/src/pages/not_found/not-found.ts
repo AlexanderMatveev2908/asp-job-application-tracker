@@ -15,11 +15,13 @@ import { AppEventPayloadT, AppEventT } from '@/core/hooks/use_event_meta/etc/typ
 export class NotFound {
   private readonly eventT: AppEventT = 'INFO';
 
+  // ? notice props
   public readonly wrapEventsProps: AppEventPayloadT = {
     eventT: this.eventT,
     msg: 'The treasure chest is empty. Someone got here before you... 💰',
     status: 404,
   };
+  // ? link under notice
   public readonly linkProps: LinkShadowPropsT = {
     path: '/',
     label: 'Home',

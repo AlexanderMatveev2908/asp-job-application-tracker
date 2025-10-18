@@ -22,12 +22,16 @@ import { PwdGenerator } from './pwd_generator/pwd-generator';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PairPwd {
+  // ? personal props
+  public readonly getCtrl: InputSignal<(key: TxtFieldT) => FormControl<unknown>> = input.required();
+
+  // ? local state
   public readonly pairPwdState: WritableSignal<PairPwdStateT> = signal({
     isConfirmPwdTypePwd: true,
     isPwdTypePwd: true,
   });
-  public readonly getCtrl: InputSignal<(key: TxtFieldT) => FormControl<unknown>> = input.required();
 
+  // ? ui fields
   public readonly pwdField: Signal<TxtSvgFieldT> = computed(() =>
     PwdUiFkt.pwdByBool(this.pairPwdState().isPwdTypePwd)
   );
@@ -35,6 +39,7 @@ export class PairPwd {
     PwdUiFkt.confPwdByBool(this.pairPwdState().isConfirmPwdTypePwd)
   );
 
+  // ? listeners
   public toggleByKey(key: keyof PairPwdStateT): () => void {
     return () => {
       const other: keyof PairPwdStateT =

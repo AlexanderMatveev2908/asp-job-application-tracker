@@ -23,6 +23,7 @@ import { AppEventMetaT } from '@/core/hooks/use_event_meta/etc/types';
 export class LinkShadow {
   public readonly props: InputSignal<LinkShadowPropsT> = input.required();
 
+  // ? derived
   public readonly metaEvent: Signal<AppEventMetaT> = computed(() =>
     UseEventMeta.getByT(this.props().eventT)
   );

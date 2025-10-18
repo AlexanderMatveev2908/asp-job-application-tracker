@@ -1,6 +1,7 @@
+import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
 import { SvgStrokeLeft } from '@/common/components/svgs/stroke/left/left';
 import { SvgStrokeRight } from '@/common/components/svgs/stroke/right/right';
-import { SpanEventPropsT, WithIdT } from '@/common/types/etc';
+import { WithIdT } from '@/common/types/etc';
 import { RootUiFkt } from '@/core/ui_factory/root_ui';
 
 export class SpansSwap extends RootUiFkt {

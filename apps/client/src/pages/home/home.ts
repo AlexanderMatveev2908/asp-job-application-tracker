@@ -6,7 +6,8 @@ import { ResApiT } from '@/core/store/api/etc/types';
 import { ArgsApi } from '@/core/store/api/requests/args_api';
 import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';
-import { BtnListenersT, BtnStatePropsT, SpanEventPropsT } from '@/common/types/etc';
+import { BtnListenersT, BtnStatePropsT } from '@/common/types/etc';
+import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
 
 @Component({
   selector: 'app-home',
@@ -16,9 +17,11 @@ import { BtnListenersT, BtnStatePropsT, SpanEventPropsT } from '@/common/types/e
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Home {
+  // ? svc
   private readonly api: ApiSvc = inject(ApiSvc);
   private readonly tracker: TrackerSvc = inject(TrackerSvc);
 
+  // ? btn props
   public readonly btnStateProps: Signal<BtnStatePropsT> = computed(() => ({
     isDisabled: false,
     isPending: this.tracker.isPending(),

@@ -1,6 +1,4 @@
-import { AppEventT } from '@/core/hooks/use_event_meta/etc/types';
 import { ElementRef } from '@angular/core';
-import { SpanPropsT } from '../components/els/span/etc/types';
 
 export type GenericVoidT = void | Promise<void>;
 
@@ -15,10 +13,6 @@ export interface WithIdT {
 export type RefDomT = ElementRef<HTMLElement> | undefined;
 
 export type ElDomT = HTMLElement | null | undefined;
-
-export interface SpanEventPropsT extends SpanPropsT {
-  eventT: AppEventT;
-}
 
 export interface BtnStatePropsT {
   isPending: boolean;
