@@ -16,7 +16,7 @@ import { SidebarSlice } from '@/features/sidebar/slice';
 import { DropAbs } from '@/common/components/drop/abs/drop-abs';
 import { SpanPropsT, SpanSizesPropsT } from '@/common/components/els/span/etc/types';
 import { NgClass } from '@angular/common';
-import { LinksFkt } from '@/core/ui_factory/links';
+import { LinksUiFkt } from '@/core/ui_factory/links';
 import { LinkT } from '@/core/ui_factory/links/etc/types';
 import { UsePathSvc } from '@/core/hooks/use_path';
 import { NavLink } from '@/common/components/links/nav_link/nav-link';
@@ -44,7 +44,7 @@ export class Header {
 
   public readonly currPath: Signal<string | null> = this.usePath.currPath;
 
-  public readonly notLoggedLinks: LinkT[] = LinksFkt.notLogged;
+  public readonly notLoggedLinks: LinkT[] = LinksUiFkt.notLogged;
 
   public readonly spanDropProps: Signal<SpanPropsT> = computed(() => ({
     label: null,

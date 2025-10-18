@@ -9,7 +9,7 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { FormFieldTxt } from '../../forms/form_field_txt/form-field-txt';
-import { PwdFkt } from '@/core/ui_factory/pwd';
+import { PwdUiFkt } from '@/core/ui_factory/form_fields/etc/pwd';
 import { PairPwdStateT, TxtFieldT, TxtSvgFieldT } from '@/common/types/forms';
 import { FormControl } from '@angular/forms';
 
@@ -28,10 +28,10 @@ export class PairPwd {
   public readonly getCtrl: InputSignal<(key: TxtFieldT) => FormControl<unknown>> = input.required();
 
   public readonly pwdField: Signal<TxtSvgFieldT> = computed(() =>
-    PwdFkt.pwdByBool(this.pairPwdState().isPwdTypePwd)
+    PwdUiFkt.pwdByBool(this.pairPwdState().isPwdTypePwd)
   );
   public readonly confPwdField: Signal<TxtSvgFieldT> = computed(() =>
-    PwdFkt.confPwdByBool(this.pairPwdState().isConfirmPwdTypePwd)
+    PwdUiFkt.confPwdByBool(this.pairPwdState().isConfirmPwdTypePwd)
   );
 
   public toggleByKey(key: keyof PairPwdStateT): () => void {

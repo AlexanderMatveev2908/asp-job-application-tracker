@@ -11,16 +11,16 @@ import {
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CheckFieldT, TxtFieldT } from '@/common/types/forms';
-import { RegisterFormFkt } from '@/features/auth/register/ui_factory/form_fields';
+import { RegisterFormUiFkt } from '@/features/auth/register/ui_factory/form_fields';
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
 import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
 import { Log } from '@/core/lib/log';
-import { registerSchema } from '@/features/auth/register/paperwork/schema';
 import { BtnStatePropsT, SpanEventPropsT } from '@/common/types/etc';
 import { ZodCheck } from '@/core/paperwork/zod_check';
 import { Swapper } from '@/common/components/swap/swapper/swapper';
 import { FocusDOM } from '@/core/lib/dom/focus';
 import { PairPwd } from '@/common/components/hoc/pair_pwd/pair-pwd';
+import { RegisterFormMng } from '@/features/auth/register/paperwork/form_mng';
 
 @Component({
   selector: 'app-register',
@@ -30,19 +30,7 @@ import { PairPwd } from '@/common/components/hoc/pair_pwd/pair-pwd';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Register {
-  public readonly form: FormGroup = new FormGroup(
-    {
-      firstName: new FormControl(''),
-      lastName: new FormControl(''),
-      email: new FormControl(''),
-      password: new FormControl(''),
-      confirmPassword: new FormControl(''),
-      terms: new FormControl(null),
-    },
-    {
-      validators: ZodCheck.checkZ(registerSchema),
-    }
-  );
+  public readonly form: FormGroup = RegisterFormMng.form;
 
   public readonly swap: WritableSignal<number> = signal(0);
   public readonly setSwap: (val: number) => void = (val: number) => {
@@ -52,8 +40,8 @@ export class Register {
     return computed(() => (idx === this.swap() ? 1 : 0));
   }
 
-  public readonly firstSwapFields: TxtFieldT[] = RegisterFormFkt.firstSwap;
-  public readonly terms: CheckFieldT = RegisterFormFkt.termsField;
+  public readonly firstSwapFields: TxtFieldT[] = RegisterFormUiFkt.firstSwap;
+  public readonly terms: CheckFieldT = RegisterFormUiFkt.termsField;
 
   public readonly spanProps: SpanEventPropsT = {
     eventT: 'INFO',

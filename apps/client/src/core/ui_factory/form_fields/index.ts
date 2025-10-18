@@ -1,8 +1,8 @@
 import { CheckFieldT, TxtFieldT } from '@/common/types/forms';
-import { RootUiFkt } from './root_ui';
-import { Prs } from '../lib/data_structure/formatters';
+import { RootUiFkt } from '../root_ui';
+import { Prs } from '../../lib/data_structure/formatters';
 
-export class FormFieldsFkt extends RootUiFkt {
+export class FormFieldsUiFkt extends RootUiFkt {
   private static labelOf(arg: { name: string; label?: string }): string {
     return arg?.label ?? Prs.txtOfCamelCase(arg.name, { titleCase: true });
   }

@@ -8,7 +8,7 @@ import {
   Signal,
 } from '@angular/core';
 import { SpanSizesPropsT } from '../../els/span/etc/types';
-import { LinksFkt } from '@/core/ui_factory/links';
+import { LinksUiFkt } from '@/core/ui_factory/links';
 import { RouterLink } from '@angular/router';
 import { Span } from '../../els/span/span';
 import { NgClass } from '@angular/common';
@@ -31,6 +31,6 @@ export class NavLink {
   };
 
   public readonly isActive: Signal<boolean> = computed(() =>
-    LinksFkt.isCurrPath(this.currPath(), this.spanProps().path)
+    LinksUiFkt.isCurrPath(this.currPath(), this.spanProps().path)
   );
 }

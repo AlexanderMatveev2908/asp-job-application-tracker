@@ -8,7 +8,7 @@ import { SvgStrokePassword } from '@/common/components/svgs/stroke/password/pass
 import { SvgFillLogin } from '@/common/components/svgs/fill/login/login';
 import { SvgFillVerify } from '@/common/components/svgs/fill/verify/verify';
 
-export class LinksFkt extends RootUiFkt {
+export class LinksUiFkt extends RootUiFkt {
   private static readonly _allUsers: Partial<LinkT>[] = [
     {
       label: 'Home',
@@ -59,8 +59,8 @@ export class LinksFkt extends RootUiFkt {
   public static isCurrPath(currPath: string | null, lkPath: string): boolean {
     if (!ShapeCheck.isStr(currPath)) return false;
 
-    const currCut = LinksFkt.cutPath(currPath!);
-    const lkCut = LinksFkt.cutPath(lkPath);
+    const currCut = LinksUiFkt.cutPath(currPath!);
+    const lkCut = LinksUiFkt.cutPath(lkPath);
 
     return currCut === lkCut;
   }

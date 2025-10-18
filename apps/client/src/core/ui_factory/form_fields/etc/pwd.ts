@@ -2,14 +2,14 @@ import { SvgFillLockClose } from '@/common/components/svgs/fill/lock_close/lock-
 import { SvgFillLockOpen } from '@/common/components/svgs/fill/lock_open/lock-open';
 import { TxtInputT, TxtSvgFieldT } from '@/common/types/forms';
 import { Type } from '@angular/core';
-import { FormFieldsFkt } from './form_fields';
+import { FormFieldsUiFkt } from '..';
 
 export interface RecMetaPwdT {
   type: Extract<TxtInputT, 'password' | 'text'>;
   Svg: Type<unknown>;
 }
 
-export class PwdFkt {
+export class PwdUiFkt extends FormFieldsUiFkt {
   private static readonly mapMetaPwd: Map<boolean, RecMetaPwdT> = new Map<boolean, RecMetaPwdT>([
     [
       true,
@@ -33,14 +33,14 @@ export class PwdFkt {
 
   public static pwdByBool(val: boolean): TxtSvgFieldT {
     return {
-      ...FormFieldsFkt.txtFieldOf({ name: 'password' }),
+      ...this.txtFieldOf({ name: 'password' }),
       ...this.byBool(val),
     };
   }
 
   public static confPwdByBool(val: boolean): TxtSvgFieldT {
     return {
-      ...FormFieldsFkt.txtFieldOf({ name: 'confirmPassword' }),
+      ...this.txtFieldOf({ name: 'confirmPassword' }),
       ...this.byBool(val),
     };
   }

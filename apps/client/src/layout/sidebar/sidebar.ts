@@ -13,7 +13,7 @@ import { NgClass } from '@angular/common';
 import { BlackBg } from '@/layout/black_bg/black-bg';
 import { TxtClamp } from '@/common/components/els/txt/txt_clamp/txt-clamp';
 import { SidebarSlice } from '@/features/sidebar/slice';
-import { LinksFkt } from '@/core/ui_factory/links';
+import { LinksUiFkt } from '@/core/ui_factory/links';
 import { UsePathSvc } from '@/core/hooks/use_path';
 import { TxtClampPropsT } from '@/common/components/els/txt/txt_clamp/etc/types';
 import { BlackBgPropsT } from '@/layout/black_bg/etc/types';
@@ -48,8 +48,8 @@ export class Sidebar extends Lorem {
 
   public readonly isSideOpen: Signal<boolean> = computed(() => this.sideSlice.sideState().isOpen);
   public readonly currPath: Signal<string | null> = this.usePath.currPath;
-  public readonly allUsersLinks: LinkT[] = LinksFkt.allUsers;
-  public readonly notLoggedLinks: LinkT[] = LinksFkt.notLogged;
+  public readonly allUsersLinks: LinkT[] = LinksUiFkt.allUsers;
+  public readonly notLoggedLinks: LinkT[] = LinksUiFkt.notLogged;
 
   public readonly spanUserProps: WritableSignal<SpanPropsT> = signal(spanUserNotLogged);
 
