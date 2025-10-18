@@ -2,14 +2,14 @@
   <div class="root">
     <form class="root__form" [formGroup]="form" (ngSubmit)="onSubmit()">
       <app-swapper [maxSwaps]="2" [setSwap]="setSwap" [swap]="swap()">
-        <div class="swapper__swap" [style.--opac]="getOpacity(0)()">
+        <div #swapDiv class="swapper__swap" [style.--opac]="getOpacity(0)()">
           <!--  -->
           @for(f of firstSwapFields; track f.id){
           <app-form-field-txt [f]="f" [ctrl]="getCtrl(f)" [focusOnMount]="f.name === 'firstName'" />
           }
         </div>
 
-        <div class="swapper__swap" [style.--opac]="getOpacity(1)()">
+        <div #swapDiv class="swapper__swap" [style.--opac]="getOpacity(1)()">
           <!--  -->
           @for(f of pairPwdFields; track f.id){
           <app-form-field-txt [f]="f" [ctrl]="getCtrl(f)" [focusOnMount]="f.name === 'firstName'" />

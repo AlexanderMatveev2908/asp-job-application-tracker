@@ -6,7 +6,8 @@
   @apply w-full flex flex-col gap-10;
 
   .root__swapper {
-    @apply min-w-full grid transition-all duration-[0.4s];
+    transition: transform 0.4s, max-height 0.2s;
+    @apply min-w-full grid;
     grid-template-columns: repeat(var(--cols), 100%);
     transform: translateX(var(--perc));
   }

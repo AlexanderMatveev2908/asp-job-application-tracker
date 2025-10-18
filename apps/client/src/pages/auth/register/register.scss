@@ -10,7 +10,7 @@
 
     .swapper__swap {
       opacity: var(--opac);
-      @apply w-full px-4 flex flex-col gap-8 transition-all duration-300;
+      @apply w-full h-fit px-4 flex flex-col gap-8 transition-all duration-300;
     }
 
     .form__footer {

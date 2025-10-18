@@ -1,5 +1,10 @@
 <div class="root">
-  <div class="root__swapper" [style.--cols]="maxSwaps()" [style.--perc]="transform()">
+  <div
+    class="root__swapper"
+    [style.--cols]="maxSwaps()"
+    [style.--perc]="transform()"
+    [style.max-height]="maxH()"
+  >
     <ng-content />
   </div>
 
