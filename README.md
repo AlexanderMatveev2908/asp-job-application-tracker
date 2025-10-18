@@ -31,6 +31,7 @@ Together they form a clean, modern **full-stack architecture** 🚀
 - **Angular Forms + Zod** — Reactive form handling with schema-based, type-safe validation
 - **Angular HTTPClient** — Built-in HTTP module with interceptors for secure API integration
 - **Tailwind CSS** + **Sass** — Utility-first CSS with extended support for custom and complex designs
+- **Motionone** — Modern animation library for the DOM with concise syntax similar to **Framer Motion** (React)
 - **Custom Python CLI Tool** — Custom CLI tool that parses SVG files into Angular components with dynamic color and size bindings
 
 ---
