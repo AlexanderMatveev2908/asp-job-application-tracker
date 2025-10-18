@@ -1,4 +1,4 @@
-import { RootUiCls } from '../root_ui';
+import { RootUiFkt } from '../root_ui';
 import { SvgStrokeHome } from '@/common/components/svgs/stroke/home/home';
 import { SvgFillBriefcase } from '@/common/components/svgs/fill/briefcase/briefcase';
 import { LinkT } from '@/core/ui_factory/links/etc/types';
@@ -8,7 +8,7 @@ import { SvgStrokePassword } from '@/common/components/svgs/stroke/password/pass
 import { SvgFillLogin } from '@/common/components/svgs/fill/login/login';
 import { SvgFillVerify } from '@/common/components/svgs/fill/verify/verify';
 
-export class LinksCls extends RootUiCls {
+export class LinksFkt extends RootUiFkt {
   private static readonly _allUsers: Partial<LinkT>[] = [
     {
       label: 'Home',
@@ -59,8 +59,8 @@ export class LinksCls extends RootUiCls {
   public static isCurrPath(currPath: string | null, lkPath: string): boolean {
     if (!ShapeCheck.isStr(currPath)) return false;
 
-    const currCut = LinksCls.cutPath(currPath!);
-    const lkCut = LinksCls.cutPath(lkPath);
+    const currCut = LinksFkt.cutPath(currPath!);
+    const lkCut = LinksFkt.cutPath(lkPath);
 
     return currCut === lkCut;
   }

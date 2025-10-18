@@ -1,17 +1,19 @@
 import { CheckFieldT, TxtFieldT } from '@/common/types/forms';
-import { FormFieldsCls } from '@/core/ui_factory/form_fields';
+import { FormFieldsFkt } from '@/core/ui_factory/form_fields';
 
-export class RegisterFormFields {
+export class RegisterFormFkt {
   public static readonly firstSwap: TxtFieldT[] = [
-    FormFieldsCls.txtFieldOf({ name: 'firstName' }),
-    FormFieldsCls.txtFieldOf({ name: 'lastName' }),
-    FormFieldsCls.txtFieldOf({ name: 'email', type: 'email' }),
+    FormFieldsFkt.txtFieldOf({ name: 'firstName' }),
+    FormFieldsFkt.txtFieldOf({ name: 'lastName' }),
+    FormFieldsFkt.txtFieldOf({ name: 'email', type: 'email' }),
   ];
 
-  public static readonly pwd: TxtFieldT = FormFieldsCls.txtFieldOf({ name: 'password' });
-  public static readonly confPwd: TxtFieldT = FormFieldsCls.txtFieldOf({ name: 'confirmPassword' });
+  public static readonly pwd: TxtFieldT = FormFieldsFkt.txtFieldOf({ name: 'password' });
+  public static readonly confPwd: TxtFieldT = FormFieldsFkt.txtFieldOf({
+    name: 'confirmPassword',
+  });
 
-  public static readonly termsField: CheckFieldT = FormFieldsCls.checkFieldOf({
+  public static readonly termsField: CheckFieldT = FormFieldsFkt.checkFieldOf({
     name: 'terms',
     type: 'radio',
   });

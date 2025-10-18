@@ -11,7 +11,7 @@ import {
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CheckFieldT, PairPwdStateT, TxtFieldT } from '@/common/types/forms';
-import { RegisterFormFields } from '@/features/auth/register/ui_factory/form_fields';
+import { RegisterFormFkt } from '@/features/auth/register/ui_factory/form_fields';
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
 import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
 import { Log } from '@/core/lib/log';
@@ -60,8 +60,8 @@ export class Register {
     return computed(() => (idx === this.swap() ? 1 : 0));
   }
 
-  public readonly firstSwapFields: TxtFieldT[] = RegisterFormFields.firstSwap;
-  public readonly terms: CheckFieldT = RegisterFormFields.termsField;
+  public readonly firstSwapFields: TxtFieldT[] = RegisterFormFkt.firstSwap;
+  public readonly terms: CheckFieldT = RegisterFormFkt.termsField;
 
   public readonly spanProps: SpanEventPropsT = {
     eventT: 'INFO',

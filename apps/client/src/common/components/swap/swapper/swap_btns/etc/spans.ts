@@ -1,9 +1,9 @@
 import { SvgStrokeLeft } from '@/common/components/svgs/stroke/left/left';
 import { SvgStrokeRight } from '@/common/components/svgs/stroke/right/right';
 import { SpanEventPropsT, WithIdT } from '@/common/types/etc';
-import { RootUiCls } from '@/core/ui_factory/root_ui';
+import { RootUiFkt } from '@/core/ui_factory/root_ui';
 
-export class SpansSwap extends RootUiCls {
+export class SpansSwap extends RootUiFkt {
   private static readonly _spanProps: Partial<SpanEventPropsT> = {
     eventT: 'NONE',
     label: null,

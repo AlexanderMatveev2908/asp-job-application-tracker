@@ -1,7 +1,7 @@
 import { WithIdT } from '@/common/types/etc';
 import { v4 } from 'uuid';
 
-export class RootUiCls {
+export class RootUiFkt {
   protected static withID<T>(arg: T): T & WithIdT {
     return {
       ...arg,
