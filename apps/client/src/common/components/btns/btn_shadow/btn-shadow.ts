@@ -31,7 +31,10 @@ export class BtnShadow {
     txt: 'lg',
   });
   // ? btn personal props
-  public readonly btnStateProps: InputSignal<BtnStatePropsT> = input.required();
+  public readonly btnStateProps: InputSignal<BtnStatePropsT> = input<BtnStatePropsT>({
+    isDisabled: false,
+    isPending: false,
+  });
   public readonly listenersProps: InputSignal<BtnListenersT | null> = input<BtnListenersT | null>(
     null
   );

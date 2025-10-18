@@ -1,1 +1,10 @@
-.root{}
+@use 'exports/mix' as mix;
+
+.root {
+  @apply w-full flex justify-start;
+
+  .root__btn {
+    @apply relative;
+    @include mix.btn__scl(1.3);
+  }
+}

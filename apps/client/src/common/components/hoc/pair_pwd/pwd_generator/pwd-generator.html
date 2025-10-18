@@ -1,3 +1,24 @@
-<div class="root tb">
-  <p>PwdGenerator generated 🎉</p>
+<div class="root">
+  <button
+    (focus)="onHover()"
+    (blur)="onLeave()"
+    (mouseover)="onHover()"
+    (mouseleave)="onLeave()"
+    type="button"
+    class="root__btn tb"
+  >
+    <div class="text-gray-300 svg__2xl">
+      <ng-container *ngComponentOutlet="Svg" />
+    </div>
+  </button>
 </div>
+
+<app-portal>
+  <ng-template #content>
+    <div class="absolute z-50 top-1/2 left-1/2 tb">
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum omnis minus inventore,
+      facilis, laborum et cumque magni nemo ullam placeat beatae totam mollitia quas laudantium.
+      Saepe omnis doloremque accusamus voluptatum.
+    </div>
+  </ng-template>
+</app-portal>

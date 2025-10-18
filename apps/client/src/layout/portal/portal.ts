@@ -1,4 +1,3 @@
-import { ElDomT } from '@/common/types/etc';
 import {
   AfterViewInit,
   ApplicationRef,
@@ -10,11 +9,14 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import { DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
+import { DomPortalOutlet, TemplatePortal, PortalModule } from '@angular/cdk/portal';
+
+export type ElDomT = HTMLElement | null;
 
 @Component({
   selector: 'app-portal',
-  imports: [],
+  standalone: true,
+  imports: [PortalModule],
   templateUrl: './portal.html',
   styleUrl: './portal.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,17 +26,24 @@ export class Portal implements AfterViewInit {
   private readonly appRef: ApplicationRef = inject(ApplicationRef);
   private readonly vcr: ViewContainerRef = inject(ViewContainerRef);
 
-  @ContentChild('content', { read: TemplateRef }) content!: TemplateRef<unknown>;
+  @ContentChild('content', { read: TemplateRef })
+  public content!: TemplateRef<unknown>;
+
+  private static outlet: DomPortalOutlet | null = null;
+  private attached: boolean = false;
 
   ngAfterViewInit(): void {
     const rootPortal: ElDomT = document.getElementById('root-portal');
-    const contentDOM: ElDomT = this.content?.elementRef?.nativeElement;
+    if (!rootPortal || !this.content) return;
 
-    if (!rootPortal || !contentDOM) return;
+    if (!Portal.outlet) {
+      Portal.outlet = new DomPortalOutlet(rootPortal, this.appRef, this.injector);
+    }
 
-    const outletDOM = new DomPortalOutlet(rootPortal, this.appRef, this.injector);
-
-    const contentTpl = new TemplatePortal(this.content, this.vcr);
-    outletDOM.attach(contentTpl);
+    if (!this.attached && Portal.outlet && !Portal.outlet.hasAttached()) {
+      const portal: TemplatePortal<unknown> = new TemplatePortal<unknown>(this.content, this.vcr);
+      Portal.outlet.attach(portal);
+      this.attached = true;
+    }
   }
 }
