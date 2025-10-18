@@ -27,4 +27,15 @@ export class Prs {
     // eslint-disable-next-line no-magic-numbers
     return minutes * 60 * 1000;
   }
+
+  public static txtOfCamelCase(arg: string, { titleCase }: { titleCase: boolean }): string {
+    const splitted: string[] = arg.replace(/([A-Z])/g, ' $1').split(' ');
+    const formatted: string[] = splitted.map((str: string) =>
+      titleCase
+        ? (str.at(0) ?? 'bug_split_word').toUpperCase() + str.slice(1).toLowerCase()
+        : str.toLowerCase()
+    );
+
+    return formatted.join(' ');
+  }
 }

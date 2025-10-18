@@ -1,0 +1,25 @@
+<div class="root">
+  <div class="root__label">
+    <span class="txt__lg">{{ f().label }}</span>
+  </div>
+
+  <div class="root__input">
+    <input
+      #inputTxt
+      [attr.data-field]="f().field"
+      [style.--pad]="padding()"
+      [formControl]="ctrl()"
+      class="input__field txt__md"
+      [type]="f().type"
+      [placeholder]="f().place"
+    />
+
+    @if(Svg()){
+    <button (click)="onSvgClick()?.()" type="button" class="input__svg svg__md">
+      <ng-container *ngComponentOutlet="Svg()" />
+    </button>
+    }
+
+    <app-form-field-err [ctrl]="ctrl()" />
+  </div>
+</div>

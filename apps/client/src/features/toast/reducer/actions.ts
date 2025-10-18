@@ -1,9 +1,9 @@
-import { IdPayloadT } from '@/common/types/etc';
-import { AppEventPayload } from '@/common/types/events';
+import { WithIdT } from '@/common/types/etc';
+import { AppEventPayloadT } from '@/core/hooks/use_event_meta/etc/types';
 import { createAction, props } from '@ngrx/store';
 
 export const ToastActT = {
-  OPEN_TOAST: createAction('OPEN_TOAST', props<AppEventPayload>()),
-  SET_ID: createAction('SET_ID', props<IdPayloadT>()),
+  OPEN_TOAST: createAction('OPEN_TOAST', props<AppEventPayloadT>()),
+  SET_ID: createAction('SET_ID', props<WithIdT>()),
   CLOSE_TOAST: createAction('CLOSE_TOAST'),
 };

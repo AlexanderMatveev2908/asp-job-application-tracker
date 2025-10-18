@@ -5,7 +5,6 @@
 @use './tokens/SVGs.scss';
 @use './tokens/anm.scss';
 @use './tokens/z.scss';
-@use './tokens/page.scss';
 @use './tokens/shapes.scss';
 
 // ? all files inside tokens are imported here
@@ -86,4 +85,15 @@ button {
     cursor: not-allowed;
     opacity: 0.5;
   }
+}
+input:-webkit-autofill,
+input:-moz-autofill {
+  box-shadow: 0 0 0 1000px var(--neutral__950) inset !important;
+  -webkit-box-shadow: 0 0 0 1000px var(--neutral__950) inset !important;
+  transition: background-color 9999s ease-in-out 0s !important;
+  background: var(--neutral__950) !important;
+}
+
+.portal {
+  @apply fixed w-full min-h-screen top-0 left-0 pointer-events-none;
 }

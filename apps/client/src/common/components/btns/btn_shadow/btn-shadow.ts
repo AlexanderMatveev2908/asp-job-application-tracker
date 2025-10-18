@@ -2,19 +2,17 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  inject,
   input,
   InputSignal,
   Signal,
 } from '@angular/core';
-import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
-import { AppEventMeta } from '@/common/types/events';
+import { UseEventMeta } from '@/core/hooks/use_event_meta/use_event_meta';
 import { Span } from '../../els/span/span';
-import { BtnEvPropsT, BtnStatePropsT } from '@/common/types/btns';
-import { BaseElPropsT } from '@/common/types/els';
-import { SpanPropsT } from '../../els/span/etc/types';
 import { WrapBtnApi } from '../../hoc/btns/wrap_btn_api/wrap-btn-api';
 import { WrapBtnApiPropsT } from '../../hoc/btns/wrap_btn_api/etc/types';
+import { AppEventMetaT } from '@/core/hooks/use_event_meta/etc/types';
+import { BtnListenersT, BtnStatePropsT, BtnT, SpanEventPropsT } from '@/common/types/etc';
+import { SpanSizesPropsT } from '../../els/span/etc/types';
 
 @Component({
   selector: 'app-btn-shadow',
@@ -24,23 +22,34 @@ import { WrapBtnApiPropsT } from '../../hoc/btns/wrap_btn_api/etc/types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BtnShadow {
-  private readonly useAppEvents: UseAppEvSvc = inject(UseAppEvSvc);
+  public readonly spanProps: InputSignal<SpanEventPropsT> = input.required();
+  public readonly spanSizesProps: InputSignal<Partial<SpanSizesPropsT>> = input<
+    Partial<SpanSizesPropsT>
+  >({
+    svg: 'sm',
+    txt: 'lg',
+  });
+  public readonly btnStateProps: InputSignal<BtnStatePropsT> = input.required();
+  public readonly listenersProps: InputSignal<BtnListenersT | null> = input<BtnListenersT | null>(
+    null
+  );
+  public readonly type: InputSignal<BtnT> = input<BtnT>('button');
+  public readonly paddingProps: InputSignal<string> = input('10px 15px');
 
-  public readonly baseProps: InputSignal<BaseElPropsT> = input.required();
-  public readonly btnProps: InputSignal<BtnStatePropsT> = input.required();
-  public readonly eventsProps: InputSignal<BtnEvPropsT> = input.required();
-
-  public readonly pairTxtProps: Signal<SpanPropsT> = computed(() => ({
-    label: this.baseProps().label,
-    Svg: this.baseProps().Svg,
-  }));
-
-  public readonly metaEvents: Signal<AppEventMeta> = computed(() =>
-    this.useAppEvents.getByT(this.baseProps().eventT)
+  public readonly metaEvents: Signal<AppEventMetaT> = computed(() =>
+    UseEventMeta.getByT(this.spanProps().eventT)
   );
 
   public readonly wrapBtnApiProps: Signal<WrapBtnApiPropsT> = computed(() => ({
-    eventT: this.baseProps().eventT,
-    isPending: this.btnProps().isPending,
+    eventT: this.spanProps().eventT,
+    isPending: this.btnStateProps().isPending,
   }));
+
+  public async onClick(): Promise<void> {
+    const clickEvent = this.listenersProps()?.onClick;
+    if (!clickEvent) return;
+
+    const res: void | Promise<void> = clickEvent();
+    if (res instanceof Promise) await res;
+  }
 }

@@ -1,0 +1,7 @@
+<div class="root">
+  @if((isServer || !isHydrated()) && waitClient()){
+  <app-spin-page-ssr />
+  }@else {
+  <ng-content />
+  }
+</div>

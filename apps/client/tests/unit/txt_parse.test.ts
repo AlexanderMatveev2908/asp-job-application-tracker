@@ -1,0 +1,18 @@
+import { Prs } from '@/core/lib/data_structure/formatters';
+import { describe, expect, it } from 'vitest';
+
+describe('parse from camel case to simple txt', () => {
+  it('0. should return all lowercases', () => {
+    const devTxt: string = 'myDevVariableCamelCase';
+    const expected: string = 'my dev variable camel case';
+
+    expect(Prs.txtOfCamelCase(devTxt, { titleCase: false })).toBe(expected);
+  });
+
+  it('1. should return all title case', () => {
+    const devTxt: string = 'myDevVariableCamelCase';
+    const expected: string = 'My Dev Variable Camel Case';
+
+    expect(Prs.txtOfCamelCase(devTxt, { titleCase: true })).toBe(expected);
+  });
+});

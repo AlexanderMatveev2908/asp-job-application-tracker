@@ -36,3 +36,14 @@
     transition: transform 0.1s ease, color 0.3s ease;
   }
 }
+
+@mixin input__sdw($p) {
+  padding: $p;
+
+  @apply transition-all duration-300 outline-none border-2 border-gray-300 rounded-xl bg-neutral-950;
+
+  &:focus {
+    box-shadow: 0 0 2.5px var(--white__0), 0 0 5px var(--white__0), 0 0 10px var(--white__0),
+      0 0 15px var(--white__0), 0 0 20px var(--white__0);
+  }
+}

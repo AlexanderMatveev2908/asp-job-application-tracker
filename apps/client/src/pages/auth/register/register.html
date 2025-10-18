@@ -1,3 +1,24 @@
-<div class="root">
-  <p>Register generated 🎉</p>
-</div>
+<app-csr-with-title [title]="'Register'">
+  <div class="root">
+    <form class="root__form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <app-swapper [maxSwaps]="2" [setSwap]="setSwap" [swap]="swap()">
+        <div #swapDiv class="swapper__swap" [style.--opac]="getOpacity(0)()">
+          <!--  -->
+          @for(f of firstSwapFields; track f.id){
+          <app-form-field-txt [f]="f" [ctrl]="getCtrl(f)" [focusOnMount]="f.name === 'firstName'" />
+          }
+        </div>
+
+        <div #swapDiv class="swapper__swap" [style.--opac]="getOpacity(1)()">
+          <app-pair-pwd [getCtrl]="getCtrl" />
+        </div>
+      </app-swapper>
+
+      <div class="form__footer">
+        <div class="footer__submit">
+          <app-btn-shadow [spanProps]="spanProps" [btnStateProps]="btnProps" [type]="'submit'" />
+        </div>
+      </div>
+    </form>
+  </div>
+</app-csr-with-title>

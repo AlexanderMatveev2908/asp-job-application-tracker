@@ -16,8 +16,8 @@ import { SidebarSlice } from '@/features/sidebar/slice';
 import { DropAbs } from '@/common/components/drop/abs/drop-abs';
 import { SpanPropsT, SpanSizesPropsT } from '@/common/components/els/span/etc/types';
 import { NgClass } from '@angular/common';
-import { LinksSvc } from '@/core/ui_factory/links';
-import { LinkT } from '@/common/types/links';
+import { LinksUiFkt } from '@/core/ui_factory/links';
+import { LinkT } from '@/core/ui_factory/links/etc/types';
 import { UsePathSvc } from '@/core/hooks/use_path';
 import { NavLink } from '@/common/components/links/nav_link/nav-link';
 
@@ -30,7 +30,6 @@ import { NavLink } from '@/common/components/links/nav_link/nav-link';
 })
 export class Header {
   private readonly usePath: UsePathSvc = inject(UsePathSvc);
-  private readonly linksSvc: LinksSvc = inject(LinksSvc);
   private readonly sideSlice: SidebarSlice = inject(SidebarSlice);
 
   public readonly isSideOpen: Signal<boolean> = computed(() => this.sideSlice.sideState().isOpen);
@@ -45,7 +44,7 @@ export class Header {
 
   public readonly currPath: Signal<string | null> = this.usePath.currPath;
 
-  public readonly notLoggedLinks: LinkT[] = this.linksSvc.notLogged;
+  public readonly notLoggedLinks: LinkT[] = LinksUiFkt.notLogged;
 
   public readonly spanDropProps: Signal<SpanPropsT> = computed(() => ({
     label: null,

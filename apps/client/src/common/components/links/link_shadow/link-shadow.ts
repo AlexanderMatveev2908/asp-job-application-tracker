@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  inject,
   input,
   InputSignal,
   Signal,
@@ -10,9 +9,9 @@ import {
 import { RouterLink } from '@angular/router';
 import { NgTemplateOutlet } from '@angular/common';
 import { LinkShadowPropsT } from './etc/types';
-import { AppEventMeta } from '@/common/types/events';
-import { UseAppEvSvc } from '@/core/hooks/use_app_ev';
+import { UseEventMeta } from '@/core/hooks/use_event_meta/use_event_meta';
 import { Span } from '../../els/span/span';
+import { AppEventMetaT } from '@/core/hooks/use_event_meta/etc/types';
 
 @Component({
   selector: 'app-link-shadow',
@@ -22,12 +21,10 @@ import { Span } from '../../els/span/span';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LinkShadow {
-  private readonly useAppEvents: UseAppEvSvc = inject(UseAppEvSvc);
-
   public readonly props: InputSignal<LinkShadowPropsT> = input.required();
 
-  public readonly metaEvent: Signal<AppEventMeta> = computed(() =>
-    this.useAppEvents.getByT(this.props().eventT)
+  public readonly metaEvent: Signal<AppEventMetaT> = computed(() =>
+    UseEventMeta.getByT(this.props().eventT)
   );
   public readonly isExternal: Signal<boolean> = computed(() =>
     /^(https?:\/\/|mailto:|tel:)/.test(this.props().path)

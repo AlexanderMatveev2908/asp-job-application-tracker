@@ -1,1 +1,24 @@
-.root{}
+:host {
+  @apply w-full h-full block;
+}
+
+.root {
+  @apply w-full min-h-[70vh] flex flex-col justify-center items-center;
+
+  .root__form {
+    @apply w-[90%] max-w-[800px] h-fit flex flex-col items-center gap-10 border-3 border-gray-300 rounded-xl p-5 overflow-hidden;
+
+    .swapper__swap {
+      opacity: var(--opac);
+      @apply w-full h-fit px-4 flex flex-col gap-8 transition-all duration-300;
+    }
+
+    .form__footer {
+      @apply w-full flex justify-center items-center;
+
+      .footer__submit {
+        @apply w-[250px];
+      }
+    }
+  }
+}

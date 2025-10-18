@@ -7,15 +7,15 @@ import {
   Signal,
 } from '@angular/core';
 import { NoticeSlice } from '@/features/notice/slice';
-import { WrapEventsPage } from '@/common/components/hoc/page/wrap_events_page/wrap-events-page';
-import { AppEventPayload } from '@/common/types/events';
 import { NoticeWithoutCb } from '@/features/notice/reducer/reducer';
 import { UseStorageSvc } from '@/core/hooks/use_storage';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
+import { CsrNoticeWrapper } from '@/common/components/hoc/page/csr_notice_wrapper/csr-notice-wrapper';
+import { AppEventPayloadT } from '@/core/hooks/use_event_meta/etc/types';
 
 @Component({
   selector: 'app-notice',
-  imports: [WrapEventsPage],
+  imports: [CsrNoticeWrapper, CsrNoticeWrapper],
   templateUrl: './notice.html',
   styleUrl: './notice.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -25,14 +25,14 @@ export class Notice implements OnInit {
   private readonly useStorage: UseStorageSvc = inject(UseStorageSvc);
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
-  public readonly wrapEventsProps: Signal<AppEventPayload> = computed(() => {
+  public readonly wrapEventsProps: Signal<AppEventPayloadT> = computed(() => {
     const { cb: _cb, ...rst } = this.noticeSlice.noticeState();
 
     return rst;
   });
 
   ngOnInit(): void {
-    this.usePlatform.runOnClientSync(() => {
+    this.usePlatform.onClient(() => {
       const stored: NoticeWithoutCb | null = this.useStorage.getItem('notice');
 
       if (stored) this.noticeSlice.noticeWithoutCb = stored;
