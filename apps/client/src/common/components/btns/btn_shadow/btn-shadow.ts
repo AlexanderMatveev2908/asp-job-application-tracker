@@ -12,6 +12,7 @@ import { WrapBtnApi } from '../../hoc/btns/wrap_btn_api/wrap-btn-api';
 import { WrapBtnApiPropsT } from '../../hoc/btns/wrap_btn_api/etc/types';
 import { AppEventMetaT } from '@/core/hooks/use_event_meta/etc/types';
 import { BtnListenersT, BtnStatePropsT, BtnT, SpanEventPropsT } from '@/common/types/etc';
+import { SpanSizesPropsT } from '../../els/span/etc/types';
 
 @Component({
   selector: 'app-btn-shadow',
@@ -22,11 +23,18 @@ import { BtnListenersT, BtnStatePropsT, BtnT, SpanEventPropsT } from '@/common/t
 })
 export class BtnShadow {
   public readonly spanProps: InputSignal<SpanEventPropsT> = input.required();
-  public readonly btnProps: InputSignal<BtnStatePropsT> = input.required();
-  public readonly eventsProps: InputSignal<BtnListenersT | null> = input<BtnListenersT | null>(
+  public readonly spanSizesProps: InputSignal<Partial<SpanSizesPropsT>> = input<
+    Partial<SpanSizesPropsT>
+  >({
+    svg: 'sm',
+    txt: 'lg',
+  });
+  public readonly btnStateProps: InputSignal<BtnStatePropsT> = input.required();
+  public readonly listenersProps: InputSignal<BtnListenersT | null> = input<BtnListenersT | null>(
     null
   );
   public readonly type: InputSignal<BtnT> = input<BtnT>('button');
+  public readonly paddingProps: InputSignal<string> = input('10px 15px');
 
   public readonly metaEvents: Signal<AppEventMetaT> = computed(() =>
     UseEventMeta.getByT(this.spanProps().eventT)
@@ -34,11 +42,11 @@ export class BtnShadow {
 
   public readonly wrapBtnApiProps: Signal<WrapBtnApiPropsT> = computed(() => ({
     eventT: this.spanProps().eventT,
-    isPending: this.btnProps().isPending,
+    isPending: this.btnStateProps().isPending,
   }));
 
   public onClick(): (() => void) | null {
-    const clickEvent = this.eventsProps()?.onClick;
+    const clickEvent = this.listenersProps()?.onClick;
 
     return clickEvent ?? null;
   }

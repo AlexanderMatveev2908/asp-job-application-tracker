@@ -9,10 +9,11 @@ import { Log } from '@/core/lib/log';
 import { registerSchema } from '@/features/auth/register/paperwork/schema';
 import { BtnStatePropsT, SpanEventPropsT } from '@/common/types/etc';
 import { ZodCheck } from '@/core/paperwork/zod_check';
+import { SwapBtns } from '@/common/components/swap/swap_btns/swap-btns';
 
 @Component({
   selector: 'app-register',
-  imports: [CsrWithTitle, ReactiveFormsModule, FormFieldTxt, BtnShadow],
+  imports: [CsrWithTitle, ReactiveFormsModule, FormFieldTxt, BtnShadow, SwapBtns],
   templateUrl: './register.html',
   styleUrl: './register.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -53,8 +54,6 @@ export class Register {
     if (this.form.valid) Log.logTtl('form', this.form.value);
     else {
       ZodCheck.onSubmitFailed(this.form);
-
-      Log.logTtl('err', this.form.errors);
     }
   }
 }

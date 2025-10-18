@@ -1,0 +1,13 @@
+<div class="root">
+  @for(spanProps of spans; track spanProps.id){
+  <div class="root__btn">
+    <app-btn-shadow
+      [type]="'button'"
+      [spanProps]="spanProps"
+      [btnStateProps]="btnStateProps"
+      [spanSizesProps]="{ svg: '3xl' }"
+      [paddingProps]="'2.5px 7.5px'"
+    />
+  </div>
+  }
+</div>

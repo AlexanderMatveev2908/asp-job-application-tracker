@@ -4,8 +4,9 @@
     [type]="type()"
     class="root btn__res"
     [style.--clr]="metaEvents().css"
-    [disabled]="btnProps().isDisabled"
+    [style.padding]="paddingProps()"
+    [disabled]="btnStateProps().isDisabled"
   >
-    <app-span [spanProps]="spanProps()" />
+    <app-span [spanProps]="spanProps()" [sizesProps]="spanSizesProps()" />
   </button>
 </app-wrap-btn-api>
