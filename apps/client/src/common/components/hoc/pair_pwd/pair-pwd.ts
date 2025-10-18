@@ -4,7 +4,9 @@ import {
   computed,
   input,
   InputSignal,
+  signal,
   Signal,
+  WritableSignal,
 } from '@angular/core';
 import { FormFieldTxt } from '../../forms/form_field_txt/form-field-txt';
 import { PwdFkt } from '@/core/ui_factory/pwd';
@@ -19,10 +21,10 @@ import { FormControl } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PairPwd {
-  public readonly pairPwdState: InputSignal<PairPwdStateT> = input.required();
-  public readonly setPairPwdState: InputSignal<
-    (cb: (prev: PairPwdStateT) => PairPwdStateT) => void
-  > = input.required();
+  public readonly pairPwdState: WritableSignal<PairPwdStateT> = signal({
+    isConfirmPwdTypePwd: true,
+    isPwdTypePwd: true,
+  });
   public readonly getCtrl: InputSignal<(key: TxtFieldT) => FormControl<unknown>> = input.required();
 
   public readonly pwdField: Signal<TxtSvgFieldT> = computed(() =>
@@ -37,7 +39,7 @@ export class PairPwd {
       const other: keyof PairPwdStateT =
         key === 'isPwdTypePwd' ? 'isConfirmPwdTypePwd' : 'isPwdTypePwd';
 
-      this.setPairPwdState()((prev: PairPwdStateT) => ({
+      this.pairPwdState.update((prev: PairPwdStateT) => ({
         ...prev,
         [key]: !prev[key],
         [other]: true,

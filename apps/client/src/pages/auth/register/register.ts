@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CheckFieldT, PairPwdStateT, TxtFieldT } from '@/common/types/forms';
+import { CheckFieldT, TxtFieldT } from '@/common/types/forms';
 import { RegisterFormFkt } from '@/features/auth/register/ui_factory/form_fields';
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
 import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
@@ -43,14 +43,6 @@ export class Register {
       validators: ZodCheck.checkZ(registerSchema),
     }
   );
-
-  public readonly pairPwdState: WritableSignal<PairPwdStateT> = signal({
-    isConfirmPwdTypePwd: true,
-    isPwdTypePwd: true,
-  });
-  public readonly setPairPwdState: (cb: (prev: PairPwdStateT) => PairPwdStateT) => void = (
-    cb: (prev: PairPwdStateT) => PairPwdStateT
-  ) => this.pairPwdState.update(cb);
 
   public readonly swap: WritableSignal<number> = signal(0);
   public readonly setSwap: (val: number) => void = (val: number) => {
