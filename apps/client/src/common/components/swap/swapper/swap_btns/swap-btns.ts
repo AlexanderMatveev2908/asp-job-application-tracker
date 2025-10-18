@@ -7,7 +7,7 @@ import {
   InputSignal,
   Signal,
 } from '@angular/core';
-import { BtnShadow } from '../../btns/btn_shadow/btn-shadow';
+import { BtnShadow } from '../../../btns/btn_shadow/btn-shadow';
 import { SpansSwap } from './etc/spans';
 
 @Component({

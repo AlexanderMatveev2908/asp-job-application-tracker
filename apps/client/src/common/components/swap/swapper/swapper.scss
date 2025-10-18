@@ -1,0 +1,17 @@
+:host {
+  @apply block w-full;
+}
+
+.root {
+  @apply w-full flex flex-col gap-10;
+
+  .root__swapper {
+    @apply min-w-full grid transition-all duration-[0.4s];
+    grid-template-columns: repeat(var(--cols), 100%);
+    transform: translateX(var(--perc));
+  }
+
+  .root__footer {
+    @apply w-full;
+  }
+}

@@ -16,11 +16,11 @@ import { Log } from '@/core/lib/log';
 import { registerSchema } from '@/features/auth/register/paperwork/schema';
 import { BtnStatePropsT, SpanEventPropsT } from '@/common/types/etc';
 import { ZodCheck } from '@/core/paperwork/zod_check';
-import { SwapBtns } from '@/common/components/swap/swap_btns/swap-btns';
+import { Swapper } from '@/common/components/swap/swapper/swapper';
 
 @Component({
   selector: 'app-register',
-  imports: [CsrWithTitle, ReactiveFormsModule, FormFieldTxt, BtnShadow, SwapBtns],
+  imports: [CsrWithTitle, ReactiveFormsModule, FormFieldTxt, BtnShadow, Swapper],
   templateUrl: './register.html',
   styleUrl: './register.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -43,8 +43,6 @@ export class Register {
   public readonly setSwap: (val: number) => void = (val: number) => {
     this.swap.set(val);
   };
-  // eslint-disable-next-line no-magic-numbers
-  public readonly transform: Signal<string> = computed(() => `-${this.swap() * 100}%`);
   public getOpacity(idx: number): Signal<number> {
     return computed(() => (idx === this.swap() ? 1 : 0));
   }

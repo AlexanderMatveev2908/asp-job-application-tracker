@@ -1,7 +1,7 @@
 <app-csr-with-title [title]="'Register'">
   <div class="root">
     <form class="root__form" [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div class="form__swapper" [style.--cols]="2" [style.--perc]="transform()">
+      <app-swapper [maxSwaps]="2" [setSwap]="setSwap" [swap]="swap()">
         <div class="swapper__swap" [style.--opac]="getOpacity(0)()">
           <!--  -->
           @for(f of firstSwapFields; track f.id){
@@ -15,11 +15,9 @@
           <app-form-field-txt [f]="f" [ctrl]="getCtrl(f)" [focusOnMount]="f.name === 'firstName'" />
           }
         </div>
-      </div>
+      </app-swapper>
 
       <div class="form__footer">
-        <app-swap-btns [swap]="swap()" [setSwap]="setSwap" [maxSwaps]="2" />
-
         <div class="footer__submit">
           <app-btn-shadow [spanProps]="spanProps" [btnStateProps]="btnProps" [type]="'submit'" />
         </div>

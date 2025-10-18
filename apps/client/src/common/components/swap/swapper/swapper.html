@@ -1,0 +1,9 @@
+<div class="root">
+  <div class="root__swapper" [style.--cols]="maxSwaps()" [style.--perc]="transform()">
+    <ng-content />
+  </div>
+
+  <div class="root__footer">
+    <app-swap-btns [swap]="swap()" [setSwap]="setSwap()" [maxSwaps]="maxSwaps()" />
+  </div>
+</div>
