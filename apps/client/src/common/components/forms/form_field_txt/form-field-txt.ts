@@ -41,10 +41,6 @@ export class FormFieldTxt implements OnInit, AfterViewInit {
       this.val = toSignal(c.valueChanges as Observable<string>, {
         initialValue: c.value as string,
       });
-
-      // effect(() => {
-      //   void this.val();
-      // });
     });
   }
 

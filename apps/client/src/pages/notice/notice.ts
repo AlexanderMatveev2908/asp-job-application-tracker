@@ -32,7 +32,7 @@ export class Notice implements OnInit {
   });
 
   ngOnInit(): void {
-    this.usePlatform.runOnClientSync(() => {
+    this.usePlatform.onClient(() => {
       const stored: NoticeWithoutCb | null = this.useStorage.getItem('notice');
 
       if (stored) this.noticeSlice.noticeWithoutCb = stored;

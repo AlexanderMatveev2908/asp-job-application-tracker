@@ -14,7 +14,7 @@ import {
 import { Tooltip } from '../../els/tooltip/tooltip';
 import { FormControl } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Observable } from 'rxjs';
+import { map, Observable, startWith } from 'rxjs';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 
 @Component({
@@ -29,6 +29,7 @@ export class FormFieldErr<T> implements OnInit {
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
   public val!: Signal<string>;
+  public interacted!: Signal<boolean>;
   public recErrs: WritableSignal<RecErrsFieldT> = signal({
     prev: null,
     curr: null,
@@ -41,17 +42,22 @@ export class FormFieldErr<T> implements OnInit {
       this.val = toSignal(c.valueChanges as Observable<string>, {
         initialValue: c.value as string,
       });
+      this.interacted = toSignal(
+        c.statusChanges.pipe(
+          map(() => !!(c.touched || c.dirty)),
+          startWith(!!(c.touched || c.dirty))
+        ),
+        { initialValue: !!(c.touched || c.dirty) }
+      );
 
       effect(() => {
         void this.val();
-
-        const wasInteraction: boolean = c.touched || c.dirty;
 
         const errors: ErrsFieldT = c.errors as ErrsFieldT;
 
         this.recErrs.update((prev: RecErrsFieldT) => ({
           prev: prev.curr,
-          curr: errors?.zod && wasInteraction ? errors.zod : null,
+          curr: errors?.zod && this.interacted() ? errors.zod : null,
         }));
       });
     });

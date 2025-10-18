@@ -23,12 +23,8 @@ export class UsePlatformSvc {
   public readonly isClient: boolean = isPlatformBrowser(this.platformID);
   public readonly isServer: boolean = isPlatformServer(this.platformID);
 
-  public runOnClientSync<T>(arg: () => T): T | null {
+  public onClient<T>(arg: () => T): T | null {
     return this.isServer ? null : arg();
-  }
-
-  public async runOnClientPromise<T>(arg: () => Promise<T>): Promise<T | null> {
-    return this.isServer ? null : await arg();
   }
 
   private isStable(): Observable<boolean> {
@@ -50,9 +46,11 @@ export class UsePlatformSvc {
   }
 
   public whenDomPainted(cb: () => void): void {
-    this.inCtx(() => {
-      afterNextRender(() => {
-        cb();
+    this.onClient(() => {
+      this.inCtx(() => {
+        afterNextRender(() => {
+          requestAnimationFrame(() => cb());
+        });
       });
     });
   }

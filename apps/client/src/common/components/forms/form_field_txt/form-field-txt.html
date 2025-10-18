@@ -5,6 +5,7 @@
 
   <div class="root__input">
     <input
+      [attr.data-name]="f().name"
       #inputTxt
       [formControl]="ctrl()"
       class="txt__md"

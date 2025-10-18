@@ -1,6 +1,6 @@
 <app-csr-with-title [title]="'Register'">
   <div class="root">
-    <form class="root__body" #wrapForm [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form class="root__body" [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="body__swap">
         <!--  -->
         @for(f of firstSwapFields; track f.id){

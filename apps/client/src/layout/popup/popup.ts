@@ -56,7 +56,7 @@ export class Popup {
 
     if (!popDOM) return;
 
-    this.usePlatform.runOnClientSync(() => {
+    this.usePlatform.onClient(() => {
       if (isPop) this.animationsPop.popIn(popDOM);
       else if (!isPop && isPop !== null) this.animationsPop.popOut(popDOM);
     });

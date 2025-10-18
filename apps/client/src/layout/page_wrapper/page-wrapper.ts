@@ -26,7 +26,7 @@ export class PageWrapper implements AfterViewInit {
   public readonly isHydrated: WritableSignal<boolean> = signal(false);
 
   ngAfterViewInit(): void {
-    this.usePlatform.runOnClientSync(() => {
+    this.usePlatform.onClient(() => {
       this.isHydrated.set(true);
     });
   }
