@@ -28,7 +28,9 @@ export class Portal implements AfterViewInit {
 
   ngAfterViewInit(): void {
     const rootPortal: ElDomT = document.getElementById('root-portal');
-    if (!rootPortal || !this.content) return;
+    const contentDOM: ElDomT = this.content?.elementRef?.nativeElement;
+
+    if (!rootPortal || !contentDOM) return;
 
     const outletDOM = new DomPortalOutlet(rootPortal, this.appRef, this.injector);
 

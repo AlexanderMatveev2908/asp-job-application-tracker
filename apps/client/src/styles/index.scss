@@ -87,8 +87,7 @@ button {
   }
 }
 
-.root__portal {
+.portal {
   z-index: 9999;
-
-  @apply fixed top-0 left-0 pointer-events-none min-h-screen w-full;
+  @apply fixed w-full min-h-screen top-0 left-0 pointer-events-none;
 }
