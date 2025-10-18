@@ -6,10 +6,12 @@
   <div class="root__input">
     <input
       #inputTxt
-      [attr.data-field]="f().field"
-      [style.--pad]="padding()"
       [formControl]="ctrl()"
+      (focus)="onFocus()?.(val())"
+      (input)="onChange()?.(val())"
+      [attr.data-field]="f().field"
       class="input__field txt__md"
+      [style.--pad]="padding()"
       [type]="f().type"
       [placeholder]="f().place"
     />

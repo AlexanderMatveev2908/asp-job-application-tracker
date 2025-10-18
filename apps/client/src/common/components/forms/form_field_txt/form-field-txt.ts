@@ -32,8 +32,16 @@ export class FormFieldTxt implements OnInit, AfterViewInit {
 
   public readonly ctrl: InputSignal<FormControl<unknown>> = input.required();
   public readonly f: InputSignal<TxtFieldT | TxtSvgFieldT> = input.required();
+
   public readonly focusOnMount: InputSignal<boolean> = input(false);
   public readonly onSvgClick: InputSignal<(() => void) | null> = input<(() => void) | null>(null);
+  // ? additional listeners for custom needs beside normal ng flow
+  public readonly onFocus: InputSignal<((v: string) => void) | null> = input<
+    ((v: string) => void) | null
+  >(null);
+  public readonly onChange: InputSignal<((val: string) => void) | null> = input<
+    ((val: string) => void) | null
+  >(null);
 
   @ViewChild('inputTxt') inputTxt!: RefDomT;
 

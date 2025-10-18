@@ -12,10 +12,11 @@ import { FormFieldTxt } from '../../forms/form_field_txt/form-field-txt';
 import { PwdUiFkt } from '@/core/ui_factory/form_fields/etc/pwd';
 import { PairPwdStateT, TxtFieldT, TxtSvgFieldT } from '@/common/types/forms';
 import { FormControl } from '@angular/forms';
+import { PwdGenerator } from './pwd_generator/pwd-generator';
 
 @Component({
   selector: 'app-pair-pwd',
-  imports: [FormFieldTxt],
+  imports: [FormFieldTxt, PwdGenerator],
   templateUrl: './pair-pwd.html',
   styleUrl: './pair-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
