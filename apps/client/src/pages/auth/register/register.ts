@@ -2,10 +2,11 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  computed,
+  HostListener,
   inject,
-  signal,
+  Signal,
   ViewChild,
-  WritableSignal,
 } from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -16,14 +17,13 @@ import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
 import { Log } from '@/core/lib/log';
 import { checkZ } from '@/core/paperwork/zod_check';
 import { registerSchema } from '@/features/auth/register/paperwork/schema';
-import { Portal } from '@/layout/portal/portal';
 import { BtnStatePropsT, RefDomT, SpanEventPropsT } from '@/common/types/etc';
 import { RecCoordsT, UsePortalSvc } from '@/core/hooks/use_portal';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 
 @Component({
   selector: 'app-register',
-  imports: [CsrWithTitle, ReactiveFormsModule, FormFieldTxt, BtnShadow, Portal],
+  imports: [CsrWithTitle, ReactiveFormsModule, FormFieldTxt, BtnShadow],
   templateUrl: './register.html',
   styleUrl: './register.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,7 +32,7 @@ export class Register implements AfterViewInit {
   private readonly usePortal: UsePortalSvc = inject(UsePortalSvc);
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
-  public readonly portalWhere: WritableSignal<Partial<RecCoordsT> | null> = signal(null);
+  public readonly coords: Signal<RecCoordsT | null> = computed(() => this.usePortal.rec());
 
   public readonly form: FormGroup = new FormGroup(
     {
@@ -74,13 +74,12 @@ export class Register implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.usePlatform.whenDomPainted(() => {
-      const coords: DOMRect | null = this.usePortal.coordsOf(this.wrapForm);
-
-      if (!coords) return;
-
-      this.portalWhere.set({
-        top: `${coords.top}px`,
-      });
+      this.usePortal.coordsOf(this.wrapForm);
     });
+  }
+
+  @HostListener('window:scroll')
+  public onScroll(): void {
+    this.usePortal.coordsOf(this.wrapForm);
   }
 }
