@@ -2,6 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  effect,
+  EffectRef,
   Signal,
   signal,
   WritableSignal,
@@ -17,6 +19,7 @@ import { registerSchema } from '@/features/auth/register/paperwork/schema';
 import { BtnStatePropsT, SpanEventPropsT } from '@/common/types/etc';
 import { ZodCheck } from '@/core/paperwork/zod_check';
 import { Swapper } from '@/common/components/swap/swapper/swapper';
+import { FocusDOM } from '@/core/lib/dom/focus';
 
 @Component({
   selector: 'app-register',
@@ -61,6 +64,15 @@ export class Register {
     isDisabled: false,
     isPending: false,
   };
+
+  public focusOnSwap: EffectRef = effect(() => {
+    const currSwap: number = this.swap();
+    const TIME_SWAP: number = 400;
+
+    setTimeout(() => {
+      FocusDOM.focusWhen(['firstName', 'password'], currSwap);
+    }, TIME_SWAP);
+  });
 
   public getCtrl(f: TxtFieldT): FormControl {
     return this.form.get(f.name) as FormControl;
