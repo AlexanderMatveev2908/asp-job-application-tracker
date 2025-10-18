@@ -8,10 +8,8 @@ export class RegisterFormFields {
     FormFieldsCls.txtFieldOf({ name: 'email', type: 'email' }),
   ];
 
-  public static readonly pwdFields: TxtFieldT[] = [
-    FormFieldsCls.txtFieldOf({ name: 'password', type: 'password' }),
-    FormFieldsCls.txtFieldOf({ name: 'confirmPassword', type: 'password' }),
-  ];
+  public static readonly pwd: TxtFieldT = FormFieldsCls.txtFieldOf({ name: 'password' });
+  public static readonly confPwd: TxtFieldT = FormFieldsCls.txtFieldOf({ name: 'confirmPassword' });
 
   public static readonly termsField: CheckFieldT = FormFieldsCls.checkFieldOf({
     name: 'terms',

@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CheckFieldT, TxtFieldT } from '@/common/types/forms';
+import { CheckFieldT, PairPwdStateT, TxtFieldT } from '@/common/types/forms';
 import { RegisterFormFields } from '@/features/auth/register/ui_factory/form_fields';
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
 import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
@@ -42,6 +42,10 @@ export class Register {
       validators: ZodCheck.checkZ(registerSchema),
     }
   );
+  public readonly pairPwdState: WritableSignal<PairPwdStateT> = signal({
+    isConfirmPwdTypePwd: true,
+    isPwdTypePwd: true,
+  });
 
   public readonly swap: WritableSignal<number> = signal(0);
   public readonly setSwap: (val: number) => void = (val: number) => {
@@ -52,7 +56,15 @@ export class Register {
   }
 
   public readonly firstSwapFields: TxtFieldT[] = RegisterFormFields.firstSwap;
-  public readonly pairPwdFields: TxtFieldT[] = RegisterFormFields.pwdFields;
+  public readonly pwdField: Signal<TxtFieldT> = computed(() => ({
+    ...RegisterFormFields.pwd,
+    type: this.pairPwdState().isPwdTypePwd ? 'password' : 'text',
+  }));
+  public readonly confPwdField: Signal<TxtFieldT> = computed(() => ({
+    ...RegisterFormFields.confPwd,
+    type: this.pairPwdState().isConfirmPwdTypePwd ? 'password' : 'text',
+  }));
+
   public readonly terms: CheckFieldT = RegisterFormFields.termsField;
 
   public readonly spanProps: SpanEventPropsT = {
@@ -65,7 +77,7 @@ export class Register {
     isPending: false,
   };
 
-  public focusOnSwap: EffectRef = effect(() => {
+  private readonly focusOnSwap: EffectRef = effect(() => {
     const currSwap: number = this.swap();
     const TIME_SWAP: number = 400;
 

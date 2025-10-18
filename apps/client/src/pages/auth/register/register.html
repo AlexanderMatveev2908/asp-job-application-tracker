@@ -11,8 +11,8 @@
 
         <div #swapDiv class="swapper__swap" [style.--opac]="getOpacity(1)()">
           <!--  -->
-          @for(f of pairPwdFields; track f.id){
-          <app-form-field-txt [f]="f" [ctrl]="getCtrl(f)" [focusOnMount]="f.name === 'firstName'" />
+          @for(f of [pwdField(),confPwdField()]; track f.id){
+          <app-form-field-txt [f]="f" [ctrl]="getCtrl(f)" />
           }
         </div>
       </app-swapper>
