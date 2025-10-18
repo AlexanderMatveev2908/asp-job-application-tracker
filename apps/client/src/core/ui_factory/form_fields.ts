@@ -12,6 +12,7 @@ export class FormFieldsCls extends RootUiCls {
 
     return this.withID({
       ...arg,
+      field: arg.field ?? arg.name,
       label,
       place: label + '...',
       type: arg.type ?? 'text',
@@ -23,6 +24,7 @@ export class FormFieldsCls extends RootUiCls {
 
     return this.withID({
       ...arg,
+      field: arg.field ?? arg.name,
       label,
       type: arg?.type ?? 'radio',
     });

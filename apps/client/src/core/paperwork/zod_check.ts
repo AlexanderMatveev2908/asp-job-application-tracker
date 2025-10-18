@@ -33,16 +33,14 @@ export class ZodCheck {
 
       if (!ShapeCheck.isStr(err)) continue;
 
-      if (!first) {
-        first = keyCtrl;
-      }
+      if (!first) first = keyCtrl;
 
       ctrl.markAsDirty();
       ctrl.markAsTouched();
       ctrl.setErrors({ zod: err });
     }
 
-    const elDOM: HTMLElement | null = document.querySelector(`[data-name=${first}]`);
+    const elDOM: HTMLElement | null = document.querySelector(`[data-field=${first}]`);
 
     if (elDOM) elDOM.focus();
   }

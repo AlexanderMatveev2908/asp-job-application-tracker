@@ -13,6 +13,7 @@ export type ErrsFieldT = ValidationErrors & { zod: string | null };
 interface BaseFieldT {
   id: string;
   name: string;
+  field: string;
   label: string;
 }
 

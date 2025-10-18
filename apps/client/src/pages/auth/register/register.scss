@@ -6,10 +6,13 @@
   @apply w-full min-h-[70vh] flex flex-col justify-center items-center;
 
   .root__body {
-    @apply w-[90%] max-w-[800px] h-fit flex flex-col items-center gap-8 border-3 border-gray-300 rounded-xl p-5 overflow-hidden;
+    @apply w-[90%] max-w-[800px] h-fit flex flex-col items-center gap-20 border-3 border-gray-300 rounded-xl p-5;
 
-    .body__swap {
-      @apply w-full flex flex-col gap-8;
+    .body__swapper {
+      @apply w-full;
+      .swapper__swap {
+        @apply w-full flex flex-col gap-8;
+      }
     }
 
     .body__btn {

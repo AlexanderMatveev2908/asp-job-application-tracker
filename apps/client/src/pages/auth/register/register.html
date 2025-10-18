@@ -1,11 +1,13 @@
 <app-csr-with-title [title]="'Register'">
   <div class="root">
     <form class="root__body" [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div class="body__swap">
-        <!--  -->
-        @for(f of firstSwapFields; track f.id){
-        <app-form-field-txt [f]="f" [ctrl]="getCtrl(f)" [focusOnMount]="f.name === 'firstName'" />
-        }
+      <div class="body__swapper">
+        <div class="swapper__swap">
+          <!--  -->
+          @for(f of firstSwapFields; track f.id){
+          <app-form-field-txt [f]="f" [ctrl]="getCtrl(f)" [focusOnMount]="f.name === 'firstName'" />
+          }
+        </div>
       </div>
 
       <div class="body__btn">
