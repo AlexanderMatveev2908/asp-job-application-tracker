@@ -11,8 +11,8 @@ export interface RecErrsFieldT {
 export type ErrsFieldT = ValidationErrors & { zod: string | null };
 
 export interface PairPwdStateT {
-  isPwdTypePwd: true;
-  isConfirmPwdTypePwd: true;
+  isPwdTypePwd: boolean;
+  isConfirmPwdTypePwd: boolean;
 }
 
 interface BaseFieldT {

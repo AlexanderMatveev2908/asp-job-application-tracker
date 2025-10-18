@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CheckFieldT, PairPwdStateT, TxtFieldT } from '@/common/types/forms';
+import { CheckFieldT, PairPwdStateT, TxtFieldT, TxtSvgFieldT } from '@/common/types/forms';
 import { RegisterFormFields } from '@/features/auth/register/ui_factory/form_fields';
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
 import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
@@ -20,6 +20,7 @@ import { BtnStatePropsT, SpanEventPropsT } from '@/common/types/etc';
 import { ZodCheck } from '@/core/paperwork/zod_check';
 import { Swapper } from '@/common/components/swap/swapper/swapper';
 import { FocusDOM } from '@/core/lib/dom/focus';
+import { PwdMeta } from '@/core/ui_factory/pwd';
 
 @Component({
   selector: 'app-register',
@@ -56,14 +57,27 @@ export class Register {
   }
 
   public readonly firstSwapFields: TxtFieldT[] = RegisterFormFields.firstSwap;
-  public readonly pwdField: Signal<TxtFieldT> = computed(() => ({
+  public readonly pwdField: Signal<TxtSvgFieldT> = computed(() => ({
     ...RegisterFormFields.pwd,
-    type: this.pairPwdState().isPwdTypePwd ? 'password' : 'text',
+    ...PwdMeta.byBool(this.pairPwdState().isPwdTypePwd),
   }));
-  public readonly confPwdField: Signal<TxtFieldT> = computed(() => ({
+  public readonly confPwdField: Signal<TxtSvgFieldT> = computed(() => ({
     ...RegisterFormFields.confPwd,
-    type: this.pairPwdState().isConfirmPwdTypePwd ? 'password' : 'text',
+    ...PwdMeta.byBool(this.pairPwdState().isConfirmPwdTypePwd),
   }));
+
+  public toggleByKey(key: keyof PairPwdStateT): () => void {
+    return () => {
+      const other: keyof PairPwdStateT =
+        key === 'isPwdTypePwd' ? 'isConfirmPwdTypePwd' : 'isPwdTypePwd';
+
+      this.pairPwdState.update((prev: PairPwdStateT) => ({
+        ...prev,
+        [key]: !prev[key],
+        [other]: true,
+      }));
+    };
+  }
 
   public readonly terms: CheckFieldT = RegisterFormFields.termsField;
 

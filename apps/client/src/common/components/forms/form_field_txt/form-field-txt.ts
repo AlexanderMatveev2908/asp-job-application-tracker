@@ -1,13 +1,15 @@
-import { TxtFieldT } from '@/common/types/forms';
+import { TxtFieldT, TxtSvgFieldT } from '@/common/types/forms';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  computed,
   inject,
   input,
   InputSignal,
   OnInit,
   Signal,
+  Type,
   ViewChild,
 } from '@angular/core';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
@@ -16,21 +18,31 @@ import { Observable } from 'rxjs';
 import { FormFieldErr } from '../form_field_err/form-field-err';
 import { RefDomT } from '@/common/types/etc';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
+import { NgComponentOutlet } from '@angular/common';
 
 @Component({
   selector: 'app-form-field-txt',
-  imports: [ReactiveFormsModule, FormFieldErr],
+  imports: [ReactiveFormsModule, FormFieldErr, NgComponentOutlet],
   templateUrl: './form-field-txt.html',
   styleUrl: './form-field-txt.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormFieldTxt implements OnInit, AfterViewInit {
-  public readonly ctrl: InputSignal<FormControl<unknown>> = input.required();
-  public readonly f: InputSignal<TxtFieldT> = input.required();
-  public readonly focusOnMount: InputSignal<boolean> = input(false);
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
+  public readonly ctrl: InputSignal<FormControl<unknown>> = input.required();
+  public readonly f: InputSignal<TxtFieldT | TxtSvgFieldT> = input.required();
+  public readonly focusOnMount: InputSignal<boolean> = input(false);
+  public readonly onSvgClick: InputSignal<(() => void) | null> = input<(() => void) | null>(null);
+
   @ViewChild('inputTxt') inputTxt!: RefDomT;
+
+  public readonly Svg: Signal<Type<unknown> | null> = computed(
+    () => (this.f() as TxtSvgFieldT)?.Svg ?? null
+  );
+  public readonly padding: Signal<string> = computed(() =>
+    !this.Svg() ? '7.5px 20px' : '7.5px 50px 7.5px 20px'
+  );
 
   public val!: Signal<string>;
 
