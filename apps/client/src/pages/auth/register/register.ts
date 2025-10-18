@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CheckFieldT, PairPwdStateT, TxtFieldT, TxtSvgFieldT } from '@/common/types/forms';
+import { CheckFieldT, PairPwdStateT, TxtFieldT } from '@/common/types/forms';
 import { RegisterFormFields } from '@/features/auth/register/ui_factory/form_fields';
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
 import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
@@ -20,11 +20,11 @@ import { BtnStatePropsT, SpanEventPropsT } from '@/common/types/etc';
 import { ZodCheck } from '@/core/paperwork/zod_check';
 import { Swapper } from '@/common/components/swap/swapper/swapper';
 import { FocusDOM } from '@/core/lib/dom/focus';
-import { PwdMeta } from '@/core/ui_factory/pwd';
+import { PairPwd } from '@/common/components/hoc/pair_pwd/pair-pwd';
 
 @Component({
   selector: 'app-register',
-  imports: [CsrWithTitle, ReactiveFormsModule, FormFieldTxt, BtnShadow, Swapper],
+  imports: [CsrWithTitle, ReactiveFormsModule, FormFieldTxt, BtnShadow, Swapper, PairPwd],
   templateUrl: './register.html',
   styleUrl: './register.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -43,10 +43,14 @@ export class Register {
       validators: ZodCheck.checkZ(registerSchema),
     }
   );
+
   public readonly pairPwdState: WritableSignal<PairPwdStateT> = signal({
     isConfirmPwdTypePwd: true,
     isPwdTypePwd: true,
   });
+  public readonly setPairPwdState: (cb: (prev: PairPwdStateT) => PairPwdStateT) => void = (
+    cb: (prev: PairPwdStateT) => PairPwdStateT
+  ) => this.pairPwdState.update(cb);
 
   public readonly swap: WritableSignal<number> = signal(0);
   public readonly setSwap: (val: number) => void = (val: number) => {
@@ -57,28 +61,6 @@ export class Register {
   }
 
   public readonly firstSwapFields: TxtFieldT[] = RegisterFormFields.firstSwap;
-  public readonly pwdField: Signal<TxtSvgFieldT> = computed(() => ({
-    ...RegisterFormFields.pwd,
-    ...PwdMeta.byBool(this.pairPwdState().isPwdTypePwd),
-  }));
-  public readonly confPwdField: Signal<TxtSvgFieldT> = computed(() => ({
-    ...RegisterFormFields.confPwd,
-    ...PwdMeta.byBool(this.pairPwdState().isConfirmPwdTypePwd),
-  }));
-
-  public toggleByKey(key: keyof PairPwdStateT): () => void {
-    return () => {
-      const other: keyof PairPwdStateT =
-        key === 'isPwdTypePwd' ? 'isConfirmPwdTypePwd' : 'isPwdTypePwd';
-
-      this.pairPwdState.update((prev: PairPwdStateT) => ({
-        ...prev,
-        [key]: !prev[key],
-        [other]: true,
-      }));
-    };
-  }
-
   public readonly terms: CheckFieldT = RegisterFormFields.termsField;
 
   public readonly spanProps: SpanEventPropsT = {
@@ -91,6 +73,9 @@ export class Register {
     isPending: false,
   };
 
+  public readonly getCtrl: (f: TxtFieldT) => FormControl = (f: TxtFieldT) =>
+    this.form.get(f.name) as FormControl;
+
   private readonly focusOnSwap: EffectRef = effect(() => {
     const currSwap: number = this.swap();
     const TIME_SWAP: number = 400;
@@ -99,10 +84,6 @@ export class Register {
       FocusDOM.focusWhen(['firstName', 'password'], currSwap);
     }, TIME_SWAP);
   });
-
-  public getCtrl(f: TxtFieldT): FormControl {
-    return this.form.get(f.name) as FormControl;
-  }
 
   public onSubmit(): void {
     if (this.form.valid) Log.logTtl('form', this.form.value);

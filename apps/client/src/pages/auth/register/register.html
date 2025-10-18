@@ -10,14 +10,11 @@
         </div>
 
         <div #swapDiv class="swapper__swap" [style.--opac]="getOpacity(1)()">
-          <!--  -->
-          @for(f of [pwdField(),confPwdField()]; track f.id; let idx = $index){
-          <app-form-field-txt
-            [f]="f"
-            [ctrl]="getCtrl(f)"
-            [onSvgClick]="toggleByKey(idx ? 'isConfirmPwdTypePwd' : 'isPwdTypePwd')"
+          <app-pair-pwd
+            [pairPwdState]="pairPwdState()"
+            [setPairPwdState]="setPairPwdState"
+            [getCtrl]="getCtrl"
           />
-          }
         </div>
       </app-swapper>
 
