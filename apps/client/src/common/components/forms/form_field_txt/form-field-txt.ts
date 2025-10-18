@@ -3,7 +3,6 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  effect,
   inject,
   input,
   InputSignal,
@@ -14,7 +13,6 @@ import {
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Observable } from 'rxjs';
-import { Log } from '@/core/lib/log';
 import { FormFieldErr } from '../form_field_err/form-field-err';
 import { RefDomT } from '@/common/types/etc';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
@@ -44,9 +42,9 @@ export class FormFieldTxt implements OnInit, AfterViewInit {
         initialValue: c.value as string,
       });
 
-      effect(() => {
-        Log.log(this.val());
-      });
+      // effect(() => {
+      //   void this.val();
+      // });
     });
   }
 

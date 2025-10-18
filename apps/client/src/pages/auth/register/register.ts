@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+  ViewChild,
+  WritableSignal,
+} from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CheckFieldT, TxtFieldT } from '@/common/types/forms';
@@ -9,7 +17,9 @@ import { Log } from '@/core/lib/log';
 import { checkZ } from '@/core/paperwork/zod_check';
 import { registerSchema } from '@/features/auth/register/paperwork/schema';
 import { Portal } from '@/layout/portal/portal';
-import { BtnStatePropsT, SpanEventPropsT } from '@/common/types/etc';
+import { BtnStatePropsT, RefDomT, SpanEventPropsT } from '@/common/types/etc';
+import { RecCoordsT, UsePortalSvc } from '@/core/hooks/use_portal';
+import { UsePlatformSvc } from '@/core/hooks/use_platform';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +28,12 @@ import { BtnStatePropsT, SpanEventPropsT } from '@/common/types/etc';
   styleUrl: './register.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Register {
+export class Register implements AfterViewInit {
+  private readonly usePortal: UsePortalSvc = inject(UsePortalSvc);
+  private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
+
+  public readonly portalWhere: WritableSignal<Partial<RecCoordsT> | null> = signal(null);
+
   public readonly form: FormGroup = new FormGroup(
     {
       firstName: new FormControl(''),
@@ -31,6 +46,8 @@ export class Register {
       validators: checkZ(registerSchema),
     }
   );
+
+  @ViewChild('wrapForm') wrapForm!: RefDomT;
 
   public readonly firstSwapFields: TxtFieldT[] = RegisterFormFields.firstSwap;
   public readonly pairPwdFields: TxtFieldT[] = RegisterFormFields.pwdFields;
@@ -53,5 +70,17 @@ export class Register {
   public onSubmit(): void {
     if (this.form.valid) Log.logTtl('form', this.form.value);
     else Log.logTtl('err', this.form.errors);
+  }
+
+  ngAfterViewInit(): void {
+    this.usePlatform.whenDomPainted(() => {
+      const coords: DOMRect | null = this.usePortal.coordsOf(this.wrapForm);
+
+      if (!coords) return;
+
+      this.portalWhere.set({
+        top: `${coords.top}px`,
+      });
+    });
   }
 }

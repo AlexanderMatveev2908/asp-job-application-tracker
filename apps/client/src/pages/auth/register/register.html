@@ -1,6 +1,6 @@
 <app-csr-with-title [title]="'Register'">
   <div class="root">
-    <form class="root__body" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <form class="root__body" #wrapForm [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="body__swap">
         <!--  -->
         @for(f of firstSwapFields; track f.id){
@@ -17,6 +17,12 @@
 
 <app-portal>
   <ng-template #content>
-    <div class="w-[250px] absolute top-1/2 left-1/2 tb">⚡ Teleported Toast</div>
+    <div
+      class="w-[250px] absolute tb"
+      [style.top]="portalWhere()?.top"
+      [style.left]="portalWhere()?.left"
+    >
+      ⚡ Teleported Toast
+    </div>
   </ng-template>
 </app-portal>
