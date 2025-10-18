@@ -1,10 +1,11 @@
 <div class="root">
-  @for(spanProps of spans; track spanProps.id){
+  @for(spanProps of spans; track spanProps.id; let idx = $index){
   <div class="root__btn">
     <app-btn-shadow
+      [listenersProps]="getListeners(idx)"
       [type]="'button'"
       [spanProps]="spanProps"
-      [btnStateProps]="btnStateProps"
+      [btnStateProps]="getBtnState(idx)()"
       [spanSizesProps]="{ svg: '3xl' }"
       [paddingProps]="'2.5px 7.5px'"
     />

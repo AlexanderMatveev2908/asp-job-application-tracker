@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  Signal,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CheckFieldT, TxtFieldT } from '@/common/types/forms';
@@ -31,6 +38,16 @@ export class Register {
       validators: ZodCheck.checkZ(registerSchema),
     }
   );
+
+  public readonly swap: WritableSignal<number> = signal(0);
+  public readonly setSwap: (val: number) => void = (val: number) => {
+    this.swap.set(val);
+  };
+  // eslint-disable-next-line no-magic-numbers
+  public readonly transform: Signal<string> = computed(() => `-${this.swap() * 100}%`);
+  public getOpacity(idx: number): Signal<number> {
+    return computed(() => (idx === this.swap() ? 1 : 0));
+  }
 
   public readonly firstSwapFields: TxtFieldT[] = RegisterFormFields.firstSwap;
   public readonly pairPwdFields: TxtFieldT[] = RegisterFormFields.pwdFields;

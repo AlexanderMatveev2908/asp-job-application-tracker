@@ -6,12 +6,16 @@
   @apply w-full min-h-[70vh] flex flex-col justify-center items-center;
 
   .root__form {
-    @apply w-[90%] max-w-[800px] h-fit flex flex-col items-center gap-10 border-3 border-gray-300 rounded-xl p-5;
+    @apply w-[90%] max-w-[800px] h-fit flex flex-col items-center gap-10 border-3 border-gray-300 rounded-xl p-5 overflow-hidden;
 
     .form__swapper {
-      @apply w-full;
+      @apply min-w-full grid transition-all duration-500;
+      grid-template-columns: repeat(var(--cols), 100%);
+      transform: translateX(var(--perc));
+
       .swapper__swap {
-        @apply w-full flex flex-col gap-8;
+        opacity: var(--opac);
+        @apply w-full px-4 flex flex-col gap-8 transition-all duration-300;
       }
     }
 

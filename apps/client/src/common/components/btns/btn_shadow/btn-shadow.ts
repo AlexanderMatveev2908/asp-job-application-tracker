@@ -45,9 +45,11 @@ export class BtnShadow {
     isPending: this.btnStateProps().isPending,
   }));
 
-  public onClick(): (() => void) | null {
+  public async onClick(): Promise<void> {
     const clickEvent = this.listenersProps()?.onClick;
+    if (!clickEvent) return;
 
-    return clickEvent ?? null;
+    const res: void | Promise<void> = clickEvent();
+    if (res instanceof Promise) await res;
   }
 }
