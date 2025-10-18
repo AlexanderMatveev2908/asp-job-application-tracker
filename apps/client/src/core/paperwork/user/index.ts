@@ -1,5 +1,6 @@
 import z, { ZodObject, ZodString } from 'zod';
 import { Reg } from '../reg';
+import { ShapeCheck } from '@/core/lib/data_structure/shape';
 
 export interface PairPwdArgT {
   password: string;
@@ -51,6 +52,9 @@ export class UserZod {
 
   public static refinePairPwd(data: PairPwdArgT): boolean {
     const { password, confirmPassword } = data;
+
+    if ([password, confirmPassword].some((str: string) => !ShapeCheck.isStr(str))) return true;
+
     return password === confirmPassword;
   }
 }

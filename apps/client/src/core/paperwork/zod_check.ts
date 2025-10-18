@@ -1,6 +1,7 @@
 import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { ZodSafeParseResult, ZodType } from 'zod';
 import { ShapeCheck } from '../lib/data_structure/shape';
+import { Log } from '../lib/log';
 
 export class ZodCheck {
   public static checkZ(schema: ZodType): ValidatorFn {
@@ -27,6 +28,8 @@ export class ZodCheck {
 
   public static onSubmitFailed(form: FormGroup): void {
     let first: string | null = null;
+
+    Log.logTtl('submit failed', form.errors);
 
     for (const [keyCtrl, ctrl] of Object.entries(form.controls)) {
       const err: string | null = form.errors?.[keyCtrl];

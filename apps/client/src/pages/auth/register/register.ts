@@ -33,6 +33,7 @@ export class Register {
       email: new FormControl(''),
       password: new FormControl(''),
       confirmPassword: new FormControl(''),
+      terms: new FormControl(null),
     },
     {
       validators: ZodCheck.checkZ(registerSchema),
@@ -67,8 +68,6 @@ export class Register {
 
   public onSubmit(): void {
     if (this.form.valid) Log.logTtl('form', this.form.value);
-    else {
-      ZodCheck.onSubmitFailed(this.form);
-    }
+    else ZodCheck.onSubmitFailed(this.form);
   }
 }
