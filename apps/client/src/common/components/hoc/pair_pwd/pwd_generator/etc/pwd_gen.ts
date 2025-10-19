@@ -1,5 +1,5 @@
-import { Rand } from './rand';
 import { Ascii } from './asci';
+import { Rand } from './rand';
 
 export class PwdGen extends Rand {
   public static pwdOf(charForRange: number): string {

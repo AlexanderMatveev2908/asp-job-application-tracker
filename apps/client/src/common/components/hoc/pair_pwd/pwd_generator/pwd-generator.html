@@ -1,6 +1,7 @@
 <div class="root">
   <button
     #tooltipRef
+    (click)="genPwd()"
     (focus)="onHover()"
     (blur)="onLeave()"
     (mouseover)="onHover()"
@@ -13,9 +14,10 @@
     </div>
   </button>
 
+  @if(pwd()){
   <button type="button" class="root__pwd">
-    <span class="txt__md">12345678</span>
-  </button>
+    <span class="txt__md">{{ pwd() }}</span></button
+  >}
 </div>
 
 <!-- ! avoid starting animation when mode is still 'swapping' -->
