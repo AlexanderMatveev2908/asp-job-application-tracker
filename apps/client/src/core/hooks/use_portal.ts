@@ -15,10 +15,8 @@ export class UsePortal {
   // | so is faster to receive them as css property
   // | just in rare cases i will need to adjust size using integer values
 
-  public static coordsOf(refDom: RefDomT): RecCoordsT | null {
-    const elDOM: ElDomT = refDom?.nativeElement;
+  private static coordsOfNative(elDOM: ElDomT): RecCoordsT | null {
     if (!elDOM) return null;
-
     const coordsDOM: DOMRect = elDOM.getBoundingClientRect();
 
     return {
@@ -29,6 +27,12 @@ export class UsePortal {
       with: `${coordsDOM.width}px`,
       height: `${coordsDOM.height}px`,
     };
+  }
+
+  public static coordsOfRef(refDom: RefDomT): RecCoordsT | null {
+    const elDOM: ElDomT = refDom?.nativeElement;
+
+    return this.coordsOfNative(elDOM);
   }
 
   public static coordToInt(arg: string | null | undefined): number {

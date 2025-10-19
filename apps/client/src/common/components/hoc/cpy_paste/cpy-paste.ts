@@ -15,7 +15,7 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { Portal } from '@/layout/portal/portal';
-import { WithSwapPortal } from '@/core/directives/with_swap_portal';
+import { WithSwapPortal } from '@/core/directives/with_portal/2.with_swap_portal';
 import { RecCoordsT, UsePortal } from '@/core/hooks/use_portal';
 import { Log } from '@/core/lib/log';
 import { ErrApp } from '@/core/lib/err';

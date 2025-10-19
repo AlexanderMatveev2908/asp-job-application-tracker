@@ -1,10 +1,15 @@
 <div class="root">
   <app-form-field-txt
+    #pwdFieldRef
     [f]="pwdField()"
     [ctrl]="getCtrl()(pwdField())"
     [onSvgClick]="toggleByKey('isPwdTypePwd')"
+    [onFocus]="onFocus"
+    [onBlur]="onBlur"
   />
+
   <app-pwd-generator [confSwap]="confSwap()" />
+  <app-pwd-checker [confSwap]="confSwap()" [isFocused]="isFocused()" [pwdFieldRef]="pwdFieldRef" />
 
   <app-form-field-txt
     [f]="confPwdField()"

@@ -40,7 +40,10 @@ export class FormFieldTxt implements OnInit, AfterViewInit {
   // ? additional listeners for custom needs beside normal ng flow
   // ? rarely used
   public readonly onFocus: InputSignal<((v: string) => void) | null> = input<
-    ((v: string) => void) | null
+    ((val: string) => void) | null
+  >(null);
+  public readonly onBlur: InputSignal<((v: string) => void) | null> = input<
+    ((val: string) => void) | null
   >(null);
   public readonly onChange: InputSignal<((val: string) => void) | null> = input<
     ((val: string) => void) | null
