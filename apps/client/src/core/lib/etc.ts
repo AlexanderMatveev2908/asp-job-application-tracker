@@ -12,4 +12,17 @@ export class LibEtc {
 
     return null;
   }
+
+  public static idxIn(target: string, lists: string[][]): number | null {
+    let i: number = 0;
+
+    while (i < lists.length) {
+      const list: string[] = lists[i];
+
+      if (list.includes(target)) return i;
+      i++;
+    }
+
+    return null;
+  }
 }

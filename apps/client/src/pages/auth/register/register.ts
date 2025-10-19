@@ -21,6 +21,8 @@ import { RegisterFormMng } from '@/features/auth/register/paperwork/form_mng';
 import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
 import { WithSwap } from '@/core/directives/with_swap/with_swap';
 import { PortalModule } from '@angular/cdk/portal';
+import { LibEtc } from '@/core/lib/etc';
+import { ShapeCheck } from '@/core/lib/data_structure/shape';
 
 @Component({
   selector: 'app-register',
@@ -70,6 +72,11 @@ export class Register extends WithSwap {
 
   public onSubmit(): void {
     if (this.form.valid) Log.logTtl('form', this.form.value);
-    else ZodCheck.onSubmitFailed(this.form);
+    else
+      ZodCheck.onSubmitFailedInSwap(this.form, (first: string) => {
+        const target: number | null = LibEtc.idxIn(first, RegisterFormMng.fieldsBySwap);
+
+        if (!ShapeCheck.isNone(target)) this.setSwapOnErr(target!);
+      });
   }
 }
