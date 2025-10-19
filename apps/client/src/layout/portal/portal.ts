@@ -51,7 +51,6 @@ export class Portal implements AfterViewInit {
     const rootPortal: ElDomT = document.getElementById('root-portal');
     if (!rootPortal || !this.tpl || this.attached) return;
 
-    console.log('run');
     // ? simple absolute div
     // ! it must not have pointer events
     // ! or will cover other DOM important elements

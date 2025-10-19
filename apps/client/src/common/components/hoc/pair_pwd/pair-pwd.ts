@@ -13,6 +13,7 @@ import { PwdUiFkt } from '@/core/ui_factory/form_fields/etc/pwd';
 import { PairPwdStateT, TxtFieldT, TxtSvgFieldT } from '@/common/types/forms';
 import { FormControl } from '@angular/forms';
 import { PwdGenerator } from './pwd_generator/pwd-generator';
+import { ConfigSwapT } from '@/common/types/etc';
 
 @Component({
   selector: 'app-pair-pwd',
@@ -26,7 +27,7 @@ export class PairPwd {
   public readonly getCtrl: InputSignal<(key: TxtFieldT) => FormControl<unknown>> = input.required();
   // ? component may be inside a swapper
   // ? but not necessarily so by default is always 0
-  public readonly swap: InputSignal<number> = input(0);
+  public readonly confSwap: InputSignal<ConfigSwapT | null> = input<ConfigSwapT | null>(null);
 
   // ? local state
   public readonly pairPwdState: WritableSignal<PairPwdStateT> = signal({

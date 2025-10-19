@@ -22,7 +22,9 @@
 >
   <ng-template #tpl>
     <div class="z-50 -translate-x-3/4 -translate-y-[20px] absolute w-[300px]">
+      @if(showTooltip()){
       <app-tooltip [isHover]="isHover()" [eventT]="'NONE'" [msg]="'Generate Password'" />
+      }
     </div>
   </ng-template>
 </app-portal>

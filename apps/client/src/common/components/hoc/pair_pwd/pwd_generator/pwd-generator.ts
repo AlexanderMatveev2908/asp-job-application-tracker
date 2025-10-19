@@ -1,10 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   effect,
   EffectRef,
   input,
   InputSignal,
+  Signal,
   Type,
 } from '@angular/core';
 import { NgComponentOutlet } from '@angular/common';
@@ -12,6 +14,7 @@ import { SvgFillPwdGen } from '@/common/components/svgs/fill/pwd_gen/pwd-gen';
 import { Portal } from '@/layout/portal/portal';
 import { WithTooltip } from '@/core/directives/with_tooltip';
 import { Tooltip } from '@/common/components/els/tooltip/tooltip';
+import { ConfigSwapT } from '@/common/types/etc';
 
 @Component({
   selector: 'app-pwd-generator',
@@ -22,17 +25,21 @@ import { Tooltip } from '@/common/components/els/tooltip/tooltip';
 })
 export class PwdGenerator extends WithTooltip {
   // ? personal optional props
-  // ? component may be inside a swapper
-  // ? but not necessarily so by default will always receive
-  // ? by parent a 0
-  public readonly swap: InputSignal<number> = input(0);
+  // ? component may be inside a swapper which needs rerender options
+  public readonly confSwap: InputSignal<ConfigSwapT | null> = input<ConfigSwapT | null>(null);
 
   // ? static assets
   public readonly Svg: Type<unknown> = SvgFillPwdGen;
 
+  // ? derived
+  public readonly showTooltip: Signal<boolean> = computed(
+    () => !this.confSwap() || !!this.confSwap()?.isCurr
+  );
+
+  // ? rerender
   public optDependencies: EffectRef = effect(() => {
     const TIME_ANIMATION: number = 500;
-    void this.swap();
+    void this.confSwap();
 
     setTimeout(() => {
       this.coords.set(this.usePortal.coordsOf(this.tooltipRef));

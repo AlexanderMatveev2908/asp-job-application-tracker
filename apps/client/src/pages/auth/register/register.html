@@ -10,7 +10,13 @@
         </div>
 
         <div #swapDiv class="swapper__swap" [style.--opac]="getOpacity(1)()">
-          <app-pair-pwd [getCtrl]="getCtrl" [swap]="swap()" />
+          <app-pair-pwd
+            [getCtrl]="getCtrl"
+            [confSwap]="{
+              swap: swap(),
+              isCurr: swap() === 1
+            }"
+          />
         </div>
       </app-swapper>
 
