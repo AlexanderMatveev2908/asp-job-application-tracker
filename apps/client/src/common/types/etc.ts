@@ -12,12 +12,14 @@ export interface WithIdT {
 
 export type RefDomT = ElementRef<HTMLElement> | undefined;
 
-export type ElDomT = HTMLElement | null | undefined;
+export type ElDomT = HTMLElement | None;
 
 export interface BtnStatePropsT {
   isPending: boolean;
   isDisabled: boolean;
 }
+
+export type None = null | undefined;
 
 export interface BtnListenersT {
   onClick: (() => void) | (() => Promise<void>);

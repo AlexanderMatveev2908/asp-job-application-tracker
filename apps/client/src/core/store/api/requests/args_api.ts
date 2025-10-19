@@ -2,6 +2,7 @@ import { HttpParams } from '@angular/common/http';
 import { OptErrApi, OptToastApiT } from '../etc/types';
 import { FormPrs } from '@/core/lib/data_structure/form_parser';
 import { ErrApp } from '@/core/lib/err';
+import { None } from '@/common/types/etc';
 
 export class ArgsApi {
   private readonly _url: string = '';
@@ -79,7 +80,7 @@ export class ArgsApi {
     return this._url;
   }
 
-  public getParams(isEmpty: null | undefined = null): HttpParams | null | undefined {
+  public getParams(isEmpty: None = null): HttpParams | None {
     return !this._params ? isEmpty : this._params;
   }
 

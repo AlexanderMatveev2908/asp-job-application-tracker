@@ -1,4 +1,4 @@
-import { ElDomT, RefDomT } from '@/common/types/etc';
+import { ElDomT, None, RefDomT } from '@/common/types/etc';
 import { ErrApp } from '../lib/err';
 
 export interface RecCoordsT {
@@ -35,7 +35,7 @@ export class UsePortal {
     return this.coordsOfNative(elDOM);
   }
 
-  public static coordToInt(arg: string | null | undefined): number {
+  public static coordToInt(arg: string | None): number {
     if (!arg) throw new ErrApp('expected value to parse as int');
 
     const splitted: string[] = arg.split('px');
@@ -44,7 +44,7 @@ export class UsePortal {
     return int;
   }
 
-  public static patchCoord(arg: string | null | undefined, cb: (v: number) => number): string {
+  public static patchCoord(arg: string | None, cb: (v: number) => number): string {
     const int: number = this.coordToInt(arg);
 
     return `${cb(int)}px`;
