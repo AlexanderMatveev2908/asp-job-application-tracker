@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import {
   AfterViewInit,
@@ -18,9 +19,9 @@ import { WithSwapPortal } from '@/core/directives/with_swap_portal';
 import { RecCoordsT, UsePortal } from '@/core/hooks/use_portal';
 import { Log } from '@/core/lib/log';
 import { ErrApp } from '@/core/lib/err';
-import { ElDomT, RefDomT } from '@/common/types/etc';
+import { RefDomT } from '@/common/types/etc';
 import { LibEtc } from '@/core/lib/etc';
-import { timeline } from '@motionone/dom';
+import { CpyPasteAnimation } from './etc/animations';
 
 @Component({
   selector: 'app-cpy-paste',
@@ -49,7 +50,6 @@ export class CpyPaste extends WithSwapPortal implements AfterViewInit {
     top: this.coords()?.top,
     left: UsePortal.patchCoord(
       this.coords()?.left,
-      // eslint-disable-next-line no-magic-numbers
       (v: number) => v + UsePortal.coordToInt(this.coords()?.with) / 2
     ),
   }));
@@ -80,27 +80,9 @@ export class CpyPaste extends WithSwapPortal implements AfterViewInit {
     this.usePlatForm.inCtx(() => {
       effect(() => {
         const isCpy: boolean = this.copied();
+        if (!isCpy) return;
 
-        const pasteNoticeDOM: ElDomT = this.pasteNotice?.nativeElement;
-
-        if (!pasteNoticeDOM) return;
-
-        if (isCpy) {
-          timeline([
-            [pasteNoticeDOM, { x: '-50%', y: '-50px' }, { duration: 0 }],
-
-            [
-              pasteNoticeDOM,
-              { scale: [0, 1.4], opacity: [0, 1] },
-              { duration: 0.2, easing: 'ease-out' },
-            ],
-            [pasteNoticeDOM, { scale: [1.4, 0.8] }, { duration: 0.2, easing: 'ease-in' }],
-            [pasteNoticeDOM, { scale: [0.8, 1.1, 0.9, 1] }, { duration: 0.2, easing: 'ease-out' }],
-            [pasteNoticeDOM, { opacity: [1, 0] }, { duration: 1.2, easing: 'linear' }],
-          ]);
-        } else {
-          void null;
-        }
+        CpyPasteAnimation.main(this.pasteNotice);
       });
     });
   }
