@@ -32,7 +32,7 @@ Together they form a clean, modern **full-stack architecture** 🚀
 - **Angular HTTPClient** — Built-in HTTP module with interceptors for secure API integration
 - **Tailwind CSS** + **Sass** — Utility-first CSS with extended support for custom and complex designs
 - **Motionone** — Modern animation library for the DOM with concise syntax similar to **Framer Motion** (React)
-- **Custom Python CLI Tool** — Custom CLI tool that parses SVG files into Angular components with dynamic color and size bindings
+- **svg_ng_cli** — Custom **Python** CLI tool that parses SVG files into Angular components with dynamic color and size bindings
 
 ---
 
@@ -46,7 +46,7 @@ Together they form a clean, modern **full-stack architecture** 🚀
 - **Redis (Lettuce)** — Async/reactive Redis client for caching and real-time data
 - **Cloudinary (Reactive WebClient)** — Manually integrated using Spring’s WebClient, enabling fully non-blocking image and video uploads
 - **JavaMailSender (MimeMessage)**— For sending HTML email content, including transactional emails built with custom, hand-crafted templates for full control over design and layout
-- **Custom Python CLI Tool** — Built a Python CLI utility to automatically add dependencies to both the **TOML catalog** and **Gradle build file**, eliminating repetitive hardcoding and improving consistency in dependency management
+- **java_pkg_cli** — Custom **Python** CLI utility to automatically add dependencies to both the **TOML catalog** and **Gradle build file**, eliminating repetitive hardcoding and improving consistency in dependency management
 
 ---
 
@@ -74,6 +74,7 @@ Together they form a clean, modern **full-stack architecture** 🚀
 - **Zoho Mail** — Inbound email hosting for custom domain addresses
 - **Namecheap** — Domain provider, configured with DNS records (SPF, DKIM, DMARC) to support both Brevo + Zoho
 - **Zsh** — Custom shell scripts for scaffolding and developer productivity
+- **sync_env_cli** — Custom **Python** CLI tool that synchronizes environment variables across the client and server directories, updates **Kubernetes** secrets, and patches environment variables in the Git-based **CI/CD pipeline** for deployment.
 
 ---
 
