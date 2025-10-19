@@ -14,10 +14,7 @@
     </div>
   </button>
 
-  @if(pwd()){
-  <button type="button" class="root__pwd">
-    <span class="txt__md">{{ pwd() }}</span></button
-  >}
+  <app-cpy-paste [txt]="pwd()" [confSwap]="confSwap()" />
 </div>
 
 <!-- ! avoid starting animation when mode is still 'swapping' -->

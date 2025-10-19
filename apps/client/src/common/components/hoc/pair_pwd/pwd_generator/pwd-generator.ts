@@ -5,10 +5,11 @@ import { Portal } from '@/layout/portal/portal';
 import { WithSwapPortal } from '@/core/directives/with_swap_portal';
 import { Tooltip } from '@/common/components/els/tooltip/tooltip';
 import { PwdGen } from './etc/pwd_gen';
+import { CpyPaste } from '../../cpy_paste/cpy-paste';
 
 @Component({
   selector: 'app-pwd-generator',
-  imports: [NgComponentOutlet, Portal, Tooltip],
+  imports: [NgComponentOutlet, Portal, Tooltip, CpyPaste],
   templateUrl: './pwd-generator.html',
   styleUrl: './pwd-generator.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,7 +24,6 @@ export class PwdGenerator extends WithSwapPortal {
   // ? listeners
   public genPwd(): void {
     const charsForRange: number = 4;
-
     this.pwd.set(PwdGen.pwdOf(charsForRange));
   }
 }

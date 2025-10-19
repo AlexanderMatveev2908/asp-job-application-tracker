@@ -1,9 +1,9 @@
 // ? fast tested to see where an element is ad his border-box
 .tb {
-  @apply border-[3px] border-gray-300;
+  @apply border-[3px] border-red-600;
 }
 .tc {
-  @apply text-gray-300 text-3xl;
+  @apply text-red-600 text-3xl;
 }
 
 // ? border style often used

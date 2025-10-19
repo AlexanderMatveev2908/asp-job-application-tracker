@@ -8,14 +8,13 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { WithHover } from './with_hover';
-import { RecCoordsT, UsePortalSvc } from '../hooks/use_portal';
+import { RecCoordsT, UsePortal } from '../hooks/use_portal';
 import { UsePlatformSvc } from '../hooks/use_platform';
 import { RefDomT } from '@/common/types/etc';
 
 @Directive()
 export abstract class WithPortal extends WithHover implements AfterViewInit {
   // ? svc
-  protected readonly usePortal: UsePortalSvc = inject(UsePortalSvc);
   protected readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
   // ? local state
@@ -27,12 +26,12 @@ export abstract class WithPortal extends WithHover implements AfterViewInit {
   // ? listeners
   ngAfterViewInit(): void {
     this.usePlatform.whenDomPainted(() => {
-      this.coords.set(this.usePortal.coordsOf(this.tooltipRef));
+      this.coords.set(UsePortal.coordsOf(this.tooltipRef));
     });
   }
 
   @HostListener('window:scroll')
   public onScroll(): void {
-    this.coords.set(this.usePortal.coordsOf(this.tooltipRef));
+    this.coords.set(UsePortal.coordsOf(this.tooltipRef));
   }
 }

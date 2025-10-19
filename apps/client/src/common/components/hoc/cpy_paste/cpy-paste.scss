@@ -1,0 +1,15 @@
+@use 'exports/mix' as mix;
+
+.root {
+  @apply w-[250px] relative;
+
+  .root__txt {
+    @include mix.btn__scl(1.2);
+    @include mix.el__shw(var(--gray__300));
+    @apply w-full border-2 border-gray-300 rounded-xl py-2 px-4;
+  }
+}
+
+.paste_notice {
+  @apply absolute w-[200px] z-50 -translate-x-1/2 bg-neutral-950 py-2 px-4 border-2 border-gray-300 rounded-xl;
+}

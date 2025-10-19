@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { ConfSwapT } from './with_swap/etc/types';
 import { WithPortal } from './with_portal';
+import { UsePortal } from '../hooks/use_portal';
 
 // | use WithPortal when sure curr component
 // | will nt be used within a swap/slider
@@ -27,6 +28,6 @@ export abstract class WithSwapPortal extends WithPortal implements AfterViewInit
 
   // ? rerender
   public rerenderWhen: EffectRef = effect(() => {
-    if (this.showTooltip()) this.coords.set(this.usePortal.coordsOf(this.tooltipRef));
+    if (this.showTooltip()) this.coords.set(UsePortal.coordsOf(this.tooltipRef));
   });
 }
