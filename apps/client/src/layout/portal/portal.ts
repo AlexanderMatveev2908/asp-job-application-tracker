@@ -9,6 +9,7 @@ import {
   Injector,
   input,
   InputSignal,
+  OnDestroy,
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
@@ -26,7 +27,7 @@ import { v4 } from 'uuid';
   styleUrl: './portal.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Portal implements AfterViewInit {
+export class Portal implements AfterViewInit, OnDestroy {
   // ? svc
   private readonly injector: Injector = inject(Injector);
   private readonly appRef: ApplicationRef = inject(ApplicationRef);
@@ -97,5 +98,19 @@ export class Portal implements AfterViewInit {
 
   public get portalId(): string {
     return this.id;
+  }
+
+  ngOnDestroy(): void {
+    if (this.outlet) {
+      this.outlet.detach();
+      this.outlet.dispose();
+      this.outlet = null;
+    }
+
+    const host = document.querySelector(`[data-portal-id="${this.id}"]`);
+    if (host && host.parentElement) host.parentElement.removeChild(host);
+
+    this.attached = false;
+    this.contentEl = null;
   }
 }
