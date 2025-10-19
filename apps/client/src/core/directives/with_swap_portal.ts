@@ -22,7 +22,7 @@ export abstract class WithSwapPortal extends WithPortal implements AfterViewInit
 
   // ? derived
   public readonly showTooltip: Signal<boolean> = computed(
-    () => !this.confSwap() || (!!this.confSwap()?.isCurr && this.confSwap()?.mode === 'swapped')
+    () => !this.confSwap() || (!!this.confSwap()?.isCurr && this.confSwap()?.mode !== 'swapping')
   );
 
   // ? rerender

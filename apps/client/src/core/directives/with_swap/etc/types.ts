@@ -1,4 +1,4 @@
-export type SwapModeT = null | 'swapping' | 'swapped';
+export type SwapModeT = 'idle' | 'swapping' | 'swapped';
 
 export interface SwapStateT {
   mode: SwapModeT;

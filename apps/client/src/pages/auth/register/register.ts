@@ -16,7 +16,6 @@ import { Log } from '@/core/lib/log';
 import { BtnStatePropsT } from '@/common/types/etc';
 import { ZodCheck } from '@/core/paperwork/zod_check';
 import { Swapper } from '@/common/components/swap/swapper/swapper';
-import { FocusDOM } from '@/core/lib/dom/focus';
 import { PairPwd } from '@/common/components/hoc/pair_pwd/pair-pwd';
 import { RegisterFormMng } from '@/features/auth/register/paperwork/form_mng';
 import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
@@ -67,10 +66,7 @@ export class Register extends WithSwap {
     this.form.get(f.name) as FormControl;
 
   // ? listeners
-  private readonly focusOnSwap: EffectRef = effect(() => {
-    const { swap, mode } = this.swapState();
-    if (mode === 'swapped') FocusDOM.focusWhen(['firstName', 'password'], swap);
-  });
+  private readonly focusOnSwap: EffectRef = effect(() => this.focusWhen('firstName', 'password'));
 
   public onSubmit(): void {
     if (this.form.valid) Log.logTtl('form', this.form.value);

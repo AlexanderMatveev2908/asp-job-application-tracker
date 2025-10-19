@@ -59,7 +59,7 @@ export class Portal implements AfterViewInit {
     host.style.position = 'absolute';
     host.style.pointerEvents = 'none';
     host.style.zIndex = '100';
-    host.style.border = '3px solid red';
+    // host.style.border = '3px solid red';
     host.style.minWidth = '100%';
     host.style.minHeight = '100%';
 
