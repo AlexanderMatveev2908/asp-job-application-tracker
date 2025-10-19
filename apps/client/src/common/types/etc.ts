@@ -24,8 +24,3 @@ export interface BtnListenersT {
 }
 
 export type BtnT = 'button' | 'submit';
-
-export interface ConfigSwapT {
-  swap: number;
-  isCurr: boolean;
-}

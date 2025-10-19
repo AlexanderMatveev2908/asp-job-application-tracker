@@ -1,7 +1,7 @@
 <app-csr-with-title [title]="'Register'">
   <div class="root">
     <form class="root__form" [formGroup]="form" (ngSubmit)="onSubmit()">
-      <app-swapper [maxSwaps]="2" [setSwap]="setSwap" [swap]="swap()">
+      <app-swapper [maxSwaps]="2" [setSwap]="setSwap" [swap]="swapState().swap">
         <div #swapDiv class="swapper__swap" [style.--opac]="getOpacity(0)()">
           <!--  -->
           @for(f of firstSwapFields; track f.id){
@@ -10,13 +10,7 @@
         </div>
 
         <div #swapDiv class="swapper__swap" [style.--opac]="getOpacity(1)()">
-          <app-pair-pwd
-            [getCtrl]="getCtrl"
-            [confSwap]="{
-              swap: swap(),
-              isCurr: swap() === 1
-            }"
-          />
+          <app-pair-pwd [getCtrl]="getCtrl" [confSwap]="confSwap(1)()" />
         </div>
       </app-swapper>
 

@@ -5,8 +5,6 @@ import {
   effect,
   EffectRef,
   Signal,
-  signal,
-  WritableSignal,
 } from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -22,27 +20,31 @@ import { FocusDOM } from '@/core/lib/dom/focus';
 import { PairPwd } from '@/common/components/hoc/pair_pwd/pair-pwd';
 import { RegisterFormMng } from '@/features/auth/register/paperwork/form_mng';
 import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
+import { WithSwap } from '@/core/directives/with_swap/with_swap';
+import { PortalModule } from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-register',
-  imports: [CsrWithTitle, ReactiveFormsModule, FormFieldTxt, BtnShadow, Swapper, PairPwd],
+  imports: [
+    CsrWithTitle,
+    ReactiveFormsModule,
+    FormFieldTxt,
+    BtnShadow,
+    Swapper,
+    PairPwd,
+    PortalModule,
+  ],
   templateUrl: './register.html',
   styleUrl: './register.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Register {
+export class Register extends WithSwap {
   // ? form related
   public readonly form: FormGroup = RegisterFormMng.form;
 
-  // ? swap state
-  public readonly swap: WritableSignal<number> = signal(0);
-  public readonly setSwap: (val: number) => void = (val: number) => {
-    this.swap.set(val);
-  };
-
   // ? derived
   public getOpacity(idx: number): Signal<number> {
-    return computed(() => (idx === this.swap() ? 1 : 0));
+    return computed(() => (idx === this.swapState().swap ? 1 : 0));
   }
 
   // ? static fields
@@ -66,12 +68,8 @@ export class Register {
 
   // ? listeners
   private readonly focusOnSwap: EffectRef = effect(() => {
-    const currSwap: number = this.swap();
-    const TIME_SWAP: number = 400;
-
-    setTimeout(() => {
-      FocusDOM.focusWhen(['firstName', 'password'], currSwap);
-    }, TIME_SWAP);
+    const { swap, mode } = this.swapState();
+    if (mode === 'swapped') FocusDOM.focusWhen(['firstName', 'password'], swap);
   });
 
   public onSubmit(): void {
