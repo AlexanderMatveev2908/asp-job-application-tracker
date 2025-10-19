@@ -2,6 +2,7 @@ import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angu
 import { ZodSafeParseResult, ZodType } from 'zod';
 import { ShapeCheck } from '../lib/data_structure/shape';
 import { Log } from '../lib/log';
+import { WithSwap } from '../directives/with_swap/with_swap';
 
 export class ZodCheck {
   public static checkZ(schema: ZodType): ValidatorFn {
@@ -26,7 +27,7 @@ export class ZodCheck {
     };
   }
 
-  public static onSubmitFailed(form: FormGroup): void {
+  private static _onSubmitFailed(form: FormGroup): string | null {
     let first: string | null = null;
 
     Log.logTtl('submit failed', form.errors);
@@ -43,9 +44,30 @@ export class ZodCheck {
       ctrl.setErrors({ zod: err });
     }
 
-    const elDOM: HTMLElement | null = document.querySelector(`[data-field=${first}]`);
+    return first;
+  }
 
+  private static focusByField(first: string | null): void {
+    if (!first) return;
+
+    const elDOM: HTMLElement | null = document.querySelector(`[data-field=${first}]`);
     if (elDOM) elDOM.focus();
+  }
+
+  public static onSubmitFailed(form: FormGroup): void {
+    const first: string | null = this._onSubmitFailed(form);
+    this.focusByField(first);
+  }
+
+  // | the job of callback is to manage to set right proper swap
+  // | where first error is located
+  public static onSubmitFailedInSwap(form: FormGroup, cb: (field: string) => void): void {
+    const first: string | null = this._onSubmitFailed(form);
+    if (first) cb(first);
+
+    setTimeout(() => {
+      this.focusByField(first);
+    }, WithSwap.TIME_ANIMATION);
   }
 }
 

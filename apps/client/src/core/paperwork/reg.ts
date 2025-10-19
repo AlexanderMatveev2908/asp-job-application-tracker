@@ -1,3 +1,5 @@
+import { None } from '@/common/types/etc';
+
 export class Reg {
   public static readonly NAME: RegExp = /^[\p{L}\s,`'-]*$/u;
   public static readonly MAIL: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -25,7 +27,7 @@ export class Reg {
   }
 
   // ✅ Generic test helper
-  public static check(arg: string | null | undefined, reg: RegExp): boolean {
+  public static check(arg: string | None, reg: RegExp): boolean {
     return !!arg && reg.test(arg);
   }
 

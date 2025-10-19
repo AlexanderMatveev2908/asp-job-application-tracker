@@ -38,4 +38,9 @@ export class RegisterFormMng extends ZodCheck {
       validators: this.checkZ(this.schema),
     }
   );
+
+  public static readonly fieldsBySwap: string[][] = [
+    ['firstName', 'lastName', 'email'],
+    ['password', 'confirmPassword', 'terms'],
+  ];
 }

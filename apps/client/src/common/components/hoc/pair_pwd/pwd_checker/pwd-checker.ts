@@ -47,11 +47,11 @@ export class PwdChecker implements OnInit, AfterViewInit {
 
   // ? local state
   public readonly coords: WritableSignal<RecCoordsT | null> = signal<RecCoordsT | null>(null);
+
+  // ? derived
   private valPwd!: Signal<string>;
   private interactedWith!: Signal<unknown>;
   public pwdLen: Signal<number> = computed(() => this.valPwd()?.trim()?.length ?? 0);
-
-  // ? derived
   public readonly showTooltip: Signal<boolean> = computed(
     () => !this.confSwap() || (!!this.confSwap()?.isCurr && this.confSwap()?.mode !== 'swapping')
   );

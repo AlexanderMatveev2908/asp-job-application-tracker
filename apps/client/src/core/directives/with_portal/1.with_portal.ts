@@ -21,6 +21,7 @@ export abstract class WithPortal extends WithHover implements AfterViewInit {
   public readonly coords: WritableSignal<RecCoordsT | null> = signal(null);
 
   // ? ref tooltip to calculate position wanted
+  // ? relative to a certain element
   @ViewChild('tooltipRef') tooltipRef: RefDomT;
 
   // ? listeners
@@ -32,6 +33,10 @@ export abstract class WithPortal extends WithHover implements AfterViewInit {
 
   @HostListener('window:scroll')
   public onScroll(): void {
+    this.coords.set(UsePortal.coordsOfRef(this.tooltipRef));
+  }
+  @HostListener('window:resize')
+  public onResize(): void {
     this.coords.set(UsePortal.coordsOfRef(this.tooltipRef));
   }
 }
