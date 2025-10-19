@@ -1,3 +1,7 @@
+:host {
+  @apply absolute;
+}
+
 .root {
   transition: transform 0.4s, opacity 0.3s;
   transform: var(--trsl);
