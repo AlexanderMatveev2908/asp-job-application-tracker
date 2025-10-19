@@ -1,12 +1,12 @@
 <div class="root">
   <button
-    #btn
+    #tooltipRef
     (focus)="onHover()"
     (blur)="onLeave()"
     (mouseover)="onHover()"
     (mouseleave)="onLeave()"
     type="button"
-    class="root__btn tb"
+    class="root__btn"
   >
     <div class="text-gray-300 svg__2xl">
       <ng-container *ngComponentOutlet="Svg" />
@@ -21,8 +21,8 @@
   }"
 >
   <ng-template #tpl>
-    <div class="absolute w-[300px] z-50 tb">
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum omnis minus inventore
+    <div class="z-50 -translate-x-3/4 -translate-y-[20px] absolute w-[300px]">
+      <app-tooltip [isHover]="isHover()" [eventT]="'NONE'" [msg]="'Generate Password'" />
     </div>
   </ng-template>
 </app-portal>
