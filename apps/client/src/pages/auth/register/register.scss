@@ -6,7 +6,7 @@
   @apply w-full min-h-[70vh] flex flex-col justify-center items-center;
 
   .root__form {
-    @apply w-[90%] max-w-[800px] h-fit flex flex-col items-center gap-10 border-3 border-gray-300 rounded-xl p-5 overflow-hidden;
+    @apply w-[90%] max-w-[800px] h-fit flex flex-col items-center gap-10 border-3 border-gray-300 rounded-xl p-5 pb-10 pt-6 overflow-hidden;
 
     .swapper__swap {
       opacity: var(--opac);
