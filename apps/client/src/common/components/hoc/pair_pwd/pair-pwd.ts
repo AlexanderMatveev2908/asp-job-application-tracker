@@ -24,6 +24,9 @@ import { PwdGenerator } from './pwd_generator/pwd-generator';
 export class PairPwd {
   // ? personal props
   public readonly getCtrl: InputSignal<(key: TxtFieldT) => FormControl<unknown>> = input.required();
+  // ? component may be inside a swapper
+  // ? but not necessarily so by default is always 0
+  public readonly swap: InputSignal<number> = input(0);
 
   // ? local state
   public readonly pairPwdState: WritableSignal<PairPwdStateT> = signal({
