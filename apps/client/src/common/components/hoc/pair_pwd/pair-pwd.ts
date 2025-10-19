@@ -14,15 +14,17 @@ import { PairPwdStateT, TxtFieldT, TxtSvgFieldT } from '@/common/types/forms';
 import { FormControl } from '@angular/forms';
 import { PwdGenerator } from './pwd_generator/pwd-generator';
 import { ConfSwapT } from '@/core/directives/with_swap/etc/types';
+import { PwdChecker } from './pwd_checker/pwd-checker';
+import { WithFocus } from '@/core/directives/withFocus';
 
 @Component({
   selector: 'app-pair-pwd',
-  imports: [FormFieldTxt, PwdGenerator],
+  imports: [FormFieldTxt, PwdGenerator, PwdChecker],
   templateUrl: './pair-pwd.html',
   styleUrl: './pair-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PairPwd {
+export class PairPwd extends WithFocus {
   // ? personal props
   public readonly getCtrl: InputSignal<(key: TxtFieldT) => FormControl<unknown>> = input.required();
   // ? component may be inside a swapper

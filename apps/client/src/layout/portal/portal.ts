@@ -90,6 +90,7 @@ export class Portal implements AfterViewInit, OnDestroy {
     const { top, left, right, bottom } = coords;
 
     const style: CSSStyleDeclaration = this.contentEl.style;
+    style.position = 'absolute';
     style.top = top ?? '';
     style.bottom = bottom ?? '';
     style.left = left ?? '';

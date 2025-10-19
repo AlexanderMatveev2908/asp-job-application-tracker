@@ -1,0 +1,12 @@
+<app-portal
+  [coords]="{
+    top: coords()?.top,
+    right: coords()?.right
+  }"
+>
+  <ng-template #tpl>
+    <div class="root translate-x-full -translate-y-[100px] tb">
+      <p>PwdChecker generated 🎉</p>
+    </div>
+  </ng-template>
+</app-portal>

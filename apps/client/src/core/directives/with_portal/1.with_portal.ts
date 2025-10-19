@@ -7,9 +7,9 @@ import {
   ViewChild,
   WritableSignal,
 } from '@angular/core';
-import { WithHover } from './with_hover';
-import { RecCoordsT, UsePortal } from '../hooks/use_portal';
-import { UsePlatformSvc } from '../hooks/use_platform';
+import { WithHover } from './0.with_hover';
+import { RecCoordsT, UsePortal } from '../../hooks/use_portal';
+import { UsePlatformSvc } from '../../hooks/use_platform';
 import { RefDomT } from '@/common/types/etc';
 
 @Directive()
@@ -26,12 +26,12 @@ export abstract class WithPortal extends WithHover implements AfterViewInit {
   // ? listeners
   ngAfterViewInit(): void {
     this.usePlatform.whenDomPainted(() => {
-      this.coords.set(UsePortal.coordsOf(this.tooltipRef));
+      this.coords.set(UsePortal.coordsOfRef(this.tooltipRef));
     });
   }
 
   @HostListener('window:scroll')
   public onScroll(): void {
-    this.coords.set(UsePortal.coordsOf(this.tooltipRef));
+    this.coords.set(UsePortal.coordsOfRef(this.tooltipRef));
   }
 }

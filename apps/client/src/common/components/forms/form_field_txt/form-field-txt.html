@@ -8,6 +8,7 @@
       #inputTxt
       [formControl]="ctrl()"
       (focus)="onFocus()?.(val())"
+      (blur)="onBlur()?.(val())"
       (input)="onChange()?.(val())"
       [attr.data-field]="f().field"
       class="input__field txt__md"
