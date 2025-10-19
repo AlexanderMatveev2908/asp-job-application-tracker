@@ -15,10 +15,12 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { Portal } from '@/layout/portal/portal';
+import { FieldPwdCheckerT, PwdCheckerUiFkt } from './etc/ui_factory';
+import { NgComponentOutlet, NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-pwd-checker',
-  imports: [Portal],
+  imports: [Portal, NgComponentOutlet, NgClass],
   templateUrl: './pwd-checker.html',
   styleUrl: './pwd-checker.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,9 +34,13 @@ export class PwdChecker implements AfterViewInit {
   public readonly pwdFieldRef: InputSignal<FormFieldTxt> = input.required();
   public readonly confSwap: InputSignal<ConfSwapT | null> = input<ConfSwapT | null>(null);
 
+  // ? static assets
+  public readonly fieldsCheckers: FieldPwdCheckerT[] = PwdCheckerUiFkt.fields;
+
   // ? local state
   public readonly coords: WritableSignal<RecCoordsT | null> = signal<RecCoordsT | null>(null);
 
+  // ? listeners & ng lifecycle
   ngAfterViewInit(): void {
     this.usePlatform.inCtx(() => {
       effect(() => {
@@ -47,6 +53,10 @@ export class PwdChecker implements AfterViewInit {
 
   @HostListener('window:scroll')
   public onScroll(): void {
+    this.coords.set(UsePortal.coordsOfRef(this.pwdFieldRef().inputTxt));
+  }
+  @HostListener('window:resize')
+  public onResize(): void {
     this.coords.set(UsePortal.coordsOfRef(this.pwdFieldRef().inputTxt));
   }
 }

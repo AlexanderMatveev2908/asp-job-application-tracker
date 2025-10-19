@@ -1,12 +1,19 @@
 <app-portal
   [coords]="{
     top: coords()?.top,
-    right: coords()?.right
+    left: coords()?.left
   }"
 >
   <ng-template #tpl>
-    <div class="root translate-x-full -translate-y-[100px] tb">
-      <p>PwdChecker generated 🎉</p>
+    <div class="root tb" [style.width]="coords()?.with">
+      @for(f of fieldsCheckers; track f.id; let idx = $index){
+      <div
+        [ngClass]="idx === fieldsCheckers.length - 1 ? 'svg__4xl' : 'svg__2xl'"
+        class="text-gray-300"
+      >
+        <ng-container *ngComponentOutlet="f.Svg" />
+      </div>
+      }
     </div>
   </ng-template>
 </app-portal>

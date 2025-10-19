@@ -1,3 +1,4 @@
 .root {
-  @apply w-[90%] max-w-[800px];
+  transform: translate(calc(-100% - 2rem), -150px);
+  @apply flex items-center flex-wrap justify-around gap-y-4 gap-x-16 bg-neutral-950 p-5 rounded-xl;
 }
