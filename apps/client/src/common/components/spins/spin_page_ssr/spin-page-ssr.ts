@@ -10,12 +10,15 @@ import { v4 } from 'uuid';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpinPageSsr {
+  // ? personal props
   public readonly minH: InputSignal<string> = input('min-h-screen');
   public readonly clr: InputSignal<string> = input('var(--white__0)');
 
+  // ? static helpers
   public readonly IDs: string[] = Array.from({ length: 10 }, () => v4());
   private readonly dotsCount: number = this.IDs.length;
 
+  // ? derived
   public getRotation(idx: number): string {
     // eslint-disable-next-line no-magic-numbers
     return `${(360 / this.dotsCount) * idx}deg`;

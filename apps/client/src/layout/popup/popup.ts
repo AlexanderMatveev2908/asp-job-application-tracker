@@ -19,7 +19,7 @@ import { BlackBg } from '@/layout/black_bg/black-bg';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { UseEventMeta } from '@/core/hooks/use_event_meta/use_event_meta';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
-import { AnimationsPopSvc } from './etc/animations_pop';
+import { AnimationsPopSvc } from './etc/animations';
 import { CloseBtn } from '@/common/components/btns/close_btn/close-btn';
 import { ElDomT, RefDomT } from '@/common/types/etc';
 import { AppEventMetaT } from '@/core/hooks/use_event_meta/etc/types';
@@ -32,24 +32,31 @@ import { AppEventMetaT } from '@/core/hooks/use_event_meta/etc/types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Popup {
+  // ? svc
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
   private readonly animationsPop: AnimationsPopSvc = inject(AnimationsPopSvc);
+
+  // ? personal props
   public readonly staticProps: InputSignal<PopupStaticPropsT> = input.required();
   public readonly isPop: InputSignal<boolean | null> = input.required();
 
+  // ? black bg overlay props
   public blackBgProps: Signal<BlackBgPropsT> = computed(() => ({
     zBg: `z__${this.staticProps().cls}__bg`,
     isDark: this.isPop(),
   }));
+
+  // ? derived
   public readonly eventMeta: Signal<AppEventMetaT> = computed(() =>
     UseEventMeta.getByT(this.staticProps().eventT)
   );
+  public cssZ: Signal<string> = computed(() => `z__${this.staticProps().cls}`);
 
+  // ? children
   @ViewChild('popup') popup: RefDomT;
   @ContentChild('popContent', { read: TemplateRef }) popContentTpl!: TemplateRef<any>;
 
-  public cssZ: Signal<string> = computed(() => `z__${this.staticProps().cls}`);
-
+  // ? listeners
   public animationsEff: EffectRef = effect(() => {
     const isPop = this.isPop();
     const popDOM: ElDomT = this.popup?.nativeElement;

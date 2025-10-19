@@ -5,3 +5,11 @@ export class Lorem {
     );
   }
 }
+
+export class LibEtc {
+  public static clearTmrID(timerID: NodeJS.Timeout | null): null {
+    if (timerID) clearTimeout(timerID);
+
+    return null;
+  }
+}

@@ -26,17 +26,20 @@ import { finalize, tap } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WakeUp implements AfterViewInit {
+  // ? svc
   private readonly wakeUpSlice: WakeUpSlice = inject(WakeUpSlice);
   private readonly wakeUpApi: WakeUpApiSvc = inject(WakeUpApiSvc);
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
   private readonly toastSlice: ToastSlice = inject(ToastSlice);
   private readonly useStorage: UseStorageSvc = inject(UseStorageSvc);
 
+  // ? local state
   public readonly isPop: WritableSignal<boolean | null> = signal(null);
   private readonly closePop: () => void = () => {
     this.isPop.set(false);
   };
 
+  // ? popup props
   public readonly popupStaticProps: PopupStaticPropsT = {
     cls: 'wake_up',
     closeOnMouseOut: false,
@@ -44,6 +47,7 @@ export class WakeUp implements AfterViewInit {
     closePop: this.closePop,
   };
 
+  // ? cbs
   private pollIf(): boolean {
     if (this.usePlatform.isServer) return false;
 

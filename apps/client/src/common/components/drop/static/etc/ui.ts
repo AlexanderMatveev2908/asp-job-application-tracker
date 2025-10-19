@@ -1,7 +1,11 @@
-import { RecTwdClsDropT } from './types';
+export interface RecTwdClsDropT {
+  root: string;
+  arrow: string;
+  wrapContent: string;
+}
 
-export class LibDrop {
-  public static getTwdCls(isOpen: boolean): RecTwdClsDropT {
+export class DropStaticTwdCss {
+  public static byState(isOpen: boolean): RecTwdClsDropT {
     return {
       root: isOpen ? 'border-blue-600 text-blue-600' : 'border-gray-300 text-gray-300',
       arrow: isOpen ? 'rotate-180' : 'rotate-0',

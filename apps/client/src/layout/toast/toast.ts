@@ -1,28 +1,9 @@
 import { UseEventMeta } from '@/core/hooks/use_event_meta/use_event_meta';
-import { UsePlatformSvc } from '@/core/hooks/use_platform';
-import { TxtDOM } from '@/core/lib/dom/txt';
-import { ToastStateT } from '@/features/toast/reducer/reducer';
-import { ToastSlice } from '@/features/toast/slice';
 import { NgTemplateOutlet } from '@angular/common';
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  effect,
-  EffectRef,
-  HostListener,
-  inject,
-  signal,
-  Signal,
-  ViewChild,
-  WritableSignal,
-} from '@angular/core';
-import { ToastAnimationsSvc } from './etc/toast_animations';
-import { ErrApp } from '@/core/lib/err';
+import { ChangeDetectionStrategy, Component, computed, Signal } from '@angular/core';
 import { CloseBtn } from '@/common/components/btns/close_btn/close-btn';
-import { ElDomT, RefDomT } from '@/common/types/etc';
 import { AppEventMetaT } from '@/core/hooks/use_event_meta/etc/types';
+import { ToastRender } from './etc/3.render_toast';
 
 @Component({
   selector: 'app-toast',
@@ -31,138 +12,8 @@ import { AppEventMetaT } from '@/core/hooks/use_event_meta/etc/types';
   styleUrl: './toast.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Toast implements AfterViewInit {
-  private readonly toastSlice: ToastSlice = inject(ToastSlice);
-  private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
-  private readonly toastAnimations: ToastAnimationsSvc = inject(ToastAnimationsSvc);
-
-  public readonly toastState: Signal<ToastStateT> = computed(() => this.toastSlice.toastState());
+export class Toast extends ToastRender {
   public readonly eventMeta: Signal<AppEventMetaT> = computed(() =>
     UseEventMeta.getByT(this.toastState().eventT)
   );
-  public readonly isClient: boolean = this.usePlatform.isClient;
-
-  // ? 📜 message trim
-  @ViewChild('msgContainer') msgContainer: RefDomT;
-
-  public readonly trimmedMsg: WritableSignal<string> = signal('');
-
-  private setCutMsg(): void {
-    const msg: string = this.toastState().msg;
-    const MAX_LINES = 3;
-
-    const elDOM: ElDomT = this.msgContainer?.nativeElement;
-    if (!elDOM) return;
-
-    this.trimmedMsg.set(TxtDOM.binaryTrim(msg, { el: elDOM, maxLines: MAX_LINES }));
-  }
-
-  @HostListener('window:resize')
-  onResize(): void {
-    this.setCutMsg();
-  }
-
-  private readonly trimEffect: EffectRef = effect(() => {
-    this.setCutMsg();
-  });
-
-  ngAfterViewInit(): void {
-    this.setCutMsg();
-  }
-
-  // ? 🎨 toast render
-  @ViewChild('toast') toast: RefDomT;
-  @ViewChild('timerToast') timerToast: RefDomT;
-
-  public closeClick: () => void = () => {
-    // ? always first clear timer on close
-    // ? it means process finished completely
-    this.clearTimerID();
-    this.toastSlice.closeToast();
-  };
-
-  // ? ⏳ timer
-  private timerID: NodeJS.Timeout | null = null;
-
-  private clearTimerID(): void {
-    // ? by default be ready to receive null
-    if (this.timerID) clearTimeout(this.timerID);
-    this.timerID = null;
-  }
-
-  private programClose(): void {
-    const IN_ANIMATION_LAST = 5000;
-
-    this.timerID = setTimeout(() => {
-      const isToast: boolean = this.toastState().isToast;
-      // ! memory leak to manage
-      if (this.timerID && !isToast) {
-        this.clearTimerID();
-        return;
-      }
-      // ? if timer is null or toast is false means process
-      // ? has already been closed by an existing new call
-      else if (!this.timerID || !isToast) return;
-
-      this.closeClick();
-    }, IN_ANIMATION_LAST);
-  }
-
-  // ? main logic 🛠️
-  private handleToastOpen(
-    prevID: string | null,
-    { toastDOM, timerDOM }: { toastDOM: HTMLElement; timerDOM: HTMLElement }
-  ): void {
-    const OUT_ANIMATION_LAST = 300;
-    // ? first run will have prev as null because openToast set:
-    // ? - curr => new uuid
-    // ? - prev => curr (which if has been closed properly ill be null)
-    // ? so normally this block will handle base cases
-    if (!prevID) {
-      this.toastAnimations.toastIn(toastDOM, timerDOM);
-      this.programClose();
-    } else {
-      // ? existing toast
-      // ? clear existing timer to avoid memory leaks
-      // ? close it with animations and trigger animation again
-      // ? only after `out` one has finished
-      this.clearTimerID();
-      this.toastAnimations.toastOut(toastDOM, timerDOM);
-      setTimeout(() => {
-        this.toastAnimations.toastIn(toastDOM, timerDOM);
-        this.programClose();
-      }, OUT_ANIMATION_LAST);
-    }
-  }
-
-  private handleCloseToast({
-    timerDOM,
-    toastDOM,
-  }: {
-    toastDOM: HTMLElement;
-    timerDOM: HTMLElement;
-  }): void {
-    // ? normal close flow
-    this.clearTimerID();
-    this.toastAnimations.toastOut(toastDOM, timerDOM);
-  }
-
-  // eslint-disable-next-line complexity
-  private readonly timerEffect: EffectRef = effect(() => {
-    const toastDOM: ElDomT = this.toast?.nativeElement;
-    const timerDOM: ElDomT = this.timerToast?.nativeElement;
-
-    const { isToast, currID, prevID } = this.toastState();
-
-    if (!this.isClient || !toastDOM || !timerDOM) return;
-
-    if (isToast && currID) {
-      this.handleToastOpen(prevID, { toastDOM, timerDOM });
-    } else if (isToast && !currID) {
-      // ! error if by a toast exists with no ID
-      throw new ErrApp('toast should never be alive without a currID set');
-    } else if (!isToast) {
-      this.handleCloseToast({ toastDOM, timerDOM });
-    }
-  });
 }

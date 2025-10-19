@@ -19,12 +19,19 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PageWrapper implements AfterViewInit {
-  public readonly waitClient: InputSignal<boolean> = input.required();
-
+  // ? svc
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
-  public readonly isServer: boolean = this.usePlatform.isServer;
+
+  // ? local state
   public readonly isHydrated: WritableSignal<boolean> = signal(false);
 
+  // ? personal props
+  public readonly waitClient: InputSignal<boolean> = input.required();
+
+  // ? derived
+  public readonly isServer: boolean = this.usePlatform.isServer;
+
+  // ? ng lifecycle
   ngAfterViewInit(): void {
     this.usePlatform.onClient(() => {
       this.isHydrated.set(true);

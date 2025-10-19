@@ -25,17 +25,23 @@ import { v4 } from 'uuid';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpinBtn implements AfterViewInit {
-  public readonly eventT: InputSignal<AppEventT> = input.required();
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
+  // ? personal props
+  public readonly eventT: InputSignal<AppEventT> = input.required();
+
+  // ? derived
   public readonly metaEvent: Signal<AppEventMetaT> = computed(() =>
     UseEventMeta.getByT(this.eventT())
   );
 
+  // ? static ids to map for spin
   public readonly IDs: string[] = Array.from({ length: 4 }, () => v4());
 
+  // ? children
   @ViewChildren('dot') dots: QueryList<RefDomT> | undefined;
 
+  // ? animations
   ngAfterViewInit(): void {
     if (!this.usePlatform.isClient) return;
 

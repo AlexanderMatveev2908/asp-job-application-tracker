@@ -18,10 +18,12 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Tooltip {
+  // ? personal props
   public readonly isHover: InputSignal<boolean> = input.required();
   public readonly msg: InputSignal<string | null> = input.required();
   public readonly eventT: InputSignal<AppEventT> = input.required();
 
+  // ? derived
   public readonly twd: Signal<string> = computed(() =>
     this.isHover() && this.msg() ? 'translate-y-[-20px] opacity-1' : 'translate-y-[100%] opacity-0'
   );

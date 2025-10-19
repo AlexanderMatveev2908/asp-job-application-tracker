@@ -25,6 +25,8 @@ export class Span {
     txt: 'lg',
   });
 
+  // ! custom classes only built at runtime
+  // ! tailwind would not support it
   public txtCls: Signal<string> = computed(() => `txt__${this.sizesProps().txt ?? 'lg'}`);
   public svgCls: Signal<string> = computed(() => `svg__${this.sizesProps().svg ?? 'sm'}`);
 }

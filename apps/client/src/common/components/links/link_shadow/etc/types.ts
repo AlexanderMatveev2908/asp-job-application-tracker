@@ -1,4 +1,4 @@
-import { SpanEventPropsT } from '@/common/types/etc';
+import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
 
 export interface LinkShadowPropsT extends SpanEventPropsT {
   path: string;

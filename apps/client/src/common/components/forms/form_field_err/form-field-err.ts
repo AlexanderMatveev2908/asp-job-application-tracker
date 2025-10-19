@@ -25,9 +25,11 @@ import { UsePlatformSvc } from '@/core/hooks/use_platform';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormFieldErr<T> implements OnInit {
-  public readonly ctrl: InputSignal<FormControl<T>> = input.required();
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
+  // ? personal props
+  public readonly ctrl: InputSignal<FormControl<T>> = input.required();
 
+  // ? derived
   public val!: Signal<string>;
   public interacted!: Signal<boolean>;
   public recErrs: WritableSignal<RecErrsFieldT> = signal({
@@ -35,6 +37,7 @@ export class FormFieldErr<T> implements OnInit {
     curr: null,
   });
 
+  // ? ng
   ngOnInit(): void {
     const c = this.ctrl();
 
