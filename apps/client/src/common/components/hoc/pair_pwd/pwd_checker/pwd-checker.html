@@ -6,14 +6,13 @@
 <app-portal
   [coords]="{
     top: coords()?.top,
-    left: coords()?.left
+    left: '50%'
   }"
 >
   <ng-template #tpl>
     <div
       class="root"
       [ngClass]="getBorderClr()"
-      [style.width]="coords()?.with"
       [style.opacity]="isFocused() ? 1 : 0"
       [style.--trsl]="transform()"
     >

@@ -19,7 +19,7 @@ import {
 } from '@angular/core';
 import { Portal } from '@/layout/portal/portal';
 import { FieldPwdCheckerT, PwdCheckerUiFkt } from './etc/ui_factory';
-import { NgComponentOutlet, NgClass, NgTemplateOutlet } from '@angular/common';
+import { NgComponentOutlet, NgClass } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AbstractControl } from '@angular/forms';
 import { map, startWith } from 'rxjs';
@@ -27,7 +27,7 @@ import { Reg } from '@/core/paperwork/reg';
 
 @Component({
   selector: 'app-pwd-checker',
-  imports: [Portal, NgComponentOutlet, NgClass, NgTemplateOutlet],
+  imports: [Portal, NgComponentOutlet, NgClass],
   templateUrl: './pwd-checker.html',
   styleUrl: './pwd-checker.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -56,7 +56,7 @@ export class PwdChecker implements OnInit, AfterViewInit {
     () => !this.confSwap() || (!!this.confSwap()?.isCurr && this.confSwap()?.mode !== 'swapping')
   );
   public readonly transform: Signal<string> = computed(
-    () => `translateY(${this.isFocused() ? '-150px' : '0px'})`
+    () => `translate(-50%, ${this.isFocused() ? '-150px' : '0px'})`
   );
 
   // ? listeners & ng lifecycle
@@ -92,6 +92,7 @@ export class PwdChecker implements OnInit, AfterViewInit {
     this.usePlatform.inCtx(() => {
       effect(() => {
         const conf: ConfSwapT | null = this.confSwap();
+
         if (!conf || (conf.isCurr && conf.mode !== 'swapping'))
           this.coords.set(UsePortal.coordsOfRef(this.pwdFieldRef().inputTxt));
       });
