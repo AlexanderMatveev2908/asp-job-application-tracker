@@ -5,6 +5,7 @@ import { SvgFillUppercase } from '@/common/components/svgs/fill/uppercase/upperc
 import { SvgFillLowercase } from '@/common/components/svgs/fill/lowercase/lowercase';
 import { SvgFillInteger } from '@/common/components/svgs/fill/integer/integer';
 import { SvgFillSymbols } from '@/common/components/svgs/fill/symbols/symbols';
+import { SvgFillRuler } from '@/common/components/svgs/fill/ruler/ruler';
 
 export interface FieldPwdCheckerT {
   id: string;
@@ -36,4 +37,9 @@ export class PwdCheckerUiFkt extends PwdCheckerReg {
     this.integer,
     this.symbols,
   ];
+
+  public static readonly ruler: Omit<FieldPwdCheckerT, 'id'> = {
+    reg: this.LENGTH,
+    Svg: SvgFillRuler,
+  };
 }

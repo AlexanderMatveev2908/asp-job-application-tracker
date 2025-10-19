@@ -1,3 +1,8 @@
+<!-- @if(showTooltip()){
+<ng-container *ngTemplateOutlet="content" />
+} -->
+
+<!-- <ng-template #content> -->
 <app-portal
   [coords]="{
     top: coords()?.top,
@@ -5,15 +10,29 @@
   }"
 >
   <ng-template #tpl>
-    <div class="root tb" [style.width]="coords()?.with">
+    <div
+      class="root"
+      [ngClass]="getBorderClr()"
+      [style.width]="coords()?.with"
+      [style.opacity]="isFocused() ? 1 : 0"
+      [style.--trsl]="transform()"
+    >
       @for(f of fieldsCheckers; track f.id; let idx = $index){
       <div
-        [ngClass]="idx === fieldsCheckers.length - 1 ? 'svg__4xl' : 'svg__2xl'"
-        class="text-gray-300"
+        [ngClass]="[idx === fieldsCheckers.length - 1 ? 'svg__4xl' : 'svg__2xl', getSvgCls(f.reg)]"
       >
         <ng-container *ngComponentOutlet="f.Svg" />
       </div>
       }
+
+      <div class="root__ruler" [ngClass]="[getSvgCls(pwdRuler.reg)]">
+        <div class="svg__2xl">
+          <ng-container *ngComponentOutlet="pwdRuler.Svg" />
+        </div>
+
+        <span class="txt__md">{{ pwdLen() }} / 8</span>
+      </div>
     </div>
   </ng-template>
 </app-portal>
+<!-- </ng-template> -->

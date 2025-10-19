@@ -1,4 +1,8 @@
 .root {
-  transform: translate(calc(-100% - 2rem), -150px);
-  @apply flex items-center flex-wrap justify-around gap-y-4 gap-x-16 bg-neutral-950 p-5 rounded-xl;
+  transform: var(--trsl);
+  @apply transition-all duration-[0.4s] flex items-center flex-wrap justify-around gap-y-4 gap-x-16 bg-neutral-950 p-5 rounded-xl border-3;
+
+  .root__ruler {
+    @apply flex items-center justify-center gap-6;
+  }
 }
