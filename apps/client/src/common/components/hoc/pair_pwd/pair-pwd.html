@@ -1,14 +1,14 @@
 <div class="root">
-  <!--  -->
-  @for(f of [pwdField(),confPwdField()]; track f.id; let idx = $index){
+  <app-form-field-txt
+    [f]="pwdField()"
+    [ctrl]="getCtrl()(pwdField())"
+    [onSvgClick]="toggleByKey('isPwdTypePwd')"
+  />
+  <app-pwd-generator [confSwap]="confSwap()" />
 
   <app-form-field-txt
-    [f]="f"
-    [ctrl]="getCtrl()(f)"
-    [onSvgClick]="toggleByKey(idx ? 'isConfirmPwdTypePwd' : 'isPwdTypePwd')"
+    [f]="confPwdField()"
+    [ctrl]="getCtrl()(confPwdField())"
+    [onSvgClick]="toggleByKey('isConfirmPwdTypePwd')"
   />
-  <!--  -->
-  @if(idx === 0){
-  <app-pwd-generator [confSwap]="confSwap()" />
-  } }
 </div>
