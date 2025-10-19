@@ -26,3 +26,5 @@ export interface BtnListenersT {
 }
 
 export type BtnT = 'button' | 'submit';
+
+export type OptCb = ((val: unknown) => void) | null;

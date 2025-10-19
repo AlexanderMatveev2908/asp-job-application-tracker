@@ -2,7 +2,7 @@
   <app-form-field-txt
     #pwdFieldRef
     [f]="pwdField()"
-    [ctrl]="getCtrl()(pwdField())"
+    [ctrl]="getCtrl()('password')"
     [onSvgClick]="toggleByKey('isPwdTypePwd')"
     [onFocus]="onFocus"
     [onBlur]="onBlur"
@@ -13,7 +13,7 @@
 
   <app-form-field-txt
     [f]="confPwdField()"
-    [ctrl]="getCtrl()(confPwdField())"
+    [ctrl]="getCtrl()('confirmPassword')"
     [onSvgClick]="toggleByKey('isConfirmPwdTypePwd')"
   />
 </div>

@@ -11,5 +11,6 @@ export class RegisterFormUiFkt extends FormFieldsUiFkt {
   public static readonly termsField: CheckFieldT = this.checkFieldOf({
     name: 'terms',
     type: 'radio',
+    label: 'Terms & Conditions',
   });
 }
