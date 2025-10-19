@@ -24,14 +24,17 @@ import server._lib_tests.ReqT;
 import server._lib_tests.ResT;
 import server.lib.security.tfa.totp.MyTotp;
 
-@SpringBootTest @AutoConfigureWebTestClient @RequiredArgsConstructor @Timeout(value = 60, unit = TimeUnit.SECONDS)
+@SpringBootTest
+@AutoConfigureWebTestClient
+@RequiredArgsConstructor
+@Timeout(value = 60, unit = TimeUnit.SECONDS)
 public class ManageAcc2FATest {
   private final static String URL = "/user/manage-account-2FA";
 
   @Autowired
-  private WebTestClient web;
-  @Autowired
   MyTotp totp;
+  @Autowired
+  private WebTestClient web;
   private ResT resTk;
   private ResT firstCall;
   private ReqT mainReq;
@@ -51,7 +54,8 @@ public class ManageAcc2FATest {
     return Stream.of(Arguments.of("totp"), Arguments.of("bkpCode"));
   }
 
-  @ParameterizedTest @MethodSource("goodCases")
+  @ParameterizedTest
+  @MethodSource("goodCases")
   void ok(String approach) {
     var body = new HashMap<>();
     body.put("cbcHmacToken", firstCall.getCbcHmac());
@@ -79,7 +83,8 @@ public class ManageAcc2FATest {
         Arguments.of("backup_code_invalid", 422, (Function<String, String>) (val -> "AAAA-")));
   }
 
-  @ParameterizedTest @MethodSource("badCases")
+  @ParameterizedTest
+  @MethodSource("badCases")
   void err(String msg, int status, Function<String, String> modifyCode) {
 
     var body = new HashMap<>();
