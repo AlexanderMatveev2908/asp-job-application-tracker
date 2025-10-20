@@ -1,9 +1,10 @@
+import { Opt } from '@/common/types/etc';
 import { ShapeCheck } from '../data_structure/shape_check';
 
 export class Stack {
   private static getTraces(upCount: number): string[] {
     const err: Error = new Error();
-    const traces: string[] | undefined = err.stack?.split('\n');
+    const traces: Opt<string[]> = err.stack?.split('\n');
 
     // ? 0 => Error line
     // ? 1 this function itself

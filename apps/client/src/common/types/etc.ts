@@ -10,7 +10,7 @@ export interface WithIdT {
   id: string;
 }
 
-export type RefDomT = ElementRef<HTMLElement> | undefined;
+export type RefDomT = Opt<ElementRef<HTMLElement>>;
 
 export type TpltRedT = TemplateRef<unknown>;
 
@@ -25,7 +25,11 @@ export interface BtnStatePropsT {
 
 export type None = null | undefined;
 
+export type OrNone<T> = T | None;
+
 export type Nullable<T> = T | null;
+
+export type Opt<T> = T | undefined;
 
 export type TimerIdT = Nullable<NodeJS.Timeout>;
 

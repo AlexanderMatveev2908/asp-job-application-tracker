@@ -16,7 +16,7 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { SwapBtns } from './swap_btns/swap-btns';
-import { ElDomT, Nullable, RefDomT } from '@/common/types/etc';
+import { ElDomT, Nullable, Opt, RefDomT } from '@/common/types/etc';
 import { ErrApp } from '@/core/lib/err';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 
@@ -44,7 +44,7 @@ export class Swapper implements AfterViewInit {
 
   // ? projected
   @ContentChildren('swapDiv', { descendants: false })
-  private readonly projectedEls: QueryList<RefDomT> | undefined;
+  private readonly projectedEls: Opt<QueryList<RefDomT>>;
 
   // ? helper
   private calcH(): void {
