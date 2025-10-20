@@ -11,13 +11,12 @@ import { ConfApiT } from '../request/conf/etc/types';
 @Injectable()
 export abstract class SideEffectsLogSvc extends SideEffectsRoot {
   private _log<T>(res: ResApiT<T> | ErrApiT<T>, emoji: string): void {
-    this.confApi.obs().subscribe((conf: Nullable<ConfApiT>) => {
-      const content: ResApiT<T> = res instanceof HttpErrorResponse ? res.error : res;
+    const conf: Nullable<ConfApiT> = this.confApi.getCurr();
+    const content: ResApiT<T> = res instanceof HttpErrorResponse ? res.error : res;
 
-      const title: string = (conf?.url ?? 'Unknown url').replace(envVars.backURL, '').split('?')[0];
+    const title: string = (conf?.url ?? 'Unknown url').replace(envVars.backURL, '').split('?')[0];
 
-      Log.logTtl(`${emoji} ${title}`, conf, content);
-    });
+    Log.logTtl(`${emoji} ${title}`, conf, content);
   }
 
   protected withLog<T>(cb: ObsResT<T>): ObsResT<T> {

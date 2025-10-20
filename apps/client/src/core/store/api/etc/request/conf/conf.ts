@@ -11,15 +11,15 @@ export class ApiConfSvc {
     Nullable<ConfApiT>
   >(null);
 
-  set(conf: ConfApiT): void {
+  setNext(conf: ConfApiT): void {
     this.conf.next(conf);
   }
 
-  get(): Nullable<ConfApiT> {
+  getCurr(): Nullable<ConfApiT> {
     return this.conf.value;
   }
 
-  obs(): Observable<Nullable<ConfApiT>> {
+  asObs(): Observable<Nullable<ConfApiT>> {
     return this.conf.asObservable();
   }
 }

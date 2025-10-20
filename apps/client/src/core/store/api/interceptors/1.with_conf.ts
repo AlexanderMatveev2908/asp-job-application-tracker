@@ -56,7 +56,7 @@ const mng = (
     },
   };
 
-  confApi.set(conf);
+  confApi.setNext(conf);
 };
 
 export const addConfApiMdw: HttpInterceptorFn = (

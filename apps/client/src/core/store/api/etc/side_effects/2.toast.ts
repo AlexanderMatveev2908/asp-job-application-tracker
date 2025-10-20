@@ -14,7 +14,7 @@ export abstract class SideEffectsToastSvc extends SideEffectsLogSvc {
   private defOptToast(): OptToastApiT {
     return {
       toastErr: true,
-      toastOk: this.confApi.get()?.method !== 'GET',
+      toastOk: this.confApi.getCurr()?.method !== 'GET',
     };
   }
 
@@ -29,7 +29,9 @@ export abstract class SideEffectsToastSvc extends SideEffectsLogSvc {
 
           this.toastSlice.openToast({
             eventT: 'OK',
-            msg: res.msg ?? '✅ operation successful',
+            msg:
+              res.msg ??
+              `✅ ${this.confApi.getCurr()?.method ?? 'Unknown method'} operation successful`,
             status: res.status,
           });
         },
