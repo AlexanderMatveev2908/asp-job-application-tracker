@@ -41,13 +41,13 @@ export class EventsMngSvc {
         )
           throw err;
 
-        this.noticeSlice.noticeWithoutCb = {
+        this.noticeSlice.notice = {
           eventT: 'ERR',
           msg: err.error.msg ?? this.DEF_CLIENT_ERR_MSG,
           status: err.status,
         };
 
-        const navigation: Promise<boolean> = this.useNav.navWithReplace('/notice');
+        const navigation: Promise<boolean> = this.useNav.replace('/notice');
 
         return from(navigation).pipe(switchMap(() => EMPTY));
       })

@@ -4,6 +4,7 @@ import {
   computed,
   effect,
   EffectRef,
+  inject,
   Signal,
 } from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
@@ -24,6 +25,8 @@ import { PortalModule } from '@angular/cdk/portal';
 import { LibEtc } from '@/core/lib/etc';
 import { ShapeCheck } from '@/core/lib/data_structure/shape_check';
 import { FormFieldBoxSm } from '@/common/components/forms/form_field_box_sm/form-field-box-sm';
+import { UseNavSvc } from '@/core/hooks/use_nav';
+import { NoticeSlice } from '@/features/notice/slice';
 
 @Component({
   selector: 'app-register',
@@ -42,6 +45,10 @@ import { FormFieldBoxSm } from '@/common/components/forms/form_field_box_sm/form
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Register extends UseSwapDir {
+  // ? svc
+  private readonly useNav: UseNavSvc = inject(UseNavSvc);
+  private readonly noticeSlice: NoticeSlice = inject(NoticeSlice);
+
   // ? form related
   public readonly form: FormGroup = RegisterFormMng.form;
 
@@ -72,9 +79,17 @@ export class Register extends UseSwapDir {
   // ? listeners
   private readonly focusOnSwap: EffectRef = effect(() => this.focusWhen('firstName', 'password'));
 
-  public onSubmit(): void {
-    if (this.form.valid) Log.logTtl('form', this.form.value);
-    else
+  public async onSubmit(): Promise<void> {
+    if (this.form.valid) {
+      Log.logTtl('form', this.form.value);
+
+      this.noticeSlice.mailNotice = {
+        eventT: 'OK',
+        msg: 'to confirm your account',
+        status: 201,
+      };
+      await this.useNav.push('/notice');
+    } else
       ZodCheck.onSubmitFailedInSwap(this.form, (first: string) => {
         const target: number | null = LibEtc.idxIn(first, RegisterFormMng.fieldsBySwap);
 

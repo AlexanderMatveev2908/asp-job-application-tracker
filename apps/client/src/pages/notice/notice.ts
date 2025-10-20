@@ -26,7 +26,7 @@ export class Notice implements OnInit {
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
   public readonly wrapEventsProps: Signal<AppEventPayloadT> = computed(() => {
-    const { cb: _cb, ...rst } = this.noticeSlice.noticeState();
+    const { cb: _cb, ...rst } = this.noticeSlice._noticeState();
 
     return rst;
   });
@@ -35,7 +35,7 @@ export class Notice implements OnInit {
     this.usePlatform.onClient(() => {
       const stored: NoticeWithoutCb | null = this.useStorage.getItem('notice');
 
-      if (stored) this.noticeSlice.noticeWithoutCb = stored;
+      if (stored) this.noticeSlice.notice = stored;
     });
   }
 }

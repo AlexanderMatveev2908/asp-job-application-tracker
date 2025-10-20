@@ -14,11 +14,11 @@ export class NoticeSlice {
   private readonly store: Store<StoreStateT> = inject(Store<StoreStateT>);
   private readonly useStorage: UseStorageSvc = inject(UseStorageSvc);
 
-  public get noticeState(): Signal<NoticeStateT> {
+  public get _noticeState(): Signal<NoticeStateT> {
     return this.store.selectSignal(getNoticeState);
   }
 
-  private set noticeState(arg: Omit<NoticeStateT, 'cb'> & { cb?: GenericVoidCbT }) {
+  private set _noticeState(arg: Omit<NoticeStateT, 'cb'> & { cb?: GenericVoidCbT }) {
     const { cb, ...rst } = arg;
 
     this.store.dispatch(
@@ -31,11 +31,18 @@ export class NoticeSlice {
     this.useStorage.setItem('notice', rst);
   }
 
-  public set noticeWithCb(arg: Omit<NoticeStateT, 'cb'> & { cb: GenericVoidCbT }) {
-    this.noticeState = arg;
+  public set withCb(arg: Omit<NoticeStateT, 'cb'> & { cb: GenericVoidCbT }) {
+    this._noticeState = arg;
   }
 
-  public set noticeWithoutCb(arg: Omit<NoticeStateT, 'cb'> & { cb?: GenericVoidCbT }) {
-    this.noticeState = arg;
+  public set notice(arg: Omit<NoticeStateT, 'cb'>) {
+    this._noticeState = arg;
+  }
+
+  public set mailNotice(arg: Omit<NoticeStateT, 'cb'>) {
+    this._noticeState = {
+      ...arg,
+      msg: `We've sent you an email ${arg.msg}. If you don't see it, check your spam folder, it might be partying there 🎉`,
+    };
   }
 }

@@ -10,7 +10,7 @@ export class UseNavSvc {
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
   private readonly router: Router = inject(Router);
 
-  private async nav(arg: string, { replace }: { replace: boolean }): Promise<boolean> {
+  private async _nav(arg: string, { replace }: { replace: boolean }): Promise<boolean> {
     if (this.usePlatform.isServer) {
       Log.log('can not call navigate on server side');
       return Promise.resolve(false);
@@ -21,11 +21,11 @@ export class UseNavSvc {
     });
   }
 
-  public async navWithReplace(arg: string): Promise<boolean> {
-    return this.nav(arg, { replace: true });
+  public async replace(arg: string): Promise<boolean> {
+    return this._nav(arg, { replace: true });
   }
 
-  public async navTo(arg: string): Promise<boolean> {
-    return this.nav(arg, { replace: false });
+  public async push(arg: string): Promise<boolean> {
+    return this._nav(arg, { replace: false });
   }
 }
