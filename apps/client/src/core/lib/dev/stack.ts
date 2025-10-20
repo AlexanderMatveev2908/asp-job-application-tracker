@@ -1,4 +1,4 @@
-import { ShapeCheck } from './data_structure/shape';
+import { ShapeCheck } from '../data_structure/shape_check';
 
 export class Stack {
   private static getTraces(upCount: number): string[] {

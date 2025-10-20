@@ -9,9 +9,9 @@ import {
 import { RouterLink } from '@angular/router';
 import { NgTemplateOutlet } from '@angular/common';
 import { LinkShadowPropsT } from './etc/types';
-import { UseEventMeta } from '@/core/hooks/use_event_meta/use_event_meta';
+import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
 import { Span } from '../../els/span/span';
-import { AppEventMetaT } from '@/core/hooks/use_event_meta/etc/types';
+import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
 
 @Component({
   selector: 'app-link-shadow',
@@ -25,7 +25,7 @@ export class LinkShadow {
 
   // ? derived
   public readonly metaEvent: Signal<AppEventMetaT> = computed(() =>
-    UseEventMeta.getByT(this.props().eventT)
+    MetaEventDOM.byT(this.props().eventT)
   );
   public readonly isExternal: Signal<boolean> = computed(() =>
     /^(https?:\/\/|mailto:|tel:)/.test(this.props().path)

@@ -4,7 +4,7 @@ import { StoreStateT } from '@/core/store';
 import { ToastStateT } from './reducer/reducer';
 import { getToastState } from './reducer/selectors';
 import { ToastActT } from './reducer/actions';
-import { AppEventPayloadT } from '@/core/hooks/use_event_meta/etc/types';
+import { AppEventPayloadT } from '@/core/lib/dom/meta_event/etc/types';
 
 @Injectable({
   providedIn: 'root',

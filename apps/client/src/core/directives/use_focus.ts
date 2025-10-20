@@ -1,7 +1,7 @@
 import { Directive, signal, WritableSignal } from '@angular/core';
 
 @Directive()
-export abstract class WithFocus {
+export abstract class UseFocusDir {
   public readonly isFocused: WritableSignal<boolean> = signal(false);
 
   public onFocus: () => void = () => {

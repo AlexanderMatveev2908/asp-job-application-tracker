@@ -2,9 +2,9 @@ import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
 import { SvgStrokeLeft } from '@/common/components/svgs/stroke/left/left';
 import { SvgStrokeRight } from '@/common/components/svgs/stroke/right/right';
 import { WithIdT } from '@/common/types/etc';
-import { RootUiFkt } from '@/core/ui_factory/root_ui';
+import { RootUiFkt } from '@/core/ui_fkt/root_ui';
 
-export class SpansSwap extends RootUiFkt {
+export class SwapBtnsUiFkt extends RootUiFkt {
   private static readonly _spanProps: Partial<SpanEventPropsT> = {
     eventT: 'NONE',
     label: null,

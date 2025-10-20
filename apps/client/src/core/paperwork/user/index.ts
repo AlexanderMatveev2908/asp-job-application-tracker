@@ -1,6 +1,6 @@
 import z, { ZodObject, ZodString } from 'zod';
 import { Reg } from '../reg';
-import { ShapeCheck } from '@/core/lib/data_structure/shape';
+import { ShapeCheck } from '@/core/lib/data_structure/shape_check';
 
 export interface PairPwdArgT {
   password: string;

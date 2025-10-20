@@ -1,4 +1,4 @@
-import { RootUiFkt } from '@/core/ui_factory/root_ui';
+import { RootUiFkt } from '@/core/ui_fkt/root_ui';
 import { Type } from '@angular/core';
 import { PwdCheckerReg } from './reg';
 import { SvgFillUppercase } from '@/common/components/svgs/fill/uppercase/uppercase';

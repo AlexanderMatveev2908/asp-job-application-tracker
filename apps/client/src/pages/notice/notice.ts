@@ -11,7 +11,7 @@ import { NoticeWithoutCb } from '@/features/notice/reducer/reducer';
 import { UseStorageSvc } from '@/core/hooks/use_storage';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { CsrNoticeWrapper } from '@/common/components/hoc/page/csr_notice_wrapper/csr-notice-wrapper';
-import { AppEventPayloadT } from '@/core/hooks/use_event_meta/etc/types';
+import { AppEventPayloadT } from '@/core/lib/dom/meta_event/etc/types';
 
 @Component({
   selector: 'app-notice',

@@ -13,7 +13,7 @@ import { WakeUpApiSvc } from '@/features/wake_up/api';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { ToastSlice } from '@/features/toast/slice';
 import { UseStorageSvc } from '@/core/hooks/use_storage';
-import { Prs } from '@/core/lib/data_structure/formatters';
+import { Prs } from '@/core/lib/data_structure/prs';
 import { WakeUpSlice } from '@/features/wake_up/slice';
 import { ErrApiT, ResApiT } from '@/core/store/api/etc/types';
 import { finalize, tap } from 'rxjs';

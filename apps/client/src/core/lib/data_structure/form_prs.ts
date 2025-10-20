@@ -1,4 +1,4 @@
-import { ShapeCheck } from './shape';
+import { ShapeCheck } from './shape_check';
 import { ErrApp } from '../err';
 
 export class FormPrs {

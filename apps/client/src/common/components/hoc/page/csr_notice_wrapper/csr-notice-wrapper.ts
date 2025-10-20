@@ -12,10 +12,10 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { UseEventMeta } from '@/core/hooks/use_event_meta/use_event_meta';
+import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { RefDomT } from '@/common/types/etc';
-import { AppEventMetaT, AppEventPayloadT } from '@/core/hooks/use_event_meta/etc/types';
+import { AppEventMetaT, AppEventPayloadT } from '@/core/lib/dom/meta_event/etc/types';
 import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';
 import { NoticeAnimations } from './etc/animations';
 
@@ -33,9 +33,7 @@ export class CsrNoticeWrapper implements AfterViewInit {
   public readonly props: InputSignal<AppEventPayloadT> = input.required<AppEventPayloadT>();
 
   // ? derived
-  public metaEvent: Signal<AppEventMetaT> = computed(() =>
-    UseEventMeta.getByT(this.props().eventT)
-  );
+  public metaEvent: Signal<AppEventMetaT> = computed(() => MetaEventDOM.byT(this.props().eventT));
 
   // ? children
   @ViewChild('svgWrap') svgWrap: RefDomT;

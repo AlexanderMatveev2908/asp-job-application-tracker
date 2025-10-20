@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { UsePlatformSvc } from './use_platform';
-import { Log } from '../lib/log';
+import { Log } from '../lib/dev/log';
 import { Router } from '@angular/router';
 
 @Injectable({

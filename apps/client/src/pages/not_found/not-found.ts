@@ -3,7 +3,7 @@ import { LinkShadow } from '@/common/components/links/link_shadow/link-shadow';
 import { SvgStrokeHome } from '@/common/components/svgs/stroke/home/home';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CsrNoticeWrapper } from '@/common/components/hoc/page/csr_notice_wrapper/csr-notice-wrapper';
-import { AppEventPayloadT, AppEventT } from '@/core/hooks/use_event_meta/etc/types';
+import { AppEventPayloadT, AppEventT } from '@/core/lib/dom/meta_event/etc/types';
 
 @Component({
   selector: 'app-not-found',

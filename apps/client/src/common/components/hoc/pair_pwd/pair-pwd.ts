@@ -9,13 +9,13 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { FormFieldTxt } from '../../forms/form_field_txt/form-field-txt';
-import { PwdUiFkt } from '@/core/ui_factory/form_fields/etc/pwd';
+import { PwdUiFkt } from '@/core/ui_fkt/form_fields/etc/pwd';
 import { PairPwdStateT, TxtSvgFieldT } from '@/common/types/forms';
 import { FormControl } from '@angular/forms';
 import { PwdGenerator } from './pwd_generator/pwd-generator';
-import { ConfSwapT } from '@/core/directives/with_swap/etc/types';
+import { ConfSwapT } from '@/core/directives/use_swap/etc/types';
 import { PwdChecker } from './pwd_checker/pwd-checker';
-import { WithFocus } from '@/core/directives/withFocus';
+import { UseFocusDir } from '@/core/directives/use_focus';
 
 @Component({
   selector: 'app-pair-pwd',
@@ -24,7 +24,7 @@ import { WithFocus } from '@/core/directives/withFocus';
   styleUrl: './pair-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PairPwd extends WithFocus {
+export class PairPwd extends UseFocusDir {
   // ? personal props
   public readonly getCtrl: InputSignal<(key: string) => FormControl<unknown>> = input.required();
   // ? component may be inside a swapper

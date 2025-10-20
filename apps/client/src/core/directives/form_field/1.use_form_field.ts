@@ -1,9 +1,10 @@
 import { AfterViewInit, Directive, input, InputSignal, ViewChild } from '@angular/core';
-import { UseFieldRoot } from './0.use_field_root';
+import { UseFieldRootDir } from './0.use_field_root';
 import { RefDomT } from '@/common/types/etc';
+import { FocusDOM } from '@/core/lib/dom/focus';
 
 @Directive()
-export abstract class UseFormField extends UseFieldRoot implements AfterViewInit {
+export abstract class UseFormFieldDir extends UseFieldRootDir implements AfterViewInit {
   public readonly focusOnMount: InputSignal<boolean> = input(false);
 
   // ? children
@@ -13,10 +14,7 @@ export abstract class UseFormField extends UseFieldRoot implements AfterViewInit
     this.usePlatform.whenDomPainted(() => {
       if (!this.focusOnMount()) return;
 
-      const el = this.formField?.nativeElement;
-      if (!el) return;
-
-      el.focus();
+      FocusDOM.ifExists(this.formField);
     });
   }
 }

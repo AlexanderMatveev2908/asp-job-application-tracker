@@ -10,7 +10,7 @@ import { Observable, tap } from 'rxjs';
 import { ConfApiT, HttpMethod } from '../etc/types';
 import { inject } from '@angular/core';
 import { ConfApiSvc } from '../etc/conf_api';
-import { ShapeCheck } from '@/core/lib/data_structure/shape';
+import { ShapeCheck } from '@/core/lib/data_structure/shape_check';
 import { ApiShape, HttpResT } from '../etc/api_shape';
 
 const getDataSent = (req: HttpRequest<unknown>): Record<string, unknown> | null => {

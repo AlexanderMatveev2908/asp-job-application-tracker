@@ -1,6 +1,6 @@
 import { ElDomT, RefDomT } from '@/common/types/etc';
-import { AppEventMetaT, AppEventT } from '@/core/hooks/use_event_meta/etc/types';
-import { UseEventMeta } from '@/core/hooks/use_event_meta/use_event_meta';
+import { AppEventMetaT, AppEventT } from '@/core/lib/dom/meta_event/etc/types';
+import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import {
   AfterViewInit,
@@ -32,7 +32,7 @@ export class SpinBtn implements AfterViewInit {
 
   // ? derived
   public readonly metaEvent: Signal<AppEventMetaT> = computed(() =>
-    UseEventMeta.getByT(this.eventT())
+    MetaEventDOM.byT(this.eventT())
   );
 
   // ? static ids to map for spin

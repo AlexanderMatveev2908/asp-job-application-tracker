@@ -14,10 +14,10 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { DomPortalOutlet, TemplatePortal, PortalModule } from '@angular/cdk/portal';
-import { RecCoordsT } from '@/core/hooks/use_portal';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { ElDomT } from '@/common/types/etc';
 import { v4 } from 'uuid';
+import { RecCoordsT } from '@/core/lib/dom/portal';
 
 @Component({
   selector: 'app-portal',

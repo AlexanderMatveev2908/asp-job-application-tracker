@@ -1,4 +1,4 @@
-import { AppEventT } from '@/core/hooks/use_event_meta/etc/types';
+import { AppEventT } from '@/core/lib/dom/meta_event/etc/types';
 
 export interface WrapBtnApiPropsT {
   isPending: boolean;

@@ -1,5 +1,5 @@
-import { AppEventMetaT, AppEventT } from '@/core/hooks/use_event_meta/etc/types';
-import { UseEventMeta } from '@/core/hooks/use_event_meta/use_event_meta';
+import { AppEventMetaT, AppEventT } from '@/core/lib/dom/meta_event/etc/types';
+import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
 import { NgClass } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -28,6 +28,6 @@ export class Tooltip {
     this.isHover() && this.msg() ? 'translate-y-[-20px] opacity-1' : 'translate-y-[100%] opacity-0'
   );
   public readonly eventMeta: Signal<AppEventMetaT> = computed(() =>
-    UseEventMeta.getByT(this.eventT())
+    MetaEventDOM.byT(this.eventT())
   );
 }

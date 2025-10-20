@@ -1,6 +1,6 @@
-import { Reg } from '../paperwork/reg';
-import { Prs } from './data_structure/formatters';
-import { ShapeCheck } from './data_structure/shape';
+import { Reg } from '../../paperwork/reg';
+import { Prs } from '../data_structure/prs';
+import { ShapeCheck } from '../data_structure/shape_check';
 import { Stack } from './stack';
 
 export class Log {

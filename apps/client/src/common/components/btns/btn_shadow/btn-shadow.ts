@@ -6,11 +6,11 @@ import {
   InputSignal,
   Signal,
 } from '@angular/core';
-import { UseEventMeta } from '@/core/hooks/use_event_meta/use_event_meta';
+import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
 import { Span } from '../../els/span/span';
 import { WrapBtnApi } from '../../hoc/btns/wrap_btn_api/wrap-btn-api';
 import { WrapBtnApiPropsT } from '../../hoc/btns/wrap_btn_api/etc/types';
-import { AppEventMetaT } from '@/core/hooks/use_event_meta/etc/types';
+import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
 import { BtnListenersT, BtnStatePropsT, BtnT } from '@/common/types/etc';
 import { SpanEventPropsT, SpanSizesPropsT } from '../../els/span/etc/types';
 
@@ -43,7 +43,7 @@ export class BtnShadow {
 
   // ? derived from eventT span props
   public readonly metaEvents: Signal<AppEventMetaT> = computed(() =>
-    UseEventMeta.getByT(this.spanProps().eventT)
+    MetaEventDOM.byT(this.spanProps().eventT)
   );
 
   // ? app-wrap-api component props

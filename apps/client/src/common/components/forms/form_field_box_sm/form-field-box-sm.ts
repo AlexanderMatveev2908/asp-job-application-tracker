@@ -1,5 +1,5 @@
 import { CheckFieldT } from '@/common/types/forms';
-import { UseFieldRoot } from '@/core/directives/form_fields/0.use_field_root';
+import { UseFieldRootDir } from '@/core/directives/form_field/0.use_field_root';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -25,8 +25,9 @@ import { FormFieldBoxAnimations } from './etc/animations';
   styleUrl: './form-field-box-sm.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormFieldBoxSm extends UseFieldRoot implements OnInit, AfterViewInit {
+export class FormFieldBoxSm extends UseFieldRootDir implements OnInit, AfterViewInit {
   // ? personal props required
+  public readonly ctrl: InputSignal<FormControl> = input.required();
   public readonly f: InputSignal<CheckFieldT> = input.required();
   public readonly Svg: Type<unknown> = SvgFillBoxChecked;
 
@@ -51,7 +52,7 @@ export class FormFieldBoxSm extends UseFieldRoot implements OnInit, AfterViewIni
   }
 
   ngOnInit(): void {
-    this.setup(() => null);
+    this.setupWithCtrl(this.ctrl(), () => null);
   }
 
   ngAfterViewInit(): void {

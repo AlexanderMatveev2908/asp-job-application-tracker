@@ -15,13 +15,13 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { Portal } from '@/layout/portal/portal';
-import { WithSwapPortal } from '@/core/directives/with_portal/2.with_swap_portal';
-import { RecCoordsT, UsePortal } from '@/core/hooks/use_portal';
-import { Log } from '@/core/lib/log';
+import { UseSwapPortalDir } from '@/core/directives/use_portal/2.use_swap_portal';
+import { Log } from '@/core/lib/dev/log';
 import { ErrApp } from '@/core/lib/err';
 import { RefDomT } from '@/common/types/etc';
 import { LibEtc } from '@/core/lib/etc';
 import { CpyPasteAnimation } from './etc/animations';
+import { PortalDOM, RecCoordsT } from '@/core/lib/dom/portal';
 
 @Component({
   selector: 'app-cpy-paste',
@@ -30,7 +30,7 @@ import { CpyPasteAnimation } from './etc/animations';
   styleUrl: './cpy-paste.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CpyPaste extends WithSwapPortal implements AfterViewInit {
+export class CpyPaste extends UseSwapPortalDir implements AfterViewInit {
   // ? svc
   private readonly usePlatForm: UsePlatformSvc = inject(UsePlatformSvc);
 
@@ -48,9 +48,9 @@ export class CpyPaste extends WithSwapPortal implements AfterViewInit {
   // ? derived
   public readonly cpyPasteCoords: Signal<Partial<RecCoordsT>> = computed(() => ({
     top: this.coords()?.top,
-    left: UsePortal.patchCoord(
+    left: PortalDOM.patchCoord(
       this.coords()?.left,
-      (v: number) => v + UsePortal.coordToInt(this.coords()?.with) / 2
+      (v: number) => v + PortalDOM.coordToInt(this.coords()?.with) / 2
     ),
   }));
 

@@ -1,5 +1,5 @@
 import { Directive, effect, EffectRef, inject } from '@angular/core';
-import { ToastAnimationsSvc } from './animations';
+import { ToastAnimationsSvc } from '../animations';
 import { ElDomT } from '@/common/types/etc';
 import { ErrApp } from '@/core/lib/err';
 import { ToastTimer } from './2.timer';

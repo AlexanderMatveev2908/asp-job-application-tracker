@@ -1,4 +1,4 @@
-import { LinksUiFkt } from '@/core/ui_factory/links';
+import { LinksUiFkt } from '@/core/ui_fkt/links';
 import { describe, it, expect } from 'vitest';
 
 describe('path match', () => {

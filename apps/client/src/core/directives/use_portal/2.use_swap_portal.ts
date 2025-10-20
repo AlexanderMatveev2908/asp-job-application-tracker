@@ -8,14 +8,14 @@ import {
   InputSignal,
   Signal,
 } from '@angular/core';
-import { ConfSwapT } from '../with_swap/etc/types';
-import { WithPortal } from './1.with_portal';
-import { UsePortal } from '../../hooks/use_portal';
+import { ConfSwapT } from '../use_swap/etc/types';
+import { UsePortalDir } from './1.use_portal';
+import { PortalDOM } from '@/core/lib/dom/portal';
 
 // | use WithPortal when sure curr component
 // | will nt be used within a swap/slider
 @Directive()
-export abstract class WithSwapPortal extends WithPortal implements AfterViewInit {
+export abstract class UseSwapPortalDir extends UsePortalDir implements AfterViewInit {
   // ? optional props
   // | some els may be inside a slider
   // | which require dedicated attention
@@ -28,6 +28,6 @@ export abstract class WithSwapPortal extends WithPortal implements AfterViewInit
 
   // ? rerender
   public rerenderWhen: EffectRef = effect(() => {
-    if (this.showTooltip()) this.coords.set(UsePortal.coordsOfRef(this.tooltipRef));
+    if (this.showTooltip()) this.coords.set(PortalDOM.coordsOfRef(this.tooltipRef));
   });
 }

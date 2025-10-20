@@ -1,4 +1,4 @@
-import { Log } from '@/core/lib/log';
+import { Log } from '@/core/lib/dev/log';
 import { envVars } from '@/environments/environment';
 import {
   HttpErrorResponse,

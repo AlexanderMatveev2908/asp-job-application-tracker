@@ -1,6 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { OptErrApi, OptToastApiT } from '../etc/types';
-import { FormPrs } from '@/core/lib/data_structure/form_parser';
+import { FormPrs } from '@/core/lib/data_structure/form_prs';
 import { ErrApp } from '@/core/lib/err';
 import { None } from '@/common/types/etc';
 

@@ -1,7 +1,5 @@
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
-import { ConfSwapT } from '@/core/directives/with_swap/etc/types';
-import { UsePlatformSvc } from '@/core/hooks/use_platform';
-import { RecCoordsT, UsePortal } from '@/core/hooks/use_portal';
+import { ConfSwapT } from '@/core/directives/use_swap/etc/types';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -9,7 +7,6 @@ import {
   computed,
   effect,
   HostListener,
-  inject,
   input,
   InputSignal,
   OnInit,
@@ -18,12 +15,11 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { Portal } from '@/layout/portal/portal';
-import { FieldPwdCheckerT, PwdCheckerUiFkt } from './etc/ui_factory';
+import { FieldPwdCheckerT, PwdCheckerUiFkt } from './etc/ui_fkt';
 import { NgComponentOutlet, NgClass } from '@angular/common';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { AbstractControl } from '@angular/forms';
-import { map, startWith } from 'rxjs';
 import { Reg } from '@/core/paperwork/reg';
+import { UseFieldRootDir } from '@/core/directives/form_field/0.use_field_root';
+import { PortalDOM, RecCoordsT } from '@/core/lib/dom/portal';
 
 @Component({
   selector: 'app-pwd-checker',
@@ -32,10 +28,7 @@ import { Reg } from '@/core/paperwork/reg';
   styleUrl: './pwd-checker.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PwdChecker implements OnInit, AfterViewInit {
-  // ? svc
-  private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
-
+export class PwdChecker extends UseFieldRootDir implements OnInit, AfterViewInit {
   // ? personal props
   public readonly isFocused: InputSignal<boolean> = input.required();
   public readonly pwdFieldRef: InputSignal<FormFieldTxt> = input.required();
@@ -49,9 +42,7 @@ export class PwdChecker implements OnInit, AfterViewInit {
   public readonly coords: WritableSignal<RecCoordsT | null> = signal<RecCoordsT | null>(null);
 
   // ? derived
-  private valPwd!: Signal<string>;
-  private interactedWith!: Signal<unknown>;
-  public pwdLen: Signal<number> = computed(() => this.valPwd()?.trim()?.length ?? 0);
+  public pwdLen: Signal<number> = computed(() => (this.val() as string)?.trim()?.length ?? 0);
   public readonly showTooltip: Signal<boolean> = computed(
     () => !this.confSwap() || (!!this.confSwap()?.isCurr && this.confSwap()?.mode !== 'swapping')
   );
@@ -61,31 +52,21 @@ export class PwdChecker implements OnInit, AfterViewInit {
 
   // ? listeners & ng lifecycle
   public getSvgCls(reg: RegExp): string {
-    if (!this.interactedWith()) return 'text-gray-300';
-    else if (reg.test(this.valPwd())) return 'text-green-600';
+    if (!this.interacted()) return 'text-gray-300';
+    else if (reg.test(this.val() as string)) return 'text-green-600';
     else return 'text-red-600';
   }
 
   public getBorderClr(): string {
-    return !this.interactedWith()
+    return !this.interacted()
       ? 'border-gray-300'
-      : Reg.isPwd(this.valPwd())
+      : Reg.isPwd(this.val() as string)
       ? 'border-green-600'
       : 'border-red-600';
   }
 
   ngOnInit(): void {
-    this.usePlatform.inCtx(() => {
-      const ctrl: AbstractControl = this.pwdFieldRef().ctrl();
-      this.valPwd = toSignal(ctrl.valueChanges, { initialValue: ctrl.value });
-      this.interactedWith = toSignal(
-        ctrl.statusChanges.pipe(
-          map(() => !!(ctrl.touched || ctrl.dirty)),
-          startWith(!!(ctrl.touched || ctrl.dirty))
-        ),
-        { initialValue: !!(ctrl.touched || ctrl.dirty) }
-      );
-    });
+    this.setupWithFieldRef(this.pwdFieldRef(), () => null);
   }
 
   ngAfterViewInit(): void {
@@ -94,17 +75,17 @@ export class PwdChecker implements OnInit, AfterViewInit {
         const conf: ConfSwapT | null = this.confSwap();
 
         if (!conf || (conf.isCurr && conf.mode !== 'swapping'))
-          this.coords.set(UsePortal.coordsOfRef(this.pwdFieldRef().formField));
+          this.coords.set(PortalDOM.coordsOfRef(this.pwdFieldRef().formField));
       });
     });
   }
 
   @HostListener('window:scroll')
   public onScroll(): void {
-    this.coords.set(UsePortal.coordsOfRef(this.pwdFieldRef().formField));
+    this.coords.set(PortalDOM.coordsOfRef(this.pwdFieldRef().formField));
   }
   @HostListener('window:resize')
   public onResize(): void {
-    this.coords.set(UsePortal.coordsOfRef(this.pwdFieldRef().formField));
+    this.coords.set(PortalDOM.coordsOfRef(this.pwdFieldRef().formField));
   }
 }

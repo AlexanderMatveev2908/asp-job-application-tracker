@@ -1,5 +1,5 @@
 import { ElDomT, None, RefDomT } from '@/common/types/etc';
-import { ErrApp } from '../lib/err';
+import { ErrApp } from '../err';
 
 export interface RecCoordsT {
   top: string | null;
@@ -10,7 +10,7 @@ export interface RecCoordsT {
   height: string | null;
 }
 
-export class UsePortal {
+export class PortalDOM {
   // | most of cases i will just use directly calculated coords
   // | so is faster to receive them as css property
   // | just in rare cases i will need to adjust size using integer values

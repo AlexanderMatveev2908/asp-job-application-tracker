@@ -1,5 +1,5 @@
 import { SvgClsT, TxtClsT } from '@/common/types/css';
-import { AppEventT } from '@/core/hooks/use_event_meta/etc/types';
+import { AppEventT } from '@/core/lib/dom/meta_event/etc/types';
 import { Type } from '@angular/core';
 
 export interface SpanPropsT {

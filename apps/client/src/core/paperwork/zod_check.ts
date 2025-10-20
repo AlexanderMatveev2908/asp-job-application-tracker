@@ -1,8 +1,9 @@
 import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { ZodSafeParseResult, ZodType } from 'zod';
-import { ShapeCheck } from '../lib/data_structure/shape';
-import { Log } from '../lib/log';
-import { WithSwap } from '../directives/with_swap/with_swap';
+import { ShapeCheck } from '../lib/data_structure/shape_check';
+import { Log } from '../lib/dev/log';
+import { UseSwapDir } from '../directives/use_swap/use_swap';
+import { FocusDOM } from '../lib/dom/focus';
 
 export class ZodCheck {
   public static checkZ(schema: ZodType): ValidatorFn {
@@ -46,16 +47,9 @@ export class ZodCheck {
     return first;
   }
 
-  private static focusByField(first: string | null): void {
-    if (!first) return;
-
-    const elDOM: HTMLElement | null = document.querySelector(`[data-field=${first}]`);
-    if (elDOM) elDOM.focus();
-  }
-
   public static onSubmitFailed(form: FormGroup): void {
     const first: string | null = this._onSubmitFailed(form);
-    this.focusByField(first);
+    FocusDOM.byDataField(first);
   }
 
   // | the job of callback is to manage to set right proper swap
@@ -65,8 +59,8 @@ export class ZodCheck {
     if (first) cb(first);
 
     setTimeout(() => {
-      this.focusByField(first);
-    }, WithSwap.TIME_ANIMATION);
+      FocusDOM.byDataField(first);
+    }, UseSwapDir.TIME_ANIMATION);
   }
 }
 

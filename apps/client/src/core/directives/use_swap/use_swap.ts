@@ -4,7 +4,7 @@ import { LibEtc } from '@/core/lib/etc';
 import { FocusDOM } from '@/core/lib/dom/focus';
 
 @Directive()
-export abstract class WithSwap {
+export abstract class UseSwapDir {
   // | added little margin 100ms
   // | normal tim would be 400
   // eslint-disable-next-line no-magic-numbers
@@ -25,7 +25,7 @@ export abstract class WithSwap {
 
   protected focusWhen(...kwargs: string[]): void {
     const { swap, mode } = this.swapState();
-    if (mode === 'swapped') FocusDOM.focusWhen(kwargs, swap);
+    if (mode === 'swapped') FocusDOM.bySwap(kwargs, swap);
   }
   private readonly _setSwap: (val: number, onEndSwap: SwapModeT) => void = (
     val: number,
@@ -40,7 +40,7 @@ export abstract class WithSwap {
         this.swapState.update((prev: SwapStateT) => ({ ...prev, mode: onEndSwap }));
 
       this.clearTmr();
-    }, WithSwap.TIME_ANIMATION);
+    }, UseSwapDir.TIME_ANIMATION);
   };
   // ? listeners
   public readonly setSwap: (val: number) => void = (val: number) => {

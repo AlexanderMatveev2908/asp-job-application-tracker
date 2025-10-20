@@ -21,7 +21,7 @@ import { SvgFillUp } from '../../svgs/fill/up/up';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ElDomT, RefDomT } from '@/common/types/etc';
 import { UseMouseOutSvc } from '@/core/hooks/use_mouse_out';
-import { DropStaticTwdCss, RecTwdClsDropT } from './etc/ui';
+import { DropStaticTwdCss, RecTwdClsDropT } from './etc';
 
 @Component({
   selector: 'app-drop-static',

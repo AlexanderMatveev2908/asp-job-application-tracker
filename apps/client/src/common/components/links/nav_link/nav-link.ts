@@ -1,4 +1,4 @@
-import { LinkT } from '@/core/ui_factory/links/etc/types';
+import { LinkT } from '@/core/ui_fkt/links/etc/types';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -8,7 +8,7 @@ import {
   Signal,
 } from '@angular/core';
 import { SpanSizesPropsT } from '../../els/span/etc/types';
-import { LinksUiFkt } from '@/core/ui_factory/links';
+import { LinksUiFkt } from '@/core/ui_fkt/links';
 import { RouterLink } from '@angular/router';
 import { Span } from '../../els/span/span';
 import { NgClass } from '@angular/common';

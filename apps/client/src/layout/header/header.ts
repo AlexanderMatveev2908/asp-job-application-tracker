@@ -16,8 +16,8 @@ import { SidebarSlice } from '@/features/sidebar/slice';
 import { DropAbs } from '@/common/components/drop/abs/drop-abs';
 import { SpanPropsT, SpanSizesPropsT } from '@/common/components/els/span/etc/types';
 import { NgClass } from '@angular/common';
-import { LinksUiFkt } from '@/core/ui_factory/links';
-import { LinkT } from '@/core/ui_factory/links/etc/types';
+import { LinksUiFkt } from '@/core/ui_fkt/links';
+import { LinkT } from '@/core/ui_fkt/links/etc/types';
 import { UsePathSvc } from '@/core/hooks/use_path';
 import { NavLink } from '@/common/components/links/nav_link/nav-link';
 

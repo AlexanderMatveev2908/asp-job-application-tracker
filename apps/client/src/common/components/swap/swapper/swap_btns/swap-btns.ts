@@ -8,7 +8,7 @@ import {
   Signal,
 } from '@angular/core';
 import { BtnShadow } from '../../../btns/btn_shadow/btn-shadow';
-import { SpansSwap } from './etc/spans';
+import { SwapBtnsUiFkt } from './etc/ui_fkt';
 import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
 
 @Component({
@@ -25,7 +25,7 @@ export class SwapBtns {
   public readonly maxSwaps: InputSignal<number> = input.required();
 
   // ? app-span props generated
-  public readonly spans: (SpanEventPropsT & WithIdT)[] = SpansSwap.getSpansProps();
+  public readonly spans: (SpanEventPropsT & WithIdT)[] = SwapBtnsUiFkt.getSpansProps();
 
   // ? dynamic app-btn-shadow props
   public getListeners(idx: number): BtnListenersT {

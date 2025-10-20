@@ -7,13 +7,13 @@ import {
   ViewChild,
   WritableSignal,
 } from '@angular/core';
-import { WithHover } from './0.with_hover';
-import { RecCoordsT, UsePortal } from '../../hooks/use_portal';
+import { UseHoverDir } from './0.use_hover';
 import { UsePlatformSvc } from '../../hooks/use_platform';
 import { RefDomT } from '@/common/types/etc';
+import { PortalDOM, RecCoordsT } from '@/core/lib/dom/portal';
 
 @Directive()
-export abstract class WithPortal extends WithHover implements AfterViewInit {
+export abstract class UsePortalDir extends UseHoverDir implements AfterViewInit {
   // ? svc
   protected readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
@@ -27,16 +27,16 @@ export abstract class WithPortal extends WithHover implements AfterViewInit {
   // ? listeners
   ngAfterViewInit(): void {
     this.usePlatform.whenDomPainted(() => {
-      this.coords.set(UsePortal.coordsOfRef(this.tooltipRef));
+      this.coords.set(PortalDOM.coordsOfRef(this.tooltipRef));
     });
   }
 
   @HostListener('window:scroll')
   public onScroll(): void {
-    this.coords.set(UsePortal.coordsOfRef(this.tooltipRef));
+    this.coords.set(PortalDOM.coordsOfRef(this.tooltipRef));
   }
   @HostListener('window:resize')
   public onResize(): void {
-    this.coords.set(UsePortal.coordsOfRef(this.tooltipRef));
+    this.coords.set(PortalDOM.coordsOfRef(this.tooltipRef));
   }
 }

@@ -9,11 +9,11 @@ import {
   Signal,
   Type,
 } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FormFieldErr } from '../form_field_err/form-field-err';
 import { OptCb } from '@/common/types/etc';
 import { NgComponentOutlet } from '@angular/common';
-import { UseFormField } from '@/core/directives/form_fields/1.use_form_field';
+import { UseFormFieldDir } from '@/core/directives/form_field/1.use_form_field';
 
 @Component({
   selector: 'app-form-field-txt',
@@ -22,8 +22,9 @@ import { UseFormField } from '@/core/directives/form_fields/1.use_form_field';
   styleUrl: './form-field-txt.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormFieldTxt extends UseFormField implements OnInit {
+export class FormFieldTxt extends UseFormFieldDir implements OnInit {
   // ? personal props required
+  public readonly ctrl: InputSignal<FormControl> = input.required();
   public readonly f: InputSignal<TxtFieldT | TxtSvgFieldT> = input.required();
 
   // ? personal props optional
@@ -44,6 +45,6 @@ export class FormFieldTxt extends UseFormField implements OnInit {
 
   // ? ng lifecycle
   ngOnInit(): void {
-    this.setup(() => null);
+    this.setupWithCtrl(this.ctrl(), () => null);
   }
 }

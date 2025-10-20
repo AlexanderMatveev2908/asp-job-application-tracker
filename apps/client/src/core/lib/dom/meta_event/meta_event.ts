@@ -3,7 +3,7 @@ import { SvgFillError } from '@/common/components/svgs/fill/error/error';
 import { SvgFillInfo } from '@/common/components/svgs/fill/info/info';
 import { AppEventMetaT, AppEventT } from './etc/types';
 
-export class UseEventMeta {
+export class MetaEventDOM {
   private static readonly eventsData: Record<AppEventT, AppEventMetaT> = {
     OK: {
       Svg: SvgFillCheck,
@@ -42,7 +42,7 @@ export class UseEventMeta {
     },
   };
 
-  public static getByT(e: AppEventT): AppEventMetaT {
+  public static byT(e: AppEventT): AppEventMetaT {
     return this.eventsData[e];
   }
 }

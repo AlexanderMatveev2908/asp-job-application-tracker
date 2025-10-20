@@ -1,10 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { UsePlatformSvc } from './use_platform';
-import { Log } from '../lib/log';
+import { Log } from '../lib/dev/log';
 import { ErrApp } from '../lib/err';
-import { ShapeCheck } from '../lib/data_structure/shape';
-import { Prs } from '../lib/data_structure/formatters';
-import { Stack } from '../lib/stack';
+import { ShapeCheck } from '../lib/data_structure/shape_check';
+import { Prs } from '../lib/data_structure/prs';
+import { Stack } from '../lib/dev/stack';
 
 export type StorageKeyT = 'notice' | 'accessToken' | 'wakeUp';
 

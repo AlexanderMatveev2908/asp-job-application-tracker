@@ -17,12 +17,12 @@ import { PopupStaticPropsT } from './etc/types';
 import { BlackBgPropsT } from '@/layout/black_bg/etc/types';
 import { BlackBg } from '@/layout/black_bg/black-bg';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { UseEventMeta } from '@/core/hooks/use_event_meta/use_event_meta';
+import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { AnimationsPopSvc } from './etc/animations';
 import { CloseBtn } from '@/common/components/btns/close_btn/close-btn';
 import { ElDomT, RefDomT } from '@/common/types/etc';
-import { AppEventMetaT } from '@/core/hooks/use_event_meta/etc/types';
+import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
 
 @Component({
   selector: 'app-popup',
@@ -48,7 +48,7 @@ export class Popup {
 
   // ? derived
   public readonly eventMeta: Signal<AppEventMetaT> = computed(() =>
-    UseEventMeta.getByT(this.staticProps().eventT)
+    MetaEventDOM.byT(this.staticProps().eventT)
   );
   public cssZ: Signal<string> = computed(() => `z__${this.staticProps().cls}`);
 

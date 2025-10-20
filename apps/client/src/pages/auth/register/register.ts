@@ -9,20 +9,20 @@ import {
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CheckFieldT, TxtFieldT } from '@/common/types/forms';
-import { RegisterFormUiFkt } from '@/features/auth/register/ui_factory/form_fields';
+import { RegisterFormUiFkt } from '@/features/auth/register/ui_fkt/form_fields';
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
 import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
-import { Log } from '@/core/lib/log';
+import { Log } from '@/core/lib/dev/log';
 import { BtnStatePropsT } from '@/common/types/etc';
 import { ZodCheck } from '@/core/paperwork/zod_check';
 import { Swapper } from '@/common/components/swap/swapper/swapper';
 import { PairPwd } from '@/common/components/hoc/pair_pwd/pair-pwd';
 import { RegisterFormMng } from '@/features/auth/register/paperwork/form_mng';
 import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
-import { WithSwap } from '@/core/directives/with_swap/with_swap';
+import { UseSwapDir } from '@/core/directives/use_swap/use_swap';
 import { PortalModule } from '@angular/cdk/portal';
 import { LibEtc } from '@/core/lib/etc';
-import { ShapeCheck } from '@/core/lib/data_structure/shape';
+import { ShapeCheck } from '@/core/lib/data_structure/shape_check';
 import { FormFieldBoxSm } from '@/common/components/forms/form_field_box_sm/form-field-box-sm';
 
 @Component({
@@ -41,7 +41,7 @@ import { FormFieldBoxSm } from '@/common/components/forms/form_field_box_sm/form
   styleUrl: './register.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Register extends WithSwap {
+export class Register extends UseSwapDir {
   // ? form related
   public readonly form: FormGroup = RegisterFormMng.form;
 
