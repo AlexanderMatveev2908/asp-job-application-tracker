@@ -1,14 +1,25 @@
+@if(isExternal()){
 <a
-  [routerLink]="isExternal() ? null : props().path"
-  [attr.href]="isExternal() ? props().path : null"
-  [attr.target]="isExternal() ? '_blank' : null"
-  [attr.rel]="isExternal() ? 'noopener noreferrer' : null"
+  [attr.href]="props().path"
+  [attr.target]="'_blank'"
+  [attr.rel]="'noopener noreferrer'"
   class="root btn__res"
   [style.--clr]="metaEvent().css"
   [style.padding]="padding()"
 >
   <ng-container *ngTemplateOutlet="content"></ng-container>
 </a>
+}@else {
+<a
+  [routerLink]="props().path"
+  [attr.href]="props().path"
+  class="root btn__res"
+  [style.--clr]="metaEvent().css"
+  [style.padding]="padding()"
+>
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</a>
+}
 
 <ng-template #content>
   <app-span

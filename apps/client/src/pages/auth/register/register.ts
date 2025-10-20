@@ -80,6 +80,14 @@ export class Register extends UseSwapDir {
   private readonly focusOnSwap: EffectRef = effect(() => this.focusWhen('firstName', 'password'));
 
   public async onSubmit(): Promise<void> {
+    // Log.logTtl('form', this.form.value);
+
+    // this.noticeSlice.mailNotice = {
+    //   eventT: 'OK',
+    //   msg: 'to confirm your account',
+    //   status: 201,
+    // };
+    // await this.useNav.push('/notice');
     if (this.form.valid) {
       Log.logTtl('form', this.form.value);
 

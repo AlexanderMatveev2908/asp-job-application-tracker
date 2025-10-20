@@ -11,8 +11,8 @@ import { NoticeWithoutCb } from '@/features/notice/reducer/reducer';
 import { UseStorageSvc } from '@/core/hooks/use_storage';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { CsrNoticeWrapper } from '@/common/components/hoc/page/csr_notice_wrapper/csr-notice-wrapper';
-import { AppEventPayloadT } from '@/core/lib/dom/meta_event/etc/types';
 import { Nullable } from '@/common/types/etc';
+import { NoticeWrapperPropsT } from '@/common/components/hoc/page/csr_notice_wrapper/etc/types';
 
 @Component({
   selector: 'app-notice',
@@ -26,7 +26,7 @@ export class Notice implements OnInit {
   private readonly useStorage: UseStorageSvc = inject(UseStorageSvc);
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
-  public readonly wrapEventsProps: Signal<AppEventPayloadT> = computed(() => {
+  public readonly wrapEventsProps: Signal<NoticeWrapperPropsT> = computed(() => {
     const { cb: _cb, ...rst } = this.noticeSlice._noticeState();
 
     return rst;

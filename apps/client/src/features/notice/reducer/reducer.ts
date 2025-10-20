@@ -3,11 +3,11 @@ import { NoticeActT } from './actions';
 import { GenericVoidCbT, Nullable } from '@/common/types/etc';
 import { AppEventPayloadT } from '@/core/lib/dom/meta_event/etc/types';
 
-export type TmptNotice = 'mail';
+export type NoticeTmptT = 'mail';
 
 export interface NoticeStateT extends AppEventPayloadT {
   cb: Nullable<GenericVoidCbT>;
-  tmpt: Nullable<TmptNotice>;
+  tmpt: Nullable<NoticeTmptT>;
 }
 
 export const initState: NoticeStateT = {

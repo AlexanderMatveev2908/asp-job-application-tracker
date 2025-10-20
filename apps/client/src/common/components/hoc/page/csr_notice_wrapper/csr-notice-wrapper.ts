@@ -15,13 +15,17 @@ import {
 import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { RefDomT, TpltRedT } from '@/common/types/etc';
-import { AppEventMetaT, AppEventPayloadT } from '@/core/lib/dom/meta_event/etc/types';
+import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
 import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';
 import { NoticeAnimations } from './etc/animations';
+import { NoticeWrapperPropsT } from './etc/types';
+import { LinkShadow } from '@/common/components/links/link_shadow/link-shadow';
+import { LinkShadowPropsT } from '@/common/components/links/link_shadow/etc/types';
+import { envVars } from '@/environments/environment';
 
 @Component({
   selector: 'app-csr-notice-wrapper',
-  imports: [NgComponentOutlet, NgClass, PageWrapper, NgTemplateOutlet, PageWrapper],
+  imports: [NgComponentOutlet, NgClass, PageWrapper, NgTemplateOutlet, PageWrapper, LinkShadow],
   templateUrl: './csr-notice-wrapper.html',
   styleUrl: './csr-notice-wrapper.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,7 +34,18 @@ export class CsrNoticeWrapper implements AfterViewInit {
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
   // ? personal props
-  public readonly props: InputSignal<AppEventPayloadT> = input.required<AppEventPayloadT>();
+  public readonly props: InputSignal<NoticeWrapperPropsT> = input.required();
+
+  // ? mail props link
+  public readonly linkProps: LinkShadowPropsT = {
+    eventT: 'INFO',
+    label: 'Open Mail',
+    Svg: null,
+    path: `https://mail.google.com/mail/u/0/#search/from%3A${envVars.smptFrom.replaceAll(
+      '@',
+      '%40'
+    )}`,
+  };
 
   // ? derived
   public metaEvent: Signal<AppEventMetaT> = computed(() => MetaEventDOM.byT(this.props().eventT));

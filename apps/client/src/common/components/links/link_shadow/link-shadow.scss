@@ -5,6 +5,7 @@
 }
 
 .root {
+  @apply cursor-pointer;
   @include mix.el__shw(var(--clr));
   @include mix.el__scl(1.15);
 }
