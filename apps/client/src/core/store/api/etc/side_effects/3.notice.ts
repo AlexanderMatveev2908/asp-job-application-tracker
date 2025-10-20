@@ -1,6 +1,6 @@
 import { NoticeSlice } from '@/features/notice/slice';
 import { inject, Injectable } from '@angular/core';
-import { SideEffectsToastSvc } from './1.toast';
+import { SideEffectsToastSvc } from './2.toast';
 import { ErrApiT, ObsOnOkT, ObsResT, OptErrApiT, StatusT } from '../types';
 import { Nullable } from '@/common/types/etc';
 import { catchError, EMPTY, from, switchMap } from 'rxjs';

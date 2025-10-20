@@ -3,10 +3,10 @@ import { inject, Injectable } from '@angular/core';
 import { ErrApiT, ObsResT, OptToastApiT, ResApiT } from '../types';
 import { Nullable } from '@/common/types/etc';
 import { tap } from 'rxjs';
-import { SideEffectsRoot } from './0.root';
+import { SideEffectsLogSvc } from './1.log';
 
 @Injectable()
-export abstract class SideEffectsToastSvc extends SideEffectsRoot {
+export abstract class SideEffectsToastSvc extends SideEffectsLogSvc {
   // ? svc
   private readonly toastSlice: ToastSlice = inject(ToastSlice);
 

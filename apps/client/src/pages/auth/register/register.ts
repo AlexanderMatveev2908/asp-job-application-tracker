@@ -88,28 +88,31 @@ export class Register extends UseSwapDir {
   private readonly focusOnSwap: EffectRef = effect(() => this.focusWhen('firstName', 'password'));
 
   public async onSubmit(): Promise<void> {
-    if (this.form.valid) {
-      this.tracker
-        .main(
-          this.authApi.register(this.form.value).pipe(
-            tap((res: ResApiT<RegisterResT>) => {
-              Log.logTtl('tap', res);
-
-              this.noticeSlice.mailNotice = {
-                eventT: 'OK',
-                msg: 'to confirm your account',
-                status: 201,
-              };
-            }),
-            switchMap(() => from(this.useNav.push('/notice')))
-          )
-        )
-        .subscribe();
-    } else
+    if (!this.form.valid) {
       ZodCheck.onSubmitFailedInSwap(this.form, (first: string) => {
         const target: Nullable<number> = LibEtc.idxIn(first, RegisterFormMng.fieldsBySwap);
 
         if (!ShapeCheck.isNone(target)) this.setSwapOnErr(target!);
       });
+
+      return;
+    }
+
+    this.tracker
+      .main(
+        this.authApi.register(this.form.value).pipe(
+          tap((res: ResApiT<RegisterResT>) => {
+            Log.logTtl('tap', res);
+
+            this.noticeSlice.mailNotice = {
+              eventT: 'OK',
+              msg: 'to confirm your account',
+              status: 201,
+            };
+          }),
+          switchMap(() => from(this.useNav.push('/notice')))
+        )
+      )
+      .subscribe();
   }
 }

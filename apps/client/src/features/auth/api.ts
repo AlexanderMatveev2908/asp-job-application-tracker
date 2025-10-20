@@ -9,10 +9,10 @@ import { RegisterFormT } from './register/paperwork/form_mng';
   providedIn: 'root',
 })
 export class AuthApiSvc {
-  private readonly url: string = '/auth';
+  private readonly base: string = '/auth';
   private readonly api: ApiSvc = inject(ApiSvc);
 
   public register(body: RegisterFormT): ObsResT<RegisterResT> {
-    return this.api.post(ApiArgs.withURL(`${this.url}/register`).body(body).toastOnFulfilled());
+    return this.api.post(ApiArgs.withURL(`${this.base}/register`).body(body).toastOnFulfilled());
   }
 }

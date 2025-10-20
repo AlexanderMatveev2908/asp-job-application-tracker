@@ -17,7 +17,7 @@ import { Nullable } from '@/common/types/etc';
 const getDataSent = (req: HttpRequest<unknown>): Nullable<Record<string, unknown>> => {
   let dataSent: Nullable<Record<string, unknown>>;
   if (['GET', 'DELETE'].some((str: string) => str === req.method)) dataSent = null;
-  else dataSent = req.body as Nullable<Record<string, unknown>>;
+  else dataSent = (req.body || null) as Nullable<Record<string, unknown>>;
 
   return dataSent;
 };
@@ -42,9 +42,9 @@ const mng = (
   const conf: ConfApiT = {
     url: urlReq,
     method: req.method as HttpMethod,
-    responseType: res.headers.get('Content-Type'),
-    requestType: req.headers.get('Content-Type'),
-    accessToken: req.headers.get('Authorization'),
+    responseType: res.headers.get('Content-Type') || null,
+    requestType: req.headers.get('Content-Type') || null,
+    accessToken: req.headers.get('Authorization') || null,
     params: getParams(req),
     body: getDataSent(req),
   };

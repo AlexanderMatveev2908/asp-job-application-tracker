@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SideEffectsNoticeSvc } from './2.notice';
+import { SideEffectsNoticeSvc } from './3.notice';
 import { ObsOnOkT, ObsResT } from '../types';
 import { ApiArgs } from '../request/args';
 
@@ -8,6 +8,6 @@ import { ApiArgs } from '../request/args';
 })
 export class SideEffectsMng extends SideEffectsNoticeSvc {
   public mng<T>(cb: ObsResT<T>, args: ApiArgs): ObsOnOkT<T> {
-    return this.withNotice(this.withToast(cb, args.getOptToast()), args.getOptErr());
+    return this.withNotice(this.withToast(this.withLog(cb), args.getOptToast()), args.getOptErr());
   }
 }
