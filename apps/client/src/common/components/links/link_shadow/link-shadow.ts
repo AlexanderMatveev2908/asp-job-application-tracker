@@ -22,6 +22,7 @@ import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
 })
 export class LinkShadow {
   public readonly props: InputSignal<LinkShadowPropsT> = input.required();
+  public readonly padding: InputSignal<string | null> = input<string | null>('10px 15px');
 
   // ? derived
   public readonly metaEvent: Signal<AppEventMetaT> = computed(() =>

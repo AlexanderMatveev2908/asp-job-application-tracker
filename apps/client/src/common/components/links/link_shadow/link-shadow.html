@@ -5,6 +5,7 @@
   [attr.rel]="isExternal() ? 'noopener noreferrer' : null"
   class="root btn__res"
   [style.--clr]="metaEvent().css"
+  [style.padding]="padding()"
 >
   <ng-container *ngTemplateOutlet="content"></ng-container>
 </a>
