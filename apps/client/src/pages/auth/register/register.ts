@@ -23,6 +23,7 @@ import { WithSwap } from '@/core/directives/with_swap/with_swap';
 import { PortalModule } from '@angular/cdk/portal';
 import { LibEtc } from '@/core/lib/etc';
 import { ShapeCheck } from '@/core/lib/data_structure/shape';
+import { FormFieldBoxSm } from '@/common/components/forms/form_field_box_sm/form-field-box-sm';
 
 @Component({
   selector: 'app-register',
@@ -34,6 +35,7 @@ import { ShapeCheck } from '@/core/lib/data_structure/shape';
     Swapper,
     PairPwd,
     PortalModule,
+    FormFieldBoxSm,
   ],
   templateUrl: './register.html',
   styleUrl: './register.scss',
@@ -64,8 +66,8 @@ export class Register extends WithSwap {
   };
 
   // ? helper dynamic app-field-txt props
-  public readonly getCtrl: (f: TxtFieldT) => FormControl = (f: TxtFieldT) =>
-    this.form.get(f.name) as FormControl;
+  public readonly getCtrl: (name: string) => FormControl = (name: string) =>
+    this.form.get(name) as FormControl;
 
   // ? listeners
   private readonly focusOnSwap: EffectRef = effect(() => this.focusWhen('firstName', 'password'));

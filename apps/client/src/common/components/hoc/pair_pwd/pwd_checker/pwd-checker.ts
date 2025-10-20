@@ -94,17 +94,17 @@ export class PwdChecker implements OnInit, AfterViewInit {
         const conf: ConfSwapT | null = this.confSwap();
 
         if (!conf || (conf.isCurr && conf.mode !== 'swapping'))
-          this.coords.set(UsePortal.coordsOfRef(this.pwdFieldRef().inputTxt));
+          this.coords.set(UsePortal.coordsOfRef(this.pwdFieldRef().formField));
       });
     });
   }
 
   @HostListener('window:scroll')
   public onScroll(): void {
-    this.coords.set(UsePortal.coordsOfRef(this.pwdFieldRef().inputTxt));
+    this.coords.set(UsePortal.coordsOfRef(this.pwdFieldRef().formField));
   }
   @HostListener('window:resize')
   public onResize(): void {
-    this.coords.set(UsePortal.coordsOfRef(this.pwdFieldRef().inputTxt));
+    this.coords.set(UsePortal.coordsOfRef(this.pwdFieldRef().formField));
   }
 }

@@ -1,21 +1,6 @@
-import { ErrsFieldT, RecErrsFieldT } from '@/common/types/forms';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  effect,
-  inject,
-  input,
-  InputSignal,
-  OnInit,
-  signal,
-  Signal,
-  WritableSignal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Tooltip } from '../../els/tooltip/tooltip';
-import { FormControl } from '@angular/forms';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { map, Observable, startWith } from 'rxjs';
-import { UsePlatformSvc } from '@/core/hooks/use_platform';
+import { UseFieldErr } from '@/core/directives/form_fields/1.use_field_err';
 
 @Component({
   selector: 'app-form-field-err',
@@ -24,45 +9,4 @@ import { UsePlatformSvc } from '@/core/hooks/use_platform';
   styleUrl: './form-field-err.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormFieldErr<T> implements OnInit {
-  private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
-  // ? personal props
-  public readonly ctrl: InputSignal<FormControl<T>> = input.required();
-
-  // ? derived
-  public val!: Signal<string>;
-  public interacted!: Signal<boolean>;
-  public recErrs: WritableSignal<RecErrsFieldT> = signal({
-    prev: null,
-    curr: null,
-  });
-
-  // ? ng
-  ngOnInit(): void {
-    const c = this.ctrl();
-
-    this.usePlatform.inCtx(() => {
-      this.val = toSignal(c.valueChanges as Observable<string>, {
-        initialValue: c.value as string,
-      });
-      this.interacted = toSignal(
-        c.statusChanges.pipe(
-          map(() => !!(c.touched || c.dirty)),
-          startWith(!!(c.touched || c.dirty))
-        ),
-        { initialValue: !!(c.touched || c.dirty) }
-      );
-
-      effect(() => {
-        void this.val();
-
-        const errors: ErrsFieldT = c.errors as ErrsFieldT;
-
-        this.recErrs.update((prev: RecErrsFieldT) => ({
-          prev: prev.curr,
-          curr: errors?.zod && this.interacted() ? errors.zod : null,
-        }));
-      });
-    });
-  }
-}
+export class FormFieldErr extends UseFieldErr {}

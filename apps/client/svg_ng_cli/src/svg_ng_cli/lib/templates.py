@@ -7,6 +7,7 @@ from svg_ng_cli.lib.svg_type import SvgT
 def patch_svg_attributes(svg: str, svg_type: SvgT) -> str:
     svg = re.sub(r"<\?xml[^>]*\?>", "", svg).strip()
     svg = re.sub(r"<!--.*?-->", "", svg, flags=re.DOTALL)
+    svg = re.sub(r"<style[^>]*>.*?</style>", "", svg, flags=re.DOTALL)
 
     def replacer(arg: re.Match) -> str:
         tag = arg.group(0)
@@ -22,7 +23,16 @@ def patch_svg_attributes(svg: str, svg_type: SvgT) -> str:
     if svg_type != SvgT.A:
         svg = re.sub(r'\bfill="[^"]*"', '[attr.fill]="fill()"', svg)
         svg = re.sub(r'\bstroke="[^"]*"', '[attr.stroke]="stroke()"', svg)
-
+        svg = re.sub(
+            r'(<(path|polygon|rect|circle|g)(?![^>]*\bfill=)(?![^>]*\[attr\.fill\])[^>]*?)(/?>)',
+            r'\1 [attr.fill]="fill()"\3',
+            svg
+        )
+        svg = re.sub(
+            r'(<(path|polygon|rect|circle|g)(?![^>]*\bstroke=)(?![^>]*\[attr\.stroke\])[^>]*?)(/?>)',
+            r'\1 [attr.stroke]="stroke()"\3',
+            svg
+        )
     return svg
 
 

@@ -6,6 +6,7 @@ import {
   ContentChildren,
   effect,
   EffectRef,
+  HostListener,
   inject,
   input,
   InputSignal,
@@ -86,4 +87,9 @@ export class Swapper implements AfterViewInit {
       this.calcH();
     }, 0);
   });
+
+  @HostListener('window:resize')
+  public onResize(): void {
+    this.calcH();
+  }
 }

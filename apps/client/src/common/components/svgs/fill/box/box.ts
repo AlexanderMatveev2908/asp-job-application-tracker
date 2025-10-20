@@ -1,0 +1,16 @@
+
+import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
+
+@Component({
+  selector: 'app-svg-fill-box',
+  templateUrl: `./box.html`,
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class SvgFillBox {
+    width: InputSignal<'auto' | string> = input('100%');
+    height: InputSignal<'auto' | string> = input('100%');
+    
+    fill: InputSignal<string> = input<string>('currentColor');
+    stroke: InputSignal<string | null> = input<string | null>(null);
+    
+}
