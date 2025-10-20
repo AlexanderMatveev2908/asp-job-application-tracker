@@ -47,6 +47,12 @@ const mng = (
     accessToken: req.headers.get('Authorization') || null,
     params: getParams(req),
     body: getDataSent(req),
+    rateLimit: {
+      window: res.headers.get('RateLimit-Window'),
+      limit: res.headers.get('RateLimit-Limit'),
+      remaining: res.headers.get('RateLimit-Remaining'),
+      reset: res.headers.get('RateLimit-Reset'),
+    },
   };
 
   confApi.set(conf);

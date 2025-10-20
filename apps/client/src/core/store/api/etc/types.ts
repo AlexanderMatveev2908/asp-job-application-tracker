@@ -11,6 +11,12 @@ export interface ConfApiT {
   accessToken: Nullable<string>;
   params: GenericObjT;
   body: GenericObjT;
+  rateLimit: {
+    limit: Nullable<string>;
+    window: Nullable<string>;
+    remaining: Nullable<string>;
+    reset: Nullable<string>;
+  };
 }
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
