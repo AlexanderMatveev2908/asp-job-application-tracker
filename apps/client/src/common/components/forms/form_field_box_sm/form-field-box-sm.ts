@@ -1,6 +1,7 @@
 import { CheckFieldT } from '@/common/types/forms';
 import { UseFieldRoot } from '@/core/directives/form_fields/0.use_field_root';
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   effect,
@@ -15,6 +16,7 @@ import { NgClass } from '@angular/common';
 import { RefDomT } from '@/common/types/etc';
 import { FormControl } from '@angular/forms';
 import { FormFieldErr } from '../form_field_err/form-field-err';
+import { FormFieldBoxAnimations } from './etc/animations';
 
 @Component({
   selector: 'app-form-field-box-sm',
@@ -23,13 +25,14 @@ import { FormFieldErr } from '../form_field_err/form-field-err';
   styleUrl: './form-field-box-sm.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormFieldBoxSm extends UseFieldRoot implements OnInit {
+export class FormFieldBoxSm extends UseFieldRoot implements OnInit, AfterViewInit {
   // ? personal props required
   public readonly f: InputSignal<CheckFieldT> = input.required();
   public readonly Svg: Type<unknown> = SvgFillBoxChecked;
 
   // ? children
   @ViewChild('checkbox') checkbox: RefDomT;
+  @ViewChild('mark') mark: RefDomT;
 
   // ? helpers
   public getTwd(): string {
@@ -38,6 +41,7 @@ export class FormFieldBoxSm extends UseFieldRoot implements OnInit {
     else return 'text-red-600 border-red-600';
   }
 
+  // ? listeners
   public onToggle(): void {
     const c: FormControl = this.ctrl();
     c.markAsDirty();
@@ -47,9 +51,19 @@ export class FormFieldBoxSm extends UseFieldRoot implements OnInit {
   }
 
   ngOnInit(): void {
-    this.setup(() => {
+    this.setup(() => null);
+  }
+
+  ngAfterViewInit(): void {
+    this.usePlatform.inCtx(() => {
       effect(() => {
-        void this.val();
+        const val: boolean | null = this.val() as boolean | null;
+
+        FormFieldBoxAnimations.main({
+          checkbox: this.checkbox,
+          mark: this.mark,
+          val,
+        });
       });
     });
   }
