@@ -12,10 +12,11 @@ import { ConfApiSvc } from '../etc/conf_api';
 import { inject } from '@angular/core';
 import { ApiShape, HttpResT } from '@/core/store/api/etc/api_shape';
 import { ConfApiT } from '../etc/types';
+import { Nullable } from '@/common/types/etc';
 
 const mng = (
   e: HttpEvent<unknown> | HttpErrorResponse,
-  confData: Observable<ConfApiT | null>,
+  confData: Observable<Nullable<ConfApiT>>,
   emoji: string
 ): void => {
   if (!ApiShape.isHttpRes(e)) return;
@@ -28,7 +29,7 @@ const mng = (
 
   const content: Record<string, unknown> = res instanceof HttpErrorResponse ? res.error : res.body;
 
-  confData.subscribe((conf: ConfApiT | null) => {
+  confData.subscribe((conf: Nullable<ConfApiT>) => {
     Log.logTtl(`${emoji} ${url}`, conf, content);
   });
 };
@@ -38,7 +39,7 @@ export const logApiMdw: HttpInterceptorFn = (
   next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> => {
   const confApi: ConfApiSvc = inject(ConfApiSvc);
-  const confData: Observable<ConfApiT | null> = confApi.obs();
+  const confData: Observable<Nullable<ConfApiT>> = confApi.obs();
 
   return next(req).pipe(
     tap({

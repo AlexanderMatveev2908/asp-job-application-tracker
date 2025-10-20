@@ -1,3 +1,4 @@
+import { Nullable } from '@/common/types/etc';
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
@@ -8,7 +9,7 @@ import { filter } from 'rxjs';
 export class UsePathSvc {
   private readonly router: Router = inject(Router);
 
-  public readonly currPath: WritableSignal<string | null> = signal(null);
+  public readonly currPath: WritableSignal<Nullable<string>> = signal(null);
 
   constructor() {
     this.router.events

@@ -11,6 +11,7 @@ import {
 import { ConfSwapT } from '../use_swap/etc/types';
 import { UsePortalDir } from './1.use_portal';
 import { PortalDOM } from '@/core/lib/dom/portal';
+import { Nullable } from '@/common/types/etc';
 
 // | use WithPortal when sure curr component
 // | will nt be used within a swap/slider
@@ -19,7 +20,7 @@ export abstract class UseSwapPortalDir extends UsePortalDir implements AfterView
   // ? optional props
   // | some els may be inside a slider
   // | which require dedicated attention
-  public readonly confSwap: InputSignal<ConfSwapT | null> = input<ConfSwapT | null>(null);
+  public readonly confSwap: InputSignal<Nullable<ConfSwapT>> = input<Nullable<ConfSwapT>>(null);
 
   // ? derived
   public readonly showTooltip: Signal<boolean> = computed(

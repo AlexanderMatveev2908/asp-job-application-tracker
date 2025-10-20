@@ -1,4 +1,6 @@
+import { Nullable } from '@/common/types/etc';
+
 export interface BlackBgPropsT {
-  isDark: boolean | null;
+  isDark: Nullable<boolean>;
   zBg: string;
 }

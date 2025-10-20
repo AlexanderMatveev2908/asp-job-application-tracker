@@ -1,4 +1,5 @@
 
+import { Nullable } from '@/common/types/etc';
 import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
 
 @Component({
@@ -11,6 +12,6 @@ export class SvgFillUppercase {
     height: InputSignal<'auto' | string> = input('100%');
     
     fill: InputSignal<string> = input<string>('currentColor');
-    stroke: InputSignal<string | null> = input<string | null>(null);
+    stroke: InputSignal<Nullable<string>> = input<Nullable<string>>(null);
     
 }

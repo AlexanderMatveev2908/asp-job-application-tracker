@@ -1,10 +1,11 @@
+import { Nullable } from '@/common/types/etc';
 import { Reg } from '../../paperwork/reg';
 import { Prs } from '../data_structure/prs';
 import { ShapeCheck } from '../data_structure/shape_check';
 import { Stack } from './stack';
 
 export class Log {
-  private static _log(title: string | null, ...args: unknown[]): void {
+  private static _log(title: Nullable<string>, ...args: unknown[]): void {
     // ? 0 private log
     // ? 1 public log
     // ? 2 real caller

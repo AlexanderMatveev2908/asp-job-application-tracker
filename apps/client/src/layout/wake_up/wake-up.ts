@@ -17,6 +17,7 @@ import { Prs } from '@/core/lib/data_structure/prs';
 import { WakeUpSlice } from '@/features/wake_up/slice';
 import { ErrApiT, ResApiT } from '@/core/store/api/etc/types';
 import { finalize, tap } from 'rxjs';
+import { Nullable } from '@/common/types/etc';
 
 @Component({
   selector: 'app-wake-up',
@@ -34,7 +35,7 @@ export class WakeUp implements AfterViewInit {
   private readonly useStorage: UseStorageSvc = inject(UseStorageSvc);
 
   // ? local state
-  public readonly isPop: WritableSignal<boolean | null> = signal(null);
+  public readonly isPop: WritableSignal<Nullable<boolean>> = signal(null);
   private readonly closePop: () => void = () => {
     this.isPop.set(false);
   };
@@ -51,7 +52,7 @@ export class WakeUp implements AfterViewInit {
   private pollIf(): boolean {
     if (this.usePlatform.isServer) return false;
 
-    const tmsp: string | null = this.useStorage.getItem('wakeUp') ?? '0';
+    const tmsp: Nullable<string> = this.useStorage.getItem('wakeUp') ?? '0';
     const lastCall: number = isNaN(+tmsp) ? 0 : +tmsp;
 
     this.wakeUpSlice.setLastCall(lastCall);

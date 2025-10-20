@@ -5,6 +5,7 @@ import { ErrApp } from '../lib/err';
 import { ShapeCheck } from '../lib/data_structure/shape_check';
 import { Prs } from '../lib/data_structure/prs';
 import { Stack } from '../lib/dev/stack';
+import { Nullable } from '@/common/types/etc';
 
 export type StorageKeyT = 'notice' | 'accessToken' | 'wakeUp';
 
@@ -14,7 +15,7 @@ export type StorageKeyT = 'notice' | 'accessToken' | 'wakeUp';
 export class UseStorageSvc {
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
-  private checkEnv<T>(cb: () => T): T | null {
+  private checkEnv<T>(cb: () => T): Nullable<T> {
     if (this.usePlatform.isServer) {
       Log.log(`can not run ${Stack.getCallerLess(1)} on server side`);
       return null;
@@ -23,13 +24,13 @@ export class UseStorageSvc {
     return cb();
   }
 
-  public cleanAll(): void | null {
+  public cleanAll(): Nullable<void> {
     return this.checkEnv(() => {
       sessionStorage.clear();
     });
   }
 
-  public setItem<T>(key: StorageKeyT, data: T): void | null {
+  public setItem<T>(key: StorageKeyT, data: T): Nullable<void> {
     return this.checkEnv(() => {
       if (ShapeCheck.isNone(data)) throw new ErrApp('passed None to set storage');
       else if (ShapeCheck.isPrimitive(data)) sessionStorage.setItem(key, data + '');
@@ -37,7 +38,7 @@ export class UseStorageSvc {
     });
   }
 
-  public getItem<T>(key: StorageKeyT): T | null {
+  public getItem<T>(key: StorageKeyT): Nullable<T> {
     return this.checkEnv(() => {
       const data: unknown = sessionStorage.getItem(key);
 

@@ -1,13 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
 import { NoticeActT } from './actions';
-import { GenericVoidCbT } from '@/common/types/etc';
+import { GenericVoidCbT, Nullable } from '@/common/types/etc';
 import { AppEventPayloadT } from '@/core/lib/dom/meta_event/etc/types';
 
 export type TmptNotice = 'mail';
 
 export interface NoticeStateT extends AppEventPayloadT {
-  cb: GenericVoidCbT | null;
-  tmpt: TmptNotice | null;
+  cb: Nullable<GenericVoidCbT>;
+  tmpt: Nullable<TmptNotice>;
 }
 
 export const initState: NoticeStateT = {

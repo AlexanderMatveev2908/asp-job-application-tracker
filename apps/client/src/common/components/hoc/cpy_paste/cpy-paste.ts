@@ -18,7 +18,7 @@ import { Portal } from '@/layout/portal/portal';
 import { UseSwapPortalDir } from '@/core/directives/use_portal/2.use_swap_portal';
 import { Log } from '@/core/lib/dev/log';
 import { ErrApp } from '@/core/lib/err';
-import { RefDomT } from '@/common/types/etc';
+import { Nullable, RefDomT, TimerIdT } from '@/common/types/etc';
 import { LibEtc } from '@/core/lib/etc';
 import { CpyPasteAnimation } from './etc/animations';
 import { PortalDOM, RecCoordsT } from '@/core/lib/dom/portal';
@@ -35,9 +35,9 @@ export class CpyPaste extends UseSwapPortalDir implements AfterViewInit {
   private readonly usePlatForm: UsePlatformSvc = inject(UsePlatformSvc);
 
   // ? local state
-  public readonly txt: InputSignal<string | null> = input.required();
+  public readonly txt: InputSignal<Nullable<string>> = input.required();
   public readonly copied: WritableSignal<boolean> = signal(false);
-  private timerID: NodeJS.Timeout | null = null;
+  private timerID: TimerIdT = null;
 
   // ? static assets
   private readonly TIME_ANIMATION: number = 400;
@@ -56,7 +56,7 @@ export class CpyPaste extends UseSwapPortalDir implements AfterViewInit {
 
   // ? listeners
   public async onCpy(): Promise<void> {
-    const text: string | null = this.txt();
+    const text: Nullable<string> = this.txt();
     try {
       if (!text) throw new ErrApp('tried to copy None');
 

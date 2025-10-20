@@ -12,16 +12,17 @@ import { inject } from '@angular/core';
 import { ConfApiSvc } from '../etc/conf_api';
 import { ShapeCheck } from '@/core/lib/data_structure/shape_check';
 import { ApiShape, HttpResT } from '../etc/api_shape';
+import { Nullable } from '@/common/types/etc';
 
-const getDataSent = (req: HttpRequest<unknown>): Record<string, unknown> | null => {
-  let dataSent: Record<string, unknown> | null;
+const getDataSent = (req: HttpRequest<unknown>): Nullable<Record<string, unknown>> => {
+  let dataSent: Nullable<Record<string, unknown>>;
   if (['GET', 'DELETE'].some((str: string) => str === req.method)) dataSent = null;
-  else dataSent = req.body as Record<string, unknown> | null;
+  else dataSent = req.body as Nullable<Record<string, unknown>>;
 
   return dataSent;
 };
 
-const getParams = (req: HttpRequest<unknown>): Record<string, unknown> | null => {
+const getParams = (req: HttpRequest<unknown>): Nullable<Record<string, unknown>> => {
   const reqParams: HttpParams = req.params;
   const params: Record<string, unknown> = {};
   for (const k of reqParams.keys()) params[k] = reqParams.get(k);

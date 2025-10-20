@@ -15,7 +15,7 @@ import {
 } from '@angular/core';
 import { DomPortalOutlet, TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
-import { ElDomT, TpltRedT } from '@/common/types/etc';
+import { ElDomT, Nullable, TpltRedT } from '@/common/types/etc';
 import { v4 } from 'uuid';
 import { RecCoordsT } from '@/core/lib/dom/portal';
 
@@ -42,9 +42,9 @@ export class Portal implements AfterViewInit, OnDestroy {
   public tpl!: TpltRedT;
 
   // ? local refs
-  private outlet: DomPortalOutlet | null = null;
+  private outlet: Nullable<DomPortalOutlet> = null;
   private attached: boolean = false;
-  private contentEl: HTMLElement | null = null;
+  private contentEl: Nullable<HTMLElement> = null;
   private readonly id: string = v4();
 
   ngAfterViewInit(): void {
@@ -75,7 +75,7 @@ export class Portal implements AfterViewInit, OnDestroy {
     this.attached = true;
 
     queueMicrotask((): void => {
-      this.contentEl = host.firstElementChild as HTMLElement | null;
+      this.contentEl = host.firstElementChild as Nullable<HTMLElement>;
       if (!this.contentEl) return;
 
       this.usePlatform.inCtx((): void => {

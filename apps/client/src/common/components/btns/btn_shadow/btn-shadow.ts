@@ -11,7 +11,7 @@ import { Span } from '../../els/span/span';
 import { WrapBtnApi } from '../../hoc/btns/wrap_btn_api/wrap-btn-api';
 import { WrapBtnApiPropsT } from '../../hoc/btns/wrap_btn_api/etc/types';
 import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
-import { BtnListenersT, BtnStatePropsT, BtnT } from '@/common/types/etc';
+import { BtnListenersT, BtnStatePropsT, BtnT, Nullable } from '@/common/types/etc';
 import { SpanEventPropsT, SpanSizesPropsT } from '../../els/span/etc/types';
 
 @Component({
@@ -35,9 +35,8 @@ export class BtnShadow {
     isDisabled: false,
     isPending: false,
   });
-  public readonly listenersProps: InputSignal<BtnListenersT | null> = input<BtnListenersT | null>(
-    null
-  );
+  public readonly listenersProps: InputSignal<Nullable<BtnListenersT>> =
+    input<Nullable<BtnListenersT>>(null);
   public readonly type: InputSignal<BtnT> = input<BtnT>('button');
   public readonly paddingProps: InputSignal<string> = input('10px 15px');
 

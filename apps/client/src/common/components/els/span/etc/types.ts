@@ -1,10 +1,10 @@
 import { SvgClsT, TxtClsT } from '@/common/types/css';
-import { SvgT } from '@/common/types/etc';
+import { Nullable, SvgT } from '@/common/types/etc';
 import { AppEventT } from '@/core/lib/dom/meta_event/etc/types';
 
 export interface SpanPropsT {
-  label: string | null;
-  Svg: SvgT | null;
+  label: Nullable<string>;
+  Svg: Nullable<SvgT>;
 }
 
 export interface SpanSizesPropsT {

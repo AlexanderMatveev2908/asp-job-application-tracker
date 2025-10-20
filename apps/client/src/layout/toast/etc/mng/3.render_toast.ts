@@ -1,6 +1,6 @@
 import { Directive, effect, EffectRef, inject } from '@angular/core';
 import { ToastAnimationsSvc } from '../animations';
-import { ElDomT } from '@/common/types/etc';
+import { ElDomT, Nullable } from '@/common/types/etc';
 import { ErrApp } from '@/core/lib/err';
 import { ToastTimer } from './2.timer';
 
@@ -11,7 +11,7 @@ export abstract class ToastRender extends ToastTimer {
 
   // ? private helpers
   private handleToastOpen(
-    prevID: string | null,
+    prevID: Nullable<string>,
     { toastDOM, timerDOM }: { toastDOM: HTMLElement; timerDOM: HTMLElement }
   ): void {
     const OUT_ANIMATION_LAST = 300;

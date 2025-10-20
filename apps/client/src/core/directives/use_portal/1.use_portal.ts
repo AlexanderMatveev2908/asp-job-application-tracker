@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { UseHoverDir } from './0.use_hover';
 import { UsePlatformSvc } from '../../hooks/use_platform';
-import { RefDomT } from '@/common/types/etc';
+import { Nullable, RefDomT } from '@/common/types/etc';
 import { PortalDOM, RecCoordsT } from '@/core/lib/dom/portal';
 
 @Directive()
@@ -18,7 +18,7 @@ export abstract class UsePortalDir extends UseHoverDir implements AfterViewInit 
   protected readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
   // ? local state
-  public readonly coords: WritableSignal<RecCoordsT | null> = signal(null);
+  public readonly coords: WritableSignal<Nullable<RecCoordsT>> = signal(null);
 
   // ? ref tooltip to calculate position wanted
   // ? relative to a certain element

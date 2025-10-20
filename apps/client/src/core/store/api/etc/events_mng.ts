@@ -6,6 +6,7 @@ import { NoticeSlice } from '@/features/notice/slice';
 import { UseNavSvc } from '@/core/hooks/use_nav';
 import { ConfApiSvc } from './conf_api';
 import { ArgsApi } from '../requests/args_api';
+import { Nullable } from '@/common/types/etc';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +31,7 @@ export class EventsMngSvc {
     pushOnStatus: [StatusT.FORBIDDEN, StatusT.TOO_MANY_REQUESTS, StatusT.INTERNAL_SERVER_ERROR],
   };
 
-  private whenErr<T>(cb: ObsResT<T>, opt: Partial<OptErrApi> | null): ObsOnOkT<T> {
+  private whenErr<T>(cb: ObsResT<T>, opt: Nullable<Partial<OptErrApi>>): ObsOnOkT<T> {
     const options: Partial<OptErrApi> = opt ?? this.defOptErr;
 
     return cb.pipe(
@@ -62,7 +63,7 @@ export class EventsMngSvc {
     };
   }
 
-  private withToast<T>(cb: ObsResT<T>, opt: Partial<OptToastApiT> | null): ObsResT<T> {
+  private withToast<T>(cb: ObsResT<T>, opt: Nullable<Partial<OptToastApiT>>): ObsResT<T> {
     const options: Partial<OptToastApiT> = opt ?? this.defOptToast();
 
     return cb.pipe(

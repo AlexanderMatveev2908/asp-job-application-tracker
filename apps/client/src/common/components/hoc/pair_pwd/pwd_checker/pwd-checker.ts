@@ -20,6 +20,7 @@ import { NgComponentOutlet, NgClass } from '@angular/common';
 import { Reg } from '@/core/paperwork/reg';
 import { UseFieldRootDir } from '@/core/directives/form_field/0.use_field_root';
 import { PortalDOM, RecCoordsT } from '@/core/lib/dom/portal';
+import { Nullable } from '@/common/types/etc';
 
 @Component({
   selector: 'app-pwd-checker',
@@ -32,14 +33,14 @@ export class PwdChecker extends UseFieldRootDir implements OnInit, AfterViewInit
   // ? personal props
   public readonly isFocused: InputSignal<boolean> = input.required();
   public readonly pwdFieldRef: InputSignal<FormFieldTxt> = input.required();
-  public readonly confSwap: InputSignal<ConfSwapT | null> = input<ConfSwapT | null>(null);
+  public readonly confSwap: InputSignal<Nullable<ConfSwapT>> = input<Nullable<ConfSwapT>>(null);
 
   // ? static assets
   public readonly fieldsCheckers: FieldPwdCheckerT[] = PwdCheckerUiFkt.fields;
   public readonly pwdRuler: Omit<FieldPwdCheckerT, 'id'> = PwdCheckerUiFkt.ruler;
 
   // ? local state
-  public readonly coords: WritableSignal<RecCoordsT | null> = signal<RecCoordsT | null>(null);
+  public readonly coords: WritableSignal<Nullable<RecCoordsT>> = signal<Nullable<RecCoordsT>>(null);
 
   // ? derived
   public pwdLen: Signal<number> = computed(() => (this.val() as string)?.trim()?.length ?? 0);
@@ -72,7 +73,7 @@ export class PwdChecker extends UseFieldRootDir implements OnInit, AfterViewInit
   ngAfterViewInit(): void {
     this.usePlatform.inCtx(() => {
       effect(() => {
-        const conf: ConfSwapT | null = this.confSwap();
+        const conf: Nullable<ConfSwapT> = this.confSwap();
 
         if (!conf || (conf.isCurr && conf.mode !== 'swapping'))
           this.coords.set(PortalDOM.coordsOfRef(this.pwdFieldRef().formField));

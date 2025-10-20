@@ -37,7 +37,7 @@ def patch_svg_attributes(svg: str, svg_type: SvgT) -> str:
 
 
 CURR_COLOR_TEMPLATE: str = ": InputSignal<string> = input<string>('currentColor')"
-NULL_COLOR_TEMPLATE: str = ": InputSignal<string | null> = input<string | null>(null)"
+NULL_COLOR_TEMPLATE: str = ": InputSignal<Nullable<string>> = input<Nullable<string>>(null)"
 
 
 def get_clr(curr_t: SvgT, input_t: SvgT) -> str:
@@ -63,6 +63,7 @@ def gen_template_ts(kebab_name: str, class_name: str, svg_type: SvgT) -> str:
     selector = f"{svg_type.selector_prefix()}-{kebab_name}"
 
     return f"""
+import {{ Nullable }} from '@/common/types/etc';
 import {{ ChangeDetectionStrategy, Component, input, InputSignal }} from '@angular/core';
 
 @Component({{

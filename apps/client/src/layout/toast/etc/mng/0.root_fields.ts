@@ -1,4 +1,4 @@
-import { RefDomT } from '@/common/types/etc';
+import { RefDomT, TimerIdT } from '@/common/types/etc';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { LibEtc } from '@/core/lib/etc';
 import { ToastStateT } from '@/features/toast/reducer/reducer';
@@ -20,7 +20,7 @@ export abstract class ToastRoot {
   @ViewChild('timerToast') timerToast: RefDomT;
 
   // ? local state
-  protected timerID: NodeJS.Timeout | null = null;
+  protected timerID: TimerIdT = null;
 
   // ? private helper & listeners
   public readonly closeClick: () => void = () => {

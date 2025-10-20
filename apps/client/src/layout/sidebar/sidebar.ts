@@ -24,7 +24,7 @@ import { spanUserNotLogged } from './etc/ui_fkt';
 import { Lorem } from '@/core/lib/etc';
 import { NavLink } from '@/common/components/links/nav_link/nav-link';
 import { UseMouseOutSvc } from '@/core/hooks/use_mouse_out';
-import { RefDomT } from '@/common/types/etc';
+import { Nullable, RefDomT } from '@/common/types/etc';
 
 @Component({
   selector: 'app-sidebar',
@@ -51,7 +51,7 @@ export class Sidebar extends Lorem {
 
   // ? derived
   public readonly isSideOpen: Signal<boolean> = computed(() => this.sideSlice.sideState().isOpen);
-  public readonly currPath: Signal<string | null> = this.usePath.currPath;
+  public readonly currPath: Signal<Nullable<string>> = this.usePath.currPath;
 
   // ? static fields
   public readonly allUsersLinks: LinkT[] = LinksUiFkt.allUsers;

@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FormFieldErr } from '../form_field_err/form-field-err';
-import { OptCbT, SvgT } from '@/common/types/etc';
+import { Nullable, OptCbT, SvgT } from '@/common/types/etc';
 import { NgComponentOutlet } from '@angular/common';
 import { UseFormFieldDir } from '@/core/directives/form_field/1.use_form_field';
 
@@ -27,7 +27,7 @@ export class FormFieldTxt extends UseFormFieldDir implements OnInit {
   public readonly f: InputSignal<TxtFieldT | TxtSvgFieldT> = input.required();
 
   // ? personal props optional
-  public readonly onSvgClick: InputSignal<(() => void) | null> = input<(() => void) | null>(null);
+  public readonly onSvgClick: InputSignal<Nullable<() => void>> = input<Nullable<() => void>>(null);
   // ? additional listeners for custom needs beside normal ng flow
   // ? rarely used
   public readonly onFocus: InputSignal<OptCbT> = input<OptCbT>(null);
@@ -35,7 +35,7 @@ export class FormFieldTxt extends UseFormFieldDir implements OnInit {
   public readonly onChange: InputSignal<OptCbT> = input<OptCbT>(null);
 
   // ? derived
-  public readonly Svg: Signal<SvgT | null> = computed(
+  public readonly Svg: Signal<Nullable<SvgT>> = computed(
     () => (this.f() as TxtSvgFieldT)?.Svg ?? null
   );
   public readonly padding: Signal<string> = computed(() =>

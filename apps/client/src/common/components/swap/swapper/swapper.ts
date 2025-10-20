@@ -16,7 +16,7 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { SwapBtns } from './swap_btns/swap-btns';
-import { ElDomT, RefDomT } from '@/common/types/etc';
+import { ElDomT, Nullable, RefDomT } from '@/common/types/etc';
 import { ErrApp } from '@/core/lib/err';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 
@@ -36,7 +36,7 @@ export class Swapper implements AfterViewInit {
   public readonly maxSwaps: InputSignal<number> = input.required();
 
   // ? derived by content
-  public readonly maxH: WritableSignal<string | null> = signal(null);
+  public readonly maxH: WritableSignal<Nullable<string>> = signal(null);
 
   // ? derived
   // eslint-disable-next-line no-magic-numbers

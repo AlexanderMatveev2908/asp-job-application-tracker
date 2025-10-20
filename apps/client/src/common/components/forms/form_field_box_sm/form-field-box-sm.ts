@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { SvgFillBoxChecked } from '../../svgs/fill/box_checked/box-checked';
 import { NgClass } from '@angular/common';
-import { RefDomT, SvgT } from '@/common/types/etc';
+import { Nullable, RefDomT, SvgT } from '@/common/types/etc';
 import { FormControl } from '@angular/forms';
 import { FormFieldErr } from '../form_field_err/form-field-err';
 import { FormFieldBoxAnimations } from './etc/animations';
@@ -57,7 +57,7 @@ export class FormFieldBoxSm extends UseFieldRootDir implements OnInit, AfterView
   ngAfterViewInit(): void {
     this.usePlatform.inCtx(() => {
       effect(() => {
-        const val: boolean | null = this.val() as boolean | null;
+        const val: Nullable<boolean> = this.val() as Nullable<boolean>;
 
         FormFieldBoxAnimations.main({
           checkbox: this.checkbox,

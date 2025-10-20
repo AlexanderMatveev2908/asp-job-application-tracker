@@ -1,14 +1,14 @@
 /* eslint-disable no-magic-numbers */
-import { GenericObjT } from '@/common/types/etc';
+import { GenericObjT, Nullable } from '@/common/types/etc';
 import { HttpErrorResponse, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface ConfApiT {
-  url: string | null;
+  url: Nullable<string>;
   method: HttpMethod;
-  requestType: string | null;
-  responseType: string | null;
-  accessToken: string | null;
+  requestType: Nullable<string>;
+  responseType: Nullable<string>;
+  accessToken: Nullable<string>;
   params: GenericObjT;
   body: GenericObjT;
 }

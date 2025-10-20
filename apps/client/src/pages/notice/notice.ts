@@ -12,6 +12,7 @@ import { UseStorageSvc } from '@/core/hooks/use_storage';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { CsrNoticeWrapper } from '@/common/components/hoc/page/csr_notice_wrapper/csr-notice-wrapper';
 import { AppEventPayloadT } from '@/core/lib/dom/meta_event/etc/types';
+import { Nullable } from '@/common/types/etc';
 
 @Component({
   selector: 'app-notice',
@@ -33,7 +34,7 @@ export class Notice implements OnInit {
 
   ngOnInit(): void {
     this.usePlatform.onClient(() => {
-      const stored: NoticeWithoutCb | null = this.useStorage.getItem('notice');
+      const stored: Nullable<NoticeWithoutCb> = this.useStorage.getItem('notice');
 
       if (stored) this.noticeSlice.notice = stored;
     });

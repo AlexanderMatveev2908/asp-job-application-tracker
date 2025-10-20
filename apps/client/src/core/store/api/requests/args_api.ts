@@ -2,14 +2,14 @@ import { HttpParams } from '@angular/common/http';
 import { OptErrApi, OptToastApiT } from '../etc/types';
 import { FormPrs } from '@/core/lib/data_structure/form_prs';
 import { ErrApp } from '@/core/lib/err';
-import { None } from '@/common/types/etc';
+import { None, Nullable } from '@/common/types/etc';
 
 export class ArgsApi {
   private readonly _url: string = '';
-  private _params: HttpParams | null = null;
-  private _optToast: Partial<OptToastApiT> | null = null;
-  private _optErr: Partial<OptErrApi> | null = null;
-  private _body: Record<string, unknown> | FormData | null = null;
+  private _params: Nullable<HttpParams> = null;
+  private _optToast: Nullable<Partial<OptToastApiT>> = null;
+  private _optErr: Nullable<Partial<OptErrApi>> = null;
+  private _body: Nullable<Record<string, unknown> | FormData> = null;
 
   constructor(url: string) {
     this._url = url;
@@ -84,15 +84,15 @@ export class ArgsApi {
     return !this._params ? isEmpty : this._params;
   }
 
-  public getBody(): Record<string, unknown> | FormData | null {
+  public getBody(): Nullable<Record<string, unknown> | FormData> {
     return this._body;
   }
 
-  public getOptToast(): Partial<OptToastApiT> | null {
+  public getOptToast(): Nullable<Partial<OptToastApiT>> {
     return this._optToast;
   }
 
-  public getOptErr(): Partial<OptErrApi> | null {
+  public getOptErr(): Nullable<Partial<OptErrApi>> {
     return this._optErr;
   }
 

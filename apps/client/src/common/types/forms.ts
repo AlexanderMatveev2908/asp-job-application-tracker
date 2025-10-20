@@ -1,14 +1,14 @@
 import { ValidationErrors } from '@angular/forms';
-import { SvgT } from './etc';
+import { Nullable, SvgT } from './etc';
 
 export type TxtInputT = 'text' | 'email' | 'password' | 'url';
 export type CheckInputT = 'radio' | 'checkbox';
 
 export interface RecErrsFieldT {
-  prev: string | null;
-  curr: string | null;
+  prev: Nullable<string>;
+  curr: Nullable<string>;
 }
-export type ErrsFieldT = ValidationErrors & { zod: string | null };
+export type ErrsFieldT = ValidationErrors & { zod: Nullable<string> };
 
 export interface PairPwdStateT {
   isPwdTypePwd: boolean;

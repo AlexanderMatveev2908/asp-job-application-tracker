@@ -14,7 +14,7 @@ import { RegisterFormUiFkt } from '@/features/auth/register/ui_fkt/form_fields';
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
 import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
 import { Log } from '@/core/lib/dev/log';
-import { BtnStatePropsT } from '@/common/types/etc';
+import { BtnStatePropsT, Nullable } from '@/common/types/etc';
 import { ZodCheck } from '@/core/paperwork/zod_check';
 import { Swapper } from '@/common/components/swap/swapper/swapper';
 import { PairPwd } from '@/common/components/hoc/pair_pwd/pair-pwd';
@@ -91,7 +91,7 @@ export class Register extends UseSwapDir {
       await this.useNav.push('/notice');
     } else
       ZodCheck.onSubmitFailedInSwap(this.form, (first: string) => {
-        const target: number | null = LibEtc.idxIn(first, RegisterFormMng.fieldsBySwap);
+        const target: Nullable<number> = LibEtc.idxIn(first, RegisterFormMng.fieldsBySwap);
 
         if (!ShapeCheck.isNone(target)) this.setSwapOnErr(target!);
       });

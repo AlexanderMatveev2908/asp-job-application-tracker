@@ -20,7 +20,7 @@ import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { AnimationsPopSvc } from './etc/animations';
 import { CloseBtn } from '@/common/components/btns/close_btn/close-btn';
-import { ElDomT, RefDomT, TpltRedT } from '@/common/types/etc';
+import { ElDomT, Nullable, RefDomT, TpltRedT } from '@/common/types/etc';
 import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
 
 @Component({
@@ -37,7 +37,7 @@ export class Popup {
 
   // ? personal props
   public readonly staticProps: InputSignal<PopupStaticPropsT> = input.required();
-  public readonly isPop: InputSignal<boolean | null> = input.required();
+  public readonly isPop: InputSignal<Nullable<boolean>> = input.required();
 
   // ? black bg overlay props
   public blackBgProps: Signal<BlackBgPropsT> = computed(() => ({

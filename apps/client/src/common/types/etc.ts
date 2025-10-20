@@ -4,7 +4,7 @@ export type GenericVoidT = void | Promise<void>;
 
 export type GenericVoidCbT = (() => void) | (() => Promise<void>);
 
-export type GenericObjT = Record<string, unknown> | null;
+export type GenericObjT = Nullable<Record<string, unknown>>;
 
 export interface WithIdT {
   id: string;
@@ -25,10 +25,14 @@ export interface BtnStatePropsT {
 
 export type None = null | undefined;
 
+export type Nullable<T> = T | null;
+
+export type TimerIdT = Nullable<NodeJS.Timeout>;
+
 export interface BtnListenersT {
   onClick: (() => void) | (() => Promise<void>);
 }
 
 export type BtnT = 'button' | 'submit';
 
-export type OptCbT = ((val: unknown) => void) | null;
+export type OptCbT = Nullable<(val: unknown) => void>;
