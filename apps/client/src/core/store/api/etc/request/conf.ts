@@ -6,7 +6,7 @@ import { Nullable } from '@/common/types/etc';
 @Injectable({
   providedIn: 'root',
 })
-export class ConfApiSvc {
+export class ApiConfSvc {
   private readonly conf: BehaviorSubject<Nullable<ConfApiT>> = new BehaviorSubject<
     Nullable<ConfApiT>
   >(null);

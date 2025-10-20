@@ -4,7 +4,7 @@ import { FormPrs } from '@/core/lib/data_structure/form_prs';
 import { ErrApp } from '@/core/lib/err';
 import { None, Nullable, OrNone } from '@/common/types/etc';
 
-export class ArgsApi {
+export class ApiArgs {
   private readonly _url: string = '';
   private _params: Nullable<HttpParams> = null;
   private _optToast: Nullable<Partial<OptToastApiT>> = null;
@@ -27,46 +27,46 @@ export class ArgsApi {
     if (!this._optErr) this._optErr = {};
   }
 
-  public static withURL(url: string): ArgsApi {
-    return new ArgsApi(url);
+  public static withURL(url: string): ApiArgs {
+    return new ApiArgs(url);
   }
 
-  public query(query: Record<string, unknown>): ArgsApi {
+  public query(query: Record<string, unknown>): ApiArgs {
     this._params = this.parseQuery(query);
     return this;
   }
 
-  public body(body: Record<string, unknown>): ArgsApi {
+  public body(body: Record<string, unknown>): ApiArgs {
     this._body = body;
     return this;
   }
 
-  public toastOnOk(): ArgsApi {
+  public toastOnOk(): ApiArgs {
     this.ifOptToastEmpty();
     this._optToast!.toastOk = true;
     return this;
   }
 
-  public toastOnErr(): ArgsApi {
+  public toastOnErr(): ApiArgs {
     this.ifOptToastEmpty();
     this._optToast!.toastErr = true;
     return this;
   }
 
-  public toastOnFulfilled(): ArgsApi {
+  public toastOnFulfilled(): ApiArgs {
     this.ifOptToastEmpty();
     this._optToast!.toastOk = true;
     this._optToast!.toastErr = true;
     return this;
   }
 
-  public pushOnErr(): ArgsApi {
+  public pushOnErr(): ApiArgs {
     this.ifOptErrEmpty();
     this._optErr!.pushOnErr = true;
     return this;
   }
 
-  public pushOnStatus(codes: number[]): ArgsApi {
+  public pushOnStatus(codes: number[]): ApiArgs {
     this.ifOptErrEmpty();
     this._optErr!.pushOnStatus = codes;
     return this;

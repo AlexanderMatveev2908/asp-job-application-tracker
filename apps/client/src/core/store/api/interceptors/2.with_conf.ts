@@ -9,7 +9,7 @@ import {
 import { Observable, tap } from 'rxjs';
 import { ConfApiT, HttpMethod } from '../etc/types';
 import { inject } from '@angular/core';
-import { ConfApiSvc } from '../etc/request/conf_api';
+import { ApiConfSvc } from '../etc/request/conf';
 import { ShapeCheck } from '@/core/lib/data_structure/shape_check';
 import { ApiShape, HttpResT } from '../etc/shape';
 import { Nullable } from '@/common/types/etc';
@@ -33,7 +33,7 @@ const getParams = (req: HttpRequest<unknown>): Nullable<Record<string, unknown>>
 const mng = (
   req: HttpRequest<unknown>,
   e: HttpEvent<unknown> | HttpErrorResponse,
-  confApi: ConfApiSvc
+  confApi: ApiConfSvc
 ): void => {
   if (!ApiShape.isHttpRes(e)) return;
   const res: HttpResT = e as HttpResT;
@@ -56,7 +56,7 @@ export const addConfApiMdw: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> => {
-  const confApi: ConfApiSvc = inject(ConfApiSvc);
+  const confApi: ApiConfSvc = inject(ApiConfSvc);
 
   return next(req).pipe(
     tap({

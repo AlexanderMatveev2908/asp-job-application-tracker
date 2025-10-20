@@ -27,6 +27,11 @@ import { ShapeCheck } from '@/core/lib/data_structure/shape_check';
 import { FormFieldBoxSm } from '@/common/components/forms/form_field_box_sm/form-field-box-sm';
 import { UseNavSvc } from '@/core/hooks/use_nav';
 import { NoticeSlice } from '@/features/notice/slice';
+import { AuthApiSvc } from '@/features/auth/api';
+import { ResApiT } from '@/core/store/api/etc/types';
+import { RegisterResT } from '@/features/auth/etc/types';
+import { from, switchMap, tap } from 'rxjs';
+import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
 
 @Component({
   selector: 'app-register',
@@ -43,11 +48,14 @@ import { NoticeSlice } from '@/features/notice/slice';
   templateUrl: './register.html',
   styleUrl: './register.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [ApiTrackerSvc],
 })
 export class Register extends UseSwapDir {
   // ? svc
+  private readonly authApi: AuthApiSvc = inject(AuthApiSvc);
   private readonly useNav: UseNavSvc = inject(UseNavSvc);
   private readonly noticeSlice: NoticeSlice = inject(NoticeSlice);
+  private readonly tracker: ApiTrackerSvc = inject(ApiTrackerSvc);
 
   // ? form related
   public readonly form: FormGroup = RegisterFormMng.form;
@@ -67,10 +75,10 @@ export class Register extends UseSwapDir {
     label: 'Submit',
     Svg: null,
   };
-  public readonly btnProps: BtnStatePropsT = {
+  public readonly btnProps: Signal<BtnStatePropsT> = computed(() => ({
     isDisabled: false,
-    isPending: false,
-  };
+    isPending: this.tracker.isPending(),
+  }));
 
   // ? helper dynamic app-field-txt props
   public readonly getCtrl: (name: string) => FormControl = (name: string) =>
@@ -80,23 +88,23 @@ export class Register extends UseSwapDir {
   private readonly focusOnSwap: EffectRef = effect(() => this.focusWhen('firstName', 'password'));
 
   public async onSubmit(): Promise<void> {
-    // Log.logTtl('form', this.form.value);
-
-    // this.noticeSlice.mailNotice = {
-    //   eventT: 'OK',
-    //   msg: 'to confirm your account',
-    //   status: 201,
-    // };
-    // await this.useNav.push('/notice');
     if (this.form.valid) {
-      Log.logTtl('form', this.form.value);
+      this.tracker
+        .main(
+          this.authApi.register(this.form.value).pipe(
+            tap((res: ResApiT<RegisterResT>) => {
+              Log.logTtl('tap', res);
 
-      this.noticeSlice.mailNotice = {
-        eventT: 'OK',
-        msg: 'to confirm your account',
-        status: 201,
-      };
-      await this.useNav.push('/notice');
+              this.noticeSlice.mailNotice = {
+                eventT: 'OK',
+                msg: 'to confirm your account',
+                status: 201,
+              };
+            }),
+            switchMap(() => from(this.useNav.push('/notice')))
+          )
+        )
+        .subscribe();
     } else
       ZodCheck.onSubmitFailedInSwap(this.form, (first: string) => {
         const target: Nullable<number> = LibEtc.idxIn(first, RegisterFormMng.fieldsBySwap);

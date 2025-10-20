@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { ArgsApi } from './etc/request/args_api';
+import { ApiArgs } from './etc/request/args';
 import { ObsResT, ResApiT } from './etc/types';
 import { Opt } from '@/common/types/etc';
 import { SideEffectsMng } from './etc/side_effects/3.final';
@@ -13,7 +13,7 @@ export class ApiSvc {
   private readonly eventsMng: SideEffectsMng = inject(SideEffectsMng);
 
   // ? 🚦 request handlers
-  public get<T>(args: ArgsApi): ObsResT<T> {
+  public get<T>(args: ApiArgs): ObsResT<T> {
     return this.eventsMng.mng(
       this.http.get<ResApiT<T>>(args.getUrl(), {
         params: args.getParamsOr(undefined) as Opt<HttpParams>,
@@ -22,28 +22,28 @@ export class ApiSvc {
     );
   }
 
-  public post<T>(args: ArgsApi): ObsResT<T> {
+  public post<T>(args: ApiArgs): ObsResT<T> {
     return this.eventsMng.mng(
       this.http.post<ResApiT<T>>(args.getUrl(), args.getBody(), args.httpOptions()).pipe(),
       args
     );
   }
 
-  public put<T>(args: ArgsApi): ObsResT<T> {
+  public put<T>(args: ApiArgs): ObsResT<T> {
     return this.eventsMng.mng(
       this.http.put<ResApiT<T>>(args.getUrl(), args.getBody(), args.httpOptions()),
       args
     );
   }
 
-  public patch<T>(args: ArgsApi): ObsResT<T> {
+  public patch<T>(args: ApiArgs): ObsResT<T> {
     return this.eventsMng.mng(
       this.http.patch<ResApiT<T>>(args.getUrl(), args.getBody(), args.httpOptions()),
       args
     );
   }
 
-  public delete<T>(args: ArgsApi): ObsResT<T> {
+  public delete<T>(args: ApiArgs): ObsResT<T> {
     return this.eventsMng.mng(
       this.http.delete<ResApiT<T>>(args.getUrl(), {
         params: args.getParamsOr(undefined) as Opt<HttpParams>,

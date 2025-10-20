@@ -8,7 +8,7 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { ConfApiSvc } from '../etc/request/conf_api';
+import { ApiConfSvc } from '../etc/request/conf';
 import { inject } from '@angular/core';
 import { ApiShape, HttpResT } from '@/core/store/api/etc/shape';
 import { ConfApiT } from '../etc/types';
@@ -38,7 +38,7 @@ export const logApiMdw: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> => {
-  const confApi: ConfApiSvc = inject(ConfApiSvc);
+  const confApi: ApiConfSvc = inject(ApiConfSvc);
   const confData: Observable<Nullable<ConfApiT>> = confApi.obs();
 
   return next(req).pipe(
