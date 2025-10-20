@@ -16,7 +16,7 @@ export class ApiSvc {
   public get<T>(args: ArgsApi): ObsResT<T> {
     return this.eventsMng.mng(
       this.http.get<ResApiT<T>>(args.getUrl(), {
-        params: args.getParams(undefined) as Opt<HttpParams>,
+        params: args.getParamsOr(undefined) as Opt<HttpParams>,
       }),
       args
     );
@@ -46,7 +46,7 @@ export class ApiSvc {
   public delete<T>(args: ArgsApi): ObsResT<T> {
     return this.eventsMng.mng(
       this.http.delete<ResApiT<T>>(args.getUrl(), {
-        params: args.getParams(undefined) as Opt<HttpParams>,
+        params: args.getParamsOr(undefined) as Opt<HttpParams>,
       }),
       args
     );

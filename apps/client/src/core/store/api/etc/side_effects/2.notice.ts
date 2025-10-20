@@ -1,7 +1,7 @@
 import { NoticeSlice } from '@/features/notice/slice';
 import { inject, Injectable } from '@angular/core';
 import { SideEffectsToastSvc } from './1.toast';
-import { ErrApiT, ObsOnOkT, ObsResT, OptErrApi, StatusT } from '../types';
+import { ErrApiT, ObsOnOkT, ObsResT, OptErrApiT, StatusT } from '../types';
 import { Nullable } from '@/common/types/etc';
 import { catchError, EMPTY, from, switchMap } from 'rxjs';
 import { UseNavSvc } from '@/core/hooks/use_nav';
@@ -13,14 +13,14 @@ export abstract class SideEffectsNoticeSvc extends SideEffectsToastSvc {
   private readonly useNav: UseNavSvc = inject(UseNavSvc);
 
   // ? helper
-  private readonly defOptErr: OptErrApi = {
+  private readonly defOptErr: OptErrApiT = {
     pushOnErr: false,
     pushOnStatus: [StatusT.FORBIDDEN, StatusT.TOO_MANY_REQUESTS, StatusT.INTERNAL_SERVER_ERROR],
   };
 
   // ? main
-  protected withNotice<T>(cb: ObsResT<T>, opt: Nullable<Partial<OptErrApi>>): ObsOnOkT<T> {
-    const options: Partial<OptErrApi> = opt ?? this.defOptErr;
+  protected withNotice<T>(cb: ObsResT<T>, opt: Nullable<Partial<OptErrApiT>>): ObsOnOkT<T> {
+    const options: Partial<OptErrApiT> = opt ?? this.defOptErr;
 
     return cb.pipe(
       catchError((err: ErrApiT<T>) => {

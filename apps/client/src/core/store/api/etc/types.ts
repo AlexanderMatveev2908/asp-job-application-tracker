@@ -33,7 +33,7 @@ export interface OptToastApiT {
   toastErr: boolean;
 }
 
-export interface OptErrApi {
+export interface OptErrApiT {
   pushOnErr: boolean;
   pushOnStatus: number[];
 }
