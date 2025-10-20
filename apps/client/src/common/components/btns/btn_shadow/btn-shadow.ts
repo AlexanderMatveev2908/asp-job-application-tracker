@@ -39,6 +39,7 @@ export class BtnShadow {
     input<Nullable<BtnListenersT>>(null);
   public readonly type: InputSignal<BtnT> = input<BtnT>('button');
   public readonly paddingProps: InputSignal<string> = input('10px 15px');
+  public readonly testId: InputSignal<Nullable<string>> = input<Nullable<string>>(null);
 
   // ? derived from eventT span props
   public readonly metaEvents: Signal<AppEventMetaT> = computed(() =>

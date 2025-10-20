@@ -88,7 +88,7 @@ jobs:
 
         # ? ~ 1 minute
       - name: 🛠️ build app
-        run: yarn build
+        run: yarn build:test
 
       - name: ⏳ start servers & wait
         run: |

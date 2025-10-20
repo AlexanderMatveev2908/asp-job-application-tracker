@@ -11,6 +11,7 @@
       (blur)="onBlur()?.(val())"
       (input)="onChange()?.(val())"
       [attr.data-field]="f().field"
+      [attr.data-test-id]="f().field"
       class="input__field txt__md"
       [style.--pad]="padding()"
       [type]="f().type"

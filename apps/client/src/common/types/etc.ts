@@ -10,6 +10,12 @@ export interface WithIdT {
   id: string;
 }
 
+// ? make components accepts always
+// ? a testId assigning it then based on needs
+export interface WithTestIdT {
+  testId: Nullable<string>;
+}
+
 export type RefDomT = Opt<ElementRef<HTMLElement>>;
 
 export type TpltRedT = TemplateRef<unknown>;

@@ -31,6 +31,7 @@
         isSideOpen() ? 'text-red-600 svg__3xl' : 'text-gray-300 hover:text-blue-600 svg__4xl'
       "
       (click)="toggleSide()"
+      [attr.data-testid]="'toggle_side_btn'"
     >
       @if (isSideOpen()) {
       <app-svg-fill-close />

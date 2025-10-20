@@ -3,5 +3,5 @@
   "compilerOptions": {
     "types": ["@playwright/test"]
   },
-  "include": ["tests/E2E/**/*.ts", "src/**/*.ts"]
+  "include": ["playwright.config.ts", "tests/E2E/**/*.ts", "src/**/*.ts"]
 }
