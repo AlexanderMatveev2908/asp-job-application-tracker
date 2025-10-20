@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { SideEffectsRoot } from './0.root';
-import { ConfApiT, ErrApiT, ObsResT, ResApiT } from '../types';
+import { ErrApiT, ObsResT, ResApiT } from '../types';
 import { Nullable } from '@/common/types/etc';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Log } from '@/core/lib/dev/log';
 import { tap } from 'rxjs';
 import { envVars } from '@/environments/environment';
+import { ConfApiT } from '../request/conf/etc/types';
 
 @Injectable()
 export abstract class SideEffectsLogSvc extends SideEffectsRoot {

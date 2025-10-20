@@ -7,12 +7,13 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { ConfApiT, HttpMethod } from '../etc/types';
+import { HttpMethod } from '../etc/types';
 import { inject } from '@angular/core';
-import { ApiConfSvc } from '../etc/request/conf';
+import { ApiConfSvc } from '../etc/request/conf/conf';
 import { ShapeCheck } from '@/core/lib/data_structure/shape_check';
 import { ApiShape, HttpResT } from '../etc/shape';
 import { Nullable } from '@/common/types/etc';
+import { ConfApiT } from '../etc/request/conf/etc/types';
 
 const getDataSent = (req: HttpRequest<unknown>): Nullable<Record<string, unknown>> => {
   let dataSent: Nullable<Record<string, unknown>>;

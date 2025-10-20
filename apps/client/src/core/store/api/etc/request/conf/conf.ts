@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ConfApiT } from '../types';
 import { Nullable } from '@/common/types/etc';
+import { ConfApiT } from './etc/types';
 
 @Injectable({
   providedIn: 'root',

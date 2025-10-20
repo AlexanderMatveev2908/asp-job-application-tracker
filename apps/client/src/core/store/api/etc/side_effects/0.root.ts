@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { ApiConfSvc } from '../request/conf';
+import { ApiConfSvc } from '../request/conf/conf';
 
 @Injectable()
 export abstract class SideEffectsRoot {

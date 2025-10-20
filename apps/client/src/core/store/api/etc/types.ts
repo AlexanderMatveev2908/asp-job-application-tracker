@@ -1,31 +1,13 @@
 /* eslint-disable no-magic-numbers */
-import { GenericObjT, Nullable } from '@/common/types/etc';
-import { HttpErrorResponse, HttpEvent } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-export interface ConfApiT {
-  url: Nullable<string>;
-  method: HttpMethod;
-  requestType: Nullable<string>;
-  responseType: Nullable<string>;
-  accessToken: Nullable<string>;
-  params: GenericObjT;
-  body: GenericObjT;
-  rateLimit: {
-    limit: Nullable<string>;
-    window: Nullable<string>;
-    remaining: Nullable<string>;
-    reset: Nullable<string>;
-  };
-}
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 export type ResApiT<T> = {
   msg?: string;
   status: number;
-} & T &
-  HttpEvent<unknown>;
+} & T;
 
 export type ObsResT<T> = Observable<ResApiT<T>>;
 export type ObsOnOkT<T> = Observable<ResApiT<T> | never>;
