@@ -15,10 +15,7 @@ export class RegisterFormMng extends ZodCheck {
     .extend(UserZod.mailSchema.shape)
     .extend(UserZod.pairPwdSchema.shape)
     .extend({
-      terms: z
-        .boolean()
-        .nullable()
-        .refine(Boolean, { message: 'Terms must be accepted', path: ['terms'] }),
+      terms: z.boolean().nullable().refine(Boolean, { message: 'Terms must be accepted' }),
     })
     .refine((data: PairPwdArgT) => UserZod.refinePairPwd(data), {
       message: 'Passwords do not match',

@@ -34,7 +34,6 @@ export class ZodCheck {
 
     for (const [keyCtrl, ctrl] of Object.entries(form.controls)) {
       const err: string | null = form.errors?.[keyCtrl];
-
       if (!ShapeCheck.isStr(err)) continue;
 
       if (!first) first = keyCtrl;

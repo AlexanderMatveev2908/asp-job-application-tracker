@@ -1,7 +1,11 @@
 <div class="root">
-  <div class="w-[50px] h-[50px] tb"></div>
+  <button (click)="onToggle()" type="button" #checkbox class="root_checkbox" [ngClass]="getTwd()">
+    <div class="checkbox__mark"></div>
+  </button>
 
   <span class="txt__lg">
     {{ f().label }}
   </span>
+
+  <app-form-field-err [ctrl]="ctrl()" />
 </div>
