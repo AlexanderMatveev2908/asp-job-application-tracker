@@ -5,6 +5,7 @@ import {
   ContentChild,
   effect,
   EffectRef,
+  HostListener,
   inject,
   input,
   InputSignal,
@@ -38,6 +39,13 @@ export class Popup {
   // ? personal props
   public readonly staticProps: InputSignal<PopupStaticPropsT> = input.required();
   public readonly isPop: InputSignal<Nullable<boolean>> = input.required();
+  public readonly allowClose: InputSignal<boolean> = input(true);
+
+  // ? close btn props
+  public readonly closeClick: () => void = () => {
+    if (!this.allowClose()) return;
+    this.staticProps().closePop();
+  };
 
   // ? black bg overlay props
   public blackBgProps: Signal<BlackBgPropsT> = computed(() => ({
@@ -67,4 +75,13 @@ export class Popup {
       else if (!isPop && isPop !== null) this.animationsPop.popOut(popDOM);
     });
   });
+
+  @HostListener('document:mousedown', ['$event'])
+  public onMouseDown(e: MouseEvent): void {
+    const popDOM: ElDomT = this.popup?.nativeElement;
+    const target: Nullable<HTMLElement> = e.target as Nullable<HTMLElement>;
+    if (!popDOM || !target) return;
+
+    if (!popDOM.contains(target) && this.allowClose()) this.staticProps().closePop();
+  }
 }

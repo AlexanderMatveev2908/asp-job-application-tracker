@@ -16,7 +16,7 @@ import { UseStorageSvc } from '@/core/hooks/use_storage';
 import { Prs } from '@/core/lib/data_structure/prs';
 import { WakeUpSlice } from '@/features/wake_up/slice';
 import { ErrApiT, ResApiT } from '@/core/store/api/etc/types';
-import { finalize, tap } from 'rxjs';
+import { finalize } from 'rxjs';
 import { Nullable } from '@/common/types/etc';
 
 @Component({
@@ -68,13 +68,10 @@ export class WakeUp implements AfterViewInit {
   ngAfterViewInit(): void {
     if (!this.pollIf()) return;
 
+    this.isPop.set(true);
+
     this.usePlatform
-      .whenStable<ResApiT<void>>(
-        this.wakeUpApi.poll().pipe(
-          tap(() => this.isPop.set(true)),
-          finalize(() => this.isPop.set(false))
-        )
-      )
+      .whenStable<ResApiT<void>>(this.wakeUpApi.poll().pipe(finalize(() => this.isPop.set(false))))
       .subscribe({
         next: (res: ResApiT<void>) => {
           this.toastSlice.ifNotPresent({

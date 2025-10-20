@@ -10,4 +10,5 @@ import { SvgFillClose } from '../../svgs/fill/close/close';
 })
 export class CloseBtn {
   public readonly closeClick: InputSignal<() => void> = input.required();
+  public readonly disabled: InputSignal<boolean> = input(false);
 }

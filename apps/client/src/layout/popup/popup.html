@@ -3,7 +3,7 @@
 <div class="root" [ngClass]="cssZ()" [style.pointer-events]="isPop() ? 'auto' : 'none'">
   <div #popup class="root__pop" [style.--clr]="eventMeta().css">
     <div class="pop__close_row">
-      <app-close-btn [closeClick]="staticProps().closePop" />
+      <app-close-btn [closeClick]="closeClick" [disabled]="!allowClose()" />
     </div>
 
     <div class="pop__content scroll__app">
