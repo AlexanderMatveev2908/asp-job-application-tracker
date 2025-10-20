@@ -2,6 +2,7 @@
 
 <div
   #side
+  [attr.data-testid]="'sidebar'"
   class="root z__sidebar"
   [ngClass]="isSideOpen() ? '-translate-x-full opacity-100' : 'translate-x-0 opacity-0'"
 >

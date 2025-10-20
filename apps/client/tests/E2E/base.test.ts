@@ -6,7 +6,7 @@ test('basic', async ({ browser }: { browser: Browser }) => {
 
   await lib.nav('/');
 
-  const btn: Locator = await lib.getById('script_btn');
+  const btn: Locator = await lib.byIdInPage('script_btn');
   await btn.click();
 
   await lib.isToastOk();

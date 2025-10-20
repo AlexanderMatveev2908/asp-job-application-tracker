@@ -2,10 +2,13 @@
 import { expect, Locator } from '@playwright/test';
 import { LibRootTests } from './0.root';
 import { Nullable } from '@/common/types/etc';
+import { Log } from '@/core/lib/dev/log';
+
+export type ToastExpT = 'ok' | 'err';
 
 export abstract class LibToastTests extends LibRootTests {
   private async getToast(): Promise<Locator> {
-    const toast: Locator = await this.getById('toast');
+    const toast: Locator = await this.byIdInPage('toast');
     return toast;
   }
 
@@ -44,5 +47,18 @@ export abstract class LibToastTests extends LibRootTests {
 
   public async isToastErr(): Promise<void> {
     await this.isOfType(false);
+  }
+
+  public async closeToastIfPresent(): Promise<void> {
+    try {
+      const toast: Locator = await this.page.getByTestId('toast');
+      const closeBtn: Locator = await toast.getByTestId('toast__close');
+
+      await expect(closeBtn).toBeInViewport({ timeout: 1000 });
+
+      await closeBtn.click();
+    } catch {
+      Log.log('ignore if missing');
+    }
   }
 }

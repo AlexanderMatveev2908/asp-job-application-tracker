@@ -12,21 +12,29 @@ export abstract class LibRootTests {
     this.page = page;
   }
 
+  public async timer(time: number = 1000): Promise<void> {
+    await this.page.waitForTimeout(time);
+  }
+
   public async nav(path: string): Promise<void> {
     await this.page.goto(path);
     await this.page.waitForTimeout(LibRootTests.TIMEOUT_PRE_INTERACTION);
   }
 
-  public async getById(id: string): Promise<Locator> {
-    const el: Locator = this.page.getByTestId(id);
+  public async byIdIn(locator: Locator | Page, id: string): Promise<Locator> {
+    const el: Locator = locator.getByTestId(id);
     await el.waitFor({ state: 'visible', timeout: LibRootTests.TIMEOUT_WAIT_FOR });
     await expect(el).toBeVisible();
 
     return el;
   }
 
+  public async byIdInPage(id: string): Promise<Locator> {
+    return this.byIdIn(this.page, id);
+  }
+
   public async clickById(id: string): Promise<void> {
-    const el: Locator = await this.getById(id);
+    const el: Locator = await this.byIdInPage(id);
     await el.click();
   }
 }

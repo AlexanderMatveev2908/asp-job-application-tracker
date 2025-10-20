@@ -1,3 +1,8 @@
-<button (click)="closeClick()()" [disabled]="disabled()" class="root svg__lg">
+<button
+  [attr.data-testid]="testId()"
+  (click)="closeClick()()"
+  [disabled]="disabled()"
+  class="root svg__lg"
+>
   <app-svg-fill-close />
 </button>
