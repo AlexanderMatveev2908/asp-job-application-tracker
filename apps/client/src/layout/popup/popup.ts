@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   ChangeDetectionStrategy,
   Component,
@@ -21,7 +20,7 @@ import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { AnimationsPopSvc } from './etc/animations';
 import { CloseBtn } from '@/common/components/btns/close_btn/close-btn';
-import { ElDomT, RefDomT } from '@/common/types/etc';
+import { ElDomT, RefDomT, TpltRedT } from '@/common/types/etc';
 import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
 
 @Component({
@@ -54,7 +53,7 @@ export class Popup {
 
   // ? children
   @ViewChild('popup') popup: RefDomT;
-  @ContentChild('popContent', { read: TemplateRef }) popContentTpl!: TemplateRef<any>;
+  @ContentChild('popContent', { read: TemplateRef }) popContentTpl!: TpltRedT;
 
   // ? listeners
   public animationsEff: EffectRef = effect(() => {

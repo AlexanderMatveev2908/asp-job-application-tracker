@@ -8,12 +8,11 @@ import {
   input,
   InputSignal,
   OnInit,
-  Type,
   ViewChild,
 } from '@angular/core';
 import { SvgFillBoxChecked } from '../../svgs/fill/box_checked/box-checked';
 import { NgClass } from '@angular/common';
-import { RefDomT } from '@/common/types/etc';
+import { RefDomT, SvgT } from '@/common/types/etc';
 import { FormControl } from '@angular/forms';
 import { FormFieldErr } from '../form_field_err/form-field-err';
 import { FormFieldBoxAnimations } from './etc/animations';
@@ -29,7 +28,7 @@ export class FormFieldBoxSm extends UseFieldRootDir implements OnInit, AfterView
   // ? personal props required
   public readonly ctrl: InputSignal<FormControl> = input.required();
   public readonly f: InputSignal<CheckFieldT> = input.required();
-  public readonly Svg: Type<unknown> = SvgFillBoxChecked;
+  public readonly Svg: SvgT = SvgFillBoxChecked;
 
   // ? children
   @ViewChild('checkbox') checkbox: RefDomT;

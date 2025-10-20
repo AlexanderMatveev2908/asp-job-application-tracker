@@ -14,7 +14,7 @@ import {
 import { SpanPropsT, SpanSizesPropsT } from '../../els/span/etc/types';
 import { Span } from '../../els/span/span';
 import { NgTemplateOutlet, NgClass } from '@angular/common';
-import { RefDomT } from '@/common/types/etc';
+import { RefDomT, TpltRedT } from '@/common/types/etc';
 import { UseMouseOutSvc } from '@/core/hooks/use_mouse_out';
 
 @Component({
@@ -41,7 +41,7 @@ export class DropAbs {
 
   // ? children & projected
   @ViewChild('drop') drop: RefDomT;
-  @ContentChild('dropContent', { read: TemplateRef }) dropContentRef!: TemplateRef<unknown>;
+  @ContentChild('dropContent', { read: TemplateRef }) dropContentRef!: TpltRedT;
 
   // ? listeners
   public onClick(): void {

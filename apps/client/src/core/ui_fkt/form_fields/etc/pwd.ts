@@ -1,12 +1,12 @@
 import { SvgFillLockClose } from '@/common/components/svgs/fill/lock_close/lock-close';
 import { SvgFillLockOpen } from '@/common/components/svgs/fill/lock_open/lock-open';
 import { TxtInputT, TxtSvgFieldT } from '@/common/types/forms';
-import { Type } from '@angular/core';
 import { FormFieldsUiFkt } from '..';
+import { SvgT } from '@/common/types/etc';
 
 export interface RecMetaPwdT {
   type: Extract<TxtInputT, 'password' | 'text'>;
-  Svg: Type<unknown>;
+  Svg: SvgT;
 }
 
 export class PwdUiFkt extends FormFieldsUiFkt {

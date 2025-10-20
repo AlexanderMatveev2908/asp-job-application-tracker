@@ -7,11 +7,10 @@ import {
   InputSignal,
   OnInit,
   Signal,
-  Type,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FormFieldErr } from '../form_field_err/form-field-err';
-import { OptCb } from '@/common/types/etc';
+import { OptCbT, SvgT } from '@/common/types/etc';
 import { NgComponentOutlet } from '@angular/common';
 import { UseFormFieldDir } from '@/core/directives/form_field/1.use_form_field';
 
@@ -31,12 +30,12 @@ export class FormFieldTxt extends UseFormFieldDir implements OnInit {
   public readonly onSvgClick: InputSignal<(() => void) | null> = input<(() => void) | null>(null);
   // ? additional listeners for custom needs beside normal ng flow
   // ? rarely used
-  public readonly onFocus: InputSignal<OptCb> = input<OptCb>(null);
-  public readonly onBlur: InputSignal<OptCb> = input<OptCb>(null);
-  public readonly onChange: InputSignal<OptCb> = input<OptCb>(null);
+  public readonly onFocus: InputSignal<OptCbT> = input<OptCbT>(null);
+  public readonly onBlur: InputSignal<OptCbT> = input<OptCbT>(null);
+  public readonly onChange: InputSignal<OptCbT> = input<OptCbT>(null);
 
   // ? derived
-  public readonly Svg: Signal<Type<unknown> | null> = computed(
+  public readonly Svg: Signal<SvgT | null> = computed(
     () => (this.f() as TxtSvgFieldT)?.Svg ?? null
   );
   public readonly padding: Signal<string> = computed(() =>

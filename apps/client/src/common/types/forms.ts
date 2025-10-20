@@ -1,5 +1,5 @@
-import { Type } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
+import { SvgT } from './etc';
 
 export type TxtInputT = 'text' | 'email' | 'password' | 'url';
 export type CheckInputT = 'radio' | 'checkbox';
@@ -28,7 +28,7 @@ export interface TxtFieldT extends BaseFieldT {
 }
 
 export interface TxtSvgFieldT extends TxtFieldT {
-  Svg: Type<unknown>;
+  Svg: SvgT;
 }
 
 export interface CheckFieldT extends BaseFieldT {

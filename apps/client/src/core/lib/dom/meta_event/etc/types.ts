@@ -1,9 +1,9 @@
-import { Type } from '@angular/core';
+import { SvgT } from '@/common/types/etc';
 
 export type AppEventT = 'OK' | 'NONE' | 'ERR' | 'WARN' | 'INFO';
 
 export interface AppEventMetaT {
-  Svg: Type<unknown>;
+  Svg: SvgT;
   css: string;
   txtTwd: string;
   bdTwd: string;

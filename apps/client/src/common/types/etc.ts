@@ -1,4 +1,4 @@
-import { ElementRef } from '@angular/core';
+import { ElementRef, TemplateRef, Type } from '@angular/core';
 
 export type GenericVoidT = void | Promise<void>;
 
@@ -11,6 +11,10 @@ export interface WithIdT {
 }
 
 export type RefDomT = ElementRef<HTMLElement> | undefined;
+
+export type TpltRedT = TemplateRef<unknown>;
+
+export type SvgT = Type<unknown>;
 
 export type ElDomT = HTMLElement | None;
 
@@ -27,4 +31,4 @@ export interface BtnListenersT {
 
 export type BtnT = 'button' | 'submit';
 
-export type OptCb = ((val: unknown) => void) | null;
+export type OptCbT = ((val: unknown) => void) | null;

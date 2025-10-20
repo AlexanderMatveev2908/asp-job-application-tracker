@@ -1,8 +1,8 @@
-import { Type } from '@angular/core';
+import { SvgT } from '@/common/types/etc';
 
 export interface LinkT {
   id: string;
   path: string;
   label: string;
-  Svg: Type<unknown>;
+  Svg: SvgT;
 }

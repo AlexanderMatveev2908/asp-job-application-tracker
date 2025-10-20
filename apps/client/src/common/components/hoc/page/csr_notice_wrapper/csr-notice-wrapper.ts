@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
-import { RefDomT } from '@/common/types/etc';
+import { RefDomT, TpltRedT } from '@/common/types/etc';
 import { AppEventMetaT, AppEventPayloadT } from '@/core/lib/dom/meta_event/etc/types';
 import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';
 import { NoticeAnimations } from './etc/animations';
@@ -42,8 +42,8 @@ export class CsrNoticeWrapper implements AfterViewInit {
   @ViewChild('content') content: RefDomT;
 
   // ? projected
-  @ContentChild('header', { read: TemplateRef }) headerTpl?: TemplateRef<unknown>;
-  @ContentChild('footer', { read: TemplateRef }) footerTpl?: TemplateRef<unknown>;
+  @ContentChild('header', { read: TemplateRef }) headerTpl?: TpltRedT;
+  @ContentChild('footer', { read: TemplateRef }) footerTpl?: TpltRedT;
 
   // ? animations
   ngAfterViewInit(): void {

@@ -15,7 +15,7 @@ import {
 } from '@angular/core';
 import { DomPortalOutlet, TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
-import { ElDomT } from '@/common/types/etc';
+import { ElDomT, TpltRedT } from '@/common/types/etc';
 import { v4 } from 'uuid';
 import { RecCoordsT } from '@/core/lib/dom/portal';
 
@@ -39,7 +39,7 @@ export class Portal implements AfterViewInit, OnDestroy {
 
   // ? projected template
   @ContentChild('tpl', { read: TemplateRef })
-  public tpl!: TemplateRef<unknown>;
+  public tpl!: TpltRedT;
 
   // ? local refs
   private outlet: DomPortalOutlet | null = null;
