@@ -17,7 +17,7 @@ test('ok', async ({ browser }: { browser: Browser }) => {
   const btnDrop: Locator = await lib.byCssIn(dropUser, 'root__btn');
   await btnDrop.click();
 
-  const registerLink: Locator = await lib.byIdIn(sidebar, 'register');
+  const registerLink: Locator = await lib.byIdIn(sidebar, 'sidebar__auth_register');
   await registerLink.click();
   await lib.waitPushTo('/auth/register');
 });
