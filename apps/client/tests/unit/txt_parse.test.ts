@@ -1,4 +1,4 @@
-import { Prs } from '@/core/lib/data_structure/formatters';
+import { Prs } from '@/core/lib/data_structure/prs';
 import { describe, expect, it } from 'vitest';
 
 describe('parse from camel case to simple txt', () => {
