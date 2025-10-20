@@ -1,15 +1,15 @@
 import { HttpParams } from '@angular/common/http';
-import { OptErrApi, OptToastApiT } from '../etc/types';
+import { OptErrApiT, OptToastApiT } from '../types';
 import { FormPrs } from '@/core/lib/data_structure/form_prs';
 import { ErrApp } from '@/core/lib/err';
-import { None } from '@/common/types/etc';
+import { None, Nullable, OrNone } from '@/common/types/etc';
 
-export class ArgsApi {
+export class ApiArgs {
   private readonly _url: string = '';
-  private _params: HttpParams | null = null;
-  private _optToast: Partial<OptToastApiT> | null = null;
-  private _optErr: Partial<OptErrApi> | null = null;
-  private _body: Record<string, unknown> | FormData | null = null;
+  private _params: Nullable<HttpParams> = null;
+  private _optToast: Nullable<Partial<OptToastApiT>> = null;
+  private _optErr: Nullable<Partial<OptErrApiT>> = null;
+  private _body: Nullable<Record<string, unknown> | FormData> = null;
 
   constructor(url: string) {
     this._url = url;
@@ -27,46 +27,46 @@ export class ArgsApi {
     if (!this._optErr) this._optErr = {};
   }
 
-  public static withURL(url: string): ArgsApi {
-    return new ArgsApi(url);
+  public static withURL(url: string): ApiArgs {
+    return new ApiArgs(url);
   }
 
-  public query(query: Record<string, unknown>): ArgsApi {
+  public query(query: Record<string, unknown>): ApiArgs {
     this._params = this.parseQuery(query);
     return this;
   }
 
-  public body(body: Record<string, unknown>): ArgsApi {
+  public body(body: Record<string, unknown>): ApiArgs {
     this._body = body;
     return this;
   }
 
-  public toastOnOk(): ArgsApi {
+  public toastOnOk(): ApiArgs {
     this.ifOptToastEmpty();
     this._optToast!.toastOk = true;
     return this;
   }
 
-  public toastOnErr(): ArgsApi {
+  public toastOnErr(): ApiArgs {
     this.ifOptToastEmpty();
     this._optToast!.toastErr = true;
     return this;
   }
 
-  public toastOnFulfilled(): ArgsApi {
+  public toastOnFulfilled(): ApiArgs {
     this.ifOptToastEmpty();
     this._optToast!.toastOk = true;
     this._optToast!.toastErr = true;
     return this;
   }
 
-  public pushOnErr(): ArgsApi {
+  public pushOnErr(): ApiArgs {
     this.ifOptErrEmpty();
     this._optErr!.pushOnErr = true;
     return this;
   }
 
-  public pushOnStatus(codes: number[]): ArgsApi {
+  public pushOnStatus(codes: number[]): ApiArgs {
     this.ifOptErrEmpty();
     this._optErr!.pushOnStatus = codes;
     return this;
@@ -80,19 +80,19 @@ export class ArgsApi {
     return this._url;
   }
 
-  public getParams(isEmpty: None = null): HttpParams | None {
-    return !this._params ? isEmpty : this._params;
+  public getParamsOr(ifEmpty: None = null): OrNone<HttpParams> {
+    return !this._params ? ifEmpty : this._params;
   }
 
-  public getBody(): Record<string, unknown> | FormData | null {
+  public getBody(): Nullable<Record<string, unknown> | FormData> {
     return this._body;
   }
 
-  public getOptToast(): Partial<OptToastApiT> | null {
+  public getOptToast(): Nullable<Partial<OptToastApiT>> {
     return this._optToast;
   }
 
-  public getOptErr(): Partial<OptErrApi> | null {
+  public getOptErr(): Nullable<Partial<OptErrApiT>> {
     return this._optErr;
   }
 

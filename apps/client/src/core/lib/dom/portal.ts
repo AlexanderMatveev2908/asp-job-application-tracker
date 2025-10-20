@@ -1,13 +1,13 @@
-import { ElDomT, None, RefDomT } from '@/common/types/etc';
+import { ElDomT, None, Nullable, RefDomT } from '@/common/types/etc';
 import { ErrApp } from '../err';
 
 export interface RecCoordsT {
-  top: string | null;
-  left: string | null;
-  right: string | null;
-  bottom: string | null;
-  with: string | null;
-  height: string | null;
+  top: Nullable<string>;
+  left: Nullable<string>;
+  right: Nullable<string>;
+  bottom: Nullable<string>;
+  with: Nullable<string>;
+  height: Nullable<string>;
 }
 
 export class PortalDOM {
@@ -15,7 +15,7 @@ export class PortalDOM {
   // | so is faster to receive them as css property
   // | just in rare cases i will need to adjust size using integer values
 
-  private static coordsOfNative(elDOM: ElDomT): RecCoordsT | null {
+  private static coordsOfNative(elDOM: ElDomT): Nullable<RecCoordsT> {
     if (!elDOM) return null;
     const coordsDOM: DOMRect = elDOM.getBoundingClientRect();
 
@@ -29,7 +29,7 @@ export class PortalDOM {
     };
   }
 
-  public static coordsOfRef(refDom: RefDomT): RecCoordsT | null {
+  public static coordsOfRef(refDom: RefDomT): Nullable<RecCoordsT> {
     const elDOM: ElDomT = refDom?.nativeElement;
 
     return this.coordsOfNative(elDOM);

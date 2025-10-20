@@ -7,6 +7,7 @@ import { SvgStrokeRegister } from '@/common/components/svgs/stroke/register/regi
 import { SvgStrokePassword } from '@/common/components/svgs/stroke/password/password';
 import { SvgFillLogin } from '@/common/components/svgs/fill/login/login';
 import { SvgFillVerify } from '@/common/components/svgs/fill/verify/verify';
+import { Nullable } from '@/common/types/etc';
 
 export class LinksUiFkt extends RootUiFkt {
   private static readonly _allUsers: Partial<LinkT>[] = [
@@ -56,7 +57,7 @@ export class LinksUiFkt extends RootUiFkt {
     return arg.split('?')[0].replace(/\/+$/, '');
   }
 
-  public static isCurrPath(currPath: string | null, lkPath: string): boolean {
+  public static isCurrPath(currPath: Nullable<string>, lkPath: string): boolean {
     if (!ShapeCheck.isStr(currPath)) return false;
 
     const currCut = LinksUiFkt.cutPath(currPath!);

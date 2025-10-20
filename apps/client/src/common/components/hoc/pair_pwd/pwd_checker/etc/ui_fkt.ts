@@ -1,16 +1,16 @@
 import { RootUiFkt } from '@/core/ui_fkt/root_ui';
-import { Type } from '@angular/core';
 import { PwdCheckerReg } from './reg';
 import { SvgFillUppercase } from '@/common/components/svgs/fill/uppercase/uppercase';
 import { SvgFillLowercase } from '@/common/components/svgs/fill/lowercase/lowercase';
 import { SvgFillInteger } from '@/common/components/svgs/fill/integer/integer';
 import { SvgFillSymbols } from '@/common/components/svgs/fill/symbols/symbols';
 import { SvgFillRuler } from '@/common/components/svgs/fill/ruler/ruler';
+import { SvgT } from '@/common/types/etc';
 
 export interface FieldPwdCheckerT {
   id: string;
   reg: RegExp;
-  Svg: Type<unknown>;
+  Svg: SvgT;
 }
 
 export class PwdCheckerUiFkt extends PwdCheckerReg {

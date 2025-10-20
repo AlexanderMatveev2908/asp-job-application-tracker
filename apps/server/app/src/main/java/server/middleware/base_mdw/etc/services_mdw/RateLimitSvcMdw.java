@@ -14,7 +14,8 @@ import server.conf.env_conf.EnvKeeper;
 import server.decorators.flow.ErrAPI;
 import server.decorators.flow.api.Api;
 
-@Component @SuppressFBWarnings({ "EI2" })
+@Component
+@SuppressFBWarnings({ "EI2" })
 public class RateLimitSvcMdw {
     private final RedisReactiveCommands<String, String> cmd;
     private final EnvKeeper envKeeper;

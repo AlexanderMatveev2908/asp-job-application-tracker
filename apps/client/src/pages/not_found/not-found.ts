@@ -3,7 +3,8 @@ import { LinkShadow } from '@/common/components/links/link_shadow/link-shadow';
 import { SvgStrokeHome } from '@/common/components/svgs/stroke/home/home';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CsrNoticeWrapper } from '@/common/components/hoc/page/csr_notice_wrapper/csr-notice-wrapper';
-import { AppEventPayloadT, AppEventT } from '@/core/lib/dom/meta_event/etc/types';
+import { AppEventT } from '@/core/lib/dom/meta_event/etc/types';
+import { NoticeWrapperPropsT } from '@/common/components/hoc/page/csr_notice_wrapper/etc/types';
 
 @Component({
   selector: 'app-not-found',
@@ -16,7 +17,8 @@ export class NotFound {
   private readonly eventT: AppEventT = 'INFO';
 
   // ? notice props
-  public readonly wrapEventsProps: AppEventPayloadT = {
+  public readonly wrapEventsProps: NoticeWrapperPropsT = {
+    tmpt: null,
     eventT: this.eventT,
     msg: 'The treasure chest is empty. Someone got here before you... 💰',
     status: 404,

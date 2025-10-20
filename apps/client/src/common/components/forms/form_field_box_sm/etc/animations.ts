@@ -1,4 +1,4 @@
-import { ElDomT, RefDomT } from '@/common/types/etc';
+import { ElDomT, Nullable, RefDomT } from '@/common/types/etc';
 import { animate } from '@motionone/dom';
 
 export class FormFieldBoxAnimations {
@@ -9,7 +9,7 @@ export class FormFieldBoxAnimations {
   }: {
     checkbox: RefDomT;
     mark: RefDomT;
-    val: boolean | null;
+    val: Nullable<boolean>;
   }): void {
     const markDOM: ElDomT = mark?.nativeElement;
     const boxDOM: ElDomT = checkbox?.nativeElement;

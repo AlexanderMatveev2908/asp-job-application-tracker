@@ -19,7 +19,7 @@ import { SpanPropsT, SpanSizesPropsT } from '../../els/span/etc/types';
 import { Span } from '../../els/span/span';
 import { SvgFillUp } from '../../svgs/fill/up/up';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
-import { ElDomT, RefDomT } from '@/common/types/etc';
+import { ElDomT, RefDomT, TpltRedT } from '@/common/types/etc';
 import { UseMouseOutSvc } from '@/core/hooks/use_mouse_out';
 import { DropStaticTwdCss, RecTwdClsDropT } from './etc';
 
@@ -48,7 +48,7 @@ export class DropStatic implements AfterViewInit, AfterContentChecked {
   // ? children & projected
   @ViewChild('wrapContent') wrapContent: RefDomT;
   @ViewChild('drop') drop: RefDomT;
-  @ContentChild('dropContent', { read: TemplateRef }) dropContentRef!: TemplateRef<unknown>;
+  @ContentChild('dropContent', { read: TemplateRef }) dropContentRef!: TpltRedT;
 
   // ? style
   public readonly twd: Signal<RecTwdClsDropT> = computed(() => {

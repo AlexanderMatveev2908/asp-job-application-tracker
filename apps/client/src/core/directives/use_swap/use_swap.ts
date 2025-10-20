@@ -2,6 +2,7 @@ import { computed, Directive, Signal, signal, WritableSignal } from '@angular/co
 import { ConfSwapT, SwapModeT, SwapStateT } from './etc/types';
 import { LibEtc } from '@/core/lib/etc';
 import { FocusDOM } from '@/core/lib/dom/focus';
+import { TimerIdT } from '@/common/types/etc';
 
 @Directive()
 export abstract class UseSwapDir {
@@ -16,7 +17,7 @@ export abstract class UseSwapDir {
     swap: 0,
   });
 
-  protected timerID: NodeJS.Timeout | null = null;
+  protected timerID: TimerIdT = null;
 
   // ? private helpers
   protected clearTmr(): void {

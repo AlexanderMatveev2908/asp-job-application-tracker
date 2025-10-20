@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { EMPTY, filter, Observable, take, switchMap } from 'rxjs';
 import { ResApiT } from '../store/api/etc/types';
+import { Nullable } from '@/common/types/etc';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +24,7 @@ export class UsePlatformSvc {
   public readonly isClient: boolean = isPlatformBrowser(this.platformID);
   public readonly isServer: boolean = isPlatformServer(this.platformID);
 
-  public onClient<T>(arg: () => T): T | null {
+  public onClient<T>(arg: () => T): Nullable<T> {
     return this.isServer ? null : arg();
   }
 

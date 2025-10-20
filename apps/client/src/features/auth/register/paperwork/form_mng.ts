@@ -24,12 +24,12 @@ export class RegisterFormMng extends ZodCheck {
 
   public static readonly form: FormGroup = new FormGroup(
     {
-      firstName: new FormControl(''),
-      lastName: new FormControl(''),
-      email: new FormControl(''),
-      password: new FormControl(''),
-      confirmPassword: new FormControl(''),
-      terms: new FormControl(null),
+      firstName: new FormControl('john'),
+      lastName: new FormControl('doe'),
+      email: new FormControl('matveevalexander470@gmail.com'),
+      password: new FormControl('8cLS4XY!{2Wdvl4*l^4'),
+      confirmPassword: new FormControl('8cLS4XY!{2Wdvl4*l^4'),
+      terms: new FormControl(true),
     },
     {
       validators: this.checkZ(this.schema),
@@ -41,3 +41,5 @@ export class RegisterFormMng extends ZodCheck {
     ['password', 'confirmPassword', 'terms'],
   ];
 }
+
+export type RegisterFormT = z.infer<typeof RegisterFormMng.schema>;

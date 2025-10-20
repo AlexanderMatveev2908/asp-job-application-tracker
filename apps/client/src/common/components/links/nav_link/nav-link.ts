@@ -12,6 +12,7 @@ import { LinksUiFkt } from '@/core/ui_fkt/links';
 import { RouterLink } from '@angular/router';
 import { Span } from '../../els/span/span';
 import { NgClass } from '@angular/common';
+import { Nullable } from '@/common/types/etc';
 
 @Component({
   selector: 'app-nav-link',
@@ -29,7 +30,7 @@ export class NavLink {
   };
 
   // ? personal props
-  public readonly currPath: InputSignal<string | null> = input.required();
+  public readonly currPath: InputSignal<Nullable<string>> = input.required();
   public readonly setIsDropOpen: InputSignal<(val: boolean) => void> = input.required();
 
   // ? derived

@@ -1,12 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
 import { ToastActT } from './actions';
 import { v4 } from 'uuid';
-import { WithIdT } from '@/common/types/etc';
+import { Nullable, WithIdT } from '@/common/types/etc';
 import { AppEventPayloadT } from '@/core/lib/dom/meta_event/etc/types';
 
 export interface ToastStateT extends AppEventPayloadT {
-  currID: string | null;
-  prevID: string | null;
+  currID: Nullable<string>;
+  prevID: Nullable<string>;
   isToast: boolean;
 }
 

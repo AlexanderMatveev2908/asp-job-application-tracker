@@ -1,25 +1,13 @@
 /* eslint-disable no-magic-numbers */
-import { GenericObjT } from '@/common/types/etc';
-import { HttpErrorResponse, HttpEvent } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-export interface ConfApiT {
-  url: string | null;
-  method: HttpMethod;
-  requestType: string | null;
-  responseType: string | null;
-  accessToken: string | null;
-  params: GenericObjT;
-  body: GenericObjT;
-}
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 export type ResApiT<T> = {
   msg?: string;
   status: number;
-} & T &
-  HttpEvent<unknown>;
+} & T;
 
 export type ObsResT<T> = Observable<ResApiT<T>>;
 export type ObsOnOkT<T> = Observable<ResApiT<T> | never>;
@@ -33,7 +21,7 @@ export interface OptToastApiT {
   toastErr: boolean;
 }
 
-export interface OptErrApi {
+export interface OptErrApiT {
   pushOnErr: boolean;
   pushOnStatus: number[];
 }

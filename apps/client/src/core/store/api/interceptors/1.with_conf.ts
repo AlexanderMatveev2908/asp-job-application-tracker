@@ -7,21 +7,23 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { ConfApiT, HttpMethod } from '../etc/types';
+import { HttpMethod } from '../etc/types';
 import { inject } from '@angular/core';
-import { ConfApiSvc } from '../etc/conf_api';
+import { ApiConfSvc } from '../etc/request/conf/conf';
 import { ShapeCheck } from '@/core/lib/data_structure/shape_check';
-import { ApiShape, HttpResT } from '../etc/api_shape';
+import { ApiShape, HttpResT } from '../etc/shape';
+import { Nullable } from '@/common/types/etc';
+import { ConfApiT } from '../etc/request/conf/etc/types';
 
-const getDataSent = (req: HttpRequest<unknown>): Record<string, unknown> | null => {
-  let dataSent: Record<string, unknown> | null;
+const getDataSent = (req: HttpRequest<unknown>): Nullable<Record<string, unknown>> => {
+  let dataSent: Nullable<Record<string, unknown>>;
   if (['GET', 'DELETE'].some((str: string) => str === req.method)) dataSent = null;
-  else dataSent = req.body as Record<string, unknown> | null;
+  else dataSent = (req.body || null) as Nullable<Record<string, unknown>>;
 
   return dataSent;
 };
 
-const getParams = (req: HttpRequest<unknown>): Record<string, unknown> | null => {
+const getParams = (req: HttpRequest<unknown>): Nullable<Record<string, unknown>> => {
   const reqParams: HttpParams = req.params;
   const params: Record<string, unknown> = {};
   for (const k of reqParams.keys()) params[k] = reqParams.get(k);
@@ -32,7 +34,7 @@ const getParams = (req: HttpRequest<unknown>): Record<string, unknown> | null =>
 const mng = (
   req: HttpRequest<unknown>,
   e: HttpEvent<unknown> | HttpErrorResponse,
-  confApi: ConfApiSvc
+  confApi: ApiConfSvc
 ): void => {
   if (!ApiShape.isHttpRes(e)) return;
   const res: HttpResT = e as HttpResT;
@@ -41,11 +43,17 @@ const mng = (
   const conf: ConfApiT = {
     url: urlReq,
     method: req.method as HttpMethod,
-    responseType: res.headers.get('Content-Type'),
-    requestType: req.headers.get('Content-Type'),
-    accessToken: req.headers.get('Authorization'),
+    responseType: res.headers.get('Content-Type') || null,
+    requestType: req.headers.get('Content-Type') || null,
+    accessToken: req.headers.get('Authorization') || null,
     params: getParams(req),
     body: getDataSent(req),
+    rateLimit: {
+      window: res.headers.get('RateLimit-Window'),
+      limit: res.headers.get('RateLimit-Limit'),
+      remaining: res.headers.get('RateLimit-Remaining'),
+      reset: res.headers.get('RateLimit-Reset'),
+    },
   };
 
   confApi.set(conf);
@@ -55,7 +63,7 @@ export const addConfApiMdw: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> => {
-  const confApi: ConfApiSvc = inject(ConfApiSvc);
+  const confApi: ApiConfSvc = inject(ApiConfSvc);
 
   return next(req).pipe(
     tap({

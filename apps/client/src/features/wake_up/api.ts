@@ -1,6 +1,6 @@
 import { ApiSvc } from '@/core/store/api/api';
 import { ResApiT } from '@/core/store/api/etc/types';
-import { ArgsApi } from '@/core/store/api/requests/args_api';
+import { ApiArgs } from '@/core/store/api/etc/request/args';
 import { inject, Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
 import { WakeUpSlice } from './slice';
@@ -13,7 +13,7 @@ export class WakeUpApiSvc {
   private readonly wakeUpSlice: WakeUpSlice = inject(WakeUpSlice);
 
   private wakeUp(): Observable<ResApiT<void>> {
-    return this.api.get(ArgsApi.withURL('/wake-up').toastOnOk());
+    return this.api.get(ApiArgs.withURL('/wake-up').toastOnOk());
   }
 
   // eslint-disable-next-line no-magic-numbers

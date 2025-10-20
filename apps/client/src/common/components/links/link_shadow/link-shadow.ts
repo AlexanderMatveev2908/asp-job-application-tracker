@@ -12,6 +12,7 @@ import { LinkShadowPropsT } from './etc/types';
 import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
 import { Span } from '../../els/span/span';
 import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
+import { Nullable } from '@/common/types/etc';
 
 @Component({
   selector: 'app-link-shadow',
@@ -22,6 +23,7 @@ import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
 })
 export class LinkShadow {
   public readonly props: InputSignal<LinkShadowPropsT> = input.required();
+  public readonly padding: InputSignal<Nullable<string>> = input<Nullable<string>>('10px 15px');
 
   // ? derived
   public readonly metaEvent: Signal<AppEventMetaT> = computed(() =>

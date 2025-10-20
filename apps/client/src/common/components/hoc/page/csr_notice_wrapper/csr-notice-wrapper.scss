@@ -26,6 +26,14 @@
       .body__header {
         @apply w-full flex justify-center;
       }
+
+      .body__mail {
+        @apply mt-[50px] w-full flex justify-center;
+
+        .mail__link {
+          @apply w-[250px] sm:w-[275px];
+        }
+      }
     }
   }
 }

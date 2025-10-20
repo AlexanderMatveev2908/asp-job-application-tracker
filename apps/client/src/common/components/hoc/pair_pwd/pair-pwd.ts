@@ -16,6 +16,7 @@ import { PwdGenerator } from './pwd_generator/pwd-generator';
 import { ConfSwapT } from '@/core/directives/use_swap/etc/types';
 import { PwdChecker } from './pwd_checker/pwd-checker';
 import { UseFocusDir } from '@/core/directives/use_focus';
+import { Nullable } from '@/common/types/etc';
 
 @Component({
   selector: 'app-pair-pwd',
@@ -29,7 +30,7 @@ export class PairPwd extends UseFocusDir {
   public readonly getCtrl: InputSignal<(key: string) => FormControl<unknown>> = input.required();
   // ? component may be inside a swapper
   // ? but not necessarily so by default is always 0
-  public readonly confSwap: InputSignal<ConfSwapT | null> = input<ConfSwapT | null>(null);
+  public readonly confSwap: InputSignal<Nullable<ConfSwapT>> = input<Nullable<ConfSwapT>>(null);
 
   // ? local state
   public readonly pairPwdState: WritableSignal<PairPwdStateT> = signal({
