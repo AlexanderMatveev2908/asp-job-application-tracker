@@ -3,7 +3,7 @@ import { SvgFillBash } from '@/common/components/svgs/fill/bash/bash';
 import { ApiSvc } from '@/core/store/api/api';
 import { TrackerSvc } from '@/core/store/api/etc/tracker';
 import { ResApiT } from '@/core/store/api/etc/types';
-import { ArgsApi } from '@/core/store/api/requests/args_api';
+import { ArgsApi } from '@/core/store/api/etc/request/args_api';
 import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';
 import { BtnListenersT, BtnStatePropsT } from '@/common/types/etc';
@@ -15,6 +15,7 @@ import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
   templateUrl: './home.html',
   styleUrl: './home.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [TrackerSvc],
 })
 export class Home {
   // ? svc

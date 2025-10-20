@@ -2,9 +2,7 @@ import { Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { ObsOnOkT } from './types';
 import { finalize } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class TrackerSvc {
   private readonly _isPending: WritableSignal<boolean> = signal(false);
   public readonly isPending: Signal<boolean> = this._isPending.asReadonly();

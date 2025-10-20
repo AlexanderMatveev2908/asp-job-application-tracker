@@ -11,9 +11,9 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { provideStore } from '@ngrx/store';
 import { rootReducer } from '../core/store';
-import { baseApiMdw } from '@/core/store/api/interceptors/base';
-import { logApiMdw } from '@/core/store/api/interceptors/log';
-import { addConfApiMdw } from '@/core/store/api/interceptors/with_conf';
+import { baseApiMdw } from '@/core/store/api/interceptors/0.base';
+import { logApiMdw } from '@/core/store/api/interceptors/1.log';
+import { addConfApiMdw } from '@/core/store/api/interceptors/2.with_conf';
 
 export const appConfig: ApplicationConfig = {
   providers: [

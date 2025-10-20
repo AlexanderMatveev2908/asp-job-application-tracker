@@ -41,3 +41,5 @@ export class RegisterFormMng extends ZodCheck {
     ['password', 'confirmPassword', 'terms'],
   ];
 }
+
+export type RegisterFormT = z.infer<typeof RegisterFormMng.schema>;

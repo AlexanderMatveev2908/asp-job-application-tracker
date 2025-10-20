@@ -1,21 +1,22 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { ArgsApi } from './requests/args_api';
-import { EventsMngSvc } from './etc/events_mng';
+import { ArgsApi } from './etc/request/args_api';
 import { ObsResT, ResApiT } from './etc/types';
+import { Opt } from '@/common/types/etc';
+import { SideEffectsMng } from './etc/side_effects/3.final';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiSvc {
   private readonly http: HttpClient = inject(HttpClient);
-  private readonly eventsMng: EventsMngSvc = inject(EventsMngSvc);
+  private readonly eventsMng: SideEffectsMng = inject(SideEffectsMng);
 
   // ? 🚦 request handlers
   public get<T>(args: ArgsApi): ObsResT<T> {
     return this.eventsMng.mng(
       this.http.get<ResApiT<T>>(args.getUrl(), {
-        params: args.getParams(undefined)!,
+        params: args.getParams(undefined) as Opt<HttpParams>,
       }),
       args
     );
@@ -45,7 +46,7 @@ export class ApiSvc {
   public delete<T>(args: ArgsApi): ObsResT<T> {
     return this.eventsMng.mng(
       this.http.delete<ResApiT<T>>(args.getUrl(), {
-        params: args.getParams(undefined)!,
+        params: args.getParams(undefined) as Opt<HttpParams>,
       }),
       args
     );

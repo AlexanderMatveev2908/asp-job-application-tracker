@@ -1,0 +1,48 @@
+import { ToastSlice } from '@/features/toast/slice';
+import { inject, Injectable } from '@angular/core';
+import { ErrApiT, ObsResT, OptToastApiT, ResApiT } from '../types';
+import { Nullable } from '@/common/types/etc';
+import { tap } from 'rxjs';
+import { SideEffectsRoot } from './0.root';
+
+@Injectable()
+export abstract class SideEffectsToastSvc extends SideEffectsRoot {
+  // ? svc
+  private readonly toastSlice: ToastSlice = inject(ToastSlice);
+
+  // ? helper
+  private defOptToast(): OptToastApiT {
+    return {
+      toastErr: true,
+      toastOk: this.confApi.get()?.method !== 'GET',
+    };
+  }
+
+  // ? main
+  protected withToast<T>(cb: ObsResT<T>, opt: Nullable<Partial<OptToastApiT>>): ObsResT<T> {
+    const options: Partial<OptToastApiT> = opt ?? this.defOptToast();
+
+    return cb.pipe(
+      tap({
+        next: (res: ResApiT<T>) => {
+          if (!options.toastOk) return;
+
+          this.toastSlice.openToast({
+            eventT: 'OK',
+            msg: res.msg ?? '✅ operation successful',
+            status: res.status,
+          });
+        },
+        error: (res: ErrApiT<T>) => {
+          if (!options.toastErr) return;
+
+          this.toastSlice.openToast({
+            eventT: 'ERR',
+            msg: res.error.msg ?? this.DEF_CLIENT_ERR_MSG,
+            status: res.status,
+          });
+        },
+      })
+    );
+  }
+}

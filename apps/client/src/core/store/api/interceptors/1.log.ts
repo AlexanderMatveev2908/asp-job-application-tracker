@@ -8,9 +8,9 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { ConfApiSvc } from '../etc/conf_api';
+import { ConfApiSvc } from '../etc/request/conf_api';
 import { inject } from '@angular/core';
-import { ApiShape, HttpResT } from '@/core/store/api/etc/api_shape';
+import { ApiShape, HttpResT } from '@/core/store/api/etc/shape';
 import { ConfApiT } from '../etc/types';
 import { Nullable } from '@/common/types/etc';
 

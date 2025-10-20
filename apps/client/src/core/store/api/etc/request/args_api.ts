@@ -1,5 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { OptErrApi, OptToastApiT } from '../etc/types';
+import { OptErrApi, OptToastApiT } from '../types';
 import { FormPrs } from '@/core/lib/data_structure/form_prs';
 import { ErrApp } from '@/core/lib/err';
 import { None, Nullable } from '@/common/types/etc';

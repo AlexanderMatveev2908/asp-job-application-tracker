@@ -1,6 +1,6 @@
 import { ApiSvc } from '@/core/store/api/api';
 import { ResApiT } from '@/core/store/api/etc/types';
-import { ArgsApi } from '@/core/store/api/requests/args_api';
+import { ArgsApi } from '@/core/store/api/etc/request/args_api';
 import { inject, Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
 import { WakeUpSlice } from './slice';
