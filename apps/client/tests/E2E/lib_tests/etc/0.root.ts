@@ -3,13 +3,19 @@ import { envVars } from '@/environments/environment._test';
 import { expect, Locator, Page } from '@playwright/test';
 
 export abstract class LibRootTests {
-  protected static readonly URL: string = envVars.frontURL;
-  protected static readonly TIMEOUT_WAIT_FOR: number = 30 * 1000;
-  protected static readonly TIMEOUT_PRE_INTERACTION: number = 1000;
+  protected readonly URL: string = envVars.frontURL;
+  protected readonly TIMEOUT_WAIT_FOR: number = 30 * 1000;
+  protected readonly TIMEOUT_PUSH_URL: number = 30 * 1000;
+  protected readonly TIMEOUT_PRE_INTERACTION: number = 1000;
 
   protected readonly page!: Page;
   constructor(page: Page) {
     this.page = page;
+  }
+
+  protected async exists(el: Locator): Promise<void> {
+    await el.waitFor({ state: 'visible', timeout: this.TIMEOUT_WAIT_FOR });
+    await expect(el).toBeVisible();
   }
 
   public async timer(time: number = 1000): Promise<void> {
@@ -18,13 +24,19 @@ export abstract class LibRootTests {
 
   public async nav(path: string): Promise<void> {
     await this.page.goto(path);
-    await this.page.waitForTimeout(LibRootTests.TIMEOUT_PRE_INTERACTION);
+    await this.page.waitForTimeout(this.TIMEOUT_PRE_INTERACTION);
+  }
+
+  public async byCssIn(locator: Locator, cssCls: string): Promise<Locator> {
+    const el: Locator = await locator.locator(`.${cssCls}`);
+    await this.exists(el);
+
+    return el;
   }
 
   public async byIdIn(locator: Locator | Page, id: string): Promise<Locator> {
     const el: Locator = locator.getByTestId(id);
-    await el.waitFor({ state: 'visible', timeout: LibRootTests.TIMEOUT_WAIT_FOR });
-    await expect(el).toBeVisible();
+    await this.exists(el);
 
     return el;
   }
@@ -36,5 +48,9 @@ export abstract class LibRootTests {
   public async clickById(id: string): Promise<void> {
     const el: Locator = await this.byIdInPage(id);
     await el.click();
+  }
+
+  public async waitPushTo(path: string): Promise<void> {
+    await this.page.waitForURL(path, { timeout: this.TIMEOUT_PUSH_URL });
   }
 }

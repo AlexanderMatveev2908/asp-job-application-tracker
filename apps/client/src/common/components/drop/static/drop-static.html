@@ -1,4 +1,4 @@
-<div #drop class="root">
+<div [attr.data-testid]="testId()" #drop class="root">
   <button class="root__btn" (click)="onClick()" [ngClass]="twd().root">
     <app-span [spanProps]="spanProps()" [sizesProps]="spanSizesProps" />
 

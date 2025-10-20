@@ -18,13 +18,19 @@
 
       <app-drop-static
         [spanProps]="spanUserProps()"
+        [testId]="'sidebar__drop_user'"
         [isOpen]="isDropOpen()"
         [setIsOpen]="setIsDropOpen"
       >
         <ng-template #dropContent>
           <div class="body__wrap_links">
             @for(lk of notLoggedLinks; track lk.id){
-            <app-nav-link [spanProps]="lk" [currPath]="currPath()" [setIsDropOpen]="onSideClick" />
+            <app-nav-link
+              [testId]="lk.label"
+              [spanProps]="lk"
+              [currPath]="currPath()"
+              [setIsDropOpen]="onSideClick"
+            />
             }
           </div>
         </ng-template>

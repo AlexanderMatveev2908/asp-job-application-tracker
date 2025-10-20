@@ -38,4 +38,9 @@ export class Prs {
 
     return formatted.join(' ');
   }
+
+  public static toSnake(arg: string): string {
+    const replaced: string = arg.replace(/(?<!^)([A-Z])/g, '_$1').replace(/\s+/g, '');
+    return replaced.toLowerCase();
+  }
 }
