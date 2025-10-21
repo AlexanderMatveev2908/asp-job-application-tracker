@@ -3,7 +3,8 @@ import { expect, Locator, Page } from '@playwright/test';
 import { envVars } from '@/environments/environment';
 
 export abstract class LibRootTests {
-  protected readonly URL: string = envVars.frontURL;
+  protected readonly frontUrl: string = envVars.frontURL;
+  protected readonly backUrl: string = envVars.backURL;
   protected readonly TIMEOUT_WAIT_FOR: number = 30 * 1000;
   protected readonly TIMEOUT_PUSH_URL: number = 30 * 1000;
   protected readonly TIMEOUT_PRE_INTERACTION: number = 1000;
