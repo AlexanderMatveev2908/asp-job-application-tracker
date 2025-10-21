@@ -13,6 +13,7 @@ import { FormFieldErr } from '../form_field_err/form-field-err';
 import { Nullable, OptCbT, SvgT } from '@/common/types/etc';
 import { NgComponentOutlet } from '@angular/common';
 import { UseFormFieldDir } from '@/core/directives/form_field/1.use_form_field';
+import { Prs } from '@/core/lib/data_structure/prs';
 
 @Component({
   selector: 'app-form-field-txt',
@@ -33,6 +34,8 @@ export class FormFieldTxt extends UseFormFieldDir implements OnInit {
   public readonly onFocus: InputSignal<OptCbT> = input<OptCbT>(null);
   public readonly onBlur: InputSignal<OptCbT> = input<OptCbT>(null);
   public readonly onChange: InputSignal<OptCbT> = input<OptCbT>(null);
+
+  public readonly testId: Signal<string> = computed(() => Prs.toSnake(this.f().field));
 
   // ? derived
   public readonly Svg: Signal<Nullable<SvgT>> = computed(

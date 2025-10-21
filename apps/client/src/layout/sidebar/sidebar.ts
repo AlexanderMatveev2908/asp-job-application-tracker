@@ -25,6 +25,7 @@ import { Lorem } from '@/core/lib/etc';
 import { NavLink } from '@/common/components/links/nav_link/nav-link';
 import { UseMouseOutSvc } from '@/core/hooks/use_mouse_out';
 import { Nullable, RefDomT } from '@/common/types/etc';
+import { Prs } from '@/core/lib/data_structure/prs';
 
 @Component({
   selector: 'app-sidebar',
@@ -48,6 +49,11 @@ export class Sidebar extends Lorem {
 
   // ? children
   @ViewChild('side') side: RefDomT;
+
+  // ? testId
+  public testIdFromPath(path: string): string {
+    return Prs.toSnake(`sidebar__${path}`);
+  }
 
   // ? derived
   public readonly isSideOpen: Signal<boolean> = computed(() => this.sideSlice.sideState().isOpen);

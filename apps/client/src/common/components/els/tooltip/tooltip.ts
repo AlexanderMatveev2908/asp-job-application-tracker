@@ -1,4 +1,5 @@
 import { Nullable } from '@/common/types/etc';
+import { UseTestIdDir } from '@/core/directives/use_test_id';
 import { AppEventMetaT, AppEventT } from '@/core/lib/dom/meta_event/etc/types';
 import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
 import { NgClass } from '@angular/common';
@@ -18,7 +19,7 @@ import {
   styleUrl: './tooltip.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Tooltip {
+export class Tooltip extends UseTestIdDir {
   // ? personal props
   public readonly isHover: InputSignal<boolean> = input.required();
   public readonly msg: InputSignal<Nullable<string>> = input.required();

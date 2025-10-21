@@ -9,6 +9,11 @@
   </div>
 
   <div class="root__footer">
-    <app-swap-btns [swap]="swap()" [setSwap]="setSwap()" [maxSwaps]="maxSwaps()" />
+    <app-swap-btns
+      [swap]="swap()"
+      [setSwap]="setSwap()"
+      [maxSwaps]="maxSwaps()"
+      [prefixTestId]="prefixTestId()"
+    />
   </div>
 </div>

@@ -22,6 +22,7 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ElDomT, RefDomT, TpltRedT } from '@/common/types/etc';
 import { UseMouseOutSvc } from '@/core/hooks/use_mouse_out';
 import { DropStaticTwdCss, RecTwdClsDropT } from './etc';
+import { UseTestIdDir } from '@/core/directives/use_test_id';
 
 @Component({
   selector: 'app-drop-static',
@@ -30,7 +31,7 @@ import { DropStaticTwdCss, RecTwdClsDropT } from './etc';
   styleUrl: './drop-static.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DropStatic implements AfterViewInit, AfterContentChecked {
+export class DropStatic extends UseTestIdDir implements AfterViewInit, AfterContentChecked {
   private readonly useMouseOut: UseMouseOutSvc = inject(UseMouseOutSvc);
 
   // ? app-span component props

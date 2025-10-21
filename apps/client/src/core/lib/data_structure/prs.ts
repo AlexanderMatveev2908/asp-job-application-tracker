@@ -38,4 +38,14 @@ export class Prs {
 
     return formatted.join(' ');
   }
+
+  public static toSnake(arg: string): string {
+    const replaced: string = arg
+      .replace(/\s+/g, '')
+      .replace(/\//g, '_')
+      .replace(/(?<!^)([A-Z])/g, '_$1')
+      .replace(/_{3,}/g, '__');
+
+    return replaced.toLowerCase();
+  }
 }

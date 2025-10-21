@@ -13,6 +13,7 @@ import { RouterLink } from '@angular/router';
 import { Span } from '../../els/span/span';
 import { NgClass } from '@angular/common';
 import { Nullable } from '@/common/types/etc';
+import { UseTestIdDir } from '@/core/directives/use_test_id';
 
 @Component({
   selector: 'app-nav-link',
@@ -21,7 +22,7 @@ import { Nullable } from '@/common/types/etc';
   styleUrl: './nav-link.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavLink {
+export class NavLink extends UseTestIdDir {
   // ? app-span props
   public readonly spanProps: InputSignal<LinkT> = input.required();
   public readonly spanSizesProps: SpanSizesPropsT = {

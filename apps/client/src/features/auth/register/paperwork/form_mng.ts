@@ -1,7 +1,7 @@
 import { PairPwdArgT, UserZod } from '@/core/paperwork/user';
 import { ZodCheck } from '@/core/paperwork/zod_check';
 import { FormControl, FormGroup } from '@angular/forms';
-import z, { ZodBoolean, ZodNullable, ZodObject, ZodString } from 'zod';
+import z, { ZodBoolean, ZodObject, ZodString } from 'zod';
 
 export class RegisterFormMng extends ZodCheck {
   public static readonly schema: ZodObject<{
@@ -10,12 +10,12 @@ export class RegisterFormMng extends ZodCheck {
     email: ZodString;
     password: ZodString;
     confirmPassword: ZodString;
-    terms: ZodBoolean | ZodNullable;
+    terms: ZodBoolean;
   }> = UserZod.namesSchema
     .extend(UserZod.mailSchema.shape)
     .extend(UserZod.pairPwdSchema.shape)
     .extend({
-      terms: z.boolean().nullable().refine(Boolean, { message: 'Terms must be accepted' }),
+      terms: z.boolean().refine(Boolean, { message: 'Terms must be accepted' }),
     })
     .refine((data: PairPwdArgT) => UserZod.refinePairPwd(data), {
       message: 'Passwords do not match',
@@ -24,12 +24,18 @@ export class RegisterFormMng extends ZodCheck {
 
   public static readonly form: FormGroup = new FormGroup(
     {
-      firstName: new FormControl('john'),
-      lastName: new FormControl('doe'),
-      email: new FormControl('matveevalexander470@gmail.com'),
-      password: new FormControl('8cLS4XY!{2Wdvl4*l^4'),
-      confirmPassword: new FormControl('8cLS4XY!{2Wdvl4*l^4'),
-      terms: new FormControl(true),
+      firstName: new FormControl(''),
+      lastName: new FormControl(''),
+      email: new FormControl(''),
+      password: new FormControl(''),
+      confirmPassword: new FormControl(''),
+      terms: new FormControl(false),
+      // firstName: new FormControl('john'),
+      // lastName: new FormControl('doe'),
+      // email: new FormControl('matveevalexander470@gmail.com'),
+      // password: new FormControl('8cLS4XY!{2Wdvl4*l^4'),
+      // confirmPassword: new FormControl('8cLS4XY!{2Wdvl4*l^4'),
+      // terms: new FormControl(true),
     },
     {
       validators: this.checkZ(this.schema),

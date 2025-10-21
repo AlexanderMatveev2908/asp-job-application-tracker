@@ -2,6 +2,7 @@
 
 <div
   #side
+  [attr.data-testid]="'sidebar'"
   class="root z__sidebar"
   [ngClass]="isSideOpen() ? '-translate-x-full opacity-100' : 'translate-x-0 opacity-0'"
 >
@@ -17,13 +18,19 @@
 
       <app-drop-static
         [spanProps]="spanUserProps()"
+        [testId]="'sidebar__drop_user'"
         [isOpen]="isDropOpen()"
         [setIsOpen]="setIsDropOpen"
       >
         <ng-template #dropContent>
           <div class="body__wrap_links">
             @for(lk of notLoggedLinks; track lk.id){
-            <app-nav-link [spanProps]="lk" [currPath]="currPath()" [setIsDropOpen]="onSideClick" />
+            <app-nav-link
+              [testId]="testIdFromPath(lk.path)"
+              [spanProps]="lk"
+              [currPath]="currPath()"
+              [setIsDropOpen]="onSideClick"
+            />
             }
           </div>
         </ng-template>

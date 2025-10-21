@@ -16,6 +16,7 @@ import { Span } from '../../els/span/span';
 import { NgTemplateOutlet, NgClass } from '@angular/common';
 import { RefDomT, TpltRedT } from '@/common/types/etc';
 import { UseMouseOutSvc } from '@/core/hooks/use_mouse_out';
+import { UseTestIdDir } from '@/core/directives/use_test_id';
 
 @Component({
   selector: 'app-drop-abs',
@@ -24,7 +25,7 @@ import { UseMouseOutSvc } from '@/core/hooks/use_mouse_out';
   styleUrl: './drop-abs.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DropAbs {
+export class DropAbs extends UseTestIdDir {
   private readonly useMouseOut: UseMouseOutSvc = inject(UseMouseOutSvc);
 
   // ? personal props
