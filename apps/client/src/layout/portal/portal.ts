@@ -12,7 +12,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { DomPortalOutlet, TemplatePortal, PortalModule } from '@angular/cdk/portal';
-import { ElDomT, Nullable, TpltRedT } from '@/common/types/etc';
+import { ElDomT, Nullable, RefTmptT } from '@/common/types/etc';
 import { v4 } from 'uuid';
 import { RecCoordsT } from '@/core/lib/dom/portal';
 import { UseInjCtx } from '@/core/directives/use_inj_ctx';
@@ -35,7 +35,7 @@ export class Portal extends UseInjCtx implements AfterViewInit, OnDestroy {
 
   // ? projected template
   @ContentChild('tpl', { read: TemplateRef })
-  public tpl!: TpltRedT;
+  public tpl!: RefTmptT;
 
   // ? local refs
   private outlet: Nullable<DomPortalOutlet> = null;

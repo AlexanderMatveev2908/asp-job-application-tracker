@@ -1,0 +1,12 @@
+<app-form-shape
+  [fromGroup]="fromGroup()"
+  [onSubmit]="onSubmit()"
+  [isPending]="isPending()"
+  [testId]="testId()"
+>
+  <ng-content />
+
+  <ng-template #footer>
+    <app-auth-span-links />
+  </ng-template>
+</app-form-shape>

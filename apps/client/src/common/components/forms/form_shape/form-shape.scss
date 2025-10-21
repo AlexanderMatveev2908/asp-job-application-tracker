@@ -1,0 +1,15 @@
+:host {
+  @apply block w-full;
+}
+
+.root {
+  @apply w-full min-h-[70vh] flex flex-col justify-center items-center gap-12;
+
+  .root__form {
+    @apply w-[90%] max-w-[800px] h-fit flex flex-col items-center gap-10 border-3 border-gray-300 rounded-xl p-5 pb-12 pt-8 overflow-hidden;
+
+    .form__submit {
+      @apply mx-auto w-[250px];
+    }
+  }
+}

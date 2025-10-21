@@ -18,7 +18,7 @@ export interface WithTestIdT {
 
 export type RefDomT = Opt<ElementRef<HTMLElement>>;
 
-export type TpltRedT = TemplateRef<unknown>;
+export type RefTmptT = TemplateRef<unknown>;
 
 export type SvgT = Type<unknown>;
 

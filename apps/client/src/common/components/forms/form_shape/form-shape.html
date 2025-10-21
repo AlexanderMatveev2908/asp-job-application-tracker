@@ -1,0 +1,21 @@
+<div class="root">
+  <form
+    [attr.data-testid]="testId()"
+    class="root__form"
+    [formGroup]="fromGroup()"
+    (ngSubmit)="onSubmit()()"
+  >
+    <ng-content />
+
+    <div class="form__submit">
+      <app-btn-shadow
+        [spanProps]="spanProps"
+        [btnStateProps]="btnProps()"
+        [type]="'submit'"
+        [testId]="derivedSubmitId()"
+      />
+    </div>
+  </form>
+
+  <ng-container *ngTemplateOutlet="footer" />
+</div>

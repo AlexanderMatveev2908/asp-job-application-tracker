@@ -12,13 +12,11 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CheckFieldT, TxtFieldT } from '@/common/types/forms';
 import { RegisterFormUiFkt } from '@/features/auth/register/ui_fkt/form_fields';
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
-import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
-import { BtnStatePropsT, Nullable } from '@/common/types/etc';
+import { Nullable } from '@/common/types/etc';
 import { ZodCheck } from '@/core/paperwork/zod_check';
 import { Swapper } from '@/common/components/swap/swapper/swapper';
 import { PairPwd } from '@/common/components/hoc/pair_pwd/pair-pwd';
 import { RegisterFormMng } from '@/features/auth/register/paperwork/form_mng';
-import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
 import { UseSwapDir } from '@/core/directives/use_swap/use_swap';
 import { PortalModule } from '@angular/cdk/portal';
 import { LibEtc } from '@/core/lib/etc';
@@ -32,6 +30,7 @@ import { from, switchMap, tap } from 'rxjs';
 import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
 import { AuthSlice } from '@/features/auth/slice';
 import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
+import { AuthFormShape } from '@/features/auth/components/form_shape/auth-form-shape';
 
 @Component({
   selector: 'app-register',
@@ -39,11 +38,11 @@ import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
     CsrWithTitle,
     ReactiveFormsModule,
     FormFieldTxt,
-    BtnShadow,
     Swapper,
     PairPwd,
     PortalModule,
     FormFieldBoxSm,
+    AuthFormShape,
   ],
   templateUrl: './register.html',
   styleUrl: './register.scss',
@@ -65,21 +64,11 @@ export class Register extends UseSwapDir {
   public getOpacity(idx: number): Signal<number> {
     return computed(() => (idx === this.swapState().swap ? 1 : 0));
   }
+  public readonly isPending: Signal<boolean> = this.tracker.isPending;
 
   // ? static fields
   public readonly firstSwapFields: TxtFieldT[] = RegisterFormUiFkt.firstSwap;
   public readonly terms: CheckFieldT = RegisterFormUiFkt.termsField;
-
-  // ? btn props
-  public readonly spanProps: SpanEventPropsT = {
-    eventT: 'INFO',
-    label: 'Submit',
-    Svg: null,
-  };
-  public readonly btnProps: Signal<BtnStatePropsT> = computed(() => ({
-    isDisabled: false,
-    isPending: this.tracker.isPending(),
-  }));
 
   // ? helper dynamic app-field-txt props
   public readonly getCtrl: (name: string) => FormControl = (name: string) =>
@@ -88,7 +77,7 @@ export class Register extends UseSwapDir {
   // ? listeners
   private readonly focusOnSwap: EffectRef = effect(() => this.focusWhen('firstName', 'password'));
 
-  public async onSubmit(): Promise<void> {
+  public onSubmit: () => Promise<void> = async () => {
     if (!this.form.valid) {
       ZodCheck.onSubmitFailedInSwap(this.form, (first: string) => {
         const target: Nullable<number> = LibEtc.idxIn(first, RegisterFormMng.fieldsBySwap);
@@ -115,5 +104,5 @@ export class Register extends UseSwapDir {
         )
       )
       .subscribe();
-  }
+  };
 }

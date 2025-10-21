@@ -1,45 +1,32 @@
 <app-csr-with-title [title]="'Register'">
-  <div class="root">
-    <form
-      [attr.data-testid]="'register_form'"
-      class="root__form"
-      [formGroup]="form"
-      (ngSubmit)="onSubmit()"
+  <app-auth-form-shape
+    [fromGroup]="form"
+    [onSubmit]="onSubmit"
+    [isPending]="isPending()"
+    [testId]="'register_form'"
+  >
+    <app-swapper
+      [maxSwaps]="2"
+      [setSwap]="setSwap"
+      [swap]="swapState().swap"
+      [prefixTestId]="'register_form__'"
     >
-      <app-swapper
-        [maxSwaps]="2"
-        [setSwap]="setSwap"
-        [swap]="swapState().swap"
-        [prefixTestId]="'register_form__'"
-      >
-        <div #swapDiv class="swapper__swap" [style.--opac]="getOpacity(0)()">
-          <!--  -->
-          @for(f of firstSwapFields; track f.id){
-          <app-form-field-txt
-            [f]="f"
-            [ctrl]="getCtrl(f.name)"
-            [focusOnMount]="f.name === 'firstName'"
-          />
-          }
-        </div>
-
-        <div #swapDiv class="swapper__swap" [style.--opac]="getOpacity(1)()">
-          <app-pair-pwd [getCtrl]="getCtrl" [confSwap]="confSwap(1)()" />
-
-          <app-form-field-box-sm [f]="terms" [ctrl]="getCtrl('terms')" />
-        </div>
-      </app-swapper>
-
-      <div class="form__footer">
-        <div class="footer__submit">
-          <app-btn-shadow
-            [spanProps]="spanProps"
-            [btnStateProps]="btnProps()"
-            [type]="'submit'"
-            [testId]="'register_form__submit'"
-          />
-        </div>
+      <div #swapDiv class="swapper__swap" [style.--opac]="getOpacity(0)()">
+        <!--  -->
+        @for(f of firstSwapFields; track f.id){
+        <app-form-field-txt
+          [f]="f"
+          [ctrl]="getCtrl(f.name)"
+          [focusOnMount]="f.name === 'firstName'"
+        />
+        }
       </div>
-    </form>
-  </div>
+
+      <div #swapDiv class="swapper__swap" [style.--opac]="getOpacity(1)()">
+        <app-pair-pwd [getCtrl]="getCtrl" [confSwap]="confSwap(1)()" />
+
+        <app-form-field-box-sm [f]="terms" [ctrl]="getCtrl('terms')" />
+      </div>
+    </app-swapper>
+  </app-auth-form-shape>
 </app-csr-with-title>
