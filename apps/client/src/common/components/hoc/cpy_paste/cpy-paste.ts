@@ -77,7 +77,7 @@ export class CpyPaste extends UseSwapPortalDir implements AfterViewInit {
 
   // ? animations
   override ngAfterViewInit(): void {
-    this.usePlatForm.inCtx(() => {
+    this.inCtx(() => {
       effect(() => {
         const isCpy: boolean = this.copied();
         if (!isCpy) return;

@@ -2,12 +2,12 @@ import { Injectable, Signal } from '@angular/core';
 import { WakeUpStateT } from './reducer/reducer';
 import { getWakeUpState } from './reducer/selectors';
 import { WakeUpActT } from './reducer/actions';
-import { UseKitSlice } from '@/core/directives/use_kit_slice';
+import { UseKitSliceSvc } from '@/core/hooks/use_kit_slice';
 
 @Injectable({
   providedIn: 'root',
 })
-export class WakeUpSlice extends UseKitSlice {
+export class WakeUpSlice extends UseKitSliceSvc {
   public get wakeUpState(): Signal<WakeUpStateT> {
     return this.store.selectSignal(getWakeUpState);
   }

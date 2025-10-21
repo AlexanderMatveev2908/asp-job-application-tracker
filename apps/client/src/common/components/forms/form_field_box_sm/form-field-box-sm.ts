@@ -61,7 +61,7 @@ export class FormFieldBoxSm extends UseFieldRootDir implements OnInit, AfterView
   }
 
   ngAfterViewInit(): void {
-    this.usePlatform.inCtx(() => {
+    this.inCtx(() => {
       effect(() => {
         const val: Nullable<boolean> = this.val() as Nullable<boolean>;
 

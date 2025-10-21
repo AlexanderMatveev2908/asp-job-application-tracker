@@ -1,13 +1,13 @@
 import { Injectable, Signal } from '@angular/core';
 import { AuthStateT } from './reducer/reducer';
 import { getAuthState } from './reducer/selectors';
-import { UseKitSlice } from '@/core/directives/use_kit_slice';
+import { UseKitSliceSvc } from '@/core/hooks/use_kit_slice';
 import { AuthActT } from './reducer/actions';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthSlice extends UseKitSlice {
+export class AuthSlice extends UseKitSliceSvc {
   public get authState(): Signal<AuthStateT> {
     return this.store.selectSignal(getAuthState);
   }

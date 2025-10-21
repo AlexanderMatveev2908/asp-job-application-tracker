@@ -71,7 +71,7 @@ export class PwdChecker extends UseFieldRootDir implements OnInit, AfterViewInit
   }
 
   ngAfterViewInit(): void {
-    this.usePlatform.inCtx(() => {
+    this.inCtx(() => {
       effect(() => {
         const conf: Nullable<ConfSwapT> = this.confSwap();
 

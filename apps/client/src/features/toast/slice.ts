@@ -3,12 +3,12 @@ import { ToastStateT } from './reducer/reducer';
 import { getToastState } from './reducer/selectors';
 import { ToastActT } from './reducer/actions';
 import { AppEventPayloadT } from '@/core/lib/dom/meta_event/etc/types';
-import { UseKitSlice } from '@/core/directives/use_kit_slice';
+import { UseKitSliceSvc } from '@/core/hooks/use_kit_slice';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ToastSlice extends UseKitSlice {
+export class ToastSlice extends UseKitSliceSvc {
   public get toastState(): Signal<ToastStateT> {
     return this.store.selectSignal(getToastState);
   }

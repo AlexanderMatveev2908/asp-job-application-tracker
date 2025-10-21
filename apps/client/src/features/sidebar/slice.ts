@@ -2,12 +2,12 @@ import { Injectable, Signal } from '@angular/core';
 import { getSideState } from './reducer/selectors';
 import { SideStateT } from './reducer/reducer';
 import { SidebarActT } from './reducer/actions';
-import { UseKitSlice } from '@/core/directives/use_kit_slice';
+import { UseKitSliceSvc } from '@/core/hooks/use_kit_slice';
 
 @Injectable({
   providedIn: 'root',
 })
-export class SidebarSlice extends UseKitSlice {
+export class SidebarSlice extends UseKitSliceSvc {
   public get sideState(): Signal<SideStateT> {
     return this.store.selectSignal(getSideState);
   }

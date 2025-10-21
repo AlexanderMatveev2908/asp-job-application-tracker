@@ -6,7 +6,6 @@ import {
   ContentChild,
   effect,
   inject,
-  Injector,
   input,
   InputSignal,
   OnDestroy,
@@ -14,10 +13,10 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { DomPortalOutlet, TemplatePortal, PortalModule } from '@angular/cdk/portal';
-import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { ElDomT, Nullable, TpltRedT } from '@/common/types/etc';
 import { v4 } from 'uuid';
 import { RecCoordsT } from '@/core/lib/dom/portal';
+import { UseInjCtx } from '@/core/directives/use_inj_ctx';
 
 @Component({
   selector: 'app-portal',
@@ -27,12 +26,10 @@ import { RecCoordsT } from '@/core/lib/dom/portal';
   styleUrl: './portal.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Portal implements AfterViewInit, OnDestroy {
+export class Portal extends UseInjCtx implements AfterViewInit, OnDestroy {
   // ? svc
-  private readonly injector: Injector = inject(Injector);
   private readonly appRef: ApplicationRef = inject(ApplicationRef);
   private readonly vcr: ViewContainerRef = inject(ViewContainerRef);
-  private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
   // ? input signal
   public readonly coords: InputSignal<Partial<RecCoordsT>> = input.required();
@@ -67,7 +64,7 @@ export class Portal implements AfterViewInit, OnDestroy {
     rootPortal.appendChild(host);
 
     // ! each portal can have at most 1 host
-    this.outlet = new DomPortalOutlet(host, this.appRef, this.injector);
+    this.outlet = new DomPortalOutlet(host, this.appRef, this.inj);
 
     const portal: TemplatePortal<unknown> = new TemplatePortal<unknown>(this.tpl, this.vcr);
     // ! each outlet can have at most 1 portal
@@ -78,7 +75,7 @@ export class Portal implements AfterViewInit, OnDestroy {
       this.contentEl = host.firstElementChild as Nullable<HTMLElement>;
       if (!this.contentEl) return;
 
-      this.usePlatform.inCtx((): void => {
+      this.inCtx((): void => {
         effect((): void => this.applyCoords(this.coords()));
       });
     });

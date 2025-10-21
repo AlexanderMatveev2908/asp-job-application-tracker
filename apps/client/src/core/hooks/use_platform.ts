@@ -40,7 +40,7 @@ export class UsePlatformSvc {
     return this.isClient ? this.isStable().pipe(switchMap(() => cb)) : EMPTY;
   }
 
-  public inCtx(cb: () => void): void {
+  public inGlobalCtx(cb: () => void): void {
     runInInjectionContext(this.injector, () => {
       cb();
     });
@@ -48,7 +48,7 @@ export class UsePlatformSvc {
 
   public whenDomPainted(cb: () => void): void {
     this.onClient(() => {
-      this.inCtx(() => {
+      this.inGlobalCtx(() => {
         afterNextRender(() => {
           requestAnimationFrame(() => cb());
         });
