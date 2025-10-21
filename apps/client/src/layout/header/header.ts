@@ -14,10 +14,13 @@ import { SvgStrokeBurger } from '@/common/components/svgs/stroke/burger/burger';
 import { SvgFillClose } from '@/common/components/svgs/fill/close/close';
 import { SidebarSlice } from '@/features/sidebar/slice';
 import { DropAbs } from '@/common/components/drop/abs/drop-abs';
-import { SpanPropsT, SpanSizesPropsT } from '@/common/components/els/span/etc/types';
+import {
+  SpanLinkPropsT,
+  SpanPropsT,
+  SpanSizesPropsT,
+} from '@/common/components/els/span/etc/types';
 import { NgClass } from '@angular/common';
 import { LinksUiFkt } from '@/core/ui_fkt/links';
-import { LinkT } from '@/core/ui_fkt/links/etc/types';
 import { NavLink } from '@/common/components/links/nav_link/nav-link';
 import { Nullable } from '@/common/types/etc';
 import { Prs } from '@/core/lib/data_structure/prs';
@@ -56,7 +59,7 @@ export class Header {
   };
 
   // ? static fields
-  public readonly notLoggedLinks: LinkT[] = LinksUiFkt.notLogged;
+  public readonly notLoggedLinks: SpanLinkPropsT[] = LinksUiFkt.notLogged;
 
   // ? app-span props
   public readonly spanDropProps: Signal<SpanPropsT> = computed(() => ({

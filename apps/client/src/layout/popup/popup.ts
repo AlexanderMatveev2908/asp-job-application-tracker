@@ -19,7 +19,7 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
 import { AnimationsPopSvc } from './etc/animations';
 import { CloseBtn } from '@/common/components/btns/close_btn/close-btn';
-import { ElDomT, Nullable, RefDomT, RefTmptT } from '@/common/types/etc';
+import { ElDomT, Nullable, RefDomT, RefTemplateT } from '@/common/types/etc';
 import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
 import { UseInjCtx } from '@/core/directives/use_inj_ctx';
 
@@ -59,7 +59,7 @@ export class Popup extends UseInjCtx implements AfterViewInit {
 
   // ? children
   @ViewChild('popup') popup: RefDomT;
-  @ContentChild('popContent', { read: TemplateRef }) popContentTpl!: RefTmptT;
+  @ContentChild('popContent', { read: TemplateRef }) popContentTpl: RefTemplateT;
 
   // ? listeners
   ngAfterViewInit(): void {

@@ -1,16 +1,16 @@
 import { RootUiFkt } from '../root_ui';
 import { SvgStrokeHome } from '@/common/components/svgs/stroke/home/home';
 import { SvgFillBriefcase } from '@/common/components/svgs/fill/briefcase/briefcase';
-import { LinkT } from '@/core/ui_fkt/links/etc/types';
 import { ShapeCheck } from '../../lib/data_structure/shape_check';
 import { SvgStrokeRegister } from '@/common/components/svgs/stroke/register/register';
 import { SvgStrokePassword } from '@/common/components/svgs/stroke/password/password';
 import { SvgFillLogin } from '@/common/components/svgs/fill/login/login';
 import { SvgFillVerify } from '@/common/components/svgs/fill/verify/verify';
 import { Nullable } from '@/common/types/etc';
+import { SpanLinkPropsT } from '@/common/components/els/span/etc/types';
 
 export class LinksUiFkt extends RootUiFkt {
-  private static readonly _allUsers: Partial<LinkT>[] = [
+  private static readonly _allUsers: Omit<SpanLinkPropsT, 'id' | 'eventT'>[] = [
     {
       label: 'Home',
       path: '/',
@@ -23,7 +23,7 @@ export class LinksUiFkt extends RootUiFkt {
     },
   ];
 
-  private static readonly _notLogged: Partial<LinkT>[] = [
+  private static readonly _notLogged: Omit<SpanLinkPropsT, 'id' | 'eventT'>[] = [
     {
       label: 'Register',
       path: '/auth/register',
@@ -36,7 +36,7 @@ export class LinksUiFkt extends RootUiFkt {
     },
     {
       label: 'Recover Password',
-      path: '/auth/recover-pwd',
+      path: '/auth/require-email/recover-pwd',
       Svg: SvgStrokePassword,
     },
     {
@@ -46,11 +46,11 @@ export class LinksUiFkt extends RootUiFkt {
     },
   ];
 
-  public static get allUsers(): LinkT[] {
-    return this.arrWithIDs(this._allUsers) as LinkT[];
+  public static get allUsers(): SpanLinkPropsT[] {
+    return this.arrWithIdAndEvent(this._allUsers);
   }
-  public static get notLogged(): LinkT[] {
-    return this.arrWithIDs(this._notLogged) as LinkT[];
+  public static get notLogged(): SpanLinkPropsT[] {
+    return this.arrWithIdAndEvent(this._notLogged);
   }
 
   private static cutPath(arg: string): string {

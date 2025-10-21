@@ -15,9 +15,8 @@ import { TxtClamp } from '@/common/components/els/txt/txt_clamp/txt-clamp';
 import { SidebarSlice } from '@/features/sidebar/slice';
 import { LinksUiFkt } from '@/core/ui_fkt/links';
 import { BlackBgPropsT } from '@/layout/black_bg/etc/types';
-import { LinkT } from '@/core/ui_fkt/links/etc/types';
 import { DropStatic } from '@/common/components/drop/static/drop-static';
-import { SpanPropsT } from '@/common/components/els/span/etc/types';
+import { SpanLinkPropsT, SpanPropsT } from '@/common/components/els/span/etc/types';
 import { spanUserNotLogged } from './etc/ui_fkt';
 import { Lorem } from '@/core/lib/etc';
 import { NavLink } from '@/common/components/links/nav_link/nav-link';
@@ -60,8 +59,8 @@ export class Sidebar extends Lorem {
   public readonly currPath: Signal<Nullable<string>> = this.useNav.currPath;
 
   // ? static fields
-  public readonly allUsersLinks: LinkT[] = LinksUiFkt.allUsers;
-  public readonly notLoggedLinks: LinkT[] = LinksUiFkt.notLogged;
+  public readonly allUsersLinks: SpanLinkPropsT[] = LinksUiFkt.allUsers;
+  public readonly notLoggedLinks: SpanLinkPropsT[] = LinksUiFkt.notLogged;
 
   // ? app-span props
   public readonly spanUserProps: WritableSignal<SpanPropsT> = signal(spanUserNotLogged);

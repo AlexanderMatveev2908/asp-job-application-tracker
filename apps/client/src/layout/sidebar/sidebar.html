@@ -13,7 +13,12 @@
   <div class="root__body scroll__app">
     <div class="body__wrap_links">
       @for(lk of allUsersLinks; track lk.id){
-      <app-nav-link [spanProps]="lk" [currPath]="currPath()" [setIsDropOpen]="onSideClick" />
+      <app-nav-link
+        [spanProps]="lk"
+        [currPath]="currPath()"
+        [setIsDropOpen]="onSideClick"
+        [path]="lk.path"
+      />
       }
 
       <app-drop-static
@@ -28,6 +33,7 @@
             <app-nav-link
               [testId]="testIdFromPath(lk.path)"
               [spanProps]="lk"
+              [path]="lk.path"
               [currPath]="currPath()"
               [setIsDropOpen]="onSideClick"
             />

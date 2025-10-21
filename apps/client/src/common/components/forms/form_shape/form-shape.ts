@@ -11,7 +11,7 @@ import {
 import { ReactiveFormsModule } from '@angular/forms';
 import { BtnShadow } from '../../btns/btn_shadow/btn-shadow';
 import { SpanEventPropsT } from '../../els/span/etc/types';
-import { BtnStatePropsT, Opt, RefTmptT } from '@/common/types/etc';
+import { BtnStatePropsT, RefTemplateT } from '@/common/types/etc';
 
 @Component({
   selector: 'app-form-shape',
@@ -28,7 +28,7 @@ export class FormShape extends UseFormShapeDir {
     Svg: null,
   };
 
-  @ContentChild('footer', { read: TemplateRef }) footer: Opt<RefTmptT>;
+  @ContentChild('footer', { read: TemplateRef }) footer: RefTemplateT;
 
   // ? dynamic state change
   public btnProps: Signal<BtnStatePropsT> = computed(() => ({

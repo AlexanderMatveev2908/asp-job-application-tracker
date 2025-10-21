@@ -1,16 +1,8 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  input,
-  InputSignal,
-  Signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
 import { Span } from '../../els/span/span';
 import { WrapBtnApi } from '../../hoc/btns/wrap_btn_api/wrap-btn-api';
-import { WrapBtnApiPropsT } from '../../hoc/btns/wrap_btn_api/etc/types';
 import { BtnListenersT, BtnStatePropsT, BtnT, Nullable } from '@/common/types/etc';
-import { UseSpanDir } from '@/core/directives/span/use_span';
+import { UseMetaSpanDir } from '@/core/directives/span/1.use_span_meta';
 
 @Component({
   selector: 'app-btn-shadow',
@@ -19,7 +11,7 @@ import { UseSpanDir } from '@/core/directives/span/use_span';
   styleUrl: './btn-shadow.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BtnShadow extends UseSpanDir {
+export class BtnShadow extends UseMetaSpanDir {
   // ? btn personal props
   public readonly btnStateProps: InputSignal<BtnStatePropsT> = input<BtnStatePropsT>({
     isDisabled: false,
@@ -28,12 +20,6 @@ export class BtnShadow extends UseSpanDir {
   public readonly listenersProps: InputSignal<Nullable<BtnListenersT>> =
     input<Nullable<BtnListenersT>>(null);
   public readonly type: InputSignal<BtnT> = input<BtnT>('button');
-
-  // ? app-wrap-api component props
-  public readonly wrapBtnApiProps: Signal<WrapBtnApiPropsT> = computed(() => ({
-    eventT: this.spanProps().eventT,
-    isPending: this.btnStateProps().isPending,
-  }));
 
   public async onClick(): Promise<void> {
     const clickEvent = this.listenersProps()?.onClick;
