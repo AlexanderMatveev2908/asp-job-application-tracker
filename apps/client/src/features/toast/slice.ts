@@ -1,17 +1,14 @@
-import { inject, Injectable, Signal } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { StoreStateT } from '@/core/store';
+import { Injectable, Signal } from '@angular/core';
 import { ToastStateT } from './reducer/reducer';
 import { getToastState } from './reducer/selectors';
 import { ToastActT } from './reducer/actions';
 import { AppEventPayloadT } from '@/core/lib/dom/meta_event/etc/types';
+import { UseKitSliceSvc } from '@/core/hooks/use_kit_slice';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ToastSlice {
-  private readonly store: Store<StoreStateT> = inject(Store<StoreStateT>);
-
+export class ToastSlice extends UseKitSliceSvc {
   public get toastState(): Signal<ToastStateT> {
     return this.store.selectSignal(getToastState);
   }

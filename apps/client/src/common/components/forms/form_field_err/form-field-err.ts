@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
   input,
   InputSignal,
   OnInit,
@@ -40,18 +39,18 @@ export class FormFieldErr extends UseFieldRootDir implements OnInit {
 
   // ? ng
   ngOnInit(): void {
-    this.setupWithCtrl(this.ctrl(), () => {
-      effect(() => {
-        const c: FormControl = this.ctrl();
-        void this.val();
+    this.setupWithCtrl(this.ctrl());
 
-        const errors: ErrsFieldT = c.errors as ErrsFieldT;
+    this.useEffect(() => {
+      const c: FormControl = this.ctrl();
+      void this.val();
 
-        this.recErrs.update((prev: RecErrsFieldT) => ({
-          prev: prev.curr,
-          curr: errors?.zod && this.interacted() ? errors.zod : null,
-        }));
-      });
+      const errors: ErrsFieldT = c.errors as ErrsFieldT;
+
+      this.recErrs.update((prev: RecErrsFieldT) => ({
+        prev: prev.curr,
+        curr: errors?.zod && this.interacted() ? errors.zod : null,
+      }));
     });
   }
 }

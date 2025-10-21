@@ -1,6 +1,5 @@
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import {
-  afterNextRender,
   ApplicationRef,
   EnvironmentInjector,
   inject,
@@ -40,19 +39,9 @@ export class UsePlatformSvc {
     return this.isClient ? this.isStable().pipe(switchMap(() => cb)) : EMPTY;
   }
 
-  public inCtx(cb: () => void): void {
+  public inGlobalCtx(cb: () => void): void {
     runInInjectionContext(this.injector, () => {
       cb();
-    });
-  }
-
-  public whenDomPainted(cb: () => void): void {
-    this.onClient(() => {
-      this.inCtx(() => {
-        afterNextRender(() => {
-          requestAnimationFrame(() => cb());
-        });
-      });
     });
   }
 }

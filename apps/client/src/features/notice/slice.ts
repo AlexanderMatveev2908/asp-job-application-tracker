@@ -1,19 +1,14 @@
-import { inject, Injectable, Signal } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { StoreStateT } from '@/core/store';
+import { Injectable, Signal } from '@angular/core';
 import { getNoticeState } from './reducer/selectors';
 import { NoticeStateT, NoticeTmptT } from './reducer/reducer';
 import { NoticeActT } from './reducer/actions';
-import { UseStorageSvc } from '@/core/hooks/use_storage';
 import { GenericVoidCbT, Nullable } from '@/common/types/etc';
+import { UseKitSliceSvc } from '@/core/hooks/use_kit_slice';
 
 @Injectable({
   providedIn: 'root',
 })
-export class NoticeSlice {
-  private readonly store: Store<StoreStateT> = inject(Store<StoreStateT>);
-  private readonly useStorage: UseStorageSvc = inject(UseStorageSvc);
-
+export class NoticeSlice extends UseKitSliceSvc {
   public get _noticeState(): Signal<NoticeStateT> {
     return this.store.selectSignal(getNoticeState);
   }

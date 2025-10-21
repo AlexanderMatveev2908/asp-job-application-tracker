@@ -1,10 +1,9 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   computed,
   ContentChild,
-  effect,
-  EffectRef,
   HostListener,
   inject,
   input,
@@ -18,11 +17,11 @@ import { BlackBgPropsT } from '@/layout/black_bg/etc/types';
 import { BlackBg } from '@/layout/black_bg/black-bg';
 import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
-import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { AnimationsPopSvc } from './etc/animations';
 import { CloseBtn } from '@/common/components/btns/close_btn/close-btn';
 import { ElDomT, Nullable, RefDomT, TpltRedT } from '@/common/types/etc';
 import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
+import { UseInjCtx } from '@/core/directives/use_inj_ctx';
 
 @Component({
   selector: 'app-popup',
@@ -31,9 +30,8 @@ import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
   styleUrl: './popup.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Popup {
+export class Popup extends UseInjCtx implements AfterViewInit {
   // ? svc
-  private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
   private readonly animationsPop: AnimationsPopSvc = inject(AnimationsPopSvc);
 
   // ? personal props
@@ -64,17 +62,17 @@ export class Popup {
   @ContentChild('popContent', { read: TemplateRef }) popContentTpl!: TpltRedT;
 
   // ? listeners
-  public animationsEff: EffectRef = effect(() => {
-    const isPop = this.isPop();
-    const popDOM: ElDomT = this.popup?.nativeElement;
+  ngAfterViewInit(): void {
+    this.useEffect(() => {
+      const isPop = this.isPop();
+      const popDOM: ElDomT = this.popup?.nativeElement;
 
-    if (!popDOM) return;
+      if (!popDOM) return;
 
-    this.usePlatform.onClient(() => {
       if (isPop) this.animationsPop.popIn(popDOM);
       else if (!isPop && isPop !== null) this.animationsPop.popOut(popDOM);
     });
-  });
+  }
 
   @HostListener('document:mousedown', ['$event'])
   public onMouseDown(e: MouseEvent): void {

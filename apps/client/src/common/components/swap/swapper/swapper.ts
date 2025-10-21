@@ -7,7 +7,6 @@ import {
   effect,
   EffectRef,
   HostListener,
-  inject,
   input,
   InputSignal,
   QueryList,
@@ -18,7 +17,7 @@ import {
 import { SwapBtns } from './swap_btns/swap-btns';
 import { ElDomT, Nullable, Opt, RefDomT } from '@/common/types/etc';
 import { ErrApp } from '@/core/lib/err';
-import { UsePlatformSvc } from '@/core/hooks/use_platform';
+import { UseInjCtx } from '@/core/directives/use_inj_ctx';
 
 @Component({
   selector: 'app-swapper',
@@ -27,9 +26,7 @@ import { UsePlatformSvc } from '@/core/hooks/use_platform';
   styleUrl: './swapper.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Swapper implements AfterViewInit {
-  private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
-
+export class Swapper extends UseInjCtx implements AfterViewInit {
   // ? personal props
   public readonly swap: InputSignal<number> = input.required();
   public readonly setSwap: InputSignal<(val: number) => void> = input.required();
@@ -76,7 +73,7 @@ export class Swapper implements AfterViewInit {
 
   // ? listener
   ngAfterViewInit(): void {
-    this.usePlatform.whenDomPainted(() => {
+    this.useDOM(() => {
       this.calcH();
     });
   }

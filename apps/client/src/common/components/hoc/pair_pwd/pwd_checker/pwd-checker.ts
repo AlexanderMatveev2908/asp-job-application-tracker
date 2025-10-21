@@ -5,7 +5,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
   HostListener,
   input,
   InputSignal,
@@ -67,17 +66,15 @@ export class PwdChecker extends UseFieldRootDir implements OnInit, AfterViewInit
   }
 
   ngOnInit(): void {
-    this.setupWithFieldRef(this.pwdFieldRef(), () => null);
+    this.setupWithFieldRef(this.pwdFieldRef());
   }
 
   ngAfterViewInit(): void {
-    this.usePlatform.inCtx(() => {
-      effect(() => {
-        const conf: Nullable<ConfSwapT> = this.confSwap();
+    this.useEffect(() => {
+      const conf: Nullable<ConfSwapT> = this.confSwap();
 
-        if (!conf || (conf.isCurr && conf.mode !== 'swapping'))
-          this.coords.set(PortalDOM.coordsOfRef(this.pwdFieldRef().formField));
-      });
+      if (!conf || (conf.isCurr && conf.mode !== 'swapping'))
+        this.coords.set(PortalDOM.coordsOfRef(this.pwdFieldRef().formField));
     });
   }
 
