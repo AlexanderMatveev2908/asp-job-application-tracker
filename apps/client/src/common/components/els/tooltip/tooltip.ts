@@ -27,7 +27,7 @@ export class Tooltip extends UseTestIdDir {
   public readonly msg: InputSignal<Nullable<string>> = input.required();
   public readonly eventT: InputSignal<AppEventT> = input.required();
   // ? optional with fallback
-  public readonly minW: InputSignal<string> = input('200px');
+  public readonly minW: InputSignal<string> = input('fit');
   public readonly arrowOn: InputSignal<ArrowTooltipT> = input<ArrowTooltipT>('right');
 
   // ? derived
