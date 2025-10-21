@@ -16,7 +16,7 @@ export class AuthSlice extends UseKitSliceSvc {
   // ! there may be cases where it is already pushed out or logging in
   // ! so u do not want to repeat a certain event but give it margin of action
   // eslint-disable-next-line no-magic-numbers
-  private readonly TIMER_RESET_LOGGING: number = 2.5 * 1000;
+  private readonly TIMER_RESET_LOGGING: number = 2 * 1000;
 
   public login(accessToken: string): void {
     this.store.dispatch(AuthActT.LOGIN());
@@ -25,6 +25,10 @@ export class AuthSlice extends UseKitSliceSvc {
     setTimeout(() => {
       this.store.dispatch(AuthActT.RESET_LOGGING_STATE({ key: 'loggingIn' }));
     }, this.TIMER_RESET_LOGGING);
+  }
+
+  public loginOnMount(): void {
+    this.store.dispatch(AuthActT.MARK_LOGGED());
   }
 
   public loggingPending(): boolean {
