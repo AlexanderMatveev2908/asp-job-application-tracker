@@ -34,7 +34,7 @@ test('trigger errors', async ({ browser }: { browser: Browser }) => {
 
   const form: Locator = await lib.byIdInPage('register_form');
 
-  await lib.errWhen(form, swap_0);
+  const [firstName, lastName] = await lib.errWhen(form, swap_0);
 
   const prev: Locator = await lib.byIdIn(form, 'register_form__prev_swap');
   await expect(prev).toBeDisabled();
@@ -44,12 +44,20 @@ test('trigger errors', async ({ browser }: { browser: Browser }) => {
   await next.click();
   await lib.timer();
 
+  const pwd: Locator = await lib.byIdIn(form, 'password');
+  await lib.isFocused(pwd);
+
   await lib.errWhen(form, swap_1);
 
   const mainBtn: Locator = await lib.byIdIn(form, 'register_form__submit');
   await mainBtn.click();
   await lib.timer();
-  const firstName: Locator = await lib.byIdIn(form, 'first_name');
-  await expect(firstName).toBeInViewport();
-  await expect(firstName).toBeFocused();
+  await lib.isFocused(firstName);
+
+  await firstName.fill('John');
+  await next.click();
+  await lib.timer();
+  await mainBtn.click();
+
+  await lib.isFocused(lastName);
 });
