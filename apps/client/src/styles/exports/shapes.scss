@@ -6,3 +6,7 @@
 @mixin form__size() {
   @apply w-[90%] max-w-[800px];
 }
+
+@mixin form__fields() {
+  @apply w-full flex flex-col gap-10;
+}

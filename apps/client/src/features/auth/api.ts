@@ -3,7 +3,7 @@ import { ObsResT } from '@/core/store/api/etc/types';
 import { inject, Injectable } from '@angular/core';
 import { RegisterResT } from './etc/types';
 import { ApiArgs } from '@/core/store/api/etc/request/args';
-import { RegisterFormT } from './register/paperwork/form_mng';
+import { RegisterFormT } from './pages/register/paperwork/form_mng';
 
 @Injectable({
   providedIn: 'root',
