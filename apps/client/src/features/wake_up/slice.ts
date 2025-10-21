@@ -1,18 +1,13 @@
-import { inject, Injectable, Signal } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { StoreStateT } from '@/core/store';
+import { Injectable, Signal } from '@angular/core';
 import { WakeUpStateT } from './reducer/reducer';
 import { getWakeUpState } from './reducer/selectors';
 import { WakeUpActT } from './reducer/actions';
-import { UseStorageSvc } from '@/core/hooks/use_storage';
+import { UseKitSlice } from '@/core/directives/use_kit_slice';
 
 @Injectable({
   providedIn: 'root',
 })
-export class WakeUpSlice {
-  private readonly store: Store<StoreStateT> = inject(Store<StoreStateT>);
-  private readonly useStorage: UseStorageSvc = inject(UseStorageSvc);
-
+export class WakeUpSlice extends UseKitSlice {
   public get wakeUpState(): Signal<WakeUpStateT> {
     return this.store.selectSignal(getWakeUpState);
   }

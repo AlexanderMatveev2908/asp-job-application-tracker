@@ -13,7 +13,6 @@ import { CheckFieldT, TxtFieldT } from '@/common/types/forms';
 import { RegisterFormUiFkt } from '@/features/auth/register/ui_fkt/form_fields';
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
 import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
-import { Log } from '@/core/lib/dev/log';
 import { BtnStatePropsT, Nullable } from '@/common/types/etc';
 import { ZodCheck } from '@/core/paperwork/zod_check';
 import { Swapper } from '@/common/components/swap/swapper/swapper';
@@ -32,6 +31,7 @@ import { ResApiT } from '@/core/store/api/etc/types';
 import { RegisterResT } from '@/features/auth/etc/types';
 import { from, switchMap, tap } from 'rxjs';
 import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
+import { AuthSlice } from '@/features/auth/slice';
 
 @Component({
   selector: 'app-register',
@@ -52,6 +52,7 @@ import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
 })
 export class Register extends UseSwapDir {
   // ? svc
+  private readonly authSlice: AuthSlice = inject(AuthSlice);
   private readonly authApi: AuthApiSvc = inject(AuthApiSvc);
   private readonly useNav: UseNavSvc = inject(UseNavSvc);
   private readonly noticeSlice: NoticeSlice = inject(NoticeSlice);
@@ -102,7 +103,7 @@ export class Register extends UseSwapDir {
       .main(
         this.authApi.register(this.form.value).pipe(
           tap((res: ResApiT<RegisterResT>) => {
-            Log.logTtl('tap', res);
+            this.authSlice.login(res.accessToken);
 
             this.noticeSlice.mailNotice = {
               eventT: 'OK',
