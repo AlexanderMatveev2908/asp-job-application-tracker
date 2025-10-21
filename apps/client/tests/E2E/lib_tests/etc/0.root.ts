@@ -53,4 +53,11 @@ export abstract class LibRootTests {
   public async waitPushTo(path: string): Promise<void> {
     await this.page.waitForURL(path, { timeout: this.TIMEOUT_PUSH_URL });
   }
+
+  public async txtIn(el: Page | Locator, txt: string): Promise<Locator> {
+    const found = el.locator(':scope', { hasText: new RegExp(txt, 'i') });
+    await this.exists(found);
+
+    return found;
+  }
 }

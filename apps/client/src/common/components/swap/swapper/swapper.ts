@@ -34,6 +34,7 @@ export class Swapper implements AfterViewInit {
   public readonly swap: InputSignal<number> = input.required();
   public readonly setSwap: InputSignal<(val: number) => void> = input.required();
   public readonly maxSwaps: InputSignal<number> = input.required();
+  public readonly prefixTestId: InputSignal<string> = input.required();
 
   // ? derived by content
   public readonly maxH: WritableSignal<Nullable<string>> = signal(null);

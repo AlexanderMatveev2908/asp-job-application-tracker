@@ -1,5 +1,5 @@
 import { Browser, BrowserContext, Page } from '@playwright/test';
-import { LibToastTests } from './etc/1.toast';
+import { LibToastTests } from './etc/2.toast';
 
 export class LibTests extends LibToastTests {
   public static async fromBrowser(browser: Browser): Promise<LibTests> {

@@ -11,7 +11,7 @@
       (blur)="onBlur()?.(val())"
       (input)="onChange()?.(val())"
       [attr.data-field]="f().field"
-      [attr.data-test-id]="f().field"
+      [attr.data-testid]="testId()"
       class="input__field txt__md"
       [style.--pad]="padding()"
       [type]="f().type"
@@ -24,6 +24,6 @@
     </button>
     }
 
-    <app-form-field-err [ctrl]="ctrl()" />
+    <app-form-field-err [ctrl]="ctrl()" [testId]="testId()" />
   </div>
 </div>

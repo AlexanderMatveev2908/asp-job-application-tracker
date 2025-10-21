@@ -1,7 +1,7 @@
 import test, { Browser, Locator } from '@playwright/test';
 import { LibTests } from '../lib_tests';
 
-test('ok', async ({ browser }: { browser: Browser }) => {
+test('go to register page using header', async ({ browser }: { browser: Browser }) => {
   const lib: LibTests = await LibTests.fromBrowser(browser);
 
   await lib.nav('/');

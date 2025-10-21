@@ -4,10 +4,12 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  computed,
   effect,
   input,
   InputSignal,
   OnInit,
+  Signal,
   ViewChild,
 } from '@angular/core';
 import { SvgFillBoxChecked } from '../../svgs/fill/box_checked/box-checked';
@@ -16,6 +18,7 @@ import { Nullable, RefDomT, SvgT } from '@/common/types/etc';
 import { FormControl } from '@angular/forms';
 import { FormFieldErr } from '../form_field_err/form-field-err';
 import { FormFieldBoxAnimations } from './etc/animations';
+import { Prs } from '@/core/lib/data_structure/prs';
 
 @Component({
   selector: 'app-form-field-box-sm',
@@ -40,6 +43,9 @@ export class FormFieldBoxSm extends UseFieldRootDir implements OnInit, AfterView
     else if (this.val()) return 'text-green-600 border-green-600';
     else return 'text-red-600 border-red-600';
   }
+
+  // ? props err msg
+  public readonly testId: Signal<string> = computed(() => Prs.toSnake(this.f().field));
 
   // ? listeners
   public onToggle(): void {

@@ -1,10 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   effect,
   input,
   InputSignal,
   OnInit,
+  Signal,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -12,6 +14,7 @@ import { Tooltip } from '../../els/tooltip/tooltip';
 import { FormControl } from '@angular/forms';
 import { ErrsFieldT, RecErrsFieldT } from '@/common/types/forms';
 import { UseFieldRootDir } from '@/core/directives/form_field/0.use_field_root';
+import { Prs } from '@/core/lib/data_structure/prs';
 
 @Component({
   selector: 'app-form-field-err',
@@ -23,11 +26,17 @@ import { UseFieldRootDir } from '@/core/directives/form_field/0.use_field_root';
 export class FormFieldErr extends UseFieldRootDir implements OnInit {
   // ? personal props
   public readonly ctrl: InputSignal<FormControl> = input.required();
+  public readonly testId: InputSignal<string> = input.required();
   // ? derived
   public recErrs: WritableSignal<RecErrsFieldT> = signal({
     prev: null,
     curr: null,
   });
+
+  // ? props testid tooltip
+  public readonly testIdErrMsg: Signal<string> = computed(() =>
+    Prs.toSnake(`err__${this.testId()}`)
+  );
 
   // ? ng
   ngOnInit(): void {

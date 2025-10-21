@@ -1,7 +1,17 @@
 <app-csr-with-title [title]="'Register'">
   <div class="root">
-    <form class="root__form" [formGroup]="form" (ngSubmit)="onSubmit()">
-      <app-swapper [maxSwaps]="2" [setSwap]="setSwap" [swap]="swapState().swap">
+    <form
+      [attr.data-testid]="'register_form'"
+      class="root__form"
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+    >
+      <app-swapper
+        [maxSwaps]="2"
+        [setSwap]="setSwap"
+        [swap]="swapState().swap"
+        [prefixTestId]="'register_form__'"
+      >
         <div #swapDiv class="swapper__swap" [style.--opac]="getOpacity(0)()">
           <!--  -->
           @for(f of firstSwapFields; track f.id){
@@ -22,7 +32,12 @@
 
       <div class="form__footer">
         <div class="footer__submit">
-          <app-btn-shadow [spanProps]="spanProps" [btnStateProps]="btnProps()" [type]="'submit'" />
+          <app-btn-shadow
+            [spanProps]="spanProps"
+            [btnStateProps]="btnProps()"
+            [type]="'submit'"
+            [testId]="'register_form__submit'"
+          />
         </div>
       </div>
     </form>
