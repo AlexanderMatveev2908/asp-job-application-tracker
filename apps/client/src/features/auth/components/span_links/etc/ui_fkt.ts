@@ -39,9 +39,21 @@ export class AuthSpanLinksUiFkt extends RootUiFkt {
     'INFO'
   );
 
+  private static readonly recoverPwdPage: SpanLinkPropsT[] = this.arrWithIdAndEvent(
+    this.loginPage,
+    'INFO'
+  );
+
+  private static readonly confMailPage: SpanLinkPropsT[] = this.arrWithIdAndEvent(
+    [this.loginPage[0], this.registerPage[1]],
+    'INFO'
+  );
+
   private static readonly map: Map<string, SpanLinkPropsT[]> = new Map<string, SpanLinkPropsT[]>([
     ['/auth/register', this.registerPage],
     ['/auth/login', this.loginPage],
+    ['/auth/require-email/recover-pwd', this.recoverPwdPage],
+    ['/auth/require-email/confirm-account', this.confMailPage],
   ]);
 
   public static byPath(path: Nullable<string>): Nullable<SpanLinkPropsT[]> {
