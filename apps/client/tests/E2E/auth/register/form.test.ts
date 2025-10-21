@@ -34,7 +34,7 @@ test('trigger errors', async ({ browser }: { browser: Browser }) => {
 
   const form: Locator = await lib.byIdInPage('register_form');
 
-  const [firstName, lastName] = await lib.errWhen(form, swap_0);
+  const [firstName, lastName] = await lib.errFor(form, swap_0);
 
   const prev: Locator = await lib.byIdIn(form, 'register_form__prev_swap');
   await expect(prev).toBeDisabled();
@@ -47,7 +47,7 @@ test('trigger errors', async ({ browser }: { browser: Browser }) => {
   const pwd: Locator = await lib.byIdIn(form, 'password');
   await lib.isFocused(pwd);
 
-  await lib.errWhen(form, swap_1);
+  await lib.errFor(form, swap_1);
 
   const mainBtn: Locator = await lib.byIdIn(form, 'register_form__submit');
   await mainBtn.click();
