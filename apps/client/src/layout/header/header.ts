@@ -21,6 +21,7 @@ import { LinkT } from '@/core/ui_fkt/links/etc/types';
 import { UsePathSvc } from '@/core/hooks/use_path';
 import { NavLink } from '@/common/components/links/nav_link/nav-link';
 import { Nullable } from '@/common/types/etc';
+import { Prs } from '@/core/lib/data_structure/prs';
 
 @Component({
   selector: 'app-header',
@@ -37,6 +38,11 @@ export class Header {
   // ? derived
   public readonly isSideOpen: Signal<boolean> = computed(() => this.sideSlice.sideState().isOpen);
   public readonly currPath: Signal<Nullable<string>> = this.usePath.currPath;
+
+  // ? testid
+  public testIdFromPath(path: string): string {
+    return Prs.toSnake('header__' + path);
+  }
 
   // ? helper
   public readonly toggleSide: () => void = () => {

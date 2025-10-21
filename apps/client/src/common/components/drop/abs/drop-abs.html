@@ -1,4 +1,4 @@
-<div #drop class="root">
+<div #drop [attr.data-testid]="testId()" class="root">
   <button class="root__btn" (click)="onClick()">
     <app-span [spanProps]="spanProps()" [sizesProps]="spanSizesProps()" />
   </button>
