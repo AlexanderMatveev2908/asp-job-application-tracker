@@ -1,10 +1,9 @@
 import { SpinPageSsr } from '@/common/components/spins/spin_page_ssr/spin-page-ssr';
-import { UsePlatformSvc } from '@/core/hooks/use_platform';
+import { UseInjCtx } from '@/core/directives/use_inj_ctx';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  inject,
   input,
   InputSignal,
   signal,
@@ -18,10 +17,7 @@ import {
   styleUrl: './page-wrapper.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PageWrapper implements AfterViewInit {
-  // ? svc
-  private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
-
+export class PageWrapper extends UseInjCtx implements AfterViewInit {
   // ? local state
   public readonly isHydrated: WritableSignal<boolean> = signal(false);
 

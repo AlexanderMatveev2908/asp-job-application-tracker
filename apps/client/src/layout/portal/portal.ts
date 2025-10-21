@@ -4,7 +4,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   ContentChild,
-  effect,
   inject,
   input,
   InputSignal,
@@ -75,8 +74,8 @@ export class Portal extends UseInjCtx implements AfterViewInit, OnDestroy {
       this.contentEl = host.firstElementChild as Nullable<HTMLElement>;
       if (!this.contentEl) return;
 
-      this.inCtx((): void => {
-        effect((): void => this.applyCoords(this.coords()));
+      this.useEffect((): void => {
+        this.applyCoords(this.coords());
       });
     });
   }

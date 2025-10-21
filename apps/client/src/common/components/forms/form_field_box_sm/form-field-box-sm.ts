@@ -5,7 +5,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
   input,
   InputSignal,
   OnInit,
@@ -57,19 +56,17 @@ export class FormFieldBoxSm extends UseFieldRootDir implements OnInit, AfterView
   }
 
   ngOnInit(): void {
-    this.setupWithCtrl(this.ctrl(), () => null);
+    this.setupWithCtrl(this.ctrl());
   }
 
   ngAfterViewInit(): void {
-    this.inCtx(() => {
-      effect(() => {
-        const val: Nullable<boolean> = this.val() as Nullable<boolean>;
+    this.useEffect(() => {
+      const val: Nullable<boolean> = this.val() as Nullable<boolean>;
 
-        FormFieldBoxAnimations.main({
-          checkbox: this.checkbox,
-          mark: this.mark,
-          val,
-        });
+      FormFieldBoxAnimations.main({
+        checkbox: this.checkbox,
+        mark: this.mark,
+        val,
       });
     });
   }

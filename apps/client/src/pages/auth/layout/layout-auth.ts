@@ -4,7 +4,7 @@ import { UseNavSvc } from '@/core/hooks/use_nav';
 import { UsePathSvc } from '@/core/hooks/use_path';
 import { AuthStateT } from '@/features/auth/reducer/reducer';
 import { AuthSlice } from '@/features/auth/slice';
-import { ChangeDetectionStrategy, Component, effect, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { from } from 'rxjs';
 
@@ -21,16 +21,14 @@ export class LayoutAuth extends UseInjCtx implements OnInit {
   private readonly useNav: UseNavSvc = inject(UseNavSvc);
 
   ngOnInit(): void {
-    this.inCtx(() => {
-      effect(() => {
-        const path: Nullable<string> = this.usePath.currPath();
-        if (!path || !path.startsWith('/auth')) return;
+    this.useEffect(() => {
+      const path: Nullable<string> = this.usePath.currPath();
+      if (!path || !path.startsWith('/auth')) return;
 
-        const state: AuthStateT = this.authSlice.authState();
+      const state: AuthStateT = this.authSlice.authState();
 
-        if (state.isLogged && !this.authSlice.loggingPending())
-          from(this.useNav.replace('/')).subscribe();
-      });
+      if (state.isLogged && !this.authSlice.loggingPending())
+        from(this.useNav.replace('/')).subscribe();
     });
   }
 }

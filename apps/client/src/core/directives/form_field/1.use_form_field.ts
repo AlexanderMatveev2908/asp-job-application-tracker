@@ -11,7 +11,7 @@ export abstract class UseFormFieldDir extends UseFieldRootDir implements AfterVi
   @ViewChild('formField') formField!: RefDomT;
 
   ngAfterViewInit(): void {
-    this.usePlatform.whenDomPainted(() => {
+    this.useDOM(() => {
       if (!this.focusOnMount()) return;
 
       FocusDOM.ifExists(this.formField);

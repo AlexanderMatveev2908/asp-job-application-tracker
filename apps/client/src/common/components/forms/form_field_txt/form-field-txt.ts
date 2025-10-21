@@ -47,6 +47,6 @@ export class FormFieldTxt extends UseFormFieldDir implements OnInit {
 
   // ? ng lifecycle
   ngOnInit(): void {
-    this.setupWithCtrl(this.ctrl(), () => null);
+    this.setupWithCtrl(this.ctrl());
   }
 }

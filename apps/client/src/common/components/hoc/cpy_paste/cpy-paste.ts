@@ -5,7 +5,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
   inject,
   input,
   InputSignal,
@@ -77,13 +76,11 @@ export class CpyPaste extends UseSwapPortalDir implements AfterViewInit {
 
   // ? animations
   override ngAfterViewInit(): void {
-    this.inCtx(() => {
-      effect(() => {
-        const isCpy: boolean = this.copied();
-        if (!isCpy) return;
+    this.useEffect(() => {
+      const isCpy: boolean = this.copied();
+      if (!isCpy) return;
 
-        CpyPasteAnimation.main(this.pasteNotice);
-      });
+      CpyPasteAnimation.main(this.pasteNotice);
     });
   }
 }

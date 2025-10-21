@@ -1,5 +1,5 @@
-import { Directive, inject, Signal } from '@angular/core';
-import { UsePlatformSvc } from '../../hooks/use_platform';
+import { Directive, Signal } from '@angular/core';
+import {} from '../../hooks/use_platform';
 import { AbstractControl } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map, Observable, startWith } from 'rxjs';
@@ -8,9 +8,6 @@ import { UseInjCtx } from '../use_inj_ctx';
 
 @Directive()
 export abstract class UseFieldRootDir extends UseInjCtx {
-  // ? svc
-  protected readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
-
   // ? derived
   public val!: Signal<unknown>;
   public interacted!: Signal<boolean>;
@@ -30,23 +27,19 @@ export abstract class UseFieldRootDir extends UseInjCtx {
   }
 
   // ? helpers
-  protected setupWithCtrl(ctrl: AbstractControl, cb: () => void): void {
+  protected setupWithCtrl(ctrl: AbstractControl): void {
     const c: AbstractControl = ctrl;
 
     this.inCtx(() => {
       this.assignFields(c);
-
-      cb();
     });
   }
 
-  protected setupWithFieldRef(inst: FormFieldTxt, cb: () => void): void {
+  protected setupWithFieldRef(inst: FormFieldTxt): void {
     const c: AbstractControl = inst.ctrl();
 
     this.inCtx(() => {
       this.assignFields(c);
     });
-
-    cb();
   }
 }

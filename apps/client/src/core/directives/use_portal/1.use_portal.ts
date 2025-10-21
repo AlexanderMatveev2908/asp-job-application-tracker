@@ -2,21 +2,16 @@ import {
   AfterViewInit,
   Directive,
   HostListener,
-  inject,
   signal,
   ViewChild,
   WritableSignal,
 } from '@angular/core';
 import { UseHoverDir } from './0.use_hover';
-import { UsePlatformSvc } from '../../hooks/use_platform';
 import { Nullable, RefDomT } from '@/common/types/etc';
 import { PortalDOM, RecCoordsT } from '@/core/lib/dom/portal';
 
 @Directive()
 export abstract class UsePortalDir extends UseHoverDir implements AfterViewInit {
-  // ? svc
-  protected readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
-
   // ? local state
   public readonly coords: WritableSignal<Nullable<RecCoordsT>> = signal(null);
 
@@ -26,7 +21,7 @@ export abstract class UsePortalDir extends UseHoverDir implements AfterViewInit 
 
   // ? listeners
   ngAfterViewInit(): void {
-    this.usePlatform.whenDomPainted(() => {
+    this.useDOM(() => {
       this.coords.set(PortalDOM.coordsOfRef(this.tooltipRef));
     });
   }

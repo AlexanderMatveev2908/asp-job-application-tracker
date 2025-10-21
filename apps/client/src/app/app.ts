@@ -1,10 +1,10 @@
 import { Header } from '@/layout/header/header';
 import { Sidebar } from '@/layout/sidebar/sidebar';
-import { ChangeDetectionStrategy, Component, effect, EffectRef, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, EffectRef } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Toast } from '@/layout/toast/toast';
 import { WakeUp } from '@/layout/wake_up/wake-up';
-import { UsePlatformSvc } from '@/core/hooks/use_platform';
+import { UseInjCtx } from '@/core/directives/use_inj_ctx';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +12,9 @@ import { UsePlatformSvc } from '@/core/hooks/use_platform';
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class App {
-  private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
-
+export class App extends UseInjCtx {
   public eft: EffectRef = effect(() => {
-    this.usePlatform.whenDomPainted(() => {
+    this.useDOM(() => {
       void null;
     });
   });
