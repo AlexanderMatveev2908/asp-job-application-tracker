@@ -14,7 +14,6 @@ import { BlackBg } from '@/layout/black_bg/black-bg';
 import { TxtClamp } from '@/common/components/els/txt/txt_clamp/txt-clamp';
 import { SidebarSlice } from '@/features/sidebar/slice';
 import { LinksUiFkt } from '@/core/ui_fkt/links';
-import { TxtClampPropsT } from '@/common/components/els/txt/txt_clamp/etc/types';
 import { BlackBgPropsT } from '@/layout/black_bg/etc/types';
 import { LinkT } from '@/core/ui_fkt/links/etc/types';
 import { DropStatic } from '@/common/components/drop/static/drop-static';
@@ -26,6 +25,7 @@ import { UseMouseOutSvc } from '@/core/hooks/use_mouse_out';
 import { Nullable, RefDomT } from '@/common/types/etc';
 import { Prs } from '@/core/lib/data_structure/prs';
 import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
+import { TxtPropsT } from '@/common/components/els/txt/etc/types';
 
 @Component({
   selector: 'app-sidebar',
@@ -67,10 +67,9 @@ export class Sidebar extends Lorem {
   public readonly spanUserProps: WritableSignal<SpanPropsT> = signal(spanUserNotLogged);
 
   // ? txt-clamp props
-  public readonly txtClampProps: TxtClampPropsT = {
+  public readonly txtClampProps: TxtPropsT = {
     txt: 'john@gmail.com',
     size: 'lg',
-    lines: 1,
   };
 
   // ? black bg overlay props

@@ -1,13 +1,6 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  input,
-  InputSignal,
-  Signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { TxtPropsT } from '../etc/types';
+import { UseTxtDir } from '@/core/directives/use_txt';
 
 @Component({
   selector: 'app-txt-scroll',
@@ -16,8 +9,4 @@ import { TxtPropsT } from '../etc/types';
   styleUrl: './txt-scroll.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TxtScroll {
-  public props: InputSignal<TxtPropsT> = input.required();
-
-  public txtCls: Signal<string> = computed(() => `txt__${this.props().size}`);
-}
+export class TxtScroll extends UseTxtDir {}

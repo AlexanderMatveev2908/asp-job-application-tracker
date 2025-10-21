@@ -1,13 +1,6 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  input,
-  InputSignal,
-  Signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { TxtClampPropsT } from './etc/types';
+import { UseTxtDir } from '@/core/directives/use_txt';
 
 @Component({
   selector: 'app-txt-clamp',
@@ -16,8 +9,6 @@ import { TxtClampPropsT } from './etc/types';
   styleUrl: './txt-clamp.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TxtClamp {
-  public readonly props: InputSignal<TxtClampPropsT> = input.required();
-
-  public txtCls: Signal<string> = computed(() => `txt__${this.props().size}`);
+export class TxtClamp extends UseTxtDir {
+  public readonly lines: InputSignal<number> = input.required();
 }
