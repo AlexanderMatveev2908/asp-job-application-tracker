@@ -36,7 +36,7 @@ export abstract class SideEffectsNoticeSvc extends SideEffectsToastSvc {
           status: err.status,
         };
 
-        const navigation: Promise<boolean> = this.useNav.replace('/notice');
+        const navigation: Promise<boolean> = this.useNav.replace('/notice', { from: 'error' });
 
         return from(navigation).pipe(switchMap(() => EMPTY));
       })

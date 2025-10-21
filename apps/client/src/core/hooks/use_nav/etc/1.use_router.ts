@@ -5,7 +5,7 @@ import { Log } from '@/core/lib/dev/log';
 import { Nullable } from '@/common/types/etc';
 
 // | make navigation predictable & avoid misspelling passing arguments
-export type NavFromT = 'register';
+export type NavFromT = 'register' | 'error' | 'not_allowed';
 
 interface NavOptT {
   replace: boolean;
