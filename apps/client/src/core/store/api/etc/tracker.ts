@@ -2,7 +2,7 @@ import { Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { finalize, Observable } from 'rxjs';
 
 @Injectable()
-export class ApiTrackerSvc {
+export abstract class ApiTrackerSvc {
   private readonly _isPending: WritableSignal<boolean> = signal(false);
   public readonly isPending: Signal<boolean> = this._isPending.asReadonly();
 
