@@ -1,6 +1,6 @@
 /* eslint-disable no-magic-numbers */
-import { envVars } from '@/environments/environment._test';
 import { expect, Locator, Page } from '@playwright/test';
+import { envVars } from '@/environments/environment';
 
 export abstract class LibRootTests {
   protected readonly URL: string = envVars.frontURL;

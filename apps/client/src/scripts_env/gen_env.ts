@@ -15,7 +15,6 @@ if (!['dev', 'test', 'prod'].includes(mode)) {
   exit(1);
 }
 
-const suffix: string = mode === 'prod' ? '' : `_${mode}`;
 const envSuffix: string = mode === 'prod' ? '' : `_${mode.toUpperCase()}`;
 const fullName: string = mode === 'prod' ? 'production' : mode === 'dev' ? 'development' : 'test';
 
@@ -61,8 +60,7 @@ export class EnvMng {
 
 `;
 
-const filePath =
-  mode === 'prod' ? 'src/environments/environment.ts' : `src/environments/environment.${suffix}.ts`;
+const filePath: string = 'src/environments/environment.ts';
 
 fs.mkdirSync('src/environments', { recursive: true });
 fs.writeFileSync(filePath, content);
