@@ -6,13 +6,11 @@ import {
   InputSignal,
   Signal,
 } from '@angular/core';
-import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
 import { Span } from '../../els/span/span';
 import { WrapBtnApi } from '../../hoc/btns/wrap_btn_api/wrap-btn-api';
 import { WrapBtnApiPropsT } from '../../hoc/btns/wrap_btn_api/etc/types';
-import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
 import { BtnListenersT, BtnStatePropsT, BtnT, Nullable } from '@/common/types/etc';
-import { SpanEventPropsT, SpanSizesPropsT } from '../../els/span/etc/types';
+import { UseSpanDir } from '@/core/directives/span/use_span';
 
 @Component({
   selector: 'app-btn-shadow',
@@ -21,15 +19,7 @@ import { SpanEventPropsT, SpanSizesPropsT } from '../../els/span/etc/types';
   styleUrl: './btn-shadow.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BtnShadow {
-  // ? app-span component props
-  public readonly spanProps: InputSignal<SpanEventPropsT> = input.required();
-  public readonly spanSizesProps: InputSignal<Partial<SpanSizesPropsT>> = input<
-    Partial<SpanSizesPropsT>
-  >({
-    svg: 'sm',
-    txt: 'lg',
-  });
+export class BtnShadow extends UseSpanDir {
   // ? btn personal props
   public readonly btnStateProps: InputSignal<BtnStatePropsT> = input<BtnStatePropsT>({
     isDisabled: false,
@@ -38,13 +28,6 @@ export class BtnShadow {
   public readonly listenersProps: InputSignal<Nullable<BtnListenersT>> =
     input<Nullable<BtnListenersT>>(null);
   public readonly type: InputSignal<BtnT> = input<BtnT>('button');
-  public readonly paddingProps: InputSignal<string> = input('10px 15px');
-  public readonly testId: InputSignal<Nullable<string>> = input<Nullable<string>>(null);
-
-  // ? derived from eventT span props
-  public readonly metaEvents: Signal<AppEventMetaT> = computed(() =>
-    MetaEventDOM.byT(this.spanProps().eventT)
-  );
 
   // ? app-wrap-api component props
   public readonly wrapBtnApiProps: Signal<WrapBtnApiPropsT> = computed(() => ({

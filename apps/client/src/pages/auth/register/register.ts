@@ -111,7 +111,7 @@ export class Register extends UseSwapDir {
               status: 201,
             };
           }),
-          switchMap(() => from(this.useNav.push('/notice')))
+          switchMap(() => from(this.useNav.replace('/notice', { from: 'register' })))
         )
       )
       .subscribe();

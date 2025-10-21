@@ -1,10 +1,10 @@
-import { LinkShadowPropsT } from '@/common/components/links/link_shadow/etc/types';
 import { LinkShadow } from '@/common/components/links/link_shadow/link-shadow';
 import { SvgStrokeHome } from '@/common/components/svgs/stroke/home/home';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CsrNoticeWrapper } from '@/common/components/hoc/page/csr_notice_wrapper/csr-notice-wrapper';
 import { AppEventT } from '@/core/lib/dom/meta_event/etc/types';
 import { NoticeWrapperPropsT } from '@/common/components/hoc/page/csr_notice_wrapper/etc/types';
+import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
 
 @Component({
   selector: 'app-not-found',
@@ -24,8 +24,7 @@ export class NotFound {
     status: 404,
   };
   // ? link under notice
-  public readonly linkProps: LinkShadowPropsT = {
-    path: '/',
+  public readonly linkProps: SpanEventPropsT = {
     label: 'Home',
     eventT: this.eventT,
     Svg: SvgStrokeHome,

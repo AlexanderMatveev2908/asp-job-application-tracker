@@ -9,10 +9,14 @@ import {
 import { NoticeSlice } from '@/features/notice/slice';
 import { NoticeWithoutCb } from '@/features/notice/reducer/reducer';
 import { UseStorageSvc } from '@/core/hooks/use_storage';
-import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import { CsrNoticeWrapper } from '@/common/components/hoc/page/csr_notice_wrapper/csr-notice-wrapper';
 import { Nullable } from '@/common/types/etc';
 import { NoticeWrapperPropsT } from '@/common/components/hoc/page/csr_notice_wrapper/etc/types';
+import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
+import { UseInjCtx } from '@/core/directives/use_inj_ctx';
+import { MetaNav } from '@/core/hooks/use_nav/etc/0.use_path';
+import { from } from 'rxjs';
+import { NavFromT } from '@/core/hooks/use_nav/etc/1.use_router';
 
 @Component({
   selector: 'app-notice',
@@ -21,10 +25,10 @@ import { NoticeWrapperPropsT } from '@/common/components/hoc/page/csr_notice_wra
   styleUrl: './notice.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Notice implements OnInit {
+export class Notice extends UseInjCtx implements OnInit {
   private readonly noticeSlice: NoticeSlice = inject(NoticeSlice);
   private readonly useStorage: UseStorageSvc = inject(UseStorageSvc);
-  private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
+  private readonly useNav: UseNavSvc = inject(UseNavSvc);
 
   public readonly wrapEventsProps: Signal<NoticeWrapperPropsT> = computed(() => {
     const { cb: _cb, ...rst } = this.noticeSlice._noticeState();
@@ -32,11 +36,20 @@ export class Notice implements OnInit {
     return rst;
   });
 
+  private readonly ALLOWED_FROM: Set<NavFromT> = new Set<NavFromT>(['register']);
+
   ngOnInit(): void {
     this.usePlatform.onClient(() => {
       const stored: Nullable<NoticeWithoutCb> = this.useStorage.getItem('notice');
 
       if (stored) this.noticeSlice.notice = stored;
+    });
+
+    this.useEffect(() => {
+      const meta: Nullable<MetaNav> = this.useNav.meta();
+
+      if (!meta?.from || !this.ALLOWED_FROM.has(meta.from))
+        from(this.useNav.replace('/')).subscribe();
     });
   }
 }

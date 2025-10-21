@@ -1,21 +1,20 @@
 @if(isExternal()){
 <a
-  [attr.href]="props().path"
+  [attr.href]="path()"
   [attr.target]="'_blank'"
   [attr.rel]="'noopener noreferrer'"
   class="root btn__res"
   [style.--clr]="metaEvent().css"
-  [style.padding]="padding()"
+  [style.padding]="paddingProps()"
 >
   <ng-container *ngTemplateOutlet="content"></ng-container>
 </a>
 }@else {
 <a
-  [routerLink]="props().path"
-  [attr.href]="props().path"
+  [routerLink]="path()"
   class="root btn__res"
   [style.--clr]="metaEvent().css"
-  [style.padding]="padding()"
+  [style.padding]="paddingProps()"
 >
   <ng-container *ngTemplateOutlet="content"></ng-container>
 </a>
@@ -24,8 +23,8 @@
 <ng-template #content>
   <app-span
     [spanProps]="{
-      label: props().label,
-      Svg: props().Svg ?? null
+      label: spanProps().label,
+      Svg: spanProps().Svg ?? null
     }"
   />
 </ng-template>

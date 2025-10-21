@@ -2,12 +2,21 @@ import { inject, Injectable } from '@angular/core';
 import { UsePlatformSvc } from '../../use_platform';
 import { UsePath } from './0.use_path';
 import { Log } from '@/core/lib/dev/log';
+import { Nullable } from '@/common/types/etc';
+
+// | make navigation predictable & avoid misspelling passing arguments
+export type NavFromT = 'register';
+
+interface NavOptT {
+  replace: boolean;
+  from: Nullable<NavFromT>;
+}
 
 @Injectable()
 export class UseRouter extends UsePath {
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
-  private async _nav(arg: string, { replace }: { replace: boolean }): Promise<boolean> {
+  private async _nav(arg: string, { replace, from }: NavOptT): Promise<boolean> {
     if (this.usePlatform.isServer) {
       Log.log('can not call navigate on server side');
       return Promise.resolve(false);
@@ -15,14 +24,20 @@ export class UseRouter extends UsePath {
 
     return await this.router.navigate([arg], {
       replaceUrl: replace,
+      state: {
+        from,
+      },
     });
   }
 
-  public async replace(arg: string): Promise<boolean> {
-    return this._nav(arg, { replace: true });
+  public async replace(
+    arg: string,
+    { from }: { from?: Nullable<NavFromT> } = {}
+  ): Promise<boolean> {
+    return this._nav(arg, { replace: true, from: from ?? null });
   }
 
-  public async push(arg: string): Promise<boolean> {
-    return this._nav(arg, { replace: false });
+  public async push(arg: string, { from }: { from?: Nullable<NavFromT> } = {}): Promise<boolean> {
+    return this._nav(arg, { replace: false, from: from ?? null });
   }
 }

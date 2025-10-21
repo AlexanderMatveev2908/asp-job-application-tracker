@@ -20,8 +20,8 @@ import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';
 import { NoticeAnimations } from './etc/animations';
 import { NoticeWrapperPropsT } from './etc/types';
 import { LinkShadow } from '@/common/components/links/link_shadow/link-shadow';
-import { LinkShadowPropsT } from '@/common/components/links/link_shadow/etc/types';
 import { envVars } from '@/environments/environment';
+import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
 
 @Component({
   selector: 'app-csr-notice-wrapper',
@@ -37,15 +37,15 @@ export class CsrNoticeWrapper implements AfterViewInit {
   public readonly props: InputSignal<NoticeWrapperPropsT> = input.required();
 
   // ? mail props link
-  public readonly linkProps: LinkShadowPropsT = {
+  public readonly linkProps: SpanEventPropsT = {
     eventT: 'INFO',
     label: 'Open Mail',
     Svg: null,
-    path: `https://mail.google.com/mail/u/0/#search/from%3A${envVars.smptFrom.replaceAll(
-      '@',
-      '%40'
-    )}`,
   };
+  public readonly pathProps: string = `https://mail.google.com/mail/u/0/#search/from%3A${envVars.smptFrom.replaceAll(
+    '@',
+    '%40'
+  )}`;
 
   // ? derived
   public metaEvent: Signal<AppEventMetaT> = computed(() => MetaEventDOM.byT(this.props().eventT));
