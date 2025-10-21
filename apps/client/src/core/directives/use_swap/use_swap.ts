@@ -3,9 +3,10 @@ import { ConfSwapT, SwapModeT, SwapStateT } from './etc/types';
 import { LibEtc } from '@/core/lib/etc';
 import { FocusDOM } from '@/core/lib/dom/focus';
 import { TimerIdT } from '@/common/types/etc';
+import { UseKitFormSvc } from '@/core/hooks/form_kit/use_kit_form';
 
 @Directive()
-export abstract class UseSwapDir {
+export abstract class UseSwapDir extends UseKitFormSvc {
   // | added little margin 100ms
   // | normal tim would be 400
   // eslint-disable-next-line no-magic-numbers
@@ -20,14 +21,10 @@ export abstract class UseSwapDir {
   protected timerID: TimerIdT = null;
 
   // ? private helpers
-  protected clearTmr(): void {
+  private clearTmr(): void {
     this.timerID = LibEtc.clearTmrID(this.timerID);
   }
 
-  protected focusWhen(...kwargs: string[]): void {
-    const { swap, mode } = this.swapState();
-    if (mode === 'swapped') FocusDOM.bySwap(kwargs, swap);
-  }
   private readonly _setSwap: (val: number, onEndSwap: SwapModeT) => void = (
     val: number,
     onEndSwap: SwapModeT
@@ -43,6 +40,17 @@ export abstract class UseSwapDir {
       this.clearTmr();
     }, UseSwapDir.TIME_ANIMATION);
   };
+
+  // ? shared helpers
+  protected focusWhen(...kwargs: string[]): void {
+    const { swap, mode } = this.swapState();
+    if (mode === 'swapped') FocusDOM.bySwap(kwargs, swap);
+  }
+
+  public getOpacity(idx: number): Signal<number> {
+    return computed(() => (idx === this.swapState().swap ? 1 : 0));
+  }
+
   // ? listeners
   public readonly setSwap: (val: number) => void = (val: number) => {
     this._setSwap(val, 'swapped');

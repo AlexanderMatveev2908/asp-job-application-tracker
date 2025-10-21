@@ -1,9 +1,11 @@
+@use 'exports/shapes.scss' as shapes;
+
 :host {
   @apply block w-full;
 }
 
 .root {
-  @apply w-full flex flex-col gap-10;
+  @include shapes.form__fields();
 
   .root__swapper {
     transition: transform 0.4s, max-height 0.2s;

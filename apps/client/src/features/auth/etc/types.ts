@@ -1,3 +1,3 @@
-export interface RegisterResT {
+export interface JwtResT {
   accessToken: string;
 }
