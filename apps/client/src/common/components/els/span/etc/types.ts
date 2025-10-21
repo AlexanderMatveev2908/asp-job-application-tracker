@@ -1,6 +1,5 @@
 import { SvgClsT, TxtClsT } from '@/common/types/css';
-import { Nullable, SvgT } from '@/common/types/etc';
-import { AppEventT } from '@/core/lib/dom/meta_event/etc/types';
+import { Nullable, SvgT, WithEventT, WithIdT } from '@/common/types/etc';
 
 export interface SpanPropsT {
   label: Nullable<string>;
@@ -12,6 +11,10 @@ export interface SpanSizesPropsT {
   svg: SvgClsT;
 }
 
-export interface SpanEventPropsT extends SpanPropsT {
-  eventT: AppEventT;
+export interface SpanEventPropsT extends SpanPropsT, WithEventT {}
+
+// ! most of links if not all are always passed
+// ! dynamically in loop so they need an id to track them in DOM
+export interface SpanLinkPropsT extends SpanEventPropsT, WithIdT {
+  path: string;
 }

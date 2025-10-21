@@ -1,3 +1,4 @@
+import { AppEventT } from '@/core/lib/dom/meta_event/etc/types';
 import { ElementRef, TemplateRef, Type } from '@angular/core';
 
 export type GenericVoidT = void | Promise<void>;
@@ -10,6 +11,10 @@ export interface WithIdT {
   id: string;
 }
 
+export interface WithEventT {
+  eventT: AppEventT;
+}
+
 // ? make components accepts always
 // ? a testId assigning it then based on needs
 export interface WithTestIdT {
@@ -18,7 +23,7 @@ export interface WithTestIdT {
 
 export type RefDomT = Opt<ElementRef<HTMLElement>>;
 
-export type TpltRedT = TemplateRef<unknown>;
+export type RefTemplateT = Opt<TemplateRef<unknown>>;
 
 export type SvgT = Type<unknown>;
 

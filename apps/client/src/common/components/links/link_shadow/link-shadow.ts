@@ -9,7 +9,7 @@ import {
 import { RouterLink } from '@angular/router';
 import { NgTemplateOutlet } from '@angular/common';
 import { Span } from '../../els/span/span';
-import { UseSpanDir } from '@/core/directives/span/use_span';
+import { UseMetaSpanDir } from '@/core/directives/span/1.use_span_meta';
 
 @Component({
   selector: 'app-link-shadow',
@@ -18,7 +18,7 @@ import { UseSpanDir } from '@/core/directives/span/use_span';
   styleUrl: './link-shadow.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LinkShadow extends UseSpanDir {
+export class LinkShadow extends UseMetaSpanDir {
   public readonly path: InputSignal<string> = input.required();
 
   // ? derived

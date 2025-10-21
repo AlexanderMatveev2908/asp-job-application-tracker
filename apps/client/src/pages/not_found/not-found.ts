@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CsrNoticeWrapper } from '@/common/components/hoc/page/csr_notice_wrapper/csr-notice-wrapper';
 import { AppEventT } from '@/core/lib/dom/meta_event/etc/types';
 import { NoticeWrapperPropsT } from '@/common/components/hoc/page/csr_notice_wrapper/etc/types';
-import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
+import { SpanLinkPropsT } from '@/common/components/els/span/etc/types';
 
 @Component({
   selector: 'app-not-found',
@@ -24,9 +24,10 @@ export class NotFound {
     status: 404,
   };
   // ? link under notice
-  public readonly linkProps: SpanEventPropsT = {
+  public readonly linkProps: Omit<SpanLinkPropsT, 'id'> = {
     label: 'Home',
     eventT: this.eventT,
     Svg: SvgStrokeHome,
+    path: '/',
   };
 }

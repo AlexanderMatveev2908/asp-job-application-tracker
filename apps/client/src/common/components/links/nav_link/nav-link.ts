@@ -1,4 +1,3 @@
-import { LinkT } from '@/core/ui_fkt/links/etc/types';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,13 +6,12 @@ import {
   InputSignal,
   Signal,
 } from '@angular/core';
-import { SpanSizesPropsT } from '../../els/span/etc/types';
 import { LinksUiFkt } from '@/core/ui_fkt/links';
 import { RouterLink } from '@angular/router';
 import { Span } from '../../els/span/span';
 import { NgClass } from '@angular/common';
 import { Nullable } from '@/common/types/etc';
-import { UseTestIdDir } from '@/core/directives/use_test_id';
+import { UseSpanRootDir } from '@/core/directives/span/0.use_span_root';
 
 @Component({
   selector: 'app-nav-link',
@@ -22,13 +20,9 @@ import { UseTestIdDir } from '@/core/directives/use_test_id';
   styleUrl: './nav-link.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavLink extends UseTestIdDir {
+export class NavLink extends UseSpanRootDir {
   // ? app-span props
-  public readonly spanProps: InputSignal<LinkT> = input.required();
-  public readonly spanSizesProps: SpanSizesPropsT = {
-    svg: 'md',
-    txt: 'lg',
-  };
+  public readonly path: InputSignal<string> = input.required();
 
   // ? personal props
   public readonly currPath: InputSignal<Nullable<string>> = input.required();
@@ -36,6 +30,6 @@ export class NavLink extends UseTestIdDir {
 
   // ? derived
   public readonly isActive: Signal<boolean> = computed(() =>
-    LinksUiFkt.isCurrPath(this.currPath(), this.spanProps().path)
+    LinksUiFkt.isCurrPath(this.currPath(), this.path())
   );
 }

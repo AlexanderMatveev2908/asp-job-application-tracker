@@ -1,0 +1,7 @@
+.root {
+  @apply relative flex w-fit items-center cursor-pointer;
+
+  .root__wrap {
+    @apply absolute h-[50px] min-w-full;
+  }
+}

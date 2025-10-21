@@ -3,18 +3,18 @@
   [attr.href]="path()"
   [attr.target]="'_blank'"
   [attr.rel]="'noopener noreferrer'"
-  class="root btn__res"
+  class="root"
   [style.--clr]="metaEvent().css"
-  [style.padding]="paddingProps()"
+  [style.--pad]="paddingProps()"
 >
   <ng-container *ngTemplateOutlet="content"></ng-container>
 </a>
 }@else {
 <a
   [routerLink]="path()"
-  class="root btn__res"
+  class="root"
   [style.--clr]="metaEvent().css"
-  [style.padding]="paddingProps()"
+  [style.--pad]="paddingProps()"
 >
   <ng-container *ngTemplateOutlet="content"></ng-container>
 </a>

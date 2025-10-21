@@ -2,8 +2,8 @@
   [attr.data-testid]="testId()"
   class="root app__link"
   (click)="setIsDropOpen()(false)"
-  [routerLink]="spanProps().path"
+  [routerLink]="path()"
   [ngClass]="isActive() ? 'active' : ''"
 >
-  <app-span [spanProps]="spanProps()" [sizesProps]="spanSizesProps" />
+  <app-span [spanProps]="spanProps()" [sizesProps]="spanSizesProps()" />
 </a>

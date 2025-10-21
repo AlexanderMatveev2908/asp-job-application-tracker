@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { UseTestIdDir } from './use_test_id';
 import { UseMouseOutSvc } from '../hooks/use_mouse_out';
-import { RefDomT, TpltRedT } from '@/common/types/etc';
+import { RefDomT, RefTemplateT } from '@/common/types/etc';
 
 @Directive()
 export abstract class UseDropDir extends UseTestIdDir {
@@ -23,7 +23,7 @@ export abstract class UseDropDir extends UseTestIdDir {
 
   // ? children & projected
   @ViewChild('drop') drop: RefDomT;
-  @ContentChild('dropContent', { read: TemplateRef }) dropContentRef!: TpltRedT;
+  @ContentChild('dropContent', { read: TemplateRef }) dropContentRef: RefTemplateT;
 
   // ? listeners
   public onClick(): void {
