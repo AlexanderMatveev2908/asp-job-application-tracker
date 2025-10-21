@@ -14,13 +14,12 @@ import { LibEtc } from '@/core/lib/etc';
 import { ShapeCheck } from '@/core/lib/data_structure/shape_check';
 import { FormFieldBoxSm } from '@/common/components/forms/form_field_box_sm/form-field-box-sm';
 import { NoticeSlice } from '@/features/notice/slice';
-import { AuthApiSvc } from '@/features/auth/api';
 import { ResApiT } from '@/core/store/api/etc/types';
-import { RegisterResT } from '@/features/auth/etc/types';
+import { JwtResT } from '@/features/auth/etc/types';
 import { from, switchMap, tap } from 'rxjs';
 import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
-import { AuthSlice } from '@/features/auth/slice';
 import { AuthFormShape } from '@/features/auth/components/form_shape/auth-form-shape';
+import { UseAuthKitSvc } from '@/features/auth/etc/use_auth_kit';
 
 @Component({
   selector: 'app-register',
@@ -41,8 +40,7 @@ import { AuthFormShape } from '@/features/auth/components/form_shape/auth-form-s
 })
 export class Register extends UseSwapDir {
   // ? svc
-  private readonly authSlice: AuthSlice = inject(AuthSlice);
-  private readonly authApi: AuthApiSvc = inject(AuthApiSvc);
+  private readonly useAuthKit: UseAuthKitSvc = inject(UseAuthKitSvc);
   private readonly noticeSlice: NoticeSlice = inject(NoticeSlice);
 
   // ? form related
@@ -68,9 +66,9 @@ export class Register extends UseSwapDir {
 
     this.tracker
       .main(
-        this.authApi.register(this.form.value).pipe(
-          tap((res: ResApiT<RegisterResT>) => {
-            this.authSlice.login(res.accessToken);
+        this.useAuthKit.authApi.register(this.form.value).pipe(
+          tap((res: ResApiT<JwtResT>) => {
+            this.useAuthKit.authSlice.login(res.accessToken);
 
             this.noticeSlice.mailNotice = {
               eventT: 'OK',
