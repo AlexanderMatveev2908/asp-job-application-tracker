@@ -13,6 +13,8 @@ export interface SpanSizesPropsT {
 
 export interface SpanEventPropsT extends SpanPropsT, WithEventT {}
 
+// ! most of links if not all are always passed
+// ! dynamically in loop so they need an id to track them in DOM
 export interface SpanLinkPropsT extends SpanEventPropsT, WithIdT {
   path: string;
 }

@@ -22,10 +22,11 @@ export type ArrowTooltipT = 'left' | 'right';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Tooltip extends UseTestIdDir {
-  // ? personal props
+  // ? personal props required
   public readonly isHover: InputSignal<boolean> = input.required();
   public readonly msg: InputSignal<Nullable<string>> = input.required();
   public readonly eventT: InputSignal<AppEventT> = input.required();
+  // ? optional with fallback
   public readonly minW: InputSignal<string> = input('200px');
   public readonly arrowOn: InputSignal<ArrowTooltipT> = input<ArrowTooltipT>('right');
 
