@@ -3,9 +3,9 @@
     (click)="onClick()"
     [type]="type()"
     [attr.data-testid]="testId()"
-    class="root btn__res"
+    class="root"
     [style.--clr]="metaEvent().css"
-    [style.padding]="paddingProps()"
+    [style.--pad]="paddingProps()"
     [disabled]="btnStateProps().isDisabled"
   >
     <app-span [spanProps]="spanProps()" [sizesProps]="spanSizesProps()" />

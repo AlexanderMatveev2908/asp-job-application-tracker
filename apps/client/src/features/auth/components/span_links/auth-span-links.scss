@@ -1,1 +1,10 @@
-.root{}
+@use 'exports/shapes.scss' as shapes;
+
+:host {
+  @apply block w-full;
+}
+
+.root {
+  @include shapes.form__size();
+  @apply mx-auto w-full flex justify-between;
+}
