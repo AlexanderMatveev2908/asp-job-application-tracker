@@ -1,14 +1,11 @@
 import { inject, Injectable } from '@angular/core';
-import { UsePlatformSvc } from './use_platform';
-import { Log } from '../lib/dev/log';
-import { Router } from '@angular/router';
+import { UsePlatformSvc } from '../../use_platform';
+import { UsePath } from './0.use_path';
+import { Log } from '@/core/lib/dev/log';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class UseNavSvc {
+@Injectable()
+export class UseRouter extends UsePath {
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
-  private readonly router: Router = inject(Router);
 
   private async _nav(arg: string, { replace }: { replace: boolean }): Promise<boolean> {
     if (this.usePlatform.isServer) {

@@ -1,7 +1,6 @@
 import { Nullable } from '@/common/types/etc';
 import { UseInjCtx } from '@/core/directives/use_inj_ctx';
-import { UseNavSvc } from '@/core/hooks/use_nav';
-import { UsePathSvc } from '@/core/hooks/use_path';
+import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
 import { AuthStateT } from '@/features/auth/reducer/reducer';
 import { AuthSlice } from '@/features/auth/slice';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
@@ -17,12 +16,11 @@ import { from } from 'rxjs';
 })
 export class LayoutAuth extends UseInjCtx implements OnInit {
   private readonly authSlice: AuthSlice = inject(AuthSlice);
-  private readonly usePath: UsePathSvc = inject(UsePathSvc);
   private readonly useNav: UseNavSvc = inject(UseNavSvc);
 
   ngOnInit(): void {
     this.useEffect(() => {
-      const path: Nullable<string> = this.usePath.currPath();
+      const path: Nullable<string> = this.useNav.currPath();
       if (!path || !path.startsWith('/auth')) return;
 
       const state: AuthStateT = this.authSlice.authState();

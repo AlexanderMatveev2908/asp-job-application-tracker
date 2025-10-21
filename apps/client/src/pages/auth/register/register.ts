@@ -24,7 +24,6 @@ import { PortalModule } from '@angular/cdk/portal';
 import { LibEtc } from '@/core/lib/etc';
 import { ShapeCheck } from '@/core/lib/data_structure/shape_check';
 import { FormFieldBoxSm } from '@/common/components/forms/form_field_box_sm/form-field-box-sm';
-import { UseNavSvc } from '@/core/hooks/use_nav';
 import { NoticeSlice } from '@/features/notice/slice';
 import { AuthApiSvc } from '@/features/auth/api';
 import { ResApiT } from '@/core/store/api/etc/types';
@@ -32,6 +31,7 @@ import { RegisterResT } from '@/features/auth/etc/types';
 import { from, switchMap, tap } from 'rxjs';
 import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
 import { AuthSlice } from '@/features/auth/slice';
+import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
 
 @Component({
   selector: 'app-register',

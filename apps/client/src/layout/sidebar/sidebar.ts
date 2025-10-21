@@ -14,7 +14,6 @@ import { BlackBg } from '@/layout/black_bg/black-bg';
 import { TxtClamp } from '@/common/components/els/txt/txt_clamp/txt-clamp';
 import { SidebarSlice } from '@/features/sidebar/slice';
 import { LinksUiFkt } from '@/core/ui_fkt/links';
-import { UsePathSvc } from '@/core/hooks/use_path';
 import { TxtClampPropsT } from '@/common/components/els/txt/txt_clamp/etc/types';
 import { BlackBgPropsT } from '@/layout/black_bg/etc/types';
 import { LinkT } from '@/core/ui_fkt/links/etc/types';
@@ -26,6 +25,7 @@ import { NavLink } from '@/common/components/links/nav_link/nav-link';
 import { UseMouseOutSvc } from '@/core/hooks/use_mouse_out';
 import { Nullable, RefDomT } from '@/common/types/etc';
 import { Prs } from '@/core/lib/data_structure/prs';
+import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
 
 @Component({
   selector: 'app-sidebar',
@@ -39,7 +39,7 @@ export class Sidebar extends Lorem {
   // ? svc
   private readonly useMouseOut: UseMouseOutSvc = inject(UseMouseOutSvc);
   private readonly sideSlice: SidebarSlice = inject(SidebarSlice);
-  private readonly usePath: UsePathSvc = inject(UsePathSvc);
+  private readonly useNav: UseNavSvc = inject(UseNavSvc);
 
   // ? local state
   public readonly isDropOpen: WritableSignal<boolean> = signal(false);
@@ -57,7 +57,7 @@ export class Sidebar extends Lorem {
 
   // ? derived
   public readonly isSideOpen: Signal<boolean> = computed(() => this.sideSlice.sideState().isOpen);
-  public readonly currPath: Signal<Nullable<string>> = this.usePath.currPath;
+  public readonly currPath: Signal<Nullable<string>> = this.useNav.currPath;
 
   // ? static fields
   public readonly allUsersLinks: LinkT[] = LinksUiFkt.allUsers;

@@ -3,11 +3,9 @@ import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class UsePathSvc {
-  private readonly router: Router = inject(Router);
+@Injectable()
+export abstract class UsePath {
+  protected readonly router: Router = inject(Router);
 
   public readonly currPath: WritableSignal<Nullable<string>> = signal(null);
 

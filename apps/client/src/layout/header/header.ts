@@ -18,10 +18,10 @@ import { SpanPropsT, SpanSizesPropsT } from '@/common/components/els/span/etc/ty
 import { NgClass } from '@angular/common';
 import { LinksUiFkt } from '@/core/ui_fkt/links';
 import { LinkT } from '@/core/ui_fkt/links/etc/types';
-import { UsePathSvc } from '@/core/hooks/use_path';
 import { NavLink } from '@/common/components/links/nav_link/nav-link';
 import { Nullable } from '@/common/types/etc';
 import { Prs } from '@/core/lib/data_structure/prs';
+import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
 
 @Component({
   selector: 'app-header',
@@ -32,12 +32,12 @@ import { Prs } from '@/core/lib/data_structure/prs';
 })
 export class Header {
   // ? svc
-  private readonly usePath: UsePathSvc = inject(UsePathSvc);
+  private readonly useNav: UseNavSvc = inject(UseNavSvc);
   private readonly sideSlice: SidebarSlice = inject(SidebarSlice);
 
   // ? derived
   public readonly isSideOpen: Signal<boolean> = computed(() => this.sideSlice.sideState().isOpen);
-  public readonly currPath: Signal<Nullable<string>> = this.usePath.currPath;
+  public readonly currPath: Signal<Nullable<string>> = this.useNav.currPath;
 
   // ? testid
   public testIdFromPath(path: string): string {
