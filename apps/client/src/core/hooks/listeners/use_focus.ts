@@ -1,7 +1,7 @@
-import { Directive, signal, WritableSignal } from '@angular/core';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 
-@Directive()
-export abstract class UseFocusDir {
+@Injectable()
+export abstract class UseFocusSvc {
   public readonly isFocused: WritableSignal<boolean> = signal(false);
 
   public onFocus: () => void = () => {

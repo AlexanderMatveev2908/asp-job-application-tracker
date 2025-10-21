@@ -6,12 +6,12 @@ import {
   ViewChild,
   WritableSignal,
 } from '@angular/core';
-import { UseHoverDir } from './0.use_hover';
+import { UseHoverSvc } from '../../hooks/listeners/use_hover';
 import { Nullable, RefDomT } from '@/common/types/etc';
 import { PortalDOM, RecCoordsT } from '@/core/lib/dom/portal';
 
 @Directive()
-export abstract class UsePortalDir extends UseHoverDir implements AfterViewInit {
+export abstract class UsePortalDir extends UseHoverSvc implements AfterViewInit {
   // ? local state
   public readonly coords: WritableSignal<Nullable<RecCoordsT>> = signal(null);
 

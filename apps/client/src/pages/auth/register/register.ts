@@ -17,7 +17,6 @@ import { NoticeSlice } from '@/features/notice/slice';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { JwtResT } from '@/features/auth/etc/types';
 import { from, switchMap, tap } from 'rxjs';
-import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
 import { AuthFormShape } from '@/features/auth/components/form_shape/auth-form-shape';
 import { UseAuthKitSvc } from '@/features/auth/etc/use_auth_kit';
 
@@ -36,7 +35,6 @@ import { UseAuthKitSvc } from '@/features/auth/etc/use_auth_kit';
   templateUrl: './register.html',
   styleUrl: './register.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ApiTrackerSvc],
 })
 export class Register extends UseSwapDir {
   // ? svc
@@ -64,21 +62,19 @@ export class Register extends UseSwapDir {
       return;
     }
 
-    this.tracker
-      .main(
-        this.useAuthKit.authApi.register(this.form.value).pipe(
-          tap((res: ResApiT<JwtResT>) => {
-            this.useAuthKit.authSlice.login(res.accessToken);
+    this.track(
+      this.useAuthKit.authApi.register(this.form.value).pipe(
+        tap((res: ResApiT<JwtResT>) => {
+          this.useAuthKit.authSlice.login(res.accessToken);
 
-            this.noticeSlice.mailNotice = {
-              eventT: 'OK',
-              msg: 'to confirm your account',
-              status: 201,
-            };
-          }),
-          switchMap(() => from(this.useNav.replace('/notice', { from: 'register' })))
-        )
+          this.noticeSlice.mailNotice = {
+            eventT: 'OK',
+            msg: 'to confirm your account',
+            status: 201,
+          };
+        }),
+        switchMap(() => from(this.useNav.replace('/notice', { from: 'register' })))
       )
-      .subscribe();
+    ).subscribe();
   };
 }

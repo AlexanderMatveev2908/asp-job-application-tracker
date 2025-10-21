@@ -3,7 +3,7 @@ import { ConfSwapT, SwapModeT, SwapStateT } from './etc/types';
 import { LibEtc } from '@/core/lib/etc';
 import { FocusDOM } from '@/core/lib/dom/focus';
 import { TimerIdT } from '@/common/types/etc';
-import { UseKitFormSvc } from '@/core/hooks/form_kit/use_kit_form';
+import { UseKitFormSvc } from '@/core/hooks/form_kit/0.use_kit_form';
 
 @Directive()
 export abstract class UseSwapDir extends UseKitFormSvc {

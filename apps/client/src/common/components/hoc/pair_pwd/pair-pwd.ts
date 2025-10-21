@@ -15,7 +15,7 @@ import { FormControl } from '@angular/forms';
 import { PwdGenerator } from './pwd_generator/pwd-generator';
 import { ConfSwapT } from '@/core/directives/use_swap/etc/types';
 import { PwdChecker } from './pwd_checker/pwd-checker';
-import { UseFocusDir } from '@/core/directives/use_focus';
+import { UseFocusSvc } from '@/core/hooks/listeners/use_focus';
 import { Nullable } from '@/common/types/etc';
 
 @Component({
@@ -25,7 +25,7 @@ import { Nullable } from '@/common/types/etc';
   styleUrl: './pair-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PairPwd extends UseFocusDir {
+export class PairPwd extends UseFocusSvc {
   // ? personal props
   public readonly getCtrl: InputSignal<(key: string) => FormControl<unknown>> = input.required();
   // ? component may be inside a swapper

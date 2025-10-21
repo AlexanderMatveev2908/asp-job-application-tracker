@@ -12,7 +12,7 @@ import {
 import { SpanLinkPropsT } from '../../els/span/etc/types';
 import { NgComponentOutlet } from '@angular/common';
 import { ArrowTooltipT, Tooltip } from '../../els/tooltip/tooltip';
-import { UseHoverDir } from '@/core/directives/use_portal/0.use_hover';
+import { UseHoverSvc } from '@/core/hooks/listeners/use_hover';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -22,7 +22,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './tooltip-link.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TooltipLink extends UseHoverDir implements AfterViewInit {
+export class TooltipLink extends UseHoverSvc implements AfterViewInit {
   public readonly lk: InputSignal<SpanLinkPropsT> = input.required();
   public readonly arrowOn: InputSignal<ArrowTooltipT> = input<ArrowTooltipT>('right');
 
