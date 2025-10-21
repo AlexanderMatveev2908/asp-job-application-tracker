@@ -60,4 +60,8 @@ export abstract class LibRootTests {
 
     return found;
   }
+
+  public async txtInPage(txt: string): Promise<Locator> {
+    return this.txtIn(this.page, txt);
+  }
 }

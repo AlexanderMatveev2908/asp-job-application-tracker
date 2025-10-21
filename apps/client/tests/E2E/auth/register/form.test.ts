@@ -1,8 +1,8 @@
 import test, { Browser, expect, Locator } from '@playwright/test';
-import { LibTests } from 'tests/E2E/lib_tests';
-import { TriggerErrT } from 'tests/E2E/lib_tests/etc/types';
+import { FillInputT } from 'tests/E2E/lib_tests/etc/types';
+import { preRegister } from './pre';
 
-const swap_0: TriggerErrT[] = [
+const swap_0: FillInputT[] = [
   {
     field: 'first_name',
     val: '<><>',
@@ -16,7 +16,7 @@ const swap_0: TriggerErrT[] = [
     val: '@not@an<><>email',
   },
 ];
-const swap_1: TriggerErrT[] = [
+const swap_1: FillInputT[] = [
   {
     field: 'password',
     val: 'not safe',
@@ -28,11 +28,7 @@ const swap_1: TriggerErrT[] = [
 ];
 
 test('trigger errors', async ({ browser }: { browser: Browser }) => {
-  const lib: LibTests = await LibTests.fromBrowser(browser);
-
-  await lib.nav('/auth/register');
-
-  const form: Locator = await lib.byIdInPage('register_form');
+  const { lib, form } = await preRegister(browser);
 
   const [firstName, lastName] = await lib.errFor(form, swap_0);
 

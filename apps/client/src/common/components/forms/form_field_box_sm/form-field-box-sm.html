@@ -1,5 +1,12 @@
 <div class="root">
-  <button (click)="onToggle()" type="button" #checkbox class="root_checkbox" [ngClass]="getTwd()">
+  <button
+    [attr.data-testid]="testId()"
+    (click)="onToggle()"
+    type="button"
+    #checkbox
+    class="root_checkbox"
+    [ngClass]="getTwd()"
+  >
     <div #mark class="checkbox__mark"></div>
   </button>
 

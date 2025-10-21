@@ -1,4 +1,4 @@
-export interface TriggerErrT {
+export interface FillInputT {
   field: string;
   val: string;
 }
