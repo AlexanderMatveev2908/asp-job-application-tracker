@@ -65,7 +65,7 @@ export class Register extends UseSwapDir {
     this.track(
       this.useAuthKit.authApi.register(this.form.value).pipe(
         tap((res: ResApiT<JwtResT>) => {
-          this.useAuthKit.authSlice.login(res.accessToken);
+          this.useAuthKit.authSlice.loginTmr(res.accessToken);
 
           this.noticeSlice.mailNotice = {
             eventT: 'OK',
