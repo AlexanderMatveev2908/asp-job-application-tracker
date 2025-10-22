@@ -1,3 +1,5 @@
+import { UserT } from '@/features/user/etc/types';
+
 export class Prs {
   public static devDate(date: Date | string | number): string {
     {
@@ -47,5 +49,12 @@ export class Prs {
       .replace(/_{3,}/g, '__');
 
     return replaced.toLowerCase();
+  }
+
+  private static firstUpper(arg: string): string {
+    return arg.at(0)!.toUpperCase();
+  }
+  public static initials(user: UserT): string {
+    return `${this.firstUpper(user.firstName)}${this.firstUpper(user.lastName)}`;
   }
 }

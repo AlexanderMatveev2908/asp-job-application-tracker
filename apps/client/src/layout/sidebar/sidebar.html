@@ -6,9 +6,11 @@
   class="root z__sidebar"
   [ngClass]="isSideOpen() ? '-translate-x-full opacity-100' : 'translate-x-0 opacity-0'"
 >
+  @if(txtClampProps()) {
   <div class="root__span_mail">
-    <app-txt-clamp [props]="txtClampProps" [lines]="2" />
+    <app-txt-clamp [props]="txtClampProps()" [lines]="2" />
   </div>
+  }
 
   <div class="root__body scroll__app">
     <div class="body__wrap_links">

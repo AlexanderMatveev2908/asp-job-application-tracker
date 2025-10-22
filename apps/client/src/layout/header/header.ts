@@ -25,6 +25,8 @@ import { NavLink } from '@/common/components/links/nav_link/nav-link';
 import { Nullable } from '@/common/types/etc';
 import { Prs } from '@/core/lib/data_structure/prs';
 import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
+import { UserSlice } from '@/features/user/slice';
+import { UserT } from '@/features/user/etc/types';
 
 @Component({
   selector: 'app-header',
@@ -37,10 +39,12 @@ export class Header {
   // ? svc
   private readonly useNav: UseNavSvc = inject(UseNavSvc);
   private readonly sideSlice: SidebarSlice = inject(SidebarSlice);
+  private readonly userSlice: UserSlice = inject(UserSlice);
 
   // ? derived
   public readonly isSideOpen: Signal<boolean> = computed(() => this.sideSlice.sideState().isOpen);
   public readonly currPath: Signal<Nullable<string>> = this.useNav.currPath;
+  public readonly user: Signal<Nullable<UserT>> = computed(() => this.userSlice.userState().user);
 
   // ? testid
   public testIdFromPath(path: string): string {
@@ -63,10 +67,11 @@ export class Header {
 
   // ? app-span props
   public readonly spanDropProps: Signal<SpanPropsT> = computed(() => ({
-    label: null,
-    Svg: SvgStrokeUserWrite,
+    label: this.user() ? Prs.initials(this.user()!) : null,
+    Svg: this.user() ? null : SvgStrokeUserWrite,
   }));
   public readonly spanDropSizesProps: Partial<SpanSizesPropsT> = {
     svg: '3xl',
+    txt: '3xl',
   };
 }

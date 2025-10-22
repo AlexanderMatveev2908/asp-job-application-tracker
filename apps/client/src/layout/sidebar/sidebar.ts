@@ -64,21 +64,16 @@ export class Sidebar extends Lorem {
   // ? derived
   public readonly isSideOpen: Signal<boolean> = computed(() => this.sideSlice.sideState().isOpen);
   public readonly currPath: Signal<Nullable<string>> = this.useNav.currPath;
+  public readonly user: Signal<Nullable<UserT>> = computed(() => this.userSlice.userState().user);
 
   // ? static fields
   public readonly allUsersLinks: SpanLinkPropsT[] = LinksUiFkt.allUsers;
-  public readonly linksUser: Signal<SpanLinkPropsT[]> = computed(() => {
-    const user: Nullable<UserT> = this.userSlice.userState().user;
+  // ? dynamic props
+  public readonly linksUser: Signal<SpanLinkPropsT[]> = computed(() =>
+    this.user() ? LinksUiFkt.getLoggedByVerifyStatus(this.user()!.verified) : LinksUiFkt.notLogged
+  );
 
-    const links: SpanLinkPropsT[] = user
-      ? LinksUiFkt.getLoggedByVerifyStatus(user.verified)
-      : LinksUiFkt.notLogged;
-
-    console.log(links);
-    return links;
-  });
-
-  // ? app-span props
+  // ? app-span-drop props
   public readonly spanUserProps: Signal<SpanPropsT> = computed(() =>
     this.userSlice.userState().user ? spanUserLogged : spanUserNotLogged
   );
@@ -88,10 +83,14 @@ export class Sidebar extends Lorem {
   };
 
   // ? txt-clamp props
-  public readonly txtClampProps: TxtPropsT = {
-    txt: 'john@gmail.com',
-    size: 'lg',
-  };
+  public readonly txtClampProps: Signal<Nullable<TxtPropsT>> = computed(() =>
+    !this.user()
+      ? null
+      : {
+          txt: this.user()!.email,
+          size: 'lg',
+        }
+  );
 
   // ? black bg overlay props
   public readonly blackBgProps: Signal<BlackBgPropsT> = computed(() => ({
