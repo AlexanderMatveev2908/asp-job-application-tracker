@@ -15,17 +15,15 @@ import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
   templateUrl: './home.html',
   styleUrl: './home.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ApiTrackerSvc],
 })
-export class Home {
+export class Home extends ApiTrackerSvc {
   // ? svc
   private readonly api: ApiSvc = inject(ApiSvc);
-  private readonly tracker: ApiTrackerSvc = inject(ApiTrackerSvc);
 
   // ? btn props
   public readonly btnStateProps: Signal<BtnStatePropsT> = computed(() => ({
     isDisabled: false,
-    isPending: this.tracker.isPending(),
+    isPending: this.isPending(),
   }));
   public readonly spanProps: SpanEventPropsT = {
     label: 'Script worked 🎉',
@@ -35,15 +33,13 @@ export class Home {
 
   public readonly btnEventsProps: BtnListenersT = {
     onClick: (): void => {
-      this.tracker
-        .main(
-          this.api.post<ResApiT<void>>(
-            ApiArgs.withURL('/test').body({ msg: 'some txt...' }).toastOnFulfilled().pushOnErr()
-          )
+      this.track(
+        this.api.post<ResApiT<void>>(
+          ApiArgs.withURL('/test').body({ msg: 'some txt...' }).toastOnFulfilled().pushOnErr()
         )
-        .subscribe((res: ResApiT<void>) => {
-          void res;
-        });
+      ).subscribe((res: ResApiT<void>) => {
+        void res;
+      });
     },
   };
 }

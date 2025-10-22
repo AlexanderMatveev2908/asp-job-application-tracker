@@ -14,7 +14,7 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { Portal } from '@/layout/portal/portal';
-import { UseSwapPortalDir } from '@/core/directives/use_portal/2.use_swap_portal';
+import { UseSwapPortalDir } from '@/core/directives/use_portal/1.use_swap_portal';
 import { Log } from '@/core/lib/dev/log';
 import { ErrApp } from '@/core/lib/err';
 import { Nullable, RefDomT, TimerIdT } from '@/common/types/etc';

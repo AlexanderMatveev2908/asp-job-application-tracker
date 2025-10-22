@@ -51,3 +51,11 @@ export interface BtnListenersT {
 export type BtnT = 'button' | 'submit';
 
 export type OptCbT = Nullable<(val: unknown) => void>;
+
+export interface SqlTableT {
+  id: string;
+  createdAt: number;
+  updatedAt: number;
+
+  deletedAt: Nullable<number>;
+}

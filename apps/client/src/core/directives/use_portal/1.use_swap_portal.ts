@@ -9,7 +9,7 @@ import {
   Signal,
 } from '@angular/core';
 import { ConfSwapT } from '../use_swap/etc/types';
-import { UsePortalDir } from './1.use_portal';
+import { UsePortalDir } from './0.use_portal';
 import { PortalDOM } from '@/core/lib/dom/portal';
 import { Nullable } from '@/common/types/etc';
 

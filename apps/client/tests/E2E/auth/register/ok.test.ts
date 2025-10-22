@@ -1,10 +1,10 @@
 import test, { Browser, Locator } from '@playwright/test';
 import { preRegister } from './pre';
-import { RegisterFormT } from '@/features/auth/register/paperwork/form_mng';
-import { Payloads } from 'tests/E2E/lib_tests/etc/payloads';
+import { TestPayload } from 'tests/E2E/lib_tests/etc/payloads';
 import { FillInputT } from 'tests/E2E/lib_tests/etc/types';
+import { RegisterFormT } from '@/features/auth/pages/register/paperwork/form_mng';
 
-const payload: Omit<RegisterFormT, 'terms' | 'confirmPassword'> = Payloads.register();
+const payload: Omit<RegisterFormT, 'terms' | 'confirmPassword'> = TestPayload.register();
 
 const swap_0: FillInputT[] = [
   {
