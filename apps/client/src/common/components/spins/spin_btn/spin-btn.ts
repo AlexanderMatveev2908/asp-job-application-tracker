@@ -1,21 +1,16 @@
 import { ElDomT, Opt, RefDomT } from '@/common/types/etc';
-import { AppEventMetaT, AppEventT } from '@/core/lib/dom/meta_event/etc/types';
-import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
 import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  computed,
   inject,
-  input,
-  InputSignal,
   QueryList,
-  Signal,
   ViewChildren,
 } from '@angular/core';
 import { animate } from '@motionone/dom';
 import { v4 } from 'uuid';
+import { UseSpinDir } from '@/core/directives/use_spin';
 
 @Component({
   selector: 'app-spin-btn',
@@ -24,16 +19,8 @@ import { v4 } from 'uuid';
   styleUrl: './spin-btn.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SpinBtn implements AfterViewInit {
+export class SpinBtn extends UseSpinDir implements AfterViewInit {
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
-
-  // ? personal props
-  public readonly eventT: InputSignal<AppEventT> = input.required();
-
-  // ? derived
-  public readonly metaEvent: Signal<AppEventMetaT> = computed(() =>
-    MetaEventDOM.byT(this.eventT())
-  );
 
   // ? static ids to map for spin
   public readonly IDs: string[] = Array.from({ length: 4 }, () => v4());

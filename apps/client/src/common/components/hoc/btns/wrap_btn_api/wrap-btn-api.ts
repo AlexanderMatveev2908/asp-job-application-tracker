@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SpinBtn } from '@/common/components/spins/spin_btn/spin-btn';
-import { AppEventT } from '@/core/lib/dom/meta_event/etc/types';
+import { UseWrapApiDir } from '@/core/directives/use_wrap_api';
 
 @Component({
   selector: 'app-wrap-btn-api',
@@ -9,7 +9,4 @@ import { AppEventT } from '@/core/lib/dom/meta_event/etc/types';
   styleUrl: './wrap-btn-api.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WrapBtnApi {
-  public readonly isPending: InputSignal<boolean> = input.required();
-  public readonly eventT: InputSignal<AppEventT> = input.required();
-}
+export class WrapBtnApi extends UseWrapApiDir {}

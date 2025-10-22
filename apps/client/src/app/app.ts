@@ -16,8 +16,8 @@ import { UseStorageSvc } from '@/core/hooks/use_storage';
 import { AuthSlice } from '@/features/auth/slice';
 import { Nullable } from '@/common/types/etc';
 import { UseUserKitSvc } from '@/features/user/etc/use_user_kit';
-import { Subscription, tap } from 'rxjs';
-import { ResApiT } from '@/core/store/api/etc/types';
+import { finalize, Subscription, tap } from 'rxjs';
+import { ErrApiT, ResApiT } from '@/core/store/api/etc/types';
 import { ResInfoT } from '@/features/user/etc/types';
 
 @Component({
@@ -40,13 +40,20 @@ export class App extends UseInjCtx implements OnInit, AfterViewInit {
     this.useEffect((onCleanup: EffectCleanupRegisterFn) => {
       void this.authSlice.authState().isLogged;
 
+      this.useUserKit.userSlice.setPending(true);
       const sub: Subscription = this.useUserKit.userApi
         .getUser()
         .pipe(
-          tap((res: ResApiT<ResInfoT>) => {
-            if (res?.user) this.useUserKit.userSlice.setUser(res.user);
-            else this.useUserKit.userSlice.reset();
-          })
+          tap({
+            next: (res: ResApiT<ResInfoT>) => {
+              if (res?.user) this.useUserKit.userSlice.setUser(res.user);
+              else this.useUserKit.userSlice.markNull();
+            },
+            error: (_: ErrApiT<void>) => {
+              this.useUserKit.userSlice.markNull();
+            },
+          }),
+          finalize(() => this.useUserKit.userSlice.setPending(false))
         )
         .subscribe();
 

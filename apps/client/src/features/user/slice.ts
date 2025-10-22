@@ -17,7 +17,11 @@ export class UserSlice extends UseKitSliceSvc {
     this.store.dispatch(UserActT.SET_USER(user));
   }
 
-  public reset(): void {
-    this.store.dispatch(UserActT.RESET());
+  public markNull(): void {
+    this.store.dispatch(UserActT.MARK_NULL());
+  }
+
+  public setPending(val: boolean): void {
+    this.store.dispatch(UserActT.SET_PENDING({ isPending: val }));
   }
 }
