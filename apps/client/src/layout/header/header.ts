@@ -63,7 +63,9 @@ export class Header {
   };
 
   // ? static fields
-  public readonly notLoggedLinks: SpanLinkPropsT[] = LinksUiFkt.notLogged;
+  public readonly dropLinks: Signal<SpanLinkPropsT[]> = computed(() =>
+    this.user() ? LinksUiFkt.getLoggedByVerifyStatus(this.user()!.verified) : LinksUiFkt.notLogged
+  );
 
   // ? app-span props
   public readonly spanDropProps: Signal<SpanPropsT> = computed(() => ({

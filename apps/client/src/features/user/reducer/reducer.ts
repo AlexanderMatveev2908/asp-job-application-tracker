@@ -5,14 +5,23 @@ import { UserActT } from './actions';
 
 export interface UserStateT {
   user: Nullable<UserT>;
+  // ? track when client make his first call to server
+  // ? so u can wait before pushing user out from a page
+  // ? knowing he is or not logged
+  handShake: boolean;
 }
 
 export const initState: UserStateT = {
   user: null,
+  handShake: false,
 };
 
 export const userReducer = createReducer(
   initState,
-  on(UserActT.SET_USER, (state: UserStateT, action: UserT) => ({ ...state, user: action })),
-  on(UserActT.RESET, (_: UserStateT) => initState)
+  on(UserActT.SET_USER, (state: UserStateT, action: UserT) => ({
+    ...state,
+    user: action,
+    handShake: true,
+  })),
+  on(UserActT.RESET, (state: UserStateT) => ({ ...state, handShake: true }))
 );
