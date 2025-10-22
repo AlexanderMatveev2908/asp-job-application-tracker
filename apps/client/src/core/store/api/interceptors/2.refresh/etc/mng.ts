@@ -41,7 +41,6 @@ export class RefreshMdwMng {
         }),
         catchError((err: ErrApiT<void>) => {
           authSlice.logout();
-          useStorage.delItem('accessToken');
 
           return throwError(() => err);
         })
