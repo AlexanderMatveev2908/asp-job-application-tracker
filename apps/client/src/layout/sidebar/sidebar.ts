@@ -16,11 +16,7 @@ import { SidebarSlice } from '@/features/sidebar/slice';
 import { LinksUiFkt } from '@/core/ui_fkt/links';
 import { BlackBgPropsT } from '@/layout/black_bg/etc/types';
 import { DropStatic } from '@/common/components/drop/static/drop-static';
-import {
-  SpanLinkPropsT,
-  SpanPropsT,
-  SpanSizesPropsT,
-} from '@/common/components/els/span/etc/types';
+import { SpanLinkPropsT, SpanPropsT } from '@/common/components/els/span/etc/types';
 import { Lorem } from '@/core/lib/etc';
 import { NavLink } from '@/common/components/links/nav_link/nav-link';
 import { UseMouseOutSvc } from '@/core/hooks/use_mouse_out';
@@ -78,10 +74,6 @@ export class Sidebar extends Lorem {
   public readonly spanUserProps: Signal<SpanPropsT> = computed(() =>
     this.user() ? SidebarUiFkt.spanLogged : SidebarUiFkt.spanNotLogged
   );
-  public readonly navLinkSpanSizesProps: SpanSizesPropsT = {
-    txt: 'lg',
-    svg: 'md',
-  };
 
   // ? txt-clamp props
   public readonly txtClampProps: Signal<Nullable<TxtPropsT>> = computed(() =>

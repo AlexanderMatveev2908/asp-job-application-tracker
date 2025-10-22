@@ -28,6 +28,8 @@
               [currPath]="currPath()"
               [setIsDropOpen]="setIsDropOpen"
             />
+            } @if(user()){
+            <app-side-logout />
             }
           </div>
         </ng-template>
