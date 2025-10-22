@@ -21,6 +21,10 @@ export class AuthSlice extends UseKitSliceSvc {
   public login(accessToken: string): void {
     this.store.dispatch(AuthActT.LOGIN());
     this.useStorage.setItem('accessToken', accessToken);
+  }
+
+  public loginTmr(accessToken: string): void {
+    this.login(accessToken);
 
     setTimeout(() => {
       this.store.dispatch(AuthActT.RESET_LOGGING_STATE({ key: 'loggingIn' }));
@@ -39,6 +43,10 @@ export class AuthSlice extends UseKitSliceSvc {
   public logout(): void {
     this.store.dispatch(AuthActT.LOGOUT());
     this.useStorage.delItem('accessToken');
+  }
+
+  public logoutTmr(): void {
+    this.logout();
 
     setTimeout(() => {
       this.store.dispatch(AuthActT.RESET_LOGGING_STATE({ key: 'loggingOut' }));

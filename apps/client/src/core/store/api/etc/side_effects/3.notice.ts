@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { SideEffectsToastSvc } from './2.toast';
 import { ErrApiT, ObsOnOkT, ObsResT, OptErrApiT, StatusT } from '../types';
 import { Nullable } from '@/common/types/etc';
-import { catchError, EMPTY, from, switchMap } from 'rxjs';
+import { catchError, EMPTY, from, switchMap, throwError } from 'rxjs';
 import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
 
 @Injectable()
@@ -28,7 +28,7 @@ export abstract class SideEffectsNoticeSvc extends SideEffectsToastSvc {
           !options.pushOnErr &&
           !options.pushOnStatus?.some((code: number) => code === err.status)
         )
-          throw err;
+          return throwError(() => err);
 
         this.noticeSlice.notice = {
           eventT: 'ERR',

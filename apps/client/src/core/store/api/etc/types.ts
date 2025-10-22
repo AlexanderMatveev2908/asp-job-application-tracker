@@ -9,6 +9,7 @@ interface BaseResT {
   status: number;
 }
 export type ResApiT<T> = T extends void ? BaseResT : BaseResT & T;
+export type ResApiMandatoryMsg<T> = Omit<ResApiT<T>, 'msg'> & { msg: string };
 
 export type ObsResT<T> = Observable<ResApiT<T>>;
 export type ObsOnOkT<T> = Observable<ResApiT<T> | never>;
