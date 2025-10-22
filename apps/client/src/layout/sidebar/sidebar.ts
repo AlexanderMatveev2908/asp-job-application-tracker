@@ -21,7 +21,6 @@ import {
   SpanPropsT,
   SpanSizesPropsT,
 } from '@/common/components/els/span/etc/types';
-import { spanUserLogged, spanUserNotLogged } from './etc/ui_fkt';
 import { Lorem } from '@/core/lib/etc';
 import { NavLink } from '@/common/components/links/nav_link/nav-link';
 import { UseMouseOutSvc } from '@/core/hooks/use_mouse_out';
@@ -31,10 +30,12 @@ import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
 import { TxtPropsT } from '@/common/components/els/txt/etc/types';
 import { UserSlice } from '@/features/user/slice';
 import { UserT } from '@/features/user/etc/types';
+import { SidebarUiFkt } from './etc/ui_fkt';
+import { SideLogout } from './logout/side-logout';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [BlackBg, NgClass, TxtClamp, DropStatic, NavLink],
+  imports: [BlackBg, NgClass, TxtClamp, DropStatic, NavLink, SideLogout],
 
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
@@ -75,7 +76,7 @@ export class Sidebar extends Lorem {
 
   // ? app-span-drop props
   public readonly spanUserProps: Signal<SpanPropsT> = computed(() =>
-    this.userSlice.userState().user ? spanUserLogged : spanUserNotLogged
+    this.userSlice.userState().user ? SidebarUiFkt.spanLogged : SidebarUiFkt.spanNotLogged
   );
   public readonly navLinkSpanSizesProps: SpanSizesPropsT = {
     txt: 'lg',
