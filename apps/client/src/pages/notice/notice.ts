@@ -39,6 +39,7 @@ export class Notice extends UseInjCtx implements OnInit {
     'register',
     'error',
     'not_allowed',
+    'ok',
   ]);
 
   ngOnInit(): void {

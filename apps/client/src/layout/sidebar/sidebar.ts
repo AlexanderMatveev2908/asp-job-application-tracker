@@ -67,7 +67,7 @@ export class Sidebar extends Lorem {
   public readonly allUsersLinks: SpanLinkPropsT[] = LinksUiFkt.allUsers;
   // ? dynamic props
   public readonly linksUser: Signal<SpanLinkPropsT[]> = computed(() =>
-    this.user() ? LinksUiFkt.getLoggedByVerifyStatus(this.user()!.verified) : LinksUiFkt.notLogged
+    this.user() ? LinksUiFkt.getLoggedByVerifyStatus(this.user()!.isVerified) : LinksUiFkt.notLogged
   );
 
   // ? app-span-drop props

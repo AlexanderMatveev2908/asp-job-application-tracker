@@ -9,4 +9,5 @@ export const UserActT = {
   SET_USER: createAction('SET_USER', props<UserT>()),
   MARK_NULL: createAction('MARK_NULL'),
   SET_PENDING: createAction('SET_PENDING', props<PendingArgT>()),
+  TRIGGER_API: createAction('TRIGGER_API'),
 };

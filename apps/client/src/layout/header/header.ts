@@ -79,7 +79,7 @@ export class Header {
 
   // ? static fields
   public readonly dropLinks: Signal<SpanLinkPropsT[]> = computed(() =>
-    this.user() ? LinksUiFkt.getLoggedByVerifyStatus(this.user()!.verified) : LinksUiFkt.notLogged
+    this.user() ? LinksUiFkt.getLoggedByVerifyStatus(this.user()!.isVerified) : LinksUiFkt.notLogged
   );
 
   // ? app-span props

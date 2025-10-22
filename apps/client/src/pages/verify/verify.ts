@@ -15,7 +15,9 @@ import { AuthSlice } from '@/features/auth/slice';
 import { from, switchMap, tap } from 'rxjs';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { JwtResT } from '@/features/auth/etc/types';
-import { UseInjCtx } from '@/core/directives/use_inj_ctx';
+import { UsePlatformSvc } from '@/core/hooks/use_platform';
+import { UseRefSvc } from '@/core/hooks/use_ref';
+import { UserSlice } from '@/features/user/slice';
 
 @Component({
   selector: 'app-verify',
@@ -23,8 +25,9 @@ import { UseInjCtx } from '@/core/directives/use_inj_ctx';
   templateUrl: './verify.html',
   styleUrl: './verify.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [UseRefSvc],
 })
-export class Verify extends UseInjCtx implements OnInit {
+export class Verify implements OnInit {
   private readonly useNav: UseNavSvc = inject(UseNavSvc);
   private readonly toastSlice: ToastSlice = inject(ToastSlice);
   private readonly noticeSlice: NoticeSlice = inject(NoticeSlice);
@@ -34,8 +37,9 @@ export class Verify extends UseInjCtx implements OnInit {
     TokenT.CONF_EMAIL,
     TokenT.RECOVER_PWD,
   ]);
-
-  private run: boolean = false;
+  private readonly userSlice: UserSlice = inject(UserSlice);
+  private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
+  private readonly useRef: UseRefSvc = inject(UseRefSvc);
 
   private extractAad(cbcHmac: Nullable<string>): Nullable<AadCbcHmacT> {
     const missing: boolean = !cbcHmac;
@@ -62,8 +66,8 @@ export class Verify extends UseInjCtx implements OnInit {
 
   ngOnInit(): void {
     this.usePlatform.onClient(() => {
-      if (this.run) return;
-      this.run = true;
+      if (this.useRef.current) return;
+      this.useRef.current = true;
 
       const cbcHmac: Nullable<string> = this.useNav.query()?.['cbcHmacToken'];
 
@@ -76,7 +80,17 @@ export class Verify extends UseInjCtx implements OnInit {
             .confMail(cbcHmac!)
             .pipe(
               tap((res: ResApiT<JwtResT>) => this.authSlice.loginTmr(res.accessToken)),
-              switchMap((_: ResApiT<JwtResT>) => from(this.useNav.replace('/')))
+              switchMap((res: ResApiT<JwtResT>) => {
+                this.userSlice.triggerApi();
+
+                this.noticeSlice.notice = {
+                  eventT: 'OK',
+                  msg: res.msg ?? 'account verified',
+                  status: 200,
+                };
+
+                return from(this.useNav.replace('/notice', { from: 'ok' }));
+              })
             )
             .subscribe();
           break;
