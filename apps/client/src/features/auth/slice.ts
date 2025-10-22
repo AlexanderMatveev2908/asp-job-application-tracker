@@ -35,4 +35,13 @@ export class AuthSlice extends UseKitSliceSvc {
     const state: AuthStateT = this.authState();
     return state.loggingIn || state.loggingOut;
   }
+
+  public logout(): void {
+    this.store.dispatch(AuthActT.LOGOUT());
+    this.useStorage.delItem('accessToken');
+
+    setTimeout(() => {
+      this.store.dispatch(AuthActT.RESET_LOGGING_STATE({ key: 'loggingOut' }));
+    }, this.TIMER_RESET_LOGGING);
+  }
 }

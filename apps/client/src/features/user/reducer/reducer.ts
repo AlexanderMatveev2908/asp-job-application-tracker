@@ -25,7 +25,7 @@ export const userReducer = createReducer(
     user: action,
     handShake: true,
   })),
-  on(UserActT.MARK_NULL, (state: UserStateT) => ({ ...state, handShake: true })),
+  on(UserActT.MARK_NULL, (state: UserStateT) => ({ ...state, user: null, handShake: true })),
   on(UserActT.SET_PENDING, (state: UserStateT, action: PendingArgT) => ({
     ...state,
     isPending: action.isPending,

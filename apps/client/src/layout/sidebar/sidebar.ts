@@ -76,7 +76,7 @@ export class Sidebar extends Lorem {
 
   // ? app-span-drop props
   public readonly spanUserProps: Signal<SpanPropsT> = computed(() =>
-    this.userSlice.userState().user ? SidebarUiFkt.spanLogged : SidebarUiFkt.spanNotLogged
+    this.user() ? SidebarUiFkt.spanLogged : SidebarUiFkt.spanNotLogged
   );
   public readonly navLinkSpanSizesProps: SpanSizesPropsT = {
     txt: 'lg',

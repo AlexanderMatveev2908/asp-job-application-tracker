@@ -8,10 +8,13 @@ import {
   Signal,
 } from '@angular/core';
 import { SpanPropsT, SpanSizesPropsT } from './etc/types';
+import { WrapTxtApi } from '../../hoc/txt/wrap_txt_api/wrap-txt-api';
+import { AppEventT } from '@/core/lib/dom/meta_event/etc/types';
+import { SpinTxtClsT } from '@/common/types/css';
 
 @Component({
   selector: 'app-span',
-  imports: [NgComponentOutlet],
+  imports: [NgComponentOutlet, WrapTxtApi],
   templateUrl: './span.html',
   styleUrl: './span.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,6 +27,9 @@ export class Span {
     svg: 'sm',
     txt: 'lg',
   });
+  public readonly spinSize: InputSignal<SpinTxtClsT> = input<SpinTxtClsT>('md');
+  public readonly eventT: InputSignal<AppEventT> = input<AppEventT>('NONE');
+  public readonly isPending: InputSignal<boolean> = input(false);
 
   // ! custom classes only built at runtime
   // ! tailwind would not support it

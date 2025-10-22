@@ -20,4 +20,8 @@ export class AuthApiSvc {
   public login(body: LoginFormT): ObsResT<JwtResT> {
     return this.api.post(ApiArgs.withURL(`${this.base}/login`).body(body).toastOnFulfilled());
   }
+
+  public logout(): ObsResT<void> {
+    return this.api.post(ApiArgs.withURL(`${this.base}/logout`).toastOnFulfilled());
+  }
 }

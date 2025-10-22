@@ -2,9 +2,11 @@
   @let Svg = spanProps().Svg;
   <!--  -->
   @if (Svg) {
-  <div [class]="svgCls()">
-    <ng-container *ngComponentOutlet="Svg; inputs: {}" />
-  </div>
+  <app-wrap-txt-api [isPending]="isPending()" [spinSizeT]="spinSize()" [eventT]="eventT()">
+    <div [class]="svgCls()">
+      <ng-container *ngComponentOutlet="Svg; inputs: {}" />
+    </div>
+  </app-wrap-txt-api>
   }
   <!--  -->
   @let label =spanProps().label;
