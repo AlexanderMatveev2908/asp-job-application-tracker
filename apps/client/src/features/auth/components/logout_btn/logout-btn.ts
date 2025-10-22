@@ -3,17 +3,19 @@ import { Span } from '@/common/components/els/span/span';
 import { SvgFillLogout } from '@/common/components/svgs/fill/logout/logout';
 import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
 import { UseLogout } from '@/features/auth/etc/use_logout';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, InputSignal } from '@angular/core';
+import { finalize } from 'rxjs';
 
 @Component({
-  selector: 'app-side-logout',
+  selector: 'app-logout-btn',
   imports: [Span],
-  templateUrl: './side-logout.html',
-  styleUrl: './side-logout.scss',
+  templateUrl: './logout-btn.html',
+  styleUrl: './logout-btn.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SideLogout extends ApiTrackerSvc {
+export class LogoutBtn extends ApiTrackerSvc {
   private readonly useLogout: UseLogout = inject(UseLogout);
+  public readonly closeSomethingCb: InputSignal<() => void> = input.required();
 
   public readonly spanProps: SpanPropsT = {
     label: 'Logout',
@@ -25,6 +27,8 @@ export class SideLogout extends ApiTrackerSvc {
   };
 
   public onLogout(): void {
-    this.track(this.useLogout.logout()).subscribe();
+    this.track(this.useLogout.logout())
+      .pipe(finalize(() => this.closeSomethingCb()()))
+      .subscribe();
   }
 }

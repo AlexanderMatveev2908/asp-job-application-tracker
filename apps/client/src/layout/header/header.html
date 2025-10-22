@@ -6,10 +6,6 @@
   </div>
 
   <div class="root__right">
-    <!-- <button class="svg__3xl app__clr">
-      <app-svg-stroke-user-write />
-    </button> -->
-
     <app-wrap-txt-api [eventT]="'INFO'" [isPending]="fetchingUser()" [spinSizeT]="'md'">
       <app-drop-abs
         [isOpen]="isDropOpen()"
@@ -29,7 +25,7 @@
               [setIsDropOpen]="setIsDropOpen"
             />
             } @if(user()){
-            <app-side-logout />
+            <app-logout-btn [closeSomethingCb]="setIsDropOpen.bind(this, false)" />
             }
           </div>
         </ng-template>

@@ -28,7 +28,7 @@ import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
 import { UserSlice } from '@/features/user/slice';
 import { UserT } from '@/features/user/etc/types';
 import { WrapTxtApi } from '@/common/components/hoc/txt/wrap_txt_api/wrap-txt-api';
-import { SideLogout } from '../sidebar/logout/side-logout';
+import { LogoutBtn } from '@/features/auth/components/logout_btn/logout-btn';
 
 @Component({
   selector: 'app-header',
@@ -41,7 +41,7 @@ import { SideLogout } from '../sidebar/logout/side-logout';
     NgClass,
     NavLink,
     WrapTxtApi,
-    SideLogout,
+    LogoutBtn,
   ],
   templateUrl: './header.html',
   styleUrl: './header.scss',

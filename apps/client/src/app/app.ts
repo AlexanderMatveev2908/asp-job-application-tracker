@@ -16,7 +16,7 @@ import { UseStorageSvc } from '@/core/hooks/use_storage';
 import { AuthSlice } from '@/features/auth/slice';
 import { Nullable } from '@/common/types/etc';
 import { UseUserKitSvc } from '@/features/user/etc/use_user_kit';
-import { finalize, Subscription, tap } from 'rxjs';
+import { finalize, tap } from 'rxjs';
 import { ErrApiT, ResApiT } from '@/core/store/api/etc/types';
 import { ResInfoT } from '@/features/user/etc/types';
 
@@ -37,11 +37,11 @@ export class App extends UseInjCtx implements OnInit, AfterViewInit {
       if (jwt) this.authSlice.loginOnMount();
     });
 
-    this.useEffect((onCleanup: EffectCleanupRegisterFn) => {
-      void this.authSlice.authState().isLogged;
+    this.useEffect((_: EffectCleanupRegisterFn) => {
+      void this.authSlice.isLogged();
 
       this.useUserKit.userSlice.setPending(true);
-      const sub: Subscription = this.useUserKit.userApi
+      this.useUserKit.userApi
         .getUser()
         .pipe(
           tap({
@@ -56,8 +56,6 @@ export class App extends UseInjCtx implements OnInit, AfterViewInit {
           finalize(() => this.useUserKit.userSlice.setPending(false))
         )
         .subscribe();
-
-      onCleanup(() => sub.unsubscribe());
     });
   }
 

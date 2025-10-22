@@ -45,7 +45,7 @@
       </app-drop-static>
 
       @if(user()){
-      <app-side-logout />
+      <app-logout-btn [closeSomethingCb]="onSideClick" />
       }
     </div>
   </div>

@@ -27,11 +27,11 @@ import { TxtPropsT } from '@/common/components/els/txt/etc/types';
 import { UserSlice } from '@/features/user/slice';
 import { UserT } from '@/features/user/etc/types';
 import { SidebarUiFkt } from './etc/ui_fkt';
-import { SideLogout } from './logout/side-logout';
+import { LogoutBtn } from '@/features/auth/components/logout_btn/logout-btn';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [BlackBg, NgClass, TxtClamp, DropStatic, NavLink, SideLogout],
+  imports: [BlackBg, NgClass, TxtClamp, DropStatic, NavLink, LogoutBtn, LogoutBtn],
 
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
