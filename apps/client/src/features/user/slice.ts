@@ -1,4 +1,4 @@
-import { Injectable, Signal } from '@angular/core';
+import { computed, Injectable, Signal } from '@angular/core';
 import { UserStateT } from './reducer/reducer';
 import { getUserState } from './reducer/selectors';
 import { UseKitSliceSvc } from '@/core/hooks/use_kit_slice';
@@ -24,4 +24,6 @@ export class UserSlice extends UseKitSliceSvc {
   public setPending(val: boolean): void {
     this.store.dispatch(UserActT.SET_PENDING({ isPending: val }));
   }
+
+  public handshake: Signal<boolean> = computed(() => this.userState().handShake);
 }

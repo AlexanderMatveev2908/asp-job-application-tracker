@@ -7,11 +7,14 @@ import { ApiArgs } from '@/core/store/api/etc/request/args';
 import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';
 import { BtnListenersT, BtnStatePropsT } from '@/common/types/etc';
-import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
+import { SpanEventPropsT, SpanLinkPropsT } from '@/common/components/els/span/etc/types';
+import { SvgFillSecurity } from '@/common/components/svgs/fill/security/security';
+import { AuthSlice } from '@/features/auth/slice';
+import { LinkShadow } from '@/common/components/links/link_shadow/link-shadow';
 
 @Component({
   selector: 'app-home',
-  imports: [PageWrapper, BtnShadow, PageWrapper],
+  imports: [PageWrapper, BtnShadow, PageWrapper, LinkShadow],
   templateUrl: './home.html',
   styleUrl: './home.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,6 +22,7 @@ import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
 export class Home extends ApiTrackerSvc {
   // ? svc
   private readonly api: ApiSvc = inject(ApiSvc);
+  private readonly authSlice: AuthSlice = inject(AuthSlice);
 
   // ? btn props
   public readonly btnStateProps: Signal<BtnStatePropsT> = computed(() => ({
@@ -42,4 +46,11 @@ export class Home extends ApiTrackerSvc {
       });
     },
   };
+
+  public readonly spanLinkProps: Signal<Omit<SpanLinkPropsT, 'id'>> = computed(() => ({
+    label: 'Protected',
+    Svg: SvgFillSecurity,
+    eventT: this.authSlice.isLogged() ? 'OK' : 'ERR',
+    path: '/protected',
+  }));
 }

@@ -23,6 +23,7 @@ export class PageWrapper extends UseInjCtx implements AfterViewInit {
 
   // ? personal props
   public readonly waitClient: InputSignal<boolean> = input.required();
+  public readonly isPending: InputSignal<boolean> = input(false);
 
   // ? derived
   public readonly isServer: boolean = this.usePlatform.isServer;

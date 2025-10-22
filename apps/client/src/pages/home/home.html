@@ -8,5 +8,13 @@
         [testId]="'script_btn'"
       />
     </div>
+
+    <div class="root__wrap_btn">
+      <app-link-shadow
+        [spanProps]="spanLinkProps()"
+        [path]="spanLinkProps().path"
+        [testId]="'link_protected'"
+      />
+    </div>
   </div>
 </app-page-wrapper>
