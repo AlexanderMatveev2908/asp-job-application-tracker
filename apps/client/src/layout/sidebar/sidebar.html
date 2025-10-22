@@ -18,6 +18,7 @@
         [currPath]="currPath()"
         [setIsDropOpen]="onSideClick"
         [path]="lk.path"
+        [spanSizesProps]="navLinkSpanSizesProps"
       />
       }
 
@@ -29,13 +30,14 @@
       >
         <ng-template #dropContent>
           <div class="body__wrap_links">
-            @for(lk of notLoggedLinks; track lk.id){
+            @for(lk of linksUser(); track lk.id){
             <app-nav-link
               [testId]="testIdFromPath(lk.path)"
               [spanProps]="lk"
               [path]="lk.path"
               [currPath]="currPath()"
               [setIsDropOpen]="onSideClick"
+              [spanSizesProps]="navLinkSpanSizesProps"
             />
             }
           </div>

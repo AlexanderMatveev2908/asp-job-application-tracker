@@ -2,6 +2,7 @@ import { authReducer, AuthStateT } from '@/features/auth/reducer/reducer';
 import { noticeReducer, NoticeStateT } from '@/features/notice/reducer/reducer';
 import { sideReducer, SideStateT } from '@/features/sidebar/reducer/reducer';
 import { toastReducer, ToastStateT } from '@/features/toast/reducer/reducer';
+import { userReducer, UserStateT } from '@/features/user/reducer/reducer';
 import { wakeUpReducer, WakeUpStateT } from '@/features/wake_up/reducer/reducer';
 import { ActionReducerMap } from '@ngrx/store';
 
@@ -11,6 +12,7 @@ export interface StoreStateT {
   toast: ToastStateT;
   wakeUp: WakeUpStateT;
   auth: AuthStateT;
+  user: UserStateT;
 }
 
 export const rootReducer: ActionReducerMap<StoreStateT> = {
@@ -19,4 +21,5 @@ export const rootReducer: ActionReducerMap<StoreStateT> = {
   toast: toastReducer,
   wakeUp: wakeUpReducer,
   auth: authReducer,
+  user: userReducer,
 };

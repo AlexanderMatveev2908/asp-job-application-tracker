@@ -16,8 +16,12 @@ import { SidebarSlice } from '@/features/sidebar/slice';
 import { LinksUiFkt } from '@/core/ui_fkt/links';
 import { BlackBgPropsT } from '@/layout/black_bg/etc/types';
 import { DropStatic } from '@/common/components/drop/static/drop-static';
-import { SpanLinkPropsT, SpanPropsT } from '@/common/components/els/span/etc/types';
-import { spanUserNotLogged } from './etc/ui_fkt';
+import {
+  SpanLinkPropsT,
+  SpanPropsT,
+  SpanSizesPropsT,
+} from '@/common/components/els/span/etc/types';
+import { spanUserLogged, spanUserNotLogged } from './etc/ui_fkt';
 import { Lorem } from '@/core/lib/etc';
 import { NavLink } from '@/common/components/links/nav_link/nav-link';
 import { UseMouseOutSvc } from '@/core/hooks/use_mouse_out';
@@ -25,6 +29,8 @@ import { Nullable, RefDomT } from '@/common/types/etc';
 import { Prs } from '@/core/lib/data_structure/prs';
 import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
 import { TxtPropsT } from '@/common/components/els/txt/etc/types';
+import { UserSlice } from '@/features/user/slice';
+import { UserT } from '@/features/user/etc/types';
 
 @Component({
   selector: 'app-sidebar',
@@ -39,6 +45,7 @@ export class Sidebar extends Lorem {
   private readonly useMouseOut: UseMouseOutSvc = inject(UseMouseOutSvc);
   private readonly sideSlice: SidebarSlice = inject(SidebarSlice);
   private readonly useNav: UseNavSvc = inject(UseNavSvc);
+  private readonly userSlice: UserSlice = inject(UserSlice);
 
   // ? local state
   public readonly isDropOpen: WritableSignal<boolean> = signal(false);
@@ -60,10 +67,25 @@ export class Sidebar extends Lorem {
 
   // ? static fields
   public readonly allUsersLinks: SpanLinkPropsT[] = LinksUiFkt.allUsers;
-  public readonly notLoggedLinks: SpanLinkPropsT[] = LinksUiFkt.notLogged;
+  public readonly linksUser: Signal<SpanLinkPropsT[]> = computed(() => {
+    const user: Nullable<UserT> = this.userSlice.userState().user;
+
+    const links: SpanLinkPropsT[] = user
+      ? LinksUiFkt.getLoggedByVerifyStatus(user.verified)
+      : LinksUiFkt.notLogged;
+
+    console.log(links);
+    return links;
+  });
 
   // ? app-span props
-  public readonly spanUserProps: WritableSignal<SpanPropsT> = signal(spanUserNotLogged);
+  public readonly spanUserProps: Signal<SpanPropsT> = computed(() =>
+    this.userSlice.userState().user ? spanUserLogged : spanUserNotLogged
+  );
+  public readonly navLinkSpanSizesProps: SpanSizesPropsT = {
+    txt: 'lg',
+    svg: 'md',
+  };
 
   // ? txt-clamp props
   public readonly txtClampProps: TxtPropsT = {

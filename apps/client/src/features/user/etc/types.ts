@@ -10,3 +10,7 @@ export interface UserT extends SqlTableT {
   toptSecret?: string;
   password?: string;
 }
+
+export interface ResInfoT {
+  user?: UserT;
+}

@@ -2,6 +2,7 @@ import {
   afterNextRender,
   Directive,
   effect,
+  EffectCleanupRegisterFn,
   EnvironmentInjector,
   inject,
   runInInjectionContext,
@@ -19,7 +20,7 @@ export abstract class UseInjCtx {
     });
   }
 
-  protected useEffect(cb: () => void): void {
+  protected useEffect(cb: (onCleanup: EffectCleanupRegisterFn) => void): void {
     this.inCtx(() => {
       effect(cb, { injector: this.inj });
     });
