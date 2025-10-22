@@ -1,5 +1,6 @@
 import { UserT } from '@/features/user/etc/types';
 import { LibTests } from '..';
+import { Locator } from '@playwright/test';
 
 export interface FillInputT {
   field: string;
@@ -15,7 +16,9 @@ export interface TkResT {
   plainPwd: string;
 }
 
-export interface PreTestResT {
+export type PreTestResT<T> = {
   lib: LibTests;
   res: TkResT;
-}
+} & T;
+
+export type PreTestFormResT = PreTestResT<{ form: Locator }>;

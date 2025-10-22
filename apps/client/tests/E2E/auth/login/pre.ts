@@ -1,16 +1,22 @@
-import { Browser } from '@playwright/test';
+import { Browser, Locator } from '@playwright/test';
 import { LibTests } from 'tests/E2E/lib_tests';
-import { PreTestResT, TkResT } from 'tests/E2E/lib_tests/etc/types';
+import { PreTestFormResT, TkResT } from 'tests/E2E/lib_tests/etc/types';
 
-export const preTestLogin = async (brw: Browser): Promise<PreTestResT> => {
+export const preTestLogin = async (brw: Browser): Promise<PreTestFormResT> => {
+  // ! request page only
+  // ! never return it
+  const _lib: LibTests = await LibTests.fromBrowser(brw);
+  await _lib.nav('/');
+  const res: TkResT = await _lib.getTk();
+
+  // ? page test
   const lib: LibTests = await LibTests.fromBrowser(brw);
-
-  await lib.nav('/');
-
-  const res: TkResT = await lib.getTk();
+  await lib.nav('/auth/login');
+  const form: Locator = await lib.byIdInPage('login_form');
 
   return {
     lib,
     res,
+    form,
   };
 };
