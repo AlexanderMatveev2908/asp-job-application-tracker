@@ -18,6 +18,7 @@ import { AuthReqMailConfMail } from '@/pages/auth/req_mail/conf_mail/auth-req-ma
 import { AuthReqMailRecoverPwd } from '@/pages/auth/req_mail/recover_pwd/auth-req-mail-recover-pwd';
 import { LayoutReqMailAuth } from '@/pages/auth/req_mail/layout/layout-req-mail-auth';
 import { Protected } from '@/pages/protected/protected';
+import { Verify } from '@/pages/verify/verify';
 
 export const routes: Routes = [
   {
@@ -31,6 +32,10 @@ export const routes: Routes = [
   {
     path: 'notice',
     component: Notice,
+  },
+  {
+    path: 'verify',
+    component: Verify,
   },
   {
     path: 'auth',

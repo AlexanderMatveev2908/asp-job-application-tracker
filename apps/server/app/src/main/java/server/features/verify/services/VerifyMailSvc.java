@@ -14,7 +14,10 @@ import server.models.token.svc.TokenCombo;
 import server.models.token.svc.TokenRepo;
 import server.models.user.svc.UserRepo;
 
-@Service @Transactional @RequiredArgsConstructor @SuppressFBWarnings({ "EI2" })
+@Service
+@Transactional
+@RequiredArgsConstructor
+@SuppressFBWarnings({ "EI2" })
 public class VerifyMailSvc {
 
   private final UserRepo userRepo;

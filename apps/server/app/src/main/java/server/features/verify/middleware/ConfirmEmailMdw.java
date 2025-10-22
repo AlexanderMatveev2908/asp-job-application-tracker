@@ -10,7 +10,8 @@ import server.decorators.flow.api.Api;
 import server.middleware.base_mdw.BaseMdw;
 import server.models.token.etc.TokenT;
 
-@Component @RequiredArgsConstructor
+@Component
+@RequiredArgsConstructor
 public class ConfirmEmailMdw extends BaseMdw {
 
   @Override

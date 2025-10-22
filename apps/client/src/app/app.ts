@@ -39,6 +39,7 @@ export class App extends UseInjCtx implements OnInit, AfterViewInit {
 
     this.useEffect((_: EffectCleanupRegisterFn) => {
       void this.authSlice.isLogged();
+      void this.useUserKit.userSlice.mark();
 
       this.useUserKit.userSlice.setPending(true);
       this.useUserKit.userApi

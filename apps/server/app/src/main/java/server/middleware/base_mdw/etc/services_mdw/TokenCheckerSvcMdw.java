@@ -19,7 +19,9 @@ import server.models.token.svc.TokenSvc;
 import server.models.user.User;
 import server.models.user.svc.UserSvc;
 
-@SuppressFBWarnings({ "EI2" }) @Service @RequiredArgsConstructor
+@SuppressFBWarnings({ "EI2" })
+@Service
+@RequiredArgsConstructor
 public class TokenCheckerSvcMdw {
 
   private final UserSvc userSvc;

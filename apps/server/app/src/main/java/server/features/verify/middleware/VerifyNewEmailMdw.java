@@ -11,7 +11,8 @@ import server.middleware.base_mdw.BaseMdw;
 import server.models.token.etc.TokenT;
 import server.models.user.svc.UserSvc;
 
-@Component @RequiredArgsConstructor
+@Component
+@RequiredArgsConstructor
 public class VerifyNewEmailMdw extends BaseMdw {
 
   private final UserSvc userSvc;

@@ -60,6 +60,14 @@ export class ApiArgs {
     return this;
   }
 
+  public noToast(): ApiArgs {
+    this.ifOptToastEmpty();
+    this._optToast!.toastOk = false;
+    this._optToast!.toastErr = false;
+
+    return this;
+  }
+
   public pushOnErr(): ApiArgs {
     this.ifOptErrEmpty();
     this._optErr!.pushOnErr = true;

@@ -13,7 +13,7 @@ export class WakeUpApiSvc {
   private readonly wakeUpSlice: WakeUpSlice = inject(WakeUpSlice);
 
   private wakeUp(): Observable<ResApiT<void>> {
-    return this.api.get(ApiArgs.withURL('/wake-up').toastOnOk());
+    return this.api.get(ApiArgs.withURL('/wake-up').noToast());
   }
 
   // eslint-disable-next-line no-magic-numbers

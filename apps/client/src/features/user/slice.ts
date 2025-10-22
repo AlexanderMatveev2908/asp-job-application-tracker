@@ -25,5 +25,11 @@ export class UserSlice extends UseKitSliceSvc {
     this.store.dispatch(UserActT.SET_PENDING({ isPending: val }));
   }
 
+  public triggerApi(): void {
+    this.store.dispatch(UserActT.TRIGGER_API());
+  }
+
+  public mark: Signal<number> = computed(() => this.userState().mark);
+
   public handshake: Signal<boolean> = computed(() => this.userState().handShake);
 }

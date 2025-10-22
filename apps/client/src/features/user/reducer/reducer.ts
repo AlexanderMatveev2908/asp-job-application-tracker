@@ -10,12 +10,14 @@ export interface UserStateT {
   // ? knowing he is or not logged
   handShake: boolean;
   isPending: boolean;
+  mark: number;
 }
 
 export const initState: UserStateT = {
   user: null,
   handShake: false,
   isPending: false,
+  mark: 0,
 };
 
 export const userReducer = createReducer(
@@ -29,5 +31,6 @@ export const userReducer = createReducer(
   on(UserActT.SET_PENDING, (state: UserStateT, action: PendingArgT) => ({
     ...state,
     isPending: action.isPending,
-  }))
+  })),
+  on(UserActT.TRIGGER_API, (state: UserStateT) => ({ ...state, mark: state.mark + 1 }))
 );

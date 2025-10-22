@@ -1,4 +1,4 @@
-import { None } from '@/common/types/etc';
+import { OrNone } from '@/common/types/etc';
 
 export class Reg {
   public static readonly NAME: RegExp = /^[\p{L}\s,`'-]*$/u;
@@ -27,75 +27,75 @@ export class Reg {
   }
 
   // ✅ Generic test helper
-  public static check(arg: string | None, reg: RegExp): boolean {
+  public static check(arg: OrNone<string>, reg: RegExp): boolean {
     return !!arg && reg.test(arg);
   }
 
-  public static isName(arg: string): boolean {
+  public static isName(arg: OrNone<string>): boolean {
     return this.check(arg, this.NAME);
   }
 
-  public static isJobName(arg: string): boolean {
+  public static isJobName(arg: OrNone<string>): boolean {
     return this.check(arg, this.JOB_NAME);
   }
 
-  public static isPwd(arg: string): boolean {
+  public static isPwd(arg: OrNone<string>): boolean {
     return this.check(arg, this.PWD);
   }
 
-  public static isTxt(arg: string): boolean {
+  public static isTxt(arg: OrNone<string>): boolean {
     return this.check(arg, this.TXT);
   }
 
-  public static isInt(arg: string): boolean {
+  public static isInt(arg: OrNone<string>): boolean {
     return this.check(arg, this.INT);
   }
 
-  public static isFloat(arg: string): boolean {
+  public static isFloat(arg: OrNone<string>): boolean {
     return this.check(arg, this.FLOAT);
   }
 
-  public static isUUID(arg: string): boolean {
+  public static isUUID(arg: OrNone<string>): boolean {
     return this.check(arg, this.UUID);
   }
 
-  public static isJWT(arg: string): boolean {
+  public static isJWT(arg: OrNone<string>): boolean {
     return this.check(arg, this.JWT);
   }
 
-  public static isJWE(arg: string): boolean {
+  public static isJWE(arg: OrNone<string>): boolean {
     return this.check(arg, this.JWE);
   }
 
-  public static isCbcHmac(arg: string): boolean {
+  public static isCbcHmac(arg: OrNone<string>): boolean {
     return this.check(arg, this.CBC_HMAC);
   }
 
-  public static isTotpSecret(arg: string): boolean {
+  public static isTotpSecret(arg: OrNone<string>): boolean {
     return this.check(arg, this.TOTP_SECRET);
   }
 
-  public static isTotpCode(arg: string): boolean {
+  public static isTotpCode(arg: OrNone<string>): boolean {
     return this.check(arg, this.TOTP_CODE);
   }
 
-  public static isBkpCode(arg: string): boolean {
+  public static isBkpCode(arg: OrNone<string>): boolean {
     return this.check(arg, this.BKP_CODE);
   }
 
-  public static isDatePicker(arg: string): boolean {
+  public static isDatePicker(arg: OrNone<string>): boolean {
     return this.check(arg, this.DATE_PICKER);
   }
 
-  public static isB64(arg: string): boolean {
+  public static isB64(arg: OrNone<string>): boolean {
     return this.check(arg, this.BASE_64);
   }
 
-  public static isLikeUUID(arg: string): boolean {
+  public static isLikeUUID(arg: OrNone<string>): boolean {
     return this.check(arg, this.HEX_UUID);
   }
 
-  public static isEmoji(arg: string): boolean {
+  public static isEmoji(arg: OrNone<string>): boolean {
     return this.check(arg, this.EMOJI);
   }
 }
