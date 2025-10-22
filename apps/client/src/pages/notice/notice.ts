@@ -35,7 +35,11 @@ export class Notice extends UseInjCtx implements OnInit {
     return rst;
   });
 
-  private readonly ALLOWED_FROM: Set<NavFromT> = new Set<NavFromT>(['register']);
+  private readonly ALLOWED_FROM: Set<NavFromT> = new Set<NavFromT>([
+    'register',
+    'error',
+    'not_allowed',
+  ]);
 
   ngOnInit(): void {
     this.usePlatform.onClient(() => {

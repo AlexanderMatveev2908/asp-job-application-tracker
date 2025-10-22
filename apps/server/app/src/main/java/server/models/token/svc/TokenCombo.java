@@ -19,7 +19,9 @@ import server.models.token.MyToken;
 import server.models.token.etc.TokenT;
 import server.models.user.User;
 
-@Service @RequiredArgsConstructor @SuppressFBWarnings("EI_EXPOSE_REP2")
+@Service
+@RequiredArgsConstructor
+@SuppressFBWarnings("EI_EXPOSE_REP2")
 public class TokenCombo {
   private final TokenRepo repo;
   private final TkMng tkMng;
@@ -34,6 +36,7 @@ public class TokenCombo {
 
   public Mono<String> insertCbcHmac(UUID userId, TokenT tokenT) {
     RecCreateCbcHmacReturnT rec = tkMng.genCbcHmac(tokenT, userId);
+
     return insertCbcHmac(rec.inst()).thenReturn(rec.clientToken());
 
   }
@@ -47,6 +50,8 @@ public class TokenCombo {
   public Mono<Void> insertCbcHmacWithMail(User user, String newEmail, TokenT tokenT) {
 
     var recCbcHmac = tkMng.genCbcHmac(tokenT, user.getId());
+
+    System.out.println(recCbcHmac.clientToken());
 
     return insertCbcHmac(recCbcHmac.inst())
         .then(mailSvc.sendRctHtmlMail(tokenT, user, newEmail, recCbcHmac.clientToken()));

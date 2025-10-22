@@ -13,7 +13,9 @@ import server.decorators.flow.res_api.ResAPI;
 import server.features.verify.services.VerifyMailSvc;
 import server.features.verify.services.VerifyNewEmailSvc;
 
-@SuppressFBWarnings({ "EI2" }) @Component @RequiredArgsConstructor
+@SuppressFBWarnings({ "EI2" })
+@Component
+@RequiredArgsConstructor
 public class GetVerifyCtrl {
 
   private final VerifyMailSvc verifyMailSvc;
