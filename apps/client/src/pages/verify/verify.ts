@@ -54,7 +54,7 @@ export class Verify implements OnInit {
       };
 
       this.noticeSlice.notice = payload;
-      this.toastSlice.ifNotPresent(payload);
+      this.toastSlice.openToast(payload);
 
       void this.useNav.replace('/notice', { from: 'not_allowed' });
 
