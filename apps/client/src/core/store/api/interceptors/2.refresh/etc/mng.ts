@@ -28,22 +28,24 @@ export class RefreshMdwMng {
     _: HttpErrorResponse,
     { http, useStorage, authSlice }: Pick<RefreshMngArgT, 'http' | 'useStorage' | 'authSlice'>
   ): Observable<string> {
-    return http.get<ResApiT<JwtResT>>(RefreshMdwConst.FULL_URL, { withCredentials: true }).pipe(
-      switchMap((res: ResApiT<JwtResT>) => {
-        const freshJwt: string = res.accessToken;
+    return http
+      .get<ResApiT<JwtResT>>(RefreshMdwConst.ENDPOINT_REFRESH, { withCredentials: true })
+      .pipe(
+        switchMap((res: ResApiT<JwtResT>) => {
+          const freshJwt: string = res.accessToken;
 
-        if (authSlice.isLogged()) useStorage.setItem('accessToken', freshJwt);
-        else authSlice.login(freshJwt);
+          if (authSlice.isLogged()) useStorage.setItem('accessToken', freshJwt);
+          else authSlice.login(freshJwt);
 
-        return of(freshJwt);
-      }),
-      catchError((err: ErrApiT<void>) => {
-        authSlice.logout();
-        useStorage.delItem('accessToken');
+          return of(freshJwt);
+        }),
+        catchError((err: ErrApiT<void>) => {
+          authSlice.logout();
+          useStorage.delItem('accessToken');
 
-        return throwError(() => err);
-      })
-    );
+          return throwError(() => err);
+        })
+      );
   }
 
   public static main(
@@ -65,7 +67,7 @@ export class RefreshMdwMng {
       catchError((err: ErrApiT<void>) => {
         Log.logTtl('❌ refresh fail');
 
-        return from(useNav.replace('/')).pipe(
+        return from(useNav.replace('/auth/login')).pipe(
           catchError((err: unknown) => {
             // | ignore router fail & rethrow real error
             Log.logTtl('❌ navigation bug');
