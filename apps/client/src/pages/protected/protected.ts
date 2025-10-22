@@ -12,7 +12,6 @@ import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';
 import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
 import { UseInjCtx } from '@/core/directives/use_inj_ctx';
 import { Nullable } from '@/common/types/etc';
-import { from } from 'rxjs';
 
 @Component({
   selector: 'app-protected',
@@ -41,7 +40,7 @@ export class Protected extends UseInjCtx implements OnInit {
         !this.authSlice.loggingPending() &&
         this.userSlice.handshake()
       )
-        from(this.useNav.replace('/auth/login')).subscribe();
+        void this.useNav.replace('/auth/login');
     });
   }
 }
