@@ -12,8 +12,8 @@ import server.lib.security.mng_tokens.expiry_mng.etc.RecExpTplSec;
 @Service
 public class ExpMng {
 
-    private final static int EXP_JWT = 60;
-    private final static int EXP_JWE = 60;
+    private final static int EXP_JWT = 1;
+    private final static int EXP_JWE = 30;
     private final static int EXP_CBC_HMAC = 15;
 
     private RecExpTplSec genTpl(int arg) {
