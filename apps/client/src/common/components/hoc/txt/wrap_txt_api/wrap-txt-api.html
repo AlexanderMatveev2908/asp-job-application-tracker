@@ -1,0 +1,9 @@
+<div class="root">
+  @if(isPending()){
+  <div [ngClass]="css()">
+    <app-spin-txt [eventT]="eventT()" />
+  </div>
+  }@else {
+  <ng-content />
+  }
+</div>

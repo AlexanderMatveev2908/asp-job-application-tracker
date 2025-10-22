@@ -12,6 +12,7 @@ import { Span } from '../../els/span/span';
 import { NgClass } from '@angular/common';
 import { Nullable } from '@/common/types/etc';
 import { UseSpanRootDir } from '@/core/directives/span/0.use_span_root';
+import { SpanSizesPropsT } from '../../els/span/etc/types';
 
 @Component({
   selector: 'app-nav-link',
@@ -23,6 +24,12 @@ import { UseSpanRootDir } from '@/core/directives/span/0.use_span_root';
 export class NavLink extends UseSpanRootDir {
   // ? app-span props
   public readonly path: InputSignal<string> = input.required();
+  public override readonly spanSizesProps: InputSignal<Partial<SpanSizesPropsT>> = input<
+    Partial<SpanSizesPropsT>
+  >({
+    txt: 'lg',
+    svg: 'md',
+  });
 
   // ? personal props
   public readonly currPath: InputSignal<Nullable<string>> = input.required();

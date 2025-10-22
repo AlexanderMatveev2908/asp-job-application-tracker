@@ -4,10 +4,11 @@ import { Observable } from 'rxjs';
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
-export type ResApiT<T> = {
+interface BaseResT {
   msg?: string;
   status: number;
-} & T;
+}
+export type ResApiT<T> = T extends void ? BaseResT : BaseResT & T;
 
 export type ObsResT<T> = Observable<ResApiT<T>>;
 export type ObsOnOkT<T> = Observable<ResApiT<T> | never>;

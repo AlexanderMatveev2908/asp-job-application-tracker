@@ -5,7 +5,6 @@ import { AuthStateT } from '@/features/auth/reducer/reducer';
 import { AuthSlice } from '@/features/auth/slice';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { from } from 'rxjs';
 
 @Component({
   selector: 'app-layout-auth',
@@ -25,8 +24,7 @@ export class LayoutAuth extends UseInjCtx implements OnInit {
 
       const state: AuthStateT = this.authSlice.authState();
 
-      if (state.isLogged && !this.authSlice.loggingPending())
-        from(this.useNav.replace('/')).subscribe();
+      if (state.isLogged && !this.authSlice.loggingPending()) void this.useNav.replace('/');
     });
   }
 }

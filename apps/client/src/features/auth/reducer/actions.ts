@@ -9,4 +9,5 @@ export const AuthActT = {
   LOGIN: createAction('LOGIN'),
   RESET_LOGGING_STATE: createAction('RESET_LOGGING_STATE', props<ResetLoggingT>()),
   MARK_LOGGED: createAction('MARK_LOGGED'),
+  LOGOUT: createAction('LOGOUT'),
 };

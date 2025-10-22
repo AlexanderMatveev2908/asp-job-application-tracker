@@ -15,7 +15,6 @@ import { NoticeWrapperPropsT } from '@/common/components/hoc/page/csr_notice_wra
 import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
 import { UseInjCtx } from '@/core/directives/use_inj_ctx';
 import { MetaNav } from '@/core/hooks/use_nav/etc/0.use_path';
-import { from } from 'rxjs';
 import { NavFromT } from '@/core/hooks/use_nav/etc/1.use_router';
 
 @Component({
@@ -48,8 +47,7 @@ export class Notice extends UseInjCtx implements OnInit {
     this.useEffect(() => {
       const meta: Nullable<MetaNav> = this.useNav.meta();
 
-      if (!meta?.from || !this.ALLOWED_FROM.has(meta.from))
-        from(this.useNav.replace('/')).subscribe();
+      if (!meta?.from || !this.ALLOWED_FROM.has(meta.from)) void this.useNav.replace('/');
     });
   }
 }

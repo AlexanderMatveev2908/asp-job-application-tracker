@@ -8,6 +8,7 @@ import { SvgFillLogin } from '@/common/components/svgs/fill/login/login';
 import { SvgFillVerify } from '@/common/components/svgs/fill/verify/verify';
 import { Nullable } from '@/common/types/etc';
 import { SpanLinkPropsT } from '@/common/components/els/span/etc/types';
+import { SvgFillSecurity } from '@/common/components/svgs/fill/security/security';
 
 export class LinksUiFkt extends RootUiFkt {
   private static readonly _allUsers: Omit<SpanLinkPropsT, 'id' | 'eventT'>[] = [
@@ -46,11 +47,32 @@ export class LinksUiFkt extends RootUiFkt {
     },
   ];
 
+  private static readonly _logged: Omit<SpanLinkPropsT, 'id' | 'eventT'>[] = [
+    {
+      label: 'Verify account',
+      path: '/user/require-email/confirm-email',
+      Svg: SvgFillVerify,
+    },
+    {
+      label: 'Account Settings',
+      path: '/user/manage-account',
+      Svg: SvgFillSecurity,
+    },
+  ];
+
   public static get allUsers(): SpanLinkPropsT[] {
     return this.arrWithIdAndEvent(this._allUsers);
   }
   public static get notLogged(): SpanLinkPropsT[] {
     return this.arrWithIdAndEvent(this._notLogged);
+  }
+
+  public static getLoggedByVerifyStatus(isVerified: boolean): SpanLinkPropsT[] {
+    return this.arrWithIdAndEvent(
+      this._logged.filter((el: Omit<SpanLinkPropsT, 'id' | 'eventT'>) =>
+        isVerified ? el.path !== this._logged[0].path : true
+      )
+    );
   }
 
   private static cutPath(arg: string): string {

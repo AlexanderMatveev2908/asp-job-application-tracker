@@ -6,9 +6,11 @@
   class="root z__sidebar"
   [ngClass]="isSideOpen() ? '-translate-x-full opacity-100' : 'translate-x-0 opacity-0'"
 >
+  @if(txtClampProps()) {
   <div class="root__span_mail">
-    <app-txt-clamp [props]="txtClampProps" [lines]="2" />
+    <app-txt-clamp [props]="txtClampProps()" [lines]="2" />
   </div>
+  }
 
   <div class="root__body scroll__app">
     <div class="body__wrap_links">
@@ -26,10 +28,11 @@
         [testId]="'sidebar__drop_user'"
         [isOpen]="isDropOpen()"
         [setIsOpen]="setIsDropOpen"
+        [closeOnMouseOut]="false"
       >
         <ng-template #dropContent>
           <div class="body__wrap_links">
-            @for(lk of notLoggedLinks; track lk.id){
+            @for(lk of linksUser(); track lk.id){
             <app-nav-link
               [testId]="testIdFromPath(lk.path)"
               [spanProps]="lk"
@@ -41,6 +44,10 @@
           </div>
         </ng-template>
       </app-drop-static>
+
+      @if(user()){
+      <app-logout-btn [closeSomethingCb]="onSideClick" />
+      }
     </div>
   </div>
 </div>

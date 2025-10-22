@@ -59,4 +59,8 @@ export class UseStorageSvc {
       }
     });
   }
+
+  public delItem(key: StorageKeyT): void {
+    sessionStorage.removeItem(key);
+  }
 }

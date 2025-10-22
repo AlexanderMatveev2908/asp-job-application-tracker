@@ -3,7 +3,7 @@
 }
 
 .root {
-  @apply w-full flex flex-col gap-6;
+  @apply w-full flex flex-col;
 
   .root__btn {
     @apply w-full flex items-center justify-between border-2 rounded-xl px-1 py-1 cursor-pointer transition-all duration-300;

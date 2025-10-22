@@ -20,5 +20,6 @@ export const authReducer = createReducer(
     ...state,
     [action.key]: false,
   })),
-  on(AuthActT.MARK_LOGGED, (state: AuthStateT) => ({ ...state, isLogged: true }))
+  on(AuthActT.MARK_LOGGED, (state: AuthStateT) => ({ ...state, isLogged: true })),
+  on(AuthActT.LOGOUT, (state: AuthStateT) => ({ ...state, isLogged: false, loggingOut: true }))
 );

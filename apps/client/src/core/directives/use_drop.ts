@@ -20,6 +20,7 @@ export abstract class UseDropDir extends UseTestIdDir {
   // ? props
   public readonly isOpen: InputSignal<boolean> = input.required();
   public readonly setIsOpen: InputSignal<(val: boolean) => void> = input.required();
+  public readonly closeOnMouseOut: InputSignal<boolean> = input.required();
 
   // ? children & projected
   @ViewChild('drop') drop: RefDomT;
@@ -32,6 +33,8 @@ export abstract class UseDropDir extends UseTestIdDir {
 
   @HostListener('document:mousedown', ['$event'])
   protected onMouseDown(e: MouseEvent): void {
-    this.useMouseOut.onMouseOut(this.drop, e, () => this.setIsOpen()(false));
+    this.useMouseOut.onMouseOut(this.drop, e, () =>
+      this.closeOnMouseOut() ? this.setIsOpen()(false) : null
+    );
   }
 }
