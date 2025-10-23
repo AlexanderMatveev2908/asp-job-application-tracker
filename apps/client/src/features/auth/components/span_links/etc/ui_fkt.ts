@@ -53,7 +53,7 @@ export class AuthSpanLinksUiFkt extends RootUiFkt {
     ['/auth/register', this.registerPage],
     ['/auth/login', this.loginPage],
     ['/auth/require-email/recover-pwd', this.recoverPwdPage],
-    ['/auth/require-email/confirm-account', this.confMailPage],
+    ['/auth/require-email/confirm-email', this.confMailPage],
   ]);
 
   public static byPath(path: Nullable<string>): Nullable<SpanLinkPropsT[]> {

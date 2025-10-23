@@ -38,11 +38,12 @@ export class NoticeSlice extends UseKitSliceSvc {
     this._noticeState = arg;
   }
 
-  public set mailNotice(arg: Omit<NoticeStateT, 'cb' | 'tmpt'>) {
+  public set mailNoticeMsg(arg: string) {
     this._noticeState = {
-      ...arg,
+      status: 201,
+      eventT: 'OK',
       tmpt: 'mail',
-      msg: `We've sent you an email ${arg.msg}. If you don't see it, check your spam folder, it might be partying there 🎉`,
+      msg: `We've sent you an email ${arg}. If you don't see it, check your spam folder, it might be partying there 🎉`,
     };
   }
 }

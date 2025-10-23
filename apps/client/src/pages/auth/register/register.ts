@@ -55,11 +55,7 @@ export class Register extends UseSwapDir {
           tap((res: ResApiT<JwtResT>) => {
             this.useAuthKit.authSlice.login(res.accessToken, true);
 
-            this.noticeSlice.mailNotice = {
-              eventT: 'OK',
-              msg: 'to confirm your account',
-              status: 201,
-            };
+            this.noticeSlice.mailNoticeMsg = 'to confirm your account';
           }),
           switchMap(() => from(this.useNav.replace('/notice', { from: 'register' })))
         )
