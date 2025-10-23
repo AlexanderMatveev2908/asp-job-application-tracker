@@ -1,11 +1,11 @@
 import test, { Browser, Locator } from '@playwright/test';
 import { preTestLogin } from './pre';
-import { FillInputT } from 'tests/E2E/lib_tests/etc/types';
+import { DataFieldT } from 'tests/E2E/lib_tests/etc/types';
 
 test('ok', async ({ browser }: { browser: Browser }) => {
   const { lib, res, form } = await preTestLogin(browser);
 
-  const fields: FillInputT[] = [
+  const fields: DataFieldT[] = [
     {
       field: 'email',
       val: res.user.email,

@@ -8,7 +8,7 @@ import { TokenT } from '@/features/cbcHmac/etc/types';
 export interface GetTokensArgT {
   payload?: Omit<RegisterFormT, 'confirmPassword' | 'terms'>;
   verify?: boolean;
-  tokenT: TokenT;
+  tokenT?: TokenT;
 }
 
 export abstract class LibApiTests extends LibToastTests {
