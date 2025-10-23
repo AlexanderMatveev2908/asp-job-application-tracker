@@ -72,8 +72,8 @@ export abstract class UseSwapDir extends UseKitFormSvc {
     });
 
   // ? helpers
-  protected readonly submitSwapForm: (cb: () => void, fields: string[][]) => void = (
-    cb: () => void,
+  protected readonly submitSwapForm: (cb: (data: unknown) => void, fields: string[][]) => void = (
+    cb: (data: unknown) => void,
     fields: string[][]
   ) => {
     if (!this.form.valid) {
@@ -86,6 +86,6 @@ export abstract class UseSwapDir extends UseKitFormSvc {
       return;
     }
 
-    cb();
+    cb(this.form.value);
   };
 }

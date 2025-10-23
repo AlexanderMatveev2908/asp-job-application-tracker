@@ -1,7 +1,7 @@
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { TxtFieldT, TxtSvgFieldT } from '@/common/types/forms';
 import { AuthFormShape } from '@/features/auth/components/form_shape/auth-form-shape';
-import { LoginFormMng } from '@/features/auth/pages/login/paperwork/from_mng';
+import { LoginFormMng, LoginFormT } from '@/features/auth/pages/login/paperwork/from_mng';
 import { LoginFormUiFkt } from '@/features/auth/pages/login/ui_fkt';
 import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { FormGroup } from '@angular/forms';
@@ -30,10 +30,10 @@ export class Login extends UseKitFormWithPwdSvc {
   );
 
   // ? listeners
-  public readonly onSubmit: () => Promise<void> = async () => {
-    this.submitForm(() => {
+  public readonly onSubmit: () => void = () => {
+    this.submitForm((data: unknown) => {
       this.track(
-        this.useAuthKit.authApi.login(this.form.value).pipe(
+        this.useAuthKit.authApi.login(data as LoginFormT).pipe(
           tap((res: ResApiT<JwtResT>) => {
             this.useAuthKit.authSlice.loginTmr(res.accessToken);
           }),

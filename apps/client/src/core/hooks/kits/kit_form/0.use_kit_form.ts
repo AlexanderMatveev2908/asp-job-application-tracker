@@ -16,12 +16,14 @@ export abstract class UseKitFormSvc extends ApiTrackerSvc {
   public readonly getCtrl: (name: string) => FormControl = (name: string) =>
     this.form.get(name) as FormControl;
 
-  protected readonly submitForm: (cb: () => void) => void = (cb: () => void) => {
+  protected readonly submitForm: (cb: (data: unknown) => void) => void = (
+    cb: (data: unknown) => void
+  ) => {
     if (!this.form.valid) {
       ZodCheck.onSubmitFailed(this.form);
       return;
     }
 
-    cb();
+    cb(this.form.value);
   };
 }

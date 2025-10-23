@@ -6,7 +6,7 @@ import { RegisterFormUiFkt } from '@/features/auth/pages/register/ui_fkt';
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
 import { Swapper } from '@/common/components/swap/swapper/swapper';
 import { PairPwd } from '@/common/components/hoc/pair_pwd/pair-pwd';
-import { RegisterFormMng } from '@/features/auth/pages/register/paperwork/form_mng';
+import { RegisterFormMng, RegisterFormT } from '@/features/auth/pages/register/paperwork/form_mng';
 import { UseSwapDir } from '@/core/directives/use_swap/use_swap';
 import { PortalModule } from '@angular/cdk/portal';
 import { FormFieldBoxSm } from '@/common/components/forms/form_field_box_sm/form-field-box-sm';
@@ -49,9 +49,9 @@ export class Register extends UseSwapDir {
   private readonly focusOnSwap: EffectRef = effect(() => this.focusWhen('firstName', 'password'));
 
   public onSubmit: () => Promise<void> = async () => {
-    this.submitSwapForm(() => {
+    this.submitSwapForm((data: unknown) => {
       this.track(
-        this.useAuthKit.authApi.register(this.form.value).pipe(
+        this.useAuthKit.authApi.register(data as RegisterFormT).pipe(
           tap((res: ResApiT<JwtResT>) => {
             this.useAuthKit.authSlice.loginTmr(res.accessToken);
 
@@ -64,6 +64,7 @@ export class Register extends UseSwapDir {
           switchMap(() => from(this.useNav.replace('/notice', { from: 'register' })))
         )
       ).subscribe();
+      // | manage error swapping & waiting animation and focusing first issue
     }, RegisterFormMng.fieldsBySwap);
   };
 }
