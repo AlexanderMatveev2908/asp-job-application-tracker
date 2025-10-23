@@ -3,7 +3,7 @@ import { ToastStateT } from './reducer/reducer';
 import { getToastState } from './reducer/selectors';
 import { ToastActT } from './reducer/actions';
 import { AppEventPayloadT } from '@/core/lib/dom/meta_event/etc/types';
-import { UseKitSliceSvc } from '@/core/hooks/use_kit_slice';
+import { UseKitSliceSvc } from '@/core/hooks/kits/use_kit_slice';
 
 @Injectable({
   providedIn: 'root',

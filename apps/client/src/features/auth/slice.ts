@@ -1,7 +1,7 @@
 import { computed, Injectable, Signal } from '@angular/core';
 import { AuthStateT } from './reducer/reducer';
 import { getAuthState } from './reducer/selectors';
-import { UseKitSliceSvc } from '@/core/hooks/use_kit_slice';
+import { UseKitSliceSvc } from '@/core/hooks/kits/use_kit_slice';
 import { AuthActT } from './reducer/actions';
 
 @Injectable({

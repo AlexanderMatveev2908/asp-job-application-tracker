@@ -1,7 +1,7 @@
 import { computed, Injectable, Signal } from '@angular/core';
 import { UserStateT } from './reducer/reducer';
 import { getUserState } from './reducer/selectors';
-import { UseKitSliceSvc } from '@/core/hooks/use_kit_slice';
+import { UseKitSliceSvc } from '@/core/hooks/kits/use_kit_slice';
 import { UserT } from './etc/types';
 import { UserActT } from './reducer/actions';
 

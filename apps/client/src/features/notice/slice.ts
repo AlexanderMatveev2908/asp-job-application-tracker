@@ -3,7 +3,7 @@ import { getNoticeState } from './reducer/selectors';
 import { NoticeStateT, NoticeTmptT } from './reducer/reducer';
 import { NoticeActT } from './reducer/actions';
 import { GenericVoidCbT, Nullable } from '@/common/types/etc';
-import { UseKitSliceSvc } from '@/core/hooks/use_kit_slice';
+import { UseKitSliceSvc } from '@/core/hooks/kits/use_kit_slice';
 
 @Injectable({
   providedIn: 'root',

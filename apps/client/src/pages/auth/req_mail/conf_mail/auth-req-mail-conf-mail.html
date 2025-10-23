@@ -1,3 +1,7 @@
-<div class="root">
-  <p>AuthReqMailConfMail generated 🎉</p>
-</div>
+<app-csr-with-title [title]="'Verify Account'">
+  <app-auth-form-shape
+    [fromGroup]="form"
+    [onSubmit]="onSubmit"
+    [isPending]="false"
+  ></app-auth-form-shape>
+</app-csr-with-title>
