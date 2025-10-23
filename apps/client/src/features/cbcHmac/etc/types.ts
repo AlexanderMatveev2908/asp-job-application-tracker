@@ -1,4 +1,4 @@
-import { DeepNonNullable, Nullable } from './etc';
+import { DeepNonNullable, Nullable } from '@/common/types/etc';
 
 export enum TokenT {
   REFRESH = 'REFRESH',

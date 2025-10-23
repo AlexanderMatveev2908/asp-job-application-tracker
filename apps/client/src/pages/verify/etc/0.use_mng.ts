@@ -1,9 +1,9 @@
 import { Nullable } from '@/common/types/etc';
-import { AadCbcHmacT, TokenT } from '@/common/types/tokens';
 import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
-import { CbcHmacTk } from '@/core/lib/data_structure/cbc_hmac';
+import { LibCbcHmac } from '@/features/cbcHmac/etc/lib';
 import { AppEventPayloadT } from '@/core/lib/dom/meta_event/etc/types';
 import { Reg } from '@/core/paperwork/reg';
+import { AadCbcHmacT, TokenT } from '@/features/cbcHmac/etc/types';
 import { NoticeSlice } from '@/features/notice/slice';
 import { ToastSlice } from '@/features/toast/slice';
 import { Directive, inject } from '@angular/core';
@@ -22,7 +22,7 @@ export abstract class UseMngVerifyDir {
   protected extractAad(cbcHmac: Nullable<string>): Nullable<AadCbcHmacT> {
     const missing: boolean = !cbcHmac;
     const invalid: boolean = !Reg.isCbcHmac(cbcHmac);
-    const aad: Nullable<AadCbcHmacT> = CbcHmacTk.aadFrom(cbcHmac!);
+    const aad: Nullable<AadCbcHmacT> = LibCbcHmac.aadFrom(cbcHmac!);
 
     if (missing || invalid || !aad || !this.verifyTokenT.has(aad.tokenT)) {
       const payload: AppEventPayloadT = {

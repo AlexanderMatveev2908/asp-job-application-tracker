@@ -45,18 +45,6 @@ export class AuthSlice extends UseKitSliceSvc {
     this.setLoggingKey({ key, val: false });
   }
 
-  private setCbcHmac(arg: Nullable<string>): void {
-    this.store.dispatch(AuthActT.SET_CBC_HMAC({ cbcHmacToken: arg }));
-  }
-  public saveCbbHmac(arg: string): void {
-    this.setCbcHmac(arg);
-    this.useStorage.setItem('cbcHmacToken', arg);
-  }
-  public clearCbcHmac(): void {
-    this.setCbcHmac(null);
-    this.useStorage.delItem('cbcHmacToken');
-  }
-
   public isLogged: Signal<boolean> = computed(() => this.authState().isLogged);
   public loggingIn: Signal<boolean> = computed(() => this.authState().loggingIn);
   public loggingOut: Signal<boolean> = computed(() => this.authState().loggingOut);

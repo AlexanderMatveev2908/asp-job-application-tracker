@@ -6,12 +6,14 @@ import { RecoverPwdResT, VerifyApiSvc } from '@/features/verify/api';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { JwtResT } from '@/features/auth/etc/types';
 import { from, switchMap, tap } from 'rxjs';
+import { CbcHmacSlice } from '@/features/cbcHmac/slice';
 
 @Directive()
 export abstract class UseCasesVerifyDir extends UseMngVerifyDir {
   private readonly verifyApi: VerifyApiSvc = inject(VerifyApiSvc);
   private readonly authSlice: AuthSlice = inject(AuthSlice);
   private readonly userSlice: UserSlice = inject(UserSlice);
+  private readonly cbcHmacSlice: CbcHmacSlice = inject(CbcHmacSlice);
 
   protected confMail(cbcHmac: string): void {
     this.verifyApi
@@ -38,7 +40,7 @@ export abstract class UseCasesVerifyDir extends UseMngVerifyDir {
       .recoverPwd(cbcHmac)
       .pipe(
         tap((_: ResApiT<RecoverPwdResT>) => {
-          this.authSlice.saveCbbHmac(cbcHmac);
+          this.cbcHmacSlice.saveCbcHmac(cbcHmac);
         }),
         switchMap((res: ResApiT<RecoverPwdResT>) => {
           const suffix: string = res.strategy2FA ? '-2fa' : '';
