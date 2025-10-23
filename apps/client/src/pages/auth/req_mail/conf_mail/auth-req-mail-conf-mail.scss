@@ -1,5 +1,0 @@
-@use 'exports/shapes' as shapes;
-
-.root {
-  @include shapes.form__fields();
-}
