@@ -11,6 +11,6 @@ export interface UserT extends SqlTableT {
   password?: string;
 }
 
-export interface ResInfoT {
+export interface ResProfileT {
   user?: UserT;
 }

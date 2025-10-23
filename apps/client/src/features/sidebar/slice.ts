@@ -2,7 +2,7 @@ import { Injectable, Signal } from '@angular/core';
 import { getSideState } from './reducer/selectors';
 import { SideStateT } from './reducer/reducer';
 import { SidebarActT } from './reducer/actions';
-import { UseKitSliceSvc } from '@/core/hooks/use_kit_slice';
+import { UseKitSliceSvc } from '@/core/hooks/kits/use_kit_slice';
 
 @Injectable({
   providedIn: 'root',

@@ -79,7 +79,7 @@ export class Verify implements OnInit {
           this.verifyApi
             .confMail(cbcHmac!)
             .pipe(
-              tap((res: ResApiT<JwtResT>) => this.authSlice.loginTmr(res.accessToken)),
+              tap((res: ResApiT<JwtResT>) => this.authSlice.login(res.accessToken, true)),
               switchMap((res: ResApiT<JwtResT>) => {
                 this.userSlice.triggerApi();
 
