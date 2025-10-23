@@ -7,7 +7,7 @@ import { ApiArgs } from '../request/args';
   providedIn: 'root',
 })
 export class SideEffectsMng extends SideEffectsNoticeSvc {
-  public mng<T>(cb: ObsResT<T>, args: ApiArgs): ObsOnOkT<T> {
+  public mng<T, K>(cb: ObsResT<T>, args: ApiArgs<K>): ObsOnOkT<T> {
     return this.withNotice(this.withToast(this.withLog(cb), args.getOptToast()), args.getOptErr());
   }
 }

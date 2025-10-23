@@ -1,16 +1,19 @@
 import { createReducer, on } from '@ngrx/store';
 import { AuthActT, LoggingKeyArgT } from './actions';
+import { Nullable } from '@/common/types/etc';
 
 export interface AuthStateT {
   isLogged: boolean;
   loggingIn: boolean;
   loggingOut: boolean;
+  cbcHmac: Nullable<string>;
 }
 
 export const initState: AuthStateT = {
   isLogged: false,
   loggingIn: false,
   loggingOut: false,
+  cbcHmac: null,
 };
 
 export const authReducer = createReducer(

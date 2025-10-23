@@ -4,7 +4,7 @@ import { AfterViewInit, ChangeDetectionStrategy, Component } from '@angular/core
 import { RouterOutlet } from '@angular/router';
 import { Toast } from '@/layout/toast/toast';
 import { WakeUp } from '@/layout/wake_up/wake-up';
-import { UseAppDir } from '@/core/directives/use_app/use_app';
+import { UseAppDir } from './etc/directives/use_app/use_app';
 
 @Component({
   selector: 'app-root',

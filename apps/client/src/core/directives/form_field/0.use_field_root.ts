@@ -1,13 +1,13 @@
 import { Directive, Signal } from '@angular/core';
-import {} from '../../hooks/use_platform';
+import {} from '../../hooks/platform/use_platform';
 import { AbstractControl } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map, Observable, startWith } from 'rxjs';
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
-import { UseInjCtx } from '../use_inj_ctx';
+import { UseInjCtxSvc } from '../../hooks/platform/use_inj_ctx';
 
 @Directive()
-export abstract class UseFieldRootDir extends UseInjCtx {
+export abstract class UseFieldRootDir extends UseInjCtxSvc {
   // ? derived
   public val!: Signal<unknown>;
   public interacted!: Signal<boolean>;

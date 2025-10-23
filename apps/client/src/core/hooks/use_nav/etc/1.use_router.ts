@@ -1,11 +1,8 @@
 import { inject, Injectable } from '@angular/core';
-import { UsePlatformSvc } from '../../use_platform';
-import { UsePath } from './0.use_path';
+import { UsePlatformSvc } from '../../platform/use_platform';
+import { NavFromT, UsePath } from './0.use_path';
 import { Log } from '@/core/lib/dev/log';
 import { Nullable } from '@/common/types/etc';
-
-// | make navigation predictable & avoid misspelling passing arguments
-export type NavFromT = 'register' | 'error' | 'not_allowed' | 'ok';
 
 interface NavOptT {
   replace: boolean;

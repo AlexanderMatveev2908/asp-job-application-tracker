@@ -1,5 +1,5 @@
 import { Nullable } from '@/common/types/etc';
-import { UseInjCtx } from '@/core/directives/use_inj_ctx';
+import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
 import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
 import {
   ChangeDetectionStrategy,
@@ -20,7 +20,7 @@ import { TooltipLink } from '@/common/components/links/tooltip_link/tooltip-link
   styleUrl: './auth-span-links.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AuthSpanLinks extends UseInjCtx implements OnInit {
+export class AuthSpanLinks extends UseInjCtxSvc implements OnInit {
   private readonly useNav: UseNavSvc = inject(UseNavSvc);
 
   public readonly links: WritableSignal<Nullable<SpanLinkPropsT[]>> = signal(null);

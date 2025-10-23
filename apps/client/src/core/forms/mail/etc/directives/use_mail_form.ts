@@ -1,11 +1,11 @@
 import { Directive, inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MailFormMng } from '../etc/paperwork/form_mng';
-import { MailFormUiFkt } from '../etc/ui_fkt';
 import { TxtFieldT } from '@/common/types/forms';
 import { UseKitFormSvc } from '@/core/hooks/kits/kit_form/0.use_kit_form';
 import { RequireMailApiSvc } from '@/features/require_mail/api';
 import { NoticeSlice } from '@/features/notice/slice';
+import { MailFormMng } from '../paperwork/form_mng';
+import { MailFormUiFkt } from '../ui_fkt';
 
 @Directive()
 export abstract class UseMailFormDir extends UseKitFormSvc {

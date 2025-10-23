@@ -6,6 +6,7 @@
     [onSvgClick]="toggleByKey('isPwdTypePwd')"
     [onFocus]="onFocus"
     [onBlur]="onBlur"
+    [focusOnMount]="focusOnMount()"
   />
 
   <app-pwd-generator [confSwap]="confSwap()" />
@@ -15,5 +16,6 @@
     [f]="confPwdField()"
     [ctrl]="getCtrl()('confirmPassword')"
     [onSvgClick]="toggleByKey('isConfirmPwdTypePwd')"
+    [optionalDep]="optionalConfPwdDep()"
   />
 </div>

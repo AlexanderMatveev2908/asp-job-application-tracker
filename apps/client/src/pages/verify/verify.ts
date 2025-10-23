@@ -1,23 +1,12 @@
 /* eslint-disable @typescript-eslint/switch-exhaustiveness-check */
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';
-import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
 import { Nullable } from '@/common/types/etc';
-import { ToastSlice } from '@/features/toast/slice';
-import { NoticeSlice } from '@/features/notice/slice';
-import { AppEventPayloadT } from '@/core/lib/dom/meta_event/etc/types';
-import { Reg } from '@/core/paperwork/reg';
-import { CbcHmacTk } from '@/core/lib/data_structure/cbc_hmac';
-import { AadCbcHmacT, TokenT } from '@/common/types/tokens';
-import { VerifyApiSvc } from '@/features/verify/api';
 import { ErrApp } from '@/core/lib/err';
-import { AuthSlice } from '@/features/auth/slice';
-import { from, switchMap, tap } from 'rxjs';
-import { ResApiT } from '@/core/store/api/etc/types';
-import { JwtResT } from '@/features/auth/etc/types';
-import { UsePlatformSvc } from '@/core/hooks/use_platform';
+import { UsePlatformSvc } from '@/core/hooks/platform/use_platform';
 import { UseRefSvc } from '@/core/hooks/use_ref';
-import { UserSlice } from '@/features/user/slice';
+import { UseCasesVerifyDir } from './etc/1.use_cases';
+import { AadCbcHmacT, TokenT } from '@/features/cbcHmac/etc/types';
 
 @Component({
   selector: 'app-verify',
@@ -27,42 +16,9 @@ import { UserSlice } from '@/features/user/slice';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [UseRefSvc],
 })
-export class Verify implements OnInit {
-  private readonly useNav: UseNavSvc = inject(UseNavSvc);
-  private readonly toastSlice: ToastSlice = inject(ToastSlice);
-  private readonly noticeSlice: NoticeSlice = inject(NoticeSlice);
-  private readonly verifyApi: VerifyApiSvc = inject(VerifyApiSvc);
-  private readonly authSlice: AuthSlice = inject(AuthSlice);
-  private readonly verifyTokenT: Set<TokenT> = new Set<TokenT>([
-    TokenT.CONF_EMAIL,
-    TokenT.RECOVER_PWD,
-  ]);
-  private readonly userSlice: UserSlice = inject(UserSlice);
+export class Verify extends UseCasesVerifyDir implements OnInit {
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
   private readonly useRef: UseRefSvc = inject(UseRefSvc);
-
-  private extractAad(cbcHmac: Nullable<string>): Nullable<AadCbcHmacT> {
-    const missing: boolean = !cbcHmac;
-    const invalid: boolean = !Reg.isCbcHmac(cbcHmac);
-    const aad: Nullable<AadCbcHmacT> = CbcHmacTk.aadFrom(cbcHmac!);
-
-    if (missing || invalid || !aad || !this.verifyTokenT.has(aad.tokenT)) {
-      const payload: AppEventPayloadT = {
-        eventT: 'ERR',
-        msg: `Token ${missing ? 'not provided' : 'invalid'}`,
-        status: 401,
-      };
-
-      this.noticeSlice.notice = payload;
-      this.toastSlice.openToast(payload);
-
-      void this.useNav.replace('/notice', { from: 'not_allowed' });
-
-      return null;
-    }
-
-    return aad;
-  }
 
   ngOnInit(): void {
     this.usePlatform.onClient(() => {
@@ -71,32 +27,17 @@ export class Verify implements OnInit {
 
       const cbcHmac: Nullable<string> = this.useNav.query()?.['cbcHmacToken'];
 
+      // ! extractAad also check cbcHmac is a string and not null
       const aad: Nullable<AadCbcHmacT> = this.extractAad(cbcHmac);
       if (!aad) return;
 
       switch (aad.tokenT) {
         case TokenT.CONF_EMAIL:
-          this.verifyApi
-            .confMail(cbcHmac!)
-            .pipe(
-              tap((res: ResApiT<JwtResT>) => this.authSlice.login(res.accessToken, true)),
-              switchMap((res: ResApiT<JwtResT>) => {
-                this.userSlice.triggerApi();
-
-                this.noticeSlice.notice = {
-                  eventT: 'OK',
-                  msg: res.msg ?? 'account verified',
-                  status: 200,
-                };
-
-                return from(this.useNav.replace('/notice', { from: 'ok' }));
-              })
-            )
-            .subscribe();
+          this.confMail(cbcHmac!);
           break;
 
         case TokenT.RECOVER_PWD:
-          void null;
+          this.recoverPwd(cbcHmac!);
           break;
 
         default:

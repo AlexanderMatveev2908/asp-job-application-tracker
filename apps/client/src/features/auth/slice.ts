@@ -2,7 +2,8 @@ import { computed, Injectable, Signal } from '@angular/core';
 import { AuthStateT } from './reducer/reducer';
 import { getAuthState } from './reducer/selectors';
 import { UseKitSliceSvc } from '@/core/hooks/kits/use_kit_slice';
-import { AuthActT, LoggingKeyArgT } from './reducer/actions';
+import { AuthActT, LoggingKeyArgT, LoggingKeyT } from './reducer/actions';
+import { Nullable } from '@/common/types/etc';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,7 @@ export class AuthSlice extends UseKitSliceSvc {
   // ! there may be cases where it is already pushed out or logging in
   // ! so u do not want to repeat a certain event but give it margin of action
   // eslint-disable-next-line no-magic-numbers
-  public readonly TIMER_RESET_LOGGING: number = 2 * 1000;
+  public static readonly TIMER_RESET_LOGGING: number = 2 * 1000;
 
   public login(): void;
   public login(accessToken: string): void;
@@ -37,11 +38,15 @@ export class AuthSlice extends UseKitSliceSvc {
     if (withTmr) this.setLoggingKey({ key: 'loggingOut', val: true });
   }
 
-  public setLoggingKey(arg: LoggingKeyArgT): void {
+  private setLoggingKey(arg: LoggingKeyArgT): void {
     this.store.dispatch(AuthActT.SET_LOGGING_KEY(arg));
+  }
+  public clearLogging(key: LoggingKeyT): void {
+    this.setLoggingKey({ key, val: false });
   }
 
   public isLogged: Signal<boolean> = computed(() => this.authState().isLogged);
   public loggingIn: Signal<boolean> = computed(() => this.authState().loggingIn);
   public loggingOut: Signal<boolean> = computed(() => this.authState().loggingOut);
+  public cbcHmac: Signal<Nullable<string>> = computed(() => this.authState().cbcHmac);
 }

@@ -1,12 +1,12 @@
 import { UseUserKitSvc } from '@/features/user/etc/use_user_kit';
 import { Directive, inject } from '@angular/core';
-import { UseAppAuthDir } from './0.use_app_auth';
 import { finalize, tap } from 'rxjs';
 import { ErrApiT, ResApiT } from '@/core/store/api/etc/types';
 import { ResProfileT } from '@/features/user/etc/types';
+import { UseAppCbcHmacDir } from './1.use_app_cbc_hmac';
 
 @Directive()
-export abstract class UseAppUserDir extends UseAppAuthDir {
+export abstract class UseAppUserDir extends UseAppCbcHmacDir {
   protected readonly useUserKit: UseUserKitSvc = inject(UseUserKitSvc);
 
   protected fetchUser(): void {

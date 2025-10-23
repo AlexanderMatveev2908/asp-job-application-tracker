@@ -1,7 +1,7 @@
 import { SvgFillLockClose } from '@/common/components/svgs/fill/lock_close/lock-close';
 import { SvgFillLockOpen } from '@/common/components/svgs/fill/lock_open/lock-open';
 import { TxtInputT, TxtSvgFieldT } from '@/common/types/forms';
-import { FormFieldsUiFkt } from '..';
+import { FormFieldsUiFkt } from '../../../../../core/ui_fkt/form_fields';
 import { SvgT } from '@/common/types/etc';
 
 export interface RecMetaPwdT {
@@ -9,7 +9,7 @@ export interface RecMetaPwdT {
   Svg: SvgT;
 }
 
-export class PwdUiFkt extends FormFieldsUiFkt {
+export class PairPwdUiFkt extends FormFieldsUiFkt {
   private static readonly mapMetaPwd: Map<boolean, RecMetaPwdT> = new Map<boolean, RecMetaPwdT>([
     [
       true,

@@ -8,7 +8,7 @@ import {
   runInInjectionContext,
 } from '@angular/core';
 import { EMPTY, filter, Observable, take, switchMap } from 'rxjs';
-import { ResApiT } from '../store/api/etc/types';
+import { ResApiT } from '../../store/api/etc/types';
 import { Nullable } from '@/common/types/etc';
 
 @Injectable({

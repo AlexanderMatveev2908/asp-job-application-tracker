@@ -1,4 +1,5 @@
 import { authReducer, AuthStateT } from '@/features/auth/reducer/reducer';
+import { cbcHmacReducer, CbcHmacStateT } from '@/features/cbcHmac/reducer/reducer';
 import { noticeReducer, NoticeStateT } from '@/features/notice/reducer/reducer';
 import { sideReducer, SideStateT } from '@/features/sidebar/reducer/reducer';
 import { toastReducer, ToastStateT } from '@/features/toast/reducer/reducer';
@@ -13,6 +14,7 @@ export interface StoreStateT {
   wakeUp: WakeUpStateT;
   auth: AuthStateT;
   user: UserStateT;
+  cbcHmac: CbcHmacStateT;
 }
 
 export const rootReducer: ActionReducerMap<StoreStateT> = {
@@ -22,4 +24,5 @@ export const rootReducer: ActionReducerMap<StoreStateT> = {
   wakeUp: wakeUpReducer,
   auth: authReducer,
   user: userReducer,
+  cbcHmac: cbcHmacReducer,
 };

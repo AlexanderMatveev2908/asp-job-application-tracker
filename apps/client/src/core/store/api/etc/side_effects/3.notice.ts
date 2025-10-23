@@ -5,12 +5,14 @@ import { ErrApiT, ObsOnOkT, ObsResT, OptErrApiT, StatusT } from '../types';
 import { Nullable } from '@/common/types/etc';
 import { catchError, EMPTY, from, switchMap, throwError } from 'rxjs';
 import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
+import { CbcHmacSlice } from '@/features/cbcHmac/slice';
 
 @Injectable()
 export abstract class SideEffectsNoticeSvc extends SideEffectsToastSvc {
   // ? svc
   private readonly noticeSlice: NoticeSlice = inject(NoticeSlice);
   private readonly useNav: UseNavSvc = inject(UseNavSvc);
+  private readonly cbcHmacSlice: CbcHmacSlice = inject(CbcHmacSlice);
 
   // ? helper
   private readonly defOptErr: OptErrApiT = {
@@ -30,13 +32,15 @@ export abstract class SideEffectsNoticeSvc extends SideEffectsToastSvc {
         )
           return throwError(() => err);
 
+        if (this.cbcHmacSlice.present()) this.cbcHmacSlice.clearCbcHmac(true);
+
         this.noticeSlice.notice = {
           eventT: 'ERR',
           msg: err.error.msg ?? this.DEF_CLIENT_ERR_MSG,
           status: err.status,
         };
 
-        const navigation: Promise<boolean> = this.useNav.replace('/notice', { from: 'error' });
+        const navigation: Promise<boolean> = this.useNav.replace('/notice', { from: 'err' });
 
         return from(navigation).pipe(switchMap(() => EMPTY));
       })

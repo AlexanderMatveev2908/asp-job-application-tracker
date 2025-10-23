@@ -1,18 +1,19 @@
+/* eslint-disable @typescript-eslint/prefer-readonly */
 import { Nullable, TimerIdT } from '@/common/types/etc';
 import { LibEtc } from '@/core/lib/etc';
 import { LoggingKeyT } from '@/features/auth/reducer/actions';
 import { AuthSlice } from '@/features/auth/slice';
 import { Directive, inject, Signal } from '@angular/core';
-import { UseInjCtx } from '../../use_inj_ctx';
 import { UseStorageSvc } from '@/core/hooks/use_storage';
+import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
 
 @Directive()
-export abstract class UseAppAuthDir extends UseInjCtx {
+export abstract class UseAppAuthDir extends UseInjCtxSvc {
   protected readonly useStorage: UseStorageSvc = inject(UseStorageSvc);
   protected readonly authSlice: AuthSlice = inject(AuthSlice);
 
-  protected timerInID: TimerIdT = null;
-  protected timerOutID: TimerIdT = null;
+  private timerInID: TimerIdT = null;
+  private timerOutID: TimerIdT = null;
 
   protected markUserLogged(): void {
     const jwt: Nullable<string> = this.useStorage.getItem('accessToken');
@@ -41,8 +42,8 @@ export abstract class UseAppAuthDir extends UseInjCtx {
         return;
       }
 
-      this.authSlice.setLoggingKey({ key, val: false });
+      this.authSlice.clearLogging(key);
       this[timerRef] = LibEtc.clearTmrID(this[timerRef]);
-    }, this.authSlice.TIMER_RESET_LOGGING);
+    }, AuthSlice.TIMER_RESET_LOGGING);
   }
 }

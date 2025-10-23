@@ -1,5 +1,4 @@
 /* eslint-disable no-magic-numbers */
-import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -21,6 +20,7 @@ import { Nullable, RefDomT, TimerIdT } from '@/common/types/etc';
 import { LibEtc } from '@/core/lib/etc';
 import { CpyPasteAnimation } from './etc/animations';
 import { PortalDOM, RecCoordsT } from '@/core/lib/dom/portal';
+import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
 
 @Component({
   selector: 'app-cpy-paste',
@@ -28,10 +28,10 @@ import { PortalDOM, RecCoordsT } from '@/core/lib/dom/portal';
   templateUrl: './cpy-paste.html',
   styleUrl: './cpy-paste.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [UseInjCtxSvc],
 })
 export class CpyPaste extends UseSwapPortalDir implements AfterViewInit {
-  // ? svc
-  private readonly usePlatForm: UsePlatformSvc = inject(UsePlatformSvc);
+  private readonly useInjCtx: UseInjCtxSvc = inject(UseInjCtxSvc);
 
   // ? local state
   public readonly txt: InputSignal<Nullable<string>> = input.required();
@@ -75,8 +75,16 @@ export class CpyPaste extends UseSwapPortalDir implements AfterViewInit {
   }
 
   // ? animations
-  override ngAfterViewInit(): void {
-    this.useEffect(() => {
+  ngAfterViewInit(): void {
+    this.useInjCtx.useDOM(() => {
+      this.setCoords();
+    });
+
+    this.useInjCtx.useEffect(() => {
+      if (this.showTooltip()) this.setCoords();
+    });
+
+    this.useInjCtx.useEffect(() => {
       const isCpy: boolean = this.copied();
       if (!isCpy) return;
 
