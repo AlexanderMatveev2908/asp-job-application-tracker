@@ -35,11 +35,6 @@ export class AuthSlice extends UseKitSliceSvc {
     this.store.dispatch(AuthActT.MARK_LOGGED());
   }
 
-  public loggingPending(): boolean {
-    const state: AuthStateT = this.authState();
-    return state.loggingIn || state.loggingOut;
-  }
-
   public logout(): void {
     this.store.dispatch(AuthActT.LOGOUT());
     this.useStorage.delItem('accessToken');

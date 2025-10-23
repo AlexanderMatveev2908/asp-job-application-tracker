@@ -41,7 +41,7 @@ export class Protected extends UseInjCtx implements OnInit {
 
       if (
         !this.authSlice.isLogged() &&
-        !this.authSlice.loggingPending() &&
+        !this.authSlice.authState().loggingIn &&
         this.userSlice.handshake()
       )
         void this.useNav.replace('/auth/login');

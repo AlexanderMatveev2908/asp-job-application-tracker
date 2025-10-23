@@ -31,18 +31,15 @@ export class Login extends UseKitFormWithPwdSvc {
 
   // ? listeners
   public readonly onSubmit: () => Promise<void> = async () => {
-    if (!this.form.valid) {
-      LoginFormMng.onSubmitFailed(this.form);
-      return;
-    }
-
-    this.track(
-      this.useAuthKit.authApi.login(this.form.value).pipe(
-        tap((res: ResApiT<JwtResT>) => {
-          this.useAuthKit.authSlice.loginTmr(res.accessToken);
-        }),
-        switchMap(() => from(this.useNav.replace('/')))
-      )
-    ).subscribe();
+    this.submitForm(() => {
+      this.track(
+        this.useAuthKit.authApi.login(this.form.value).pipe(
+          tap((res: ResApiT<JwtResT>) => {
+            this.useAuthKit.authSlice.loginTmr(res.accessToken);
+          }),
+          switchMap(() => from(this.useNav.replace('/')))
+        )
+      ).subscribe();
+    });
   };
 }
