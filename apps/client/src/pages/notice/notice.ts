@@ -50,7 +50,10 @@ export class Notice extends UseInjCtx implements OnInit {
     });
 
     this.useEffect(() => {
+      const path: Nullable<string> = this.useNav.currPath();
       const meta: Nullable<MetaNav> = this.useNav.meta();
+
+      if (!path || !path.startsWith('/notice')) return;
 
       if (!meta?.from || !this.ALLOWED_FROM.has(meta.from)) void this.useNav.replace('/');
     });

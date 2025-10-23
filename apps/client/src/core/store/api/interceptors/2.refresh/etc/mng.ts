@@ -34,8 +34,8 @@ export class RefreshMdwMng {
         switchMap((res: ResApiT<JwtResT>) => {
           const freshJwt: string = res.accessToken;
 
-          if (authSlice.isLogged()) useStorage.setItem('accessToken', freshJwt);
-          else authSlice.login(freshJwt);
+          useStorage.setItem('accessToken', freshJwt);
+          if (!authSlice.isLogged()) authSlice.login();
 
           return of(freshJwt);
         }),

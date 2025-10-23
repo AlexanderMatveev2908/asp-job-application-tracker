@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { AuthActT, ResetLoggingT } from './actions';
+import { AuthActT, LoggingKeyArgT } from './actions';
 
 export interface AuthStateT {
   isLogged: boolean;
@@ -15,11 +15,18 @@ export const initState: AuthStateT = {
 
 export const authReducer = createReducer(
   initState,
-  on(AuthActT.LOGIN, (state: AuthStateT) => ({ ...state, loggingIn: true, isLogged: true })),
-  on(AuthActT.RESET_LOGGING_STATE, (state: AuthStateT, action: ResetLoggingT) => ({
+  on(AuthActT.LOGIN, (state: AuthStateT) => ({
     ...state,
-    [action.key]: false,
+    isLogged: true,
+    loggingOut: false,
   })),
-  on(AuthActT.MARK_LOGGED, (state: AuthStateT) => ({ ...state, isLogged: true })),
-  on(AuthActT.LOGOUT, (state: AuthStateT) => ({ ...state, isLogged: false, loggingOut: true }))
+  on(AuthActT.LOGOUT, (state: AuthStateT) => ({
+    ...state,
+    isLogged: false,
+    loggingIn: false,
+  })),
+  on(AuthActT.SET_LOGGING_KEY, (state: AuthStateT, action: LoggingKeyArgT) => ({
+    ...state,
+    [action.key]: action.val,
+  }))
 );

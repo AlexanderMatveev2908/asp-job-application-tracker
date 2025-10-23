@@ -37,14 +37,16 @@ export class Protected extends UseInjCtx implements OnInit {
     this.useEffect(() => {
       const path: Nullable<string> = this.useNav.currPath();
 
-      if (path !== '/protected') return;
+      if (!path || !path.startsWith('/protected')) return;
 
       if (
-        !this.authSlice.isLogged() &&
-        !this.authSlice.authState().loggingIn &&
-        this.userSlice.handshake()
+        this.authSlice.isLogged() ||
+        this.authSlice.authState().loggingIn ||
+        !this.userSlice.handshake()
       )
-        void this.useNav.replace('/auth/login');
+        return;
+
+      void this.useNav.replace('/auth/login');
     });
   }
 }

@@ -27,7 +27,7 @@ export class LogoutBtn extends ApiTrackerSvc {
   };
 
   public onLogout(): void {
-    this.track(this.useLogout.logout())
+    this.track(this.useLogout.main())
       .pipe(finalize(() => this.closeSomethingCb()()))
       .subscribe();
   }

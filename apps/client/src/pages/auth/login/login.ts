@@ -35,7 +35,7 @@ export class Login extends UseKitFormWithPwdSvc {
       this.track(
         this.useAuthKit.authApi.login(data as LoginFormT).pipe(
           tap((res: ResApiT<JwtResT>) => {
-            this.useAuthKit.authSlice.loginTmr(res.accessToken);
+            this.useAuthKit.authSlice.login(res.accessToken, true);
           }),
           switchMap(() => from(this.useNav.replace('/')))
         )

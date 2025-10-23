@@ -22,8 +22,11 @@ export class LayoutAuth extends UseInjCtx implements OnInit {
       if (!path || !path.startsWith('/auth')) return;
 
       const isLogged: boolean = this.authSlice.isLogged();
+      const loggingIn: boolean = this.authSlice.authState().loggingIn;
 
-      if (isLogged && !this.authSlice.authState().loggingIn) void this.useNav.replace('/');
+      if (!isLogged || loggingIn) return;
+
+      void this.useNav.replace('/');
     });
   }
 }
