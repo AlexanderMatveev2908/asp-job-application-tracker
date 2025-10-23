@@ -21,6 +21,13 @@ export abstract class UsePath {
   public readonly currPath: Signal<Nullable<string>> = this._currPath.asReadonly();
   public readonly query: Signal<Nullable<Params>> = this._query.asReadonly();
 
+  public ifPathStartsWith(arg: string, cb: () => void): void {
+    const path: Nullable<string> = this.currPath();
+    if (!path || !path.startsWith(arg)) return;
+
+    cb();
+  }
+
   constructor() {
     this.router.events
       .pipe(filter((e: unknown) => e instanceof NavigationEnd))

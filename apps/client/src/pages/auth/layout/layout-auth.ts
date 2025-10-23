@@ -1,4 +1,3 @@
-import { Nullable } from '@/common/types/etc';
 import { UseInjCtx } from '@/core/directives/use_inj_ctx';
 import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
 import { AuthSlice } from '@/features/auth/slice';
@@ -18,15 +17,14 @@ export class LayoutAuth extends UseInjCtx implements OnInit {
 
   ngOnInit(): void {
     this.useEffect(() => {
-      const path: Nullable<string> = this.useNav.currPath();
-      if (!path || !path.startsWith('/auth')) return;
+      this.useNav.ifPathStartsWith('/auth', () => {
+        const isLogged: boolean = this.authSlice.isLogged();
+        const loggingIn: boolean = this.authSlice.authState().loggingIn;
 
-      const isLogged: boolean = this.authSlice.isLogged();
-      const loggingIn: boolean = this.authSlice.authState().loggingIn;
+        if (!isLogged || loggingIn) return;
 
-      if (!isLogged || loggingIn) return;
-
-      void this.useNav.replace('/');
+        void this.useNav.replace('/');
+      });
     });
   }
 }

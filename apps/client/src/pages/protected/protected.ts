@@ -11,7 +11,6 @@ import {
 import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';
 import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
 import { UseInjCtx } from '@/core/directives/use_inj_ctx';
-import { Nullable } from '@/common/types/etc';
 import { TestApiSvc } from '@/features/test/api';
 
 @Component({
@@ -35,18 +34,16 @@ export class Protected extends UseInjCtx implements OnInit {
     this.testApi.protectedData().subscribe();
 
     this.useEffect(() => {
-      const path: Nullable<string> = this.useNav.currPath();
+      this.useNav.ifPathStartsWith('/protected', () => {
+        if (
+          this.authSlice.isLogged() ||
+          this.authSlice.authState().loggingIn ||
+          !this.userSlice.handshake()
+        )
+          return;
 
-      if (!path || !path.startsWith('/protected')) return;
-
-      if (
-        this.authSlice.isLogged() ||
-        this.authSlice.authState().loggingIn ||
-        !this.userSlice.handshake()
-      )
-        return;
-
-      void this.useNav.replace('/auth/login');
+        void this.useNav.replace('/auth/login');
+      });
     });
   }
 }
