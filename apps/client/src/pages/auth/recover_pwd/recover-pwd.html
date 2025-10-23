@@ -1,10 +1,10 @@
 <app-csr-with-title [title]="'Recover Password'">
-  <app-auth-form-shape
+  <app-form-shape
     [fromGroup]="form"
     [isPending]="isPending()"
     [onSubmit]="onSubmit"
     [testId]="'recover_pwd_form'"
   >
     <app-form-pair-pwd [getCtrl]="getCtrl" />
-  </app-auth-form-shape>
+  </app-form-shape>
 </app-csr-with-title>
