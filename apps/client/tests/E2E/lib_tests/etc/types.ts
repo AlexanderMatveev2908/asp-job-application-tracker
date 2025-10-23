@@ -2,7 +2,7 @@ import { UserT } from '@/features/user/etc/types';
 import { LibTests } from '..';
 import { Locator } from '@playwright/test';
 
-export interface FillInputT {
+export interface DataFieldT {
   field: string;
   val: string;
 }
@@ -16,9 +16,11 @@ export interface TkResT {
   plainPwd: string;
 }
 
-export type PreTestResT<T> = {
+interface BaseResT {
   lib: LibTests;
   res: TkResT;
-} & T;
+}
+
+export type PreTestResT<T> = T extends void ? BaseResT : BaseResT & T;
 
 export type PreTestFormResT = PreTestResT<{ form: Locator }>;

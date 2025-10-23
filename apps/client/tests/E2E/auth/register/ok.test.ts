@@ -1,12 +1,13 @@
 import test, { Browser, Locator } from '@playwright/test';
 import { preRegister } from './pre';
 import { TestPayload } from 'tests/E2E/lib_tests/etc/payloads';
-import { FillInputT } from 'tests/E2E/lib_tests/etc/types';
+import { DataFieldT } from 'tests/E2E/lib_tests/etc/types';
 import { RegisterFormT } from '@/features/auth/pages/register/paperwork/form_mng';
+import { LibConstTests } from 'tests/E2E/lib_tests/etc/constants';
 
 const payload: Omit<RegisterFormT, 'terms' | 'confirmPassword'> = TestPayload.register();
 
-const swap_0: FillInputT[] = [
+const swap_0: DataFieldT[] = [
   {
     field: 'first_name',
     val: payload.firstName,
@@ -21,7 +22,7 @@ const swap_0: FillInputT[] = [
   },
 ];
 
-const swap_1: FillInputT[] = [
+const swap_1: DataFieldT[] = [
   {
     field: 'password',
     val: payload.password,
@@ -31,8 +32,6 @@ const swap_1: FillInputT[] = [
     val: payload.password,
   },
 ];
-
-const mailMsg: string = `We've sent you an email to confirm your account. If you don't see it, check your spam folder, it might be partying there 🎉`;
 
 test('ok', async ({ browser }: { browser: Browser }) => {
   const { lib, form } = await preRegister(browser);
@@ -52,5 +51,5 @@ test('ok', async ({ browser }: { browser: Browser }) => {
 
   await lib.waitPushTo('/notice');
   await lib.isToastOk();
-  await lib.txtInPage(mailMsg);
+  await lib.txtInPage(LibConstTests.CONF_ACCOUNT_MSG);
 });

@@ -1,16 +1,16 @@
 import { expect, Locator } from '@playwright/test';
 import { LibRootTests } from './0.root';
-import { FillInputT } from '../types';
+import { DataFieldT } from '../types';
 
 export abstract class LibFormTests extends LibRootTests {
-  public async fillWith(form: Locator, data: FillInputT): Promise<Locator> {
+  public async fillWith(form: Locator, data: DataFieldT): Promise<Locator> {
     const field: Locator = await this.byIdIn(form, data.field);
     await field.fill(data.val);
 
     return field;
   }
 
-  public async errWhen(form: Locator, err: FillInputT): Promise<Locator> {
+  public async errWhen(form: Locator, err: DataFieldT): Promise<Locator> {
     const field: Locator = await this.fillWith(form, err);
 
     const errField: Locator = await this.byIdIn(form, `err__${err.field}`);
@@ -19,7 +19,7 @@ export abstract class LibFormTests extends LibRootTests {
     return field;
   }
 
-  public async errFor(form: Locator, errors: FillInputT[]): Promise<Locator[]> {
+  public async errFor(form: Locator, errors: DataFieldT[]): Promise<Locator[]> {
     const locators: Locator[] = [];
 
     for (const err of errors) {
@@ -30,7 +30,7 @@ export abstract class LibFormTests extends LibRootTests {
     return locators;
   }
 
-  public async fillFor(form: Locator, data: FillInputT[]): Promise<Locator[]> {
+  public async fillFor(form: Locator, data: DataFieldT[]): Promise<Locator[]> {
     const locators: Locator[] = [];
 
     for (const f of data) {

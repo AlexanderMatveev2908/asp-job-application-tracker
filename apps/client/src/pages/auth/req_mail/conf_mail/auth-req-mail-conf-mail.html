@@ -1,5 +1,10 @@
 <app-csr-with-title [title]="'Verify Account'">
-  <app-auth-form-shape [fromGroup]="form" [onSubmit]="onSubmit" [isPending]="isPending()">
+  <app-auth-form-shape
+    [fromGroup]="form"
+    [onSubmit]="onSubmit"
+    [isPending]="isPending()"
+    [testId]="'mail_form'"
+  >
     <app-form-mail [mailField]="mailField" [ctrl]="ctrl" />
   </app-auth-form-shape>
 </app-csr-with-title>

@@ -1,8 +1,8 @@
 import test, { Browser, expect, Locator } from '@playwright/test';
-import { FillInputT } from 'tests/E2E/lib_tests/etc/types';
+import { DataFieldT } from 'tests/E2E/lib_tests/etc/types';
 import { preRegister } from './pre';
 
-const swap_0: FillInputT[] = [
+const swap_0: DataFieldT[] = [
   {
     field: 'first_name',
     val: '<><>',
@@ -16,7 +16,7 @@ const swap_0: FillInputT[] = [
     val: '@not@an<><>email',
   },
 ];
-const swap_1: FillInputT[] = [
+const swap_1: DataFieldT[] = [
   {
     field: 'password',
     val: 'not safe',

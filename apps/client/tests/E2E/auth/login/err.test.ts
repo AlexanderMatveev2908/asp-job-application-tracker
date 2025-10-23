@@ -1,11 +1,11 @@
 import test, { Browser, Locator } from '@playwright/test';
 import { preTestLogin } from './pre';
-import { FillInputT } from 'tests/E2E/lib_tests/etc/types';
+import { DataFieldT } from 'tests/E2E/lib_tests/etc/types';
 import { LoginFormT } from '@/features/auth/pages/login/paperwork/from_mng';
 import { TestPayload } from 'tests/E2E/lib_tests/etc/payloads';
 
 const p: LoginFormT = TestPayload.login();
-const fields: FillInputT[] = [
+const fields: DataFieldT[] = [
   {
     field: 'email',
     val: p.email,
