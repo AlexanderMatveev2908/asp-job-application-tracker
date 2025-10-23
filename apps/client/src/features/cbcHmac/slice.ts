@@ -1,4 +1,4 @@
-import { Injectable, Signal } from '@angular/core';
+import { computed, Injectable, Signal } from '@angular/core';
 import { CbcHmacStateT } from './reducer/reducer';
 import { getCbcHmacState } from './reducer/selectors';
 import { UseKitSliceSvc } from '@/core/hooks/kits/use_kit_slice';
@@ -33,6 +33,16 @@ export class CbcHmacSlice extends UseKitSliceSvc {
     this.useStorage.delItem('cbcHmacToken');
   }
 
+  public cbcHmac: Signal<Nullable<string>> = computed(() => this.cbcHmacState().cbcHmacToken);
+
+  public present: Signal<boolean> = computed(
+    () => !!this.useStorage.getItem('cbcHmacToken') || !!this.cbcHmacState().cbcHmacToken
+  );
+
+  public fromStorage(): Nullable<string> {
+    return this.useStorage.getItem('cbcHmacToken');
+  }
+
   public getTokenT(): Nullable<TokenT> {
     const token: Nullable<string> = this.cbcHmacState().cbcHmacToken;
 
@@ -40,5 +50,9 @@ export class CbcHmacSlice extends UseKitSliceSvc {
     const aad: Nullable<AadCbcHmacT> = LibCbcHmac.aadFrom(token);
 
     return aad?.tokenT ?? null;
+  }
+
+  public isType(expected: TokenT): boolean {
+    return LibCbcHmac.isOfType(this.cbcHmac(), expected);
   }
 }

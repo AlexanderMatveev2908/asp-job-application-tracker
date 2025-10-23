@@ -13,8 +13,7 @@ export const initState: CbcHmacStateT = {
 
 export const cbcHmacReducer = createReducer(
   initState,
-  on(CbcHmacActT.SET_CBC_HMAC, (state: CbcHmacStateT, action: CbcHmacNullableT) => ({
-    ...state,
-    cbcHmac: action.cbcHmacToken,
+  on(CbcHmacActT.SET_CBC_HMAC, (_: CbcHmacStateT, action: CbcHmacNullableT) => ({
+    cbcHmacToken: action.cbcHmacToken,
   }))
 );

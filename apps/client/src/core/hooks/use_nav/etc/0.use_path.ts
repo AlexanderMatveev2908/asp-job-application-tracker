@@ -5,7 +5,7 @@ import { filter } from 'rxjs';
 import { ShapeCheck } from '@/core/lib/data_structure/shape_check';
 
 // | make navigation predictable & avoid misspelling passing arguments
-export type NavFromT = 'error' | 'ok';
+export type NavFromT = 'err' | 'ok';
 
 export interface MetaNavT {
   from: Nullable<NavFromT>;
@@ -23,7 +23,7 @@ export abstract class UsePath {
   public readonly currPath: Signal<Nullable<string>> = this._currPath.asReadonly();
   public readonly query: Signal<Nullable<Params>> = this._query.asReadonly();
 
-  private readonly ALLOWED_FROM: Set<NavFromT> = new Set<NavFromT>(['error', 'ok']);
+  private readonly ALLOWED_FROM: Set<NavFromT> = new Set<NavFromT>(['err', 'ok']);
 
   public allowedFrom(): boolean {
     const meta: Nullable<MetaNavT> = this.meta();

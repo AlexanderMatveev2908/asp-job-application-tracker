@@ -32,14 +32,15 @@ export abstract class SideEffectsNoticeSvc extends SideEffectsToastSvc {
         )
           return throwError(() => err);
 
-        this.cbcHmacSlice.clearCbcHmac();
+        if (this.cbcHmacSlice.present()) this.cbcHmacSlice.clearCbcHmac();
+
         this.noticeSlice.notice = {
           eventT: 'ERR',
           msg: err.error.msg ?? this.DEF_CLIENT_ERR_MSG,
           status: err.status,
         };
 
-        const navigation: Promise<boolean> = this.useNav.replace('/notice', { from: 'error' });
+        const navigation: Promise<boolean> = this.useNav.replace('/notice', { from: 'err' });
 
         return from(navigation).pipe(switchMap(() => EMPTY));
       })

@@ -5,7 +5,7 @@ import { from, switchMap, tap } from 'rxjs';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { FormMail } from '@/core/forms/mail/form-mail';
 import { MailFormT } from '@/core/forms/mail/etc/paperwork/form_mng';
-import { UseMailFormDir } from '@/core/forms/mail/etc/directories/use_mail_form';
+import { UseMailFormDir } from '@/core/forms/mail/etc/directives/use_mail_form';
 
 @Component({
   selector: 'app-auth-req-mail-conf-mail',

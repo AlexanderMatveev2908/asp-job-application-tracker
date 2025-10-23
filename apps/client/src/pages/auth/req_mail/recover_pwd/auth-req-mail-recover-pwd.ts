@@ -1,5 +1,5 @@
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
-import { UseMailFormDir } from '@/core/forms/mail/etc/directories/use_mail_form';
+import { UseMailFormDir } from '@/core/forms/mail/etc/directives/use_mail_form';
 import { MailFormT } from '@/core/forms/mail/etc/paperwork/form_mng';
 import { FormMail } from '@/core/forms/mail/form-mail';
 import { ResApiT } from '@/core/store/api/etc/types';

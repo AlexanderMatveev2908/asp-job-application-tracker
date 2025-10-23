@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { AuthFormShape } from '@/features/auth/components/form_shape/auth-form-shape';
-import { UsePairPwfFormDir } from '@/core/forms/pair_pwd/etc/directories/use_pair_pwd';
+import { UsePairPwfFormDir } from '@/core/forms/pair_pwd/etc/directives/use_pair_pwd';
 import { FormPairPwd } from '@/core/forms/pair_pwd/form-pair-pwd';
 import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
+import { TokenT } from '@/features/cbcHmac/etc/types';
 
 @Component({
   selector: 'app-recover-pwd',
@@ -25,7 +26,9 @@ export class RecoverPwd extends UsePairPwfFormDir implements OnInit {
   ngOnInit(): void {
     this.useInj.useEffect(() => {
       this.useNav.ifPathStartsWith('/auth/recover-pwd', () => {
-        if (this.useNav.allowedFrom()) return;
+        void this.cbcHmacSlice.cbcHmac();
+
+        if (this.useNav.allowedFrom() && this.cbcHmacSlice.isType(TokenT.RECOVER_PWD)) return;
 
         void this.useNav.replace('/');
       });

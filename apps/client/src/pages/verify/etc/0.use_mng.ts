@@ -34,7 +34,7 @@ export abstract class UseMngVerifyDir {
       this.noticeSlice.notice = payload;
       this.toastSlice.openToast(payload);
 
-      void this.useNav.replace('/notice', { from: 'error' });
+      void this.useNav.replace('/notice', { from: 'err' });
 
       return null;
     }
