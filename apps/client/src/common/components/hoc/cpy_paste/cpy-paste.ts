@@ -1,11 +1,9 @@
 /* eslint-disable no-magic-numbers */
-import { UsePlatformSvc } from '@/core/hooks/use_platform';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   computed,
-  inject,
   input,
   InputSignal,
   signal,
@@ -30,9 +28,6 @@ import { PortalDOM, RecCoordsT } from '@/core/lib/dom/portal';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CpyPaste extends UseSwapPortalDir implements AfterViewInit {
-  // ? svc
-  private readonly usePlatForm: UsePlatformSvc = inject(UsePlatformSvc);
-
   // ? local state
   public readonly txt: InputSignal<Nullable<string>> = input.required();
   public readonly copied: WritableSignal<boolean> = signal(false);
@@ -75,7 +70,15 @@ export class CpyPaste extends UseSwapPortalDir implements AfterViewInit {
   }
 
   // ? animations
-  override ngAfterViewInit(): void {
+  ngAfterViewInit(): void {
+    this.useDOM(() => {
+      this.setCoords();
+    });
+
+    this.useEffect(() => {
+      if (this.showTooltip()) this.setCoords();
+    });
+
     this.useEffect(() => {
       const isCpy: boolean = this.copied();
       if (!isCpy) return;

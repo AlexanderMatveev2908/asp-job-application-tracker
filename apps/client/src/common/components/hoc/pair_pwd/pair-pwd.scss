@@ -1,3 +1,5 @@
+@use 'exports/shapes' as shapes;
+
 .root {
-  @apply w-full flex flex-col gap-8;
+  @include shapes.form__fields();
 }

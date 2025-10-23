@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, signal, WritableSignal } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { NgComponentOutlet } from '@angular/common';
 import { SvgFillPwdGen } from '@/common/components/svgs/fill/pwd_gen/pwd-gen';
 import { Portal } from '@/layout/portal/portal';
@@ -15,7 +21,7 @@ import { Nullable, SvgT } from '@/common/types/etc';
   styleUrl: './pwd-generator.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PwdGenerator extends UseSwapPortalDir {
+export class PwdGenerator extends UseSwapPortalDir implements AfterViewInit {
   // ? static assets
   public readonly Svg: SvgT = SvgFillPwdGen;
 
@@ -26,5 +32,15 @@ export class PwdGenerator extends UseSwapPortalDir {
   public genPwd(): void {
     const charsForRange: number = 4;
     this.pwd.set(PwdGen.pwdOf(charsForRange));
+  }
+
+  ngAfterViewInit(): void {
+    this.useDOM(() => {
+      this.setCoords();
+    });
+
+    this.useEffect(() => {
+      if (this.showTooltip()) this.setCoords();
+    });
   }
 }

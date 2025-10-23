@@ -9,7 +9,7 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { FormFieldTxt } from '../../forms/form_field_txt/form-field-txt';
-import { PwdUiFkt } from '@/core/ui_fkt/form_fields/etc/pwd';
+import { PairPwdUiFkt } from '@/common/components/hoc/pair_pwd/etc/ui_fkt';
 import { PairPwdStateT, TxtSvgFieldT } from '@/common/types/forms';
 import { FormControl } from '@angular/forms';
 import { PwdGenerator } from './pwd_generator/pwd-generator';
@@ -31,6 +31,7 @@ export class PairPwd extends UseFocusSvc {
   // ? component may be inside a swapper
   // ? but not necessarily so by default is always 0
   public readonly confSwap: InputSignal<Nullable<ConfSwapT>> = input<Nullable<ConfSwapT>>(null);
+  public readonly focusOnMount: InputSignal<boolean> = input(false);
 
   // ? local state
   public readonly pairPwdState: WritableSignal<PairPwdStateT> = signal({
@@ -40,10 +41,10 @@ export class PairPwd extends UseFocusSvc {
 
   // ? ui fields
   public readonly pwdField: Signal<TxtSvgFieldT> = computed(() =>
-    PwdUiFkt.pwdByBool(this.pairPwdState().isPwdTypePwd)
+    PairPwdUiFkt.pwdByBool(this.pairPwdState().isPwdTypePwd)
   );
   public readonly confPwdField: Signal<TxtSvgFieldT> = computed(() =>
-    PwdUiFkt.confPwdByBool(this.pairPwdState().isConfirmPwdTypePwd)
+    PairPwdUiFkt.confPwdByBool(this.pairPwdState().isConfirmPwdTypePwd)
   );
 
   // ? listeners
