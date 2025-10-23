@@ -19,6 +19,8 @@ import { AuthReqMailRecoverPwd } from '@/pages/auth/req_mail/recover_pwd/auth-re
 import { LayoutReqMailAuth } from '@/pages/auth/req_mail/layout/layout-req-mail-auth';
 import { Protected } from '@/pages/protected/protected';
 import { Verify } from '@/pages/verify/verify';
+import { LayoutUser } from '@/pages/user/layout/layout-user';
+import { ManageAccount } from '@/pages/user/manage_account/manage-account';
 
 export const routes: Routes = [
   {
@@ -74,6 +76,16 @@ export const routes: Routes = [
             component: AuthReqMailRecoverPwd,
           },
         ],
+      },
+    ],
+  },
+  {
+    path: 'user',
+    component: LayoutUser,
+    children: [
+      {
+        path: 'manage-account',
+        component: ManageAccount,
       },
     ],
   },

@@ -3,14 +3,14 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-layout-auth',
+  selector: 'app-layout-user',
   imports: [RouterOutlet],
-  templateUrl: './layout-auth.html',
-  styleUrl: './layout-auth.scss',
+  templateUrl: './layout-user.html',
+  styleUrl: './layout-user.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LayoutAuth extends UseRouterProtectionDir implements OnInit {
+export class LayoutUser extends UseRouterProtectionDir implements OnInit {
   ngOnInit(): void {
-    this.pushOutLogged('/auth');
+    this.pushOutNotLogged('/user');
   }
 }
