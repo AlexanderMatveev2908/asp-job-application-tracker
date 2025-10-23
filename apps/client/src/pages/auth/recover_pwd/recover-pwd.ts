@@ -38,7 +38,7 @@ export class RecoverPwd extends UsePairPwfFormDir implements OnInit {
         .pipe(
           tap((res: ResApiT<JwtResT>) => {
             this.useAuthKit.authSlice.login(res.accessToken, true);
-            this.cbcHmacSlice.clearCbcHmac(true);
+            this.cbcHmacSlice.clearCbcHmac();
 
             this.useNoticeKit.pushNotice({
               eventT: 'OK',
@@ -49,7 +49,7 @@ export class RecoverPwd extends UsePairPwfFormDir implements OnInit {
           catchError((err: ErrApiT<void>) => {
             if (err.status !== StatusT.UNAUTHORIZED) return throwError(() => err);
 
-            this.cbcHmacSlice.clearCbcHmac(true);
+            this.cbcHmacSlice.clearCbcHmac();
             this.useNoticeKit.pushNotice({
               eventT: 'ERR',
               msg: err.error?.msg ?? 'Token invalid',

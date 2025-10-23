@@ -38,13 +38,11 @@ export class CbcHmacSlice extends UseKitSliceSvc {
     this.setClearing(false);
   }
 
-  public clearCbcHmac(startTmr: boolean): void;
-  public clearCbcHmac(): void;
-  public clearCbcHmac(startTmr?: boolean): void {
+  public clearCbcHmac(): void {
     this.setCbcHmac(null);
     this.useStorage.delItem('cbcHmacToken');
 
-    if (startTmr) this.setClearing(true);
+    this.setClearing(true);
   }
 
   public cbcHmac: Signal<Nullable<string>> = computed(() => this.cbcHmacState().cbcHmacToken);
