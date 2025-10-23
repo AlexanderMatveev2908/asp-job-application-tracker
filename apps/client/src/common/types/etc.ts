@@ -40,6 +40,10 @@ export type OrNone<T> = T | None;
 
 export type Nullable<T> = T | null;
 
+export type DeepNonNullable<T> = {
+  [K in keyof T]-?: NonNullable<T[K]>;
+};
+
 export type Opt<T> = T | undefined;
 
 export type TimerIdT = Nullable<NodeJS.Timeout>;

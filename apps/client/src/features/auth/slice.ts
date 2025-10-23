@@ -2,7 +2,8 @@ import { computed, Injectable, Signal } from '@angular/core';
 import { AuthStateT } from './reducer/reducer';
 import { getAuthState } from './reducer/selectors';
 import { UseKitSliceSvc } from '@/core/hooks/kits/use_kit_slice';
-import { AuthActT, LoggingKeyArgT } from './reducer/actions';
+import { AuthActT, LoggingKeyArgT, LoggingKeyT } from './reducer/actions';
+import { Nullable } from '@/common/types/etc';
 
 @Injectable({
   providedIn: 'root',
@@ -37,11 +38,27 @@ export class AuthSlice extends UseKitSliceSvc {
     if (withTmr) this.setLoggingKey({ key: 'loggingOut', val: true });
   }
 
-  public setLoggingKey(arg: LoggingKeyArgT): void {
+  private setLoggingKey(arg: LoggingKeyArgT): void {
     this.store.dispatch(AuthActT.SET_LOGGING_KEY(arg));
+  }
+  public clearLogging(key: LoggingKeyT): void {
+    this.setLoggingKey({ key, val: false });
+  }
+
+  private setCbcHmac(arg: Nullable<string>): void {
+    this.store.dispatch(AuthActT.SET_CBC_HMAC({ cbcHmacToken: arg }));
+  }
+  public saveCbbHmac(arg: string): void {
+    this.setCbcHmac(arg);
+    this.useStorage.setItem('cbcHmacToken', arg);
+  }
+  public clearCbcHmac(): void {
+    this.setCbcHmac(null);
+    this.useStorage.delItem('cbcHmacToken');
   }
 
   public isLogged: Signal<boolean> = computed(() => this.authState().isLogged);
   public loggingIn: Signal<boolean> = computed(() => this.authState().loggingIn);
   public loggingOut: Signal<boolean> = computed(() => this.authState().loggingOut);
+  public cbcHmac: Signal<Nullable<string>> = computed(() => this.authState().cbcHmac);
 }

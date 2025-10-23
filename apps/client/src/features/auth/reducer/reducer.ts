@@ -1,16 +1,20 @@
 import { createReducer, on } from '@ngrx/store';
 import { AuthActT, LoggingKeyArgT } from './actions';
+import { CbcHmacNullableT } from '@/common/types/tokens';
+import { Nullable } from '@/common/types/etc';
 
 export interface AuthStateT {
   isLogged: boolean;
   loggingIn: boolean;
   loggingOut: boolean;
+  cbcHmac: Nullable<string>;
 }
 
 export const initState: AuthStateT = {
   isLogged: false,
   loggingIn: false,
   loggingOut: false,
+  cbcHmac: null,
 };
 
 export const authReducer = createReducer(
@@ -28,5 +32,9 @@ export const authReducer = createReducer(
   on(AuthActT.SET_LOGGING_KEY, (state: AuthStateT, action: LoggingKeyArgT) => ({
     ...state,
     [action.key]: action.val,
+  })),
+  on(AuthActT.SET_CBC_HMAC, (state: AuthStateT, action: CbcHmacNullableT) => ({
+    ...state,
+    cbcHmac: action.cbcHmacToken,
   }))
 );

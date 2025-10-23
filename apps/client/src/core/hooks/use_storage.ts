@@ -7,7 +7,7 @@ import { Prs } from '../lib/data_structure/prs';
 import { Stack } from '../lib/dev/stack';
 import { Nullable } from '@/common/types/etc';
 
-export type StorageKeyT = 'notice' | 'accessToken' | 'wakeUp';
+export type StorageKeyT = 'notice' | 'accessToken' | 'wakeUp' | 'cbcHmacToken';
 
 @Injectable({
   providedIn: 'root',

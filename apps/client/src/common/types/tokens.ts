@@ -1,3 +1,5 @@
+import { DeepNonNullable, Nullable } from './etc';
+
 export enum TokenT {
   REFRESH = 'REFRESH',
   CONF_EMAIL = 'CONF_EMAIL',
@@ -18,3 +20,9 @@ export interface AadCbcHmacT {
   userId: string;
   tokenId: string;
 }
+
+export interface CbcHmacNullableT {
+  cbcHmacToken: Nullable<string>;
+}
+
+export type CbcHmacMandatoryT = DeepNonNullable<CbcHmacNullableT>;

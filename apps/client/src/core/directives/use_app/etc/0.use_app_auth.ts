@@ -41,7 +41,7 @@ export abstract class UseAppAuthDir extends UseInjCtx {
         return;
       }
 
-      this.authSlice.setLoggingKey({ key, val: false });
+      this.authSlice.clearLogging(key);
       this[timerRef] = LibEtc.clearTmrID(this[timerRef]);
     }, this.authSlice.TIMER_RESET_LOGGING);
   }

@@ -4,6 +4,10 @@ import { inject, Injectable } from '@angular/core';
 import { JwtResT } from '../auth/etc/types';
 import { ApiArgs } from '@/core/store/api/etc/request/args';
 
+export interface RecoverPwdResT {
+  strategy2FA: boolean;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -14,6 +18,17 @@ export class VerifyApiSvc {
   public confMail(cbcHmacToken: string): ObsOnOkT<JwtResT> {
     return this.api.get(
       ApiArgs.withURL(`${this.base}/confirm-email`)
+        .query({
+          cbcHmacToken,
+        })
+        .toastOnFulfilled()
+        .pushOnErr()
+    );
+  }
+
+  public recoverPwd(cbcHmacToken: string): ObsOnOkT<RecoverPwdResT> {
+    return this.api.get(
+      ApiArgs.withURL(`${this.base}/recover-pwd`)
         .query({
           cbcHmacToken,
         })
