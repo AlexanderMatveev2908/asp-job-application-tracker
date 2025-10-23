@@ -14,8 +14,6 @@ import { Nullable } from '@/common/types/etc';
 import { NoticeWrapperPropsT } from '@/common/components/hoc/page/csr_notice_wrapper/etc/types';
 import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
 import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
-import { MetaNav } from '@/core/hooks/use_nav/etc/0.use_path';
-import { NavFromT } from '@/core/hooks/use_nav/etc/1.use_router';
 
 @Component({
   selector: 'app-notice',
@@ -35,14 +33,6 @@ export class Notice extends UseInjCtxSvc implements OnInit {
     return rst;
   });
 
-  private readonly ALLOWED_FROM: Set<NavFromT> = new Set<NavFromT>([
-    'register',
-    'error',
-    'not_allowed',
-    'ok',
-    'verify',
-  ]);
-
   ngOnInit(): void {
     this.usePlatform.onClient(() => {
       const stored: Nullable<NoticeWithoutCb> = this.useStorage.getItem('notice');
@@ -52,9 +42,9 @@ export class Notice extends UseInjCtxSvc implements OnInit {
 
     this.useEffect(() => {
       this.useNav.ifPathStartsWith('/notice', () => {
-        const meta: Nullable<MetaNav> = this.useNav.meta();
+        if (this.useNav.allowedFrom()) return;
 
-        if (!meta?.from || !this.ALLOWED_FROM.has(meta.from)) void this.useNav.replace('/');
+        void this.useNav.replace('/');
       });
     });
   }

@@ -34,7 +34,7 @@ export abstract class UseMngVerifyDir {
       this.noticeSlice.notice = payload;
       this.toastSlice.openToast(payload);
 
-      void this.useNav.replace('/notice', { from: 'not_allowed' });
+      void this.useNav.replace('/notice', { from: 'error' });
 
       return null;
     }

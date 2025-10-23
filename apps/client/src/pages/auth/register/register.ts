@@ -57,7 +57,7 @@ export class Register extends UseSwapDir {
 
             this.noticeSlice.mailNoticeMsg = 'to confirm your account';
           }),
-          switchMap(() => from(this.useNav.replace('/notice', { from: 'register' })))
+          switchMap(() => from(this.useNav.replace('/notice', { from: 'ok' })))
         )
       ).subscribe();
       // | manage error swapping & waiting animation and focusing first issue

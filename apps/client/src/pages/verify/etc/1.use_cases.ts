@@ -43,7 +43,7 @@ export abstract class UseCasesVerifyDir extends UseMngVerifyDir {
         switchMap((res: ResApiT<RecoverPwdResT>) => {
           const suffix: string = res.strategy2FA ? '-2fa' : '';
 
-          return from(this.useNav.replace(`/auth/recover-pwd${suffix}`, { from: 'verify' }));
+          return from(this.useNav.replace(`/auth/recover-pwd${suffix}`, { from: 'ok' }));
         })
       )
       .subscribe();
