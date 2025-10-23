@@ -12,6 +12,9 @@ import { Reg } from '@/core/paperwork/reg';
   providedIn: 'root',
 })
 export class CbcHmacSlice extends UseKitSliceSvc {
+  // eslint-disable-next-line no-magic-numbers
+  public static readonly DELETING_RESET_TMR: number = 2 * 1000;
+
   public get cbcHmacState(): Signal<CbcHmacStateT> {
     return this.store.selectSignal(getCbcHmacState);
   }
@@ -22,15 +25,26 @@ export class CbcHmacSlice extends UseKitSliceSvc {
 
   public saveCbcHmac(arg: string): void;
   public saveCbcHmac(arg: string, presentInStorage: boolean): void;
-
   public saveCbcHmac(arg: string, presentInStorage?: boolean): void {
     this.setCbcHmac(arg);
 
     if (!presentInStorage) this.useStorage.setItem('cbcHmacToken', arg);
   }
-  public clearCbcHmac(): void {
+
+  private setClearing(val: boolean): void {
+    this.store.dispatch(CbcHmacActT.SET_DELETING({ deleting: val }));
+  }
+  public endClearing(): void {
+    this.setClearing(false);
+  }
+
+  public clearCbcHmac(startTmr: boolean): void;
+  public clearCbcHmac(): void;
+  public clearCbcHmac(startTmr?: boolean): void {
     this.setCbcHmac(null);
     this.useStorage.delItem('cbcHmacToken');
+
+    if (startTmr) this.setClearing(true);
   }
 
   public cbcHmac: Signal<Nullable<string>> = computed(() => this.cbcHmacState().cbcHmacToken);
@@ -55,4 +69,9 @@ export class CbcHmacSlice extends UseKitSliceSvc {
   public isType(expected: TokenT): boolean {
     return LibCbcHmac.isOfType(this.cbcHmac(), expected);
   }
+  public isTypeOrClearing(expected: TokenT): boolean {
+    return this.isType(expected) || this.deleting();
+  }
+
+  public deleting: Signal<boolean> = computed(() => this.cbcHmacState().deleting);
 }

@@ -16,14 +16,12 @@ import { UseMailFormDir } from '@/core/forms/mail/etc/directives/use_mail_form';
 })
 export class AuthReqMailConfMail extends UseMailFormDir {
   public readonly onSubmit: () => void = () => {
-    this.submitForm((data: unknown) => {
-      this.track(
-        this.requireMailAPi.confMail(data as MailFormT).pipe(
-          tap((_: ResApiT<void>) => {
-            this.useNoticeKit.pushMailNotice('to confirm your account');
-          })
-        )
-      ).subscribe();
-    });
+    this.submitForm((data: unknown) =>
+      this.requireMailAPi.confMail(data as MailFormT).pipe(
+        tap((_: ResApiT<void>) => {
+          this.useNoticeKit.pushMailNotice('to confirm your account');
+        })
+      )
+    );
   };
 }

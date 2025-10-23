@@ -16,14 +16,12 @@ import { tap } from 'rxjs';
 })
 export class AuthReqMailRecoverPwd extends UseMailFormDir {
   public onSubmit: () => void = () => {
-    this.submitForm((data: unknown) => {
-      this.track(
-        this.requireMailAPi.recoverPwd(data as MailFormT).pipe(
-          tap((_: ResApiT<void>) => {
-            this.useNoticeKit.pushMailNotice('to recover your password');
-          })
-        )
-      ).subscribe();
-    });
+    this.submitForm((data: unknown) =>
+      this.requireMailAPi.recoverPwd(data as MailFormT).pipe(
+        tap((_: ResApiT<void>) => {
+          this.useNoticeKit.pushMailNotice('to recover your password');
+        })
+      )
+    );
   };
 }

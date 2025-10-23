@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
 import { ZodCheck } from '@/core/paperwork/zod_check';
 import { UseNoticeKitSvc } from '@/features/notice/etc/use_notice_kit';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export abstract class UseKitFormSvc extends ApiTrackerSvc {
@@ -16,14 +17,14 @@ export abstract class UseKitFormSvc extends ApiTrackerSvc {
   public readonly getCtrl: (name: string) => FormControl = (name: string) =>
     this.form.get(name) as FormControl;
 
-  protected readonly submitForm: (cb: (data: unknown) => void) => void = (
-    cb: (data: unknown) => void
+  protected readonly submitForm: (cb: (data: unknown) => Observable<unknown>) => void = (
+    cb: (data: unknown) => Observable<unknown>
   ) => {
     if (!this.form.valid) {
       ZodCheck.onSubmitFailed(this.form);
       return;
     }
 
-    cb(this.form.value);
+    this.track(cb(this.form.value)).subscribe();
   };
 }

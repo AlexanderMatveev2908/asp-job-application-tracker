@@ -32,7 +32,7 @@ export abstract class SideEffectsNoticeSvc extends SideEffectsToastSvc {
         )
           return throwError(() => err);
 
-        if (this.cbcHmacSlice.present()) this.cbcHmacSlice.clearCbcHmac();
+        if (this.cbcHmacSlice.present()) this.cbcHmacSlice.clearCbcHmac(true);
 
         this.noticeSlice.notice = {
           eventT: 'ERR',

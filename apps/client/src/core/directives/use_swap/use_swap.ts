@@ -6,6 +6,7 @@ import { Nullable, TimerIdT } from '@/common/types/etc';
 import { UseKitFormSvc } from '@/core/hooks/kits/kit_form/0.use_kit_form';
 import { ZodCheck } from '@/core/paperwork/zod_check';
 import { ShapeCheck } from '@/core/lib/data_structure/shape_check';
+import { Observable } from 'rxjs';
 
 @Directive()
 export abstract class UseSwapDir extends UseKitFormSvc {
@@ -72,10 +73,10 @@ export abstract class UseSwapDir extends UseKitFormSvc {
     });
 
   // ? helpers
-  protected readonly submitSwapForm: (cb: (data: unknown) => void, fields: string[][]) => void = (
-    cb: (data: unknown) => void,
-    fields: string[][]
-  ) => {
+  protected readonly submitSwapForm: (
+    fields: string[][],
+    cb: (data: unknown) => Observable<unknown>
+  ) => void = (fields: string[][], cb: (data: unknown) => Observable<unknown>) => {
     if (!this.form.valid) {
       ZodCheck.onSubmitFailedInSwap(this.form, (first: string) => {
         const target: Nullable<number> = LibEtc.idxIn(first, fields);
@@ -86,6 +87,6 @@ export abstract class UseSwapDir extends UseKitFormSvc {
       return;
     }
 
-    cb(this.form.value);
+    this.track(cb(this.form.value)).subscribe();
   };
 }

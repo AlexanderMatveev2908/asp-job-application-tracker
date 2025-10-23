@@ -17,7 +17,7 @@ export class AuthSlice extends UseKitSliceSvc {
   // ! there may be cases where it is already pushed out or logging in
   // ! so u do not want to repeat a certain event but give it margin of action
   // eslint-disable-next-line no-magic-numbers
-  public readonly TIMER_RESET_LOGGING: number = 2 * 1000;
+  public static readonly TIMER_RESET_LOGGING: number = 2 * 1000;
 
   public login(): void;
   public login(accessToken: string): void;
