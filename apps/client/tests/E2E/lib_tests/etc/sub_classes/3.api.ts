@@ -1,9 +1,9 @@
-import { TokenT } from '@/common/types/tokens';
 import { TkResT } from '../types';
 import { LibToastTests } from './2.toast';
 import { RegisterFormT } from '@/features/auth/pages/register/paperwork/form_mng';
 import { APIResponse, expect } from '@playwright/test';
 import { Reg } from '@/core/paperwork/reg';
+import { TokenT } from '@/features/cbcHmac/etc/types';
 
 export interface GetTokensArgT {
   payload?: Omit<RegisterFormT, 'confirmPassword' | 'terms'>;
