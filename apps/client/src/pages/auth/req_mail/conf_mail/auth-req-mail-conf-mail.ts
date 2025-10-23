@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { AuthFormShape } from '@/features/auth/components/form_shape/auth-form-shape';
-import { from, switchMap, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { FormMail } from '@/core/forms/mail/form-mail';
 import { MailFormT } from '@/core/forms/mail/etc/paperwork/form_mng';
@@ -20,9 +20,8 @@ export class AuthReqMailConfMail extends UseMailFormDir {
       this.track(
         this.requireMailAPi.confMail(data as MailFormT).pipe(
           tap((_: ResApiT<void>) => {
-            this.noticeSlice.mailNoticeMsg = 'to confirm your account';
-          }),
-          switchMap((_: ResApiT<void>) => from(this.useNav.replace('/notice', { from: 'ok' })))
+            this.useNoticeKit.pushMailNotice('to confirm your account');
+          })
         )
       ).subscribe();
     });

@@ -10,10 +10,9 @@ import { RegisterFormMng, RegisterFormT } from '@/features/auth/pages/register/p
 import { UseSwapDir } from '@/core/directives/use_swap/use_swap';
 import { PortalModule } from '@angular/cdk/portal';
 import { FormFieldBoxSm } from '@/common/components/forms/form_field_box_sm/form-field-box-sm';
-import { NoticeSlice } from '@/features/notice/slice';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { JwtResT } from '@/features/auth/etc/types';
-import { from, switchMap, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { AuthFormShape } from '@/features/auth/components/form_shape/auth-form-shape';
 import { UseAuthKitSvc } from '@/features/auth/etc/use_auth_kit';
 
@@ -36,7 +35,6 @@ import { UseAuthKitSvc } from '@/features/auth/etc/use_auth_kit';
 export class Register extends UseSwapDir {
   // ? svc
   private readonly useAuthKit: UseAuthKitSvc = inject(UseAuthKitSvc);
-  private readonly noticeSlice: NoticeSlice = inject(NoticeSlice);
 
   // ? form related
   public readonly form: FormGroup = RegisterFormMng.form;
@@ -55,9 +53,8 @@ export class Register extends UseSwapDir {
           tap((res: ResApiT<JwtResT>) => {
             this.useAuthKit.authSlice.login(res.accessToken, true);
 
-            this.noticeSlice.mailNoticeMsg = 'to confirm your account';
-          }),
-          switchMap(() => from(this.useNav.replace('/notice', { from: 'ok' })))
+            this.useNoticeKit.pushMailNotice('to confirm your account');
+          })
         )
       ).subscribe();
       // | manage error swapping & waiting animation and focusing first issue

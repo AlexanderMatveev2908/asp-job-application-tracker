@@ -5,6 +5,13 @@ import { UsePairPwfFormDir } from '@/core/forms/pair_pwd/etc/directives/use_pair
 import { FormPairPwd } from '@/core/forms/pair_pwd/form-pair-pwd';
 import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
 import { TokenT } from '@/features/cbcHmac/etc/types';
+import { UseAuthKitSvc } from '@/features/auth/etc/use_auth_kit';
+import { Nullable } from '@/common/types/etc';
+import { ErrApp } from '@/core/lib/err';
+import { PairPwdFormT } from '@/core/forms/pair_pwd/etc/paperwork/form_mng';
+import { catchError, EMPTY, from, switchMap, tap, throwError } from 'rxjs';
+import { ErrApiT, ResApiT, StatusT } from '@/core/store/api/etc/types';
+import { JwtResT } from '@/features/auth/etc/types';
 
 @Component({
   selector: 'app-recover-pwd',
@@ -16,21 +23,48 @@ import { TokenT } from '@/features/cbcHmac/etc/types';
 })
 export class RecoverPwd extends UsePairPwfFormDir implements OnInit {
   private readonly useInj: UseInjCtxSvc = inject(UseInjCtxSvc);
+  private readonly useAuthKit: UseAuthKitSvc = inject(UseAuthKitSvc);
 
   public readonly onSubmit: () => void = () => {
+    const cbcHmacToken: Nullable<string> = this.cbcHmacSlice.cbcHmac();
+    if (!cbcHmacToken) throw new ErrApp('bug cbc hmac submit form recover pwd');
+
     this.submitForm((data: unknown) => {
-      console.log(data);
+      this.track(
+        this.useAuthKit.authApi
+          .recoverPwd({
+            cbcHmacToken,
+            password: (data as PairPwdFormT).password,
+          })
+          .pipe(
+            tap((res: ResApiT<JwtResT>) => this.useAuthKit.authSlice.login(res.accessToken, true)),
+            switchMap((_: ResApiT<JwtResT>) => from(this.useNoticeKit.useNav.replace('/'))),
+            catchError((err: ErrApiT<void>) => {
+              if (err.status !== StatusT.UNAUTHORIZED) return throwError(() => err);
+
+              this.cbcHmacSlice.clearCbcHmac();
+              this.useNoticeKit.pushNotice({
+                eventT: 'ERR',
+                msg: err.error?.msg ?? 'Token invalid',
+                status: 401,
+              });
+
+              return EMPTY;
+            })
+          )
+      ).subscribe();
     });
   };
 
   ngOnInit(): void {
     this.useInj.useEffect(() => {
-      this.useNav.ifPathStartsWith('/auth/recover-pwd', () => {
+      this.useNoticeKit.useNav.ifPathStartsWith('/auth/recover-pwd', () => {
         void this.cbcHmacSlice.cbcHmac();
 
-        if (this.useNav.allowedFrom() && this.cbcHmacSlice.isType(TokenT.RECOVER_PWD)) return;
+        if (this.useNoticeKit.useNav.allowedFrom() && this.cbcHmacSlice.isType(TokenT.RECOVER_PWD))
+          return;
 
-        void this.useNav.replace('/');
+        void this.useNoticeKit.useNav.replace('/');
       });
     });
   }

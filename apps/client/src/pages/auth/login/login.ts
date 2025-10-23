@@ -37,7 +37,7 @@ export class Login extends UseKitFormWithPwdSvc {
           tap((res: ResApiT<JwtResT>) => {
             this.useAuthKit.authSlice.login(res.accessToken, true);
           }),
-          switchMap(() => from(this.useNav.replace('/')))
+          switchMap(() => from(this.useNoticeKit.useNav.replace('/')))
         )
       ).subscribe();
     });

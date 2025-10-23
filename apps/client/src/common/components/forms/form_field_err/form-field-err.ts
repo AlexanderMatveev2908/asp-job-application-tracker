@@ -14,6 +14,7 @@ import { FormControl } from '@angular/forms';
 import { ErrsFieldT, RecErrsFieldT } from '@/common/types/forms';
 import { UseFieldRootDir } from '@/core/directives/form_field/0.use_field_root';
 import { Prs } from '@/core/lib/data_structure/prs';
+import { Nullable } from '@/common/types/etc';
 
 @Component({
   selector: 'app-form-field-err',
@@ -31,6 +32,7 @@ export class FormFieldErr extends UseFieldRootDir implements OnInit {
     prev: null,
     curr: null,
   });
+  public readonly optionalDep: InputSignal<Nullable<string[]>> = input<Nullable<string[]>>(null);
 
   // ? props testid tooltip
   public readonly testIdErrMsg: Signal<string> = computed(() =>
@@ -44,6 +46,7 @@ export class FormFieldErr extends UseFieldRootDir implements OnInit {
     this.useEffect(() => {
       const c: FormControl = this.ctrl();
       void this.val();
+      void this.optionalDep();
 
       const errors: ErrsFieldT = c.errors as ErrsFieldT;
 

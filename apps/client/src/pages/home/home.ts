@@ -38,7 +38,7 @@ export class Home extends ApiTrackerSvc {
   public readonly btnEventsProps: BtnListenersT = {
     onClick: (): void => {
       this.track(
-        this.api.post<ResApiT<void>>(
+        this.api.post(
           ApiArgs.withURL('/test').body({ msg: 'some txt...' }).toastOnFulfilled().pushOnErr()
         )
       ).subscribe((res: ResApiT<void>) => {

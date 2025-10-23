@@ -5,7 +5,7 @@ import { FormMail } from '@/core/forms/mail/form-mail';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { AuthFormShape } from '@/features/auth/components/form_shape/auth-form-shape';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { from, switchMap, tap } from 'rxjs';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-auth-req-mail-recover-pwd',
@@ -20,9 +20,8 @@ export class AuthReqMailRecoverPwd extends UseMailFormDir {
       this.track(
         this.requireMailAPi.recoverPwd(data as MailFormT).pipe(
           tap((_: ResApiT<void>) => {
-            this.noticeSlice.mailNoticeMsg = 'to recover your password';
-          }),
-          switchMap((_: ResApiT<void>) => from(this.useNav.replace('/notice', { from: 'ok' })))
+            this.useNoticeKit.pushMailNotice('to recover your password');
+          })
         )
       ).subscribe();
     });

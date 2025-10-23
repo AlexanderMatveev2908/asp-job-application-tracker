@@ -4,12 +4,12 @@ import { FormPrs } from '@/core/lib/data_structure/form_prs';
 import { ErrApp } from '@/core/lib/err';
 import { None, Nullable, OrNone } from '@/common/types/etc';
 
-export class ApiArgs {
+export class ApiArgs<T> {
   private readonly _url: string = '';
   private _params: Nullable<HttpParams> = null;
   private _optToast: Nullable<Partial<OptToastApiT>> = null;
   private _optErr: Nullable<Partial<OptErrApiT>> = null;
-  private _body: Nullable<Record<string, unknown> | FormData> = null;
+  private _body: Nullable<T | FormData> = null;
 
   constructor(url: string) {
     this._url = url;
@@ -27,40 +27,40 @@ export class ApiArgs {
     if (!this._optErr) this._optErr = {};
   }
 
-  public static withURL(url: string): ApiArgs {
+  public static withURL<K>(url: string): ApiArgs<K> {
     return new ApiArgs(url);
   }
 
-  public query(query: Record<string, unknown>): ApiArgs {
+  public query(query: Record<string, unknown>): ApiArgs<T> {
     this._params = this.parseQuery(query);
     return this;
   }
 
-  public body(body: Record<string, unknown>): ApiArgs {
+  public body(body: T | FormData): ApiArgs<T> {
     this._body = body;
     return this;
   }
 
-  public toastOnOk(): ApiArgs {
+  public toastOnOk(): ApiArgs<T> {
     this.ifOptToastEmpty();
     this._optToast!.toastOk = true;
     return this;
   }
 
-  public toastOnErr(): ApiArgs {
+  public toastOnErr(): ApiArgs<T> {
     this.ifOptToastEmpty();
     this._optToast!.toastErr = true;
     return this;
   }
 
-  public toastOnFulfilled(): ApiArgs {
+  public toastOnFulfilled(): ApiArgs<T> {
     this.ifOptToastEmpty();
     this._optToast!.toastOk = true;
     this._optToast!.toastErr = true;
     return this;
   }
 
-  public noToast(): ApiArgs {
+  public noToast(): ApiArgs<T> {
     this.ifOptToastEmpty();
     this._optToast!.toastOk = false;
     this._optToast!.toastErr = false;
@@ -68,13 +68,13 @@ export class ApiArgs {
     return this;
   }
 
-  public pushOnErr(): ApiArgs {
+  public pushOnErr(): ApiArgs<T> {
     this.ifOptErrEmpty();
     this._optErr!.pushOnErr = true;
     return this;
   }
 
-  public pushOnStatus(codes: number[]): ApiArgs {
+  public pushOnStatus(codes: number[]): ApiArgs<T> {
     this.ifOptErrEmpty();
     this._optErr!.pushOnStatus = codes;
     return this;
@@ -92,7 +92,7 @@ export class ApiArgs {
     return !this._params ? ifEmpty : this._params;
   }
 
-  public getBody(): Nullable<Record<string, unknown> | FormData> {
+  public getBody(): Nullable<T | FormData> {
     return this._body;
   }
 

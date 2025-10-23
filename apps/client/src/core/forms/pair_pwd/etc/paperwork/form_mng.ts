@@ -1,7 +1,7 @@
 import { PairPwdArgT, UserZod } from '@/core/paperwork/user';
 import { ZodCheck } from '@/core/paperwork/zod_check';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ZodObject, ZodString } from 'zod';
+import z, { ZodObject, ZodString } from 'zod';
 
 export class PairPwdFormMng extends ZodCheck {
   public static readonly schema: ZodObject<{
@@ -23,3 +23,5 @@ export class PairPwdFormMng extends ZodCheck {
       }
     );
 }
+
+export type PairPwdFormT = z.infer<typeof PairPwdFormMng.schema>;

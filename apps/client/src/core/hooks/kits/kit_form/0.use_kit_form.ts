@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
-import { UseNavSvc } from '../../use_nav/use_nav';
 import { ZodCheck } from '@/core/paperwork/zod_check';
+import { UseNoticeKitSvc } from '@/features/notice/etc/use_notice_kit';
 
 @Injectable()
 export abstract class UseKitFormSvc extends ApiTrackerSvc {
@@ -10,7 +10,7 @@ export abstract class UseKitFormSvc extends ApiTrackerSvc {
   public abstract form: FormGroup;
 
   // ? svc
-  protected readonly useNav: UseNavSvc = inject(UseNavSvc);
+  protected readonly useNoticeKit: UseNoticeKitSvc = inject(UseNoticeKitSvc);
 
   // ? helpers
   public readonly getCtrl: (name: string) => FormControl = (name: string) =>

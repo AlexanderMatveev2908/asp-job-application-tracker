@@ -13,7 +13,7 @@ export class ApiSvc {
   private readonly eventsMng: SideEffectsMng = inject(SideEffectsMng);
 
   // ? 🚦 request handlers
-  public get<T>(args: ApiArgs): ObsResT<T> {
+  public get<T, K>(args: ApiArgs<K>): ObsResT<T> {
     return this.eventsMng.mng(
       this.http.get<ResApiT<T>>(args.getUrl(), {
         params: args.getParamsOr(undefined) as Opt<HttpParams>,
@@ -22,28 +22,28 @@ export class ApiSvc {
     );
   }
 
-  public post<T>(args: ApiArgs): ObsResT<T> {
+  public post<T, K>(args: ApiArgs<K>): ObsResT<T> {
     return this.eventsMng.mng(
       this.http.post<ResApiT<T>>(args.getUrl(), args.getBody(), args.httpOptions()).pipe(),
       args
     );
   }
 
-  public put<T>(args: ApiArgs): ObsResT<T> {
+  public put<T, K>(args: ApiArgs<K>): ObsResT<T> {
     return this.eventsMng.mng(
       this.http.put<ResApiT<T>>(args.getUrl(), args.getBody(), args.httpOptions()),
       args
     );
   }
 
-  public patch<T>(args: ApiArgs): ObsResT<T> {
+  public patch<T, K>(args: ApiArgs<K>): ObsResT<T> {
     return this.eventsMng.mng(
       this.http.patch<ResApiT<T>>(args.getUrl(), args.getBody(), args.httpOptions()),
       args
     );
   }
 
-  public delete<T>(args: ApiArgs): ObsResT<T> {
+  public delete<T, K>(args: ApiArgs<K>): ObsResT<T> {
     return this.eventsMng.mng(
       this.http.delete<ResApiT<T>>(args.getUrl(), {
         params: args.getParamsOr(undefined) as Opt<HttpParams>,
