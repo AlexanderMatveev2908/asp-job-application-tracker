@@ -1,4 +1,4 @@
-import { UseInjCtx } from '@/core/directives/use_inj_ctx';
+import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
 import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
 import { AuthSlice } from '@/features/auth/slice';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
@@ -11,7 +11,7 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './layout-auth.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LayoutAuth extends UseInjCtx implements OnInit {
+export class LayoutAuth extends UseInjCtxSvc implements OnInit {
   private readonly authSlice: AuthSlice = inject(AuthSlice);
   private readonly useNav: UseNavSvc = inject(UseNavSvc);
 

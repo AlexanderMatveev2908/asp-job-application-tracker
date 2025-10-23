@@ -4,7 +4,7 @@ import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';
 import { Nullable } from '@/common/types/etc';
 import { AadCbcHmacT, TokenT } from '@/common/types/tokens';
 import { ErrApp } from '@/core/lib/err';
-import { UsePlatformSvc } from '@/core/hooks/use_platform';
+import { UsePlatformSvc } from '@/core/hooks/platform/use_platform';
 import { UseRefSvc } from '@/core/hooks/use_ref';
 import { UseCasesVerifyDir } from './etc/1.use_cases';
 

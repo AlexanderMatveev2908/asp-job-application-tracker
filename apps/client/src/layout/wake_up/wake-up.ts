@@ -10,7 +10,7 @@ import { Popup } from '../popup/popup';
 import { PopupStaticPropsT } from '../popup/etc/types';
 import { SpinBtn } from '@/common/components/spins/spin_btn/spin-btn';
 import { WakeUpApiSvc } from '@/features/wake_up/api';
-import { UsePlatformSvc } from '@/core/hooks/use_platform';
+import { UsePlatformSvc } from '@/core/hooks/platform/use_platform';
 import { ToastSlice } from '@/features/toast/slice';
 import { UseStorageSvc } from '@/core/hooks/use_storage';
 import { Prs } from '@/core/lib/data_structure/prs';

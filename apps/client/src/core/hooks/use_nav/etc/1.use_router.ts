@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { UsePlatformSvc } from '../../use_platform';
+import { UsePlatformSvc } from '../../platform/use_platform';
 import { UsePath } from './0.use_path';
 import { Log } from '@/core/lib/dev/log';
 import { Nullable } from '@/common/types/etc';

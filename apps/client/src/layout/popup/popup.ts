@@ -21,7 +21,7 @@ import { AnimationsPopSvc } from './etc/animations';
 import { CloseBtn } from '@/common/components/btns/close_btn/close-btn';
 import { ElDomT, Nullable, RefDomT, RefTemplateT } from '@/common/types/etc';
 import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
-import { UseInjCtx } from '@/core/directives/use_inj_ctx';
+import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
 
 @Component({
   selector: 'app-popup',
@@ -30,7 +30,7 @@ import { UseInjCtx } from '@/core/directives/use_inj_ctx';
   styleUrl: './popup.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Popup extends UseInjCtx implements AfterViewInit {
+export class Popup extends UseInjCtxSvc implements AfterViewInit {
   // ? svc
   private readonly animationsPop: AnimationsPopSvc = inject(AnimationsPopSvc);
 

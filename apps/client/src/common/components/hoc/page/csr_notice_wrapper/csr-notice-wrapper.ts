@@ -13,7 +13,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
-import { UsePlatformSvc } from '@/core/hooks/use_platform';
+import { UsePlatformSvc } from '@/core/hooks/platform/use_platform';
 import { RefDomT, RefTemplateT } from '@/common/types/etc';
 import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
 import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';

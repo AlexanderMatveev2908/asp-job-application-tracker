@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';
 import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
-import { UseInjCtx } from '@/core/directives/use_inj_ctx';
+import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
 import { TestApiSvc } from '@/features/test/api';
 
 @Component({
@@ -20,7 +20,7 @@ import { TestApiSvc } from '@/features/test/api';
   styleUrl: './protected.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Protected extends UseInjCtx implements OnInit {
+export class Protected extends UseInjCtxSvc implements OnInit {
   private readonly useNav: UseNavSvc = inject(UseNavSvc);
   private readonly userSlice: UserSlice = inject(UserSlice);
   private readonly authSlice: AuthSlice = inject(AuthSlice);

@@ -13,7 +13,7 @@ import { CsrNoticeWrapper } from '@/common/components/hoc/page/csr_notice_wrappe
 import { Nullable } from '@/common/types/etc';
 import { NoticeWrapperPropsT } from '@/common/components/hoc/page/csr_notice_wrapper/etc/types';
 import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
-import { UseInjCtx } from '@/core/directives/use_inj_ctx';
+import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
 import { MetaNav } from '@/core/hooks/use_nav/etc/0.use_path';
 import { NavFromT } from '@/core/hooks/use_nav/etc/1.use_router';
 
@@ -24,7 +24,7 @@ import { NavFromT } from '@/core/hooks/use_nav/etc/1.use_router';
   styleUrl: './notice.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Notice extends UseInjCtx implements OnInit {
+export class Notice extends UseInjCtxSvc implements OnInit {
   private readonly noticeSlice: NoticeSlice = inject(NoticeSlice);
   private readonly useStorage: UseStorageSvc = inject(UseStorageSvc);
   private readonly useNav: UseNavSvc = inject(UseNavSvc);

@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   input,
   InputSignal,
   signal,
@@ -19,6 +20,7 @@ import { Nullable, RefDomT, TimerIdT } from '@/common/types/etc';
 import { LibEtc } from '@/core/lib/etc';
 import { CpyPasteAnimation } from './etc/animations';
 import { PortalDOM, RecCoordsT } from '@/core/lib/dom/portal';
+import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
 
 @Component({
   selector: 'app-cpy-paste',
@@ -26,8 +28,11 @@ import { PortalDOM, RecCoordsT } from '@/core/lib/dom/portal';
   templateUrl: './cpy-paste.html',
   styleUrl: './cpy-paste.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [UseInjCtxSvc],
 })
 export class CpyPaste extends UseSwapPortalDir implements AfterViewInit {
+  private readonly useInjCtx: UseInjCtxSvc = inject(UseInjCtxSvc);
+
   // ? local state
   public readonly txt: InputSignal<Nullable<string>> = input.required();
   public readonly copied: WritableSignal<boolean> = signal(false);
@@ -71,15 +76,15 @@ export class CpyPaste extends UseSwapPortalDir implements AfterViewInit {
 
   // ? animations
   ngAfterViewInit(): void {
-    this.useDOM(() => {
+    this.useInjCtx.useDOM(() => {
       this.setCoords();
     });
 
-    this.useEffect(() => {
+    this.useInjCtx.useEffect(() => {
       if (this.showTooltip()) this.setCoords();
     });
 
-    this.useEffect(() => {
+    this.useInjCtx.useEffect(() => {
       const isCpy: boolean = this.copied();
       if (!isCpy) return;
 

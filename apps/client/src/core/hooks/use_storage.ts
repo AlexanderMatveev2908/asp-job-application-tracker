@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { UsePlatformSvc } from './use_platform';
+import { UsePlatformSvc } from './platform/use_platform';
 import { Log } from '../lib/dev/log';
 import { ErrApp } from '../lib/err';
 import { ShapeCheck } from '../lib/data_structure/shape_check';

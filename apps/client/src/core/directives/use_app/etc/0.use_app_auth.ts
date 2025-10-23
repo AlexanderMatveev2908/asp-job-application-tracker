@@ -3,11 +3,11 @@ import { LibEtc } from '@/core/lib/etc';
 import { LoggingKeyT } from '@/features/auth/reducer/actions';
 import { AuthSlice } from '@/features/auth/slice';
 import { Directive, inject, Signal } from '@angular/core';
-import { UseInjCtx } from '../../use_inj_ctx';
+import { UseInjCtxSvc } from '../../../hooks/platform/use_inj_ctx';
 import { UseStorageSvc } from '@/core/hooks/use_storage';
 
 @Directive()
-export abstract class UseAppAuthDir extends UseInjCtx {
+export abstract class UseAppAuthDir extends UseInjCtxSvc {
   protected readonly useStorage: UseStorageSvc = inject(UseStorageSvc);
   protected readonly authSlice: AuthSlice = inject(AuthSlice);
 

@@ -1,5 +1,5 @@
 import { ElDomT, Opt, RefDomT } from '@/common/types/etc';
-import { UsePlatformSvc } from '@/core/hooks/use_platform';
+import { UsePlatformSvc } from '@/core/hooks/platform/use_platform';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,

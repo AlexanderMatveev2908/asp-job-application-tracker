@@ -1,5 +1,5 @@
 import { RefDomT, TimerIdT } from '@/common/types/etc';
-import { UsePlatformSvc } from '@/core/hooks/use_platform';
+import { UsePlatformSvc } from '@/core/hooks/platform/use_platform';
 import { LibEtc } from '@/core/lib/etc';
 import { ToastStateT } from '@/features/toast/reducer/reducer';
 import { ToastSlice } from '@/features/toast/slice';
