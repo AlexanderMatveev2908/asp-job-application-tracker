@@ -24,11 +24,11 @@ export class CbcHmacSlice extends UseKitSliceSvc {
   }
 
   public saveCbcHmac(arg: string): void;
-  public saveCbcHmac(arg: string, presentInStorage: boolean): void;
-  public saveCbcHmac(arg: string, presentInStorage?: boolean): void {
+  public saveCbcHmac(arg: string, opt: { presentInStorage: boolean }): void;
+  public saveCbcHmac(arg: string, opt?: { presentInStorage: boolean }): void {
     this.setCbcHmac(arg);
 
-    if (!presentInStorage) this.useStorage.setItem('cbcHmacToken', arg);
+    if (!opt?.presentInStorage) this.useStorage.setItem('cbcHmacToken', arg);
   }
 
   private setClearing(val: boolean): void {
@@ -50,10 +50,6 @@ export class CbcHmacSlice extends UseKitSliceSvc {
   public present: Signal<boolean> = computed(
     () => !!this.useStorage.getItem('cbcHmacToken') || !!this.cbcHmacState().cbcHmacToken
   );
-
-  public fromStorage(): Nullable<string> {
-    return this.useStorage.getItem('cbcHmacToken');
-  }
 
   public getTokenT(): Nullable<TokenT> {
     const token: Nullable<string> = this.cbcHmacState().cbcHmacToken;

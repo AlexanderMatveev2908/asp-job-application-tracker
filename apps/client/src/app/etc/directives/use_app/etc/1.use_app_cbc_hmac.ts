@@ -15,7 +15,7 @@ export abstract class UseAppCbcHmacDir extends UseAppAuthDir {
 
     if (!cbcHmac) return;
 
-    this.cbcHmacSlice.saveCbcHmac(cbcHmac, true);
+    this.cbcHmacSlice.saveCbcHmac(cbcHmac, { presentInStorage: true });
   }
 
   protected resetCbcTmr(): void {

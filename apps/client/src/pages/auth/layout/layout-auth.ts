@@ -1,4 +1,4 @@
-import { UseRouterProtectionDir } from '@/core/directives/use_router_protection';
+import { UseRouteMngDir } from '@/core/directives/use_route_mng';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
@@ -9,7 +9,7 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './layout-auth.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LayoutAuth extends UseRouterProtectionDir implements OnInit {
+export class LayoutAuth extends UseRouteMngDir implements OnInit {
   ngOnInit(): void {
     this.pushOutLogged('/auth');
   }

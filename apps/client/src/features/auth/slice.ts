@@ -21,12 +21,12 @@ export class AuthSlice extends UseKitSliceSvc {
 
   public login(): void;
   public login(accessToken: string): void;
-  public login(accessToken: string, withTmr: boolean): void;
+  public login(accessToken: string, opt?: { withTmr: boolean }): void;
 
-  public login(accessToken?: string, withTmr?: boolean): void {
+  public login(accessToken?: string, opt?: { withTmr?: boolean }): void {
     this.store.dispatch(AuthActT.LOGIN());
     if (accessToken) this.useStorage.setItem('accessToken', accessToken);
-    if (withTmr) this.setLoggingKey({ key: 'loggingIn', val: true });
+    if (opt?.withTmr) this.setLoggingKey({ key: 'loggingIn', val: true });
   }
 
   public logout(): void;

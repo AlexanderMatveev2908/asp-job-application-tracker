@@ -53,7 +53,7 @@ export class Register extends UseSwapDir {
       (data: unknown) =>
         this.useAuthKit.authApi.register(data as RegisterFormT).pipe(
           tap((res: ResApiT<JwtResT>) => {
-            this.useAuthKit.authSlice.login(res.accessToken, true);
+            this.useAuthKit.authSlice.login(res.accessToken, { withTmr: true });
 
             this.useNoticeKit.pushMailNotice('to confirm your account');
           })

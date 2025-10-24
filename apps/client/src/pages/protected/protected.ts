@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';
 import { TestApiSvc } from '@/features/test/api';
-import { UseRouterProtectionDir } from '@/core/directives/use_router_protection';
+import { UseRouteMngDir } from '@/core/directives/use_route_mng';
 
 @Component({
   selector: 'app-protected',
@@ -17,7 +17,7 @@ import { UseRouterProtectionDir } from '@/core/directives/use_router_protection'
   styleUrl: './protected.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Protected extends UseRouterProtectionDir implements OnInit {
+export class Protected extends UseRouteMngDir implements OnInit {
   private readonly testApi: TestApiSvc = inject(TestApiSvc);
 
   public readonly fetchingUser: Signal<boolean> = computed(
