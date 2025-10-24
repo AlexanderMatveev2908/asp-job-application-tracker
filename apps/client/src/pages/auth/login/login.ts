@@ -11,6 +11,7 @@ import { from, switchMap, tap } from 'rxjs';
 import { JwtResT } from '@/features/auth/etc/types';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { UseKitFormWithPwdSvc } from '@/core/hooks/kits/kit_form/1.use_kit_form_with_pwd';
+import { PwdFieldsUiFkt } from '@/core/ui_fkt/form_fields/1.pwd';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +27,7 @@ export class Login extends UseKitFormWithPwdSvc {
   // ? assets
   public readonly mailField: TxtFieldT = LoginFormUiFkt.mailField;
   public readonly pwdField: Signal<TxtSvgFieldT> = computed(() =>
-    LoginFormUiFkt.pwdByType(this.isPwdTypePwd())
+    PwdFieldsUiFkt.fieldByBool('password', this.isPwdTypePwd())
   );
 
   // ? listeners

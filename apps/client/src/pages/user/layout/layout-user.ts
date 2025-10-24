@@ -1,4 +1,4 @@
-import { UseRouteMngDir } from '@/core/directives/use_route_mng';
+import { UseRouteMngSvc } from '@/core/hooks/use_route_mng';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
@@ -9,7 +9,7 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './layout-user.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LayoutUser extends UseRouteMngDir implements OnInit {
+export class LayoutUser extends UseRouteMngSvc implements OnInit {
   ngOnInit(): void {
     this.pushOutNotLogged('/user');
   }

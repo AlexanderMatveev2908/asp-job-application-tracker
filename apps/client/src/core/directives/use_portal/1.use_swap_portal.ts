@@ -6,7 +6,7 @@ import { Nullable } from '@/common/types/etc';
 // | use WithPortal when sure curr component
 // | will nt be used within a swap/slider
 @Directive()
-export abstract class UseSwapPortalDir extends UsePortalDir {
+export class UseSwapPortalDir extends UsePortalDir {
   // ? optional props
   // | some els may be inside a slider
   // | which require dedicated attention

@@ -11,7 +11,7 @@ import { catchError, EMPTY, tap, throwError } from 'rxjs';
 import { ErrApiT, ResApiT, StatusT } from '@/core/store/api/etc/types';
 import { JwtResT } from '@/features/auth/etc/types';
 import { FormShape } from '@/common/components/forms/form_shape/form-shape';
-import { UseRouteMngDir } from '@/core/directives/use_route_mng';
+import { UseRouteMngSvc } from '@/core/hooks/use_route_mng';
 
 @Component({
   selector: 'app-recover-pwd',
@@ -19,10 +19,10 @@ import { UseRouteMngDir } from '@/core/directives/use_route_mng';
   templateUrl: './recover-pwd.html',
   styleUrl: './recover-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UseRouteMngDir],
+  providers: [UseRouteMngSvc],
 })
 export class RecoverPwd extends UsePairPwfFormDir implements OnInit {
-  private readonly routerProtection: UseRouteMngDir = inject(UseRouteMngDir);
+  private readonly routerProtection: UseRouteMngSvc = inject(UseRouteMngSvc);
   private readonly useAuthKit: UseAuthKitSvc = inject(UseAuthKitSvc);
 
   public readonly onSubmit: () => void = () => {

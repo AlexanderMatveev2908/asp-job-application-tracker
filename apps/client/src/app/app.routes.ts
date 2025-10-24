@@ -21,6 +21,7 @@ import { Protected } from '@/pages/protected/protected';
 import { Verify } from '@/pages/verify/verify';
 import { LayoutUser } from '@/pages/user/layout/layout-user';
 import { ManageAccount } from '@/pages/user/manage_account/manage-account';
+import { AccessManageAccount } from '@/pages/user/access_manage_account/access-manage-account';
 
 export const routes: Routes = [
   {
@@ -86,6 +87,10 @@ export const routes: Routes = [
       {
         path: 'manage-account',
         component: ManageAccount,
+      },
+      {
+        path: 'access-manage-account',
+        component: AccessManageAccount,
       },
     ],
   },

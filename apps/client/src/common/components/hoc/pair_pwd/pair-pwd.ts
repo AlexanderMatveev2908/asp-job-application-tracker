@@ -11,7 +11,6 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { FormFieldTxt } from '../../forms/form_field_txt/form-field-txt';
-import { PairPwdUiFkt } from '@/common/components/hoc/pair_pwd/etc/ui_fkt';
 import { PairPwdStateT, TxtSvgFieldT } from '@/common/types/forms';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { PwdGenerator } from './pwd_generator/pwd-generator';
@@ -22,6 +21,7 @@ import { Nullable } from '@/common/types/etc';
 import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Observable } from 'rxjs';
+import { PwdFieldsUiFkt } from '@/core/ui_fkt/form_fields/1.pwd';
 
 @Component({
   selector: 'app-pair-pwd',
@@ -48,10 +48,10 @@ export class PairPwd extends UseFocusSvc implements OnInit {
 
   // ? ui fields
   public readonly pwdField: Signal<TxtSvgFieldT> = computed(() =>
-    PairPwdUiFkt.pwdByBool(this.pairPwdState().isPwdTypePwd)
+    PwdFieldsUiFkt.fieldByBool('password', this.pairPwdState().isPwdTypePwd)
   );
   public readonly confPwdField: Signal<TxtSvgFieldT> = computed(() =>
-    PairPwdUiFkt.confPwdByBool(this.pairPwdState().isConfirmPwdTypePwd)
+    PwdFieldsUiFkt.fieldByBool('confirmPassword', this.pairPwdState().isConfirmPwdTypePwd)
   );
 
   // ? confPwd setup to listen pwd changes

@@ -12,7 +12,7 @@ import { UseStorageSvc } from '@/core/hooks/use_storage';
 import { CsrNoticeWrapper } from '@/common/components/hoc/page/csr_notice_wrapper/csr-notice-wrapper';
 import { Nullable } from '@/common/types/etc';
 import { NoticeWrapperPropsT } from '@/common/components/hoc/page/csr_notice_wrapper/etc/types';
-import { UseRouteMngDir } from '@/core/directives/use_route_mng';
+import { UseRouteMngSvc } from '@/core/hooks/use_route_mng';
 
 @Component({
   selector: 'app-notice',
@@ -21,7 +21,7 @@ import { UseRouteMngDir } from '@/core/directives/use_route_mng';
   styleUrl: './notice.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Notice extends UseRouteMngDir implements OnInit {
+export class Notice extends UseRouteMngSvc implements OnInit {
   private readonly noticeSlice: NoticeSlice = inject(NoticeSlice);
   private readonly useStorage: UseStorageSvc = inject(UseStorageSvc);
 
