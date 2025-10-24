@@ -47,17 +47,17 @@ export class Register extends UseSwapDir {
   private readonly focusOnSwap: EffectRef = effect(() => this.focusWhen('firstName', 'password'));
 
   public onSubmit: () => Promise<void> = async () => {
-    this.submitSwapForm(
-      // | manage error swapping & waiting animation and focusing first issue
-      RegisterFormMng.fieldsBySwap,
-      (data: unknown) =>
+    this.submitSwapForm({
+      fields: RegisterFormMng.fieldsBySwap,
+      setSwapOnErr: this.setSwapOnErr,
+      cb: (data: unknown) =>
         this.useAuthKit.authApi.register(data as RegisterFormT).pipe(
           tap((res: ResApiT<JwtResT>) => {
             this.useAuthKit.authSlice.login(res.accessToken, { startTmr: true });
 
             this.useNoticeKit.pushMailNotice('to confirm your account');
           })
-        )
-    );
+        ),
+    });
   };
 }

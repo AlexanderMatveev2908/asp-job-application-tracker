@@ -2,11 +2,8 @@ import { computed, Directive, Signal, signal, WritableSignal } from '@angular/co
 import { ConfSwapT, SwapModeT, SwapStateT } from './etc/types';
 import { LibEtc } from '@/core/lib/etc';
 import { FocusDOM } from '@/core/lib/dom/focus';
-import { Nullable, TimerIdT } from '@/common/types/etc';
+import { TimerIdT } from '@/common/types/etc';
 import { UseKitFormSvc } from '@/core/hooks/kits/kit_form/0.use_kit_form';
-import { ZodCheck } from '@/core/paperwork/zod_check';
-import { ShapeCheck } from '@/core/lib/data_structure/shape_check';
-import { Observable } from 'rxjs';
 
 @Directive()
 export abstract class UseSwapDir extends UseKitFormSvc {
@@ -71,22 +68,4 @@ export abstract class UseSwapDir extends UseKitFormSvc {
         isCurr: this.swapState().swap === idx,
       };
     });
-
-  // ? helpers
-  protected readonly submitSwapForm: (
-    fields: string[][],
-    cb: (data: unknown) => Observable<unknown>
-  ) => void = (fields: string[][], cb: (data: unknown) => Observable<unknown>) => {
-    if (!this.form.valid) {
-      ZodCheck.onSubmitFailedInSwap(this.form, (first: string) => {
-        const target: Nullable<number> = LibEtc.idxIn(first, fields);
-
-        if (!ShapeCheck.isNone(target)) this.setSwapOnErr(target!);
-      });
-
-      return;
-    }
-
-    this.track(cb(this.form.value)).subscribe();
-  };
 }

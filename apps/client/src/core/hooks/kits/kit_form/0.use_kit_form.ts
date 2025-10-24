@@ -4,6 +4,15 @@ import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
 import { ZodCheck } from '@/core/paperwork/zod_check';
 import { UseNoticeKitSvc } from '@/features/notice/etc/use_notice_kit';
 import { Observable } from 'rxjs';
+import { Nullable } from '@/common/types/etc';
+import { LibEtc } from '@/core/lib/etc';
+import { ShapeCheck } from '@/core/lib/data_structure/shape_check';
+
+export interface SubmitSwapArgT {
+  fields: string[][];
+  setSwapOnErr: (idx: number) => void;
+  cb: (data: unknown) => Observable<unknown>;
+}
 
 @Injectable()
 export abstract class UseKitFormSvc extends ApiTrackerSvc {
@@ -26,5 +35,19 @@ export abstract class UseKitFormSvc extends ApiTrackerSvc {
     }
 
     this.track(cb(this.form.value)).subscribe();
+  };
+
+  protected readonly submitSwapForm: (arg: SubmitSwapArgT) => void = (arg: SubmitSwapArgT) => {
+    if (!this.form.valid) {
+      ZodCheck.onSubmitFailedInSwap(this.form, (first: string) => {
+        const target: Nullable<number> = LibEtc.idxIn(first, arg.fields);
+
+        if (!ShapeCheck.isNone(target)) arg.setSwapOnErr(target!);
+      });
+
+      return;
+    }
+
+    this.track(arg.cb(this.form.value)).subscribe();
   };
 }
