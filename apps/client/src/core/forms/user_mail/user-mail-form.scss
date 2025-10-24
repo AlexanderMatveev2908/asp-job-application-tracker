@@ -1,5 +1,9 @@
 @use 'exports/shapes' as shapes;
 
+:host {
+  @apply block w-full;
+}
+
 .root {
-  @include shapes.form__content(0 1rem);
+  @include shapes.app__form__content(true);
 }

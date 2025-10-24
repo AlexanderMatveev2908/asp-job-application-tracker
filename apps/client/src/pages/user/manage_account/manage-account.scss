@@ -5,13 +5,13 @@
 }
 
 .root {
-  @include shapes.form__page();
+  @include shapes.app__form__page();
 
-  .root__forms {
-    @include shapes.form__wrap_size();
+  .root__swapper {
+    @include shapes.app__form__border_size();
   }
 
-  .forms__swap {
-    @include shapes.swapper__swap(var(--opac), 0);
+  .swapper__swap {
+    @include shapes.app__swapper__swap(var(--opac), false);
   }
 }

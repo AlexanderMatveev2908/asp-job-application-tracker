@@ -3,7 +3,7 @@
 
 .root {
   @apply bg-neutral-950;
-  @include shapes.btn__res(var(--pad));
+  @include shapes.app__btn__res(var(--pad));
   @include mix.btn__scl(1.15);
   border-color: var(--clr);
 
