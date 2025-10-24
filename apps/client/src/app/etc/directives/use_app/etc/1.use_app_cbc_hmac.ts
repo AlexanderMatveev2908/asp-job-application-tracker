@@ -6,10 +6,13 @@ import { UseAppAuthDir } from './0.use_app_auth';
 import { LibEtc } from '@/core/lib/etc';
 import { CbcHmacKeyTmrT } from '@/features/cbcHmac/reducer/reducer';
 import { ConstantsApp } from '@/core/constants';
+import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
+import { TokenT } from '@/features/cbcHmac/etc/types';
 
 @Directive()
 export abstract class UseAppCbcHmacDir extends UseAppAuthDir {
   private readonly cbcHmacSlice: CbcHmacSlice = inject(CbcHmacSlice);
+  private readonly useNav: UseNavSvc = inject(UseNavSvc);
 
   private timerSavingID: TimerIdT = null;
   private timerDeletingID: TimerIdT = null;
@@ -46,5 +49,17 @@ export abstract class UseAppCbcHmacDir extends UseAppAuthDir {
       else this.cbcHmacSlice.setDeletingTmr(false);
       this[timerRef] = LibEtc.clearTmrID(this[timerRef]);
     }, ConstantsApp.TIMER_RESET_WINDOW);
+  }
+
+  public delCbcHmacOnNavOut(): void {
+    this.usePlatform.onClient(() => {
+      const tokenT: Nullable<TokenT> = this.cbcHmacSlice.getTokenT();
+      const path: Nullable<string> = this.useNav.currPath();
+
+      if (tokenT !== TokenT.MANAGE_ACC || !path) return;
+
+      if (!path.startsWith('/user/manage-account') && !this.cbcHmacSlice.saving())
+        this.cbcHmacSlice.clearCbcHmac({ startTmr: false });
+    });
   }
 }

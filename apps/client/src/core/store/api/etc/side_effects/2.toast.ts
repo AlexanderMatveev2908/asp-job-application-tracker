@@ -30,9 +30,9 @@ export abstract class SideEffectsToastSvc extends SideEffectsLogSvc {
           this.toastSlice.openToast({
             eventT: 'OK',
             msg:
-              res.msg ??
+              res?.msg ??
               `✅ ${this.confApi.getCurr()?.method ?? 'Unknown method'} operation successful`,
-            status: res.status,
+            status: res?.status ?? 0,
           });
         },
         error: (res: ErrApiT<T>) => {
@@ -40,8 +40,8 @@ export abstract class SideEffectsToastSvc extends SideEffectsLogSvc {
 
           this.toastSlice.openToast({
             eventT: 'ERR',
-            msg: res.error.msg ?? this.DEF_CLIENT_ERR_MSG,
-            status: res.status,
+            msg: res?.error?.msg ?? this.DEF_CLIENT_ERR_MSG,
+            status: res?.status ?? 0,
           });
         },
       })

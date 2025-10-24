@@ -4,7 +4,6 @@ import { Log } from '../lib/dev/log';
 import { ErrApp } from '../lib/err';
 import { ShapeCheck } from '../lib/data_structure/shape_check';
 import { Prs } from '../lib/data_structure/prs';
-import { Stack } from '../lib/dev/stack';
 import { Nullable } from '@/common/types/etc';
 
 export type StorageKeyT = 'notice' | 'accessToken' | 'wakeUp' | 'cbcHmacToken';
@@ -17,7 +16,7 @@ export class UseStorageSvc {
 
   private checkEnv<T>(cb: () => T): Nullable<T> {
     if (this.usePlatform.isServer) {
-      Log.log(`can not run ${Stack.getCallerLess(1)} on server side`);
+      // Log.log(`can not run ${Stack.getCallerLess(1)} on server side`);
       return null;
     }
 

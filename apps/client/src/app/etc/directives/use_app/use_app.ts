@@ -26,6 +26,10 @@ export abstract class UseAppDir extends UseAppUserDir implements OnInit {
     });
 
     this.useEffect(() => {
+      this.delCbcHmacOnNavOut();
+    });
+
+    this.useEffect(() => {
       this.fetchUser();
     });
   }

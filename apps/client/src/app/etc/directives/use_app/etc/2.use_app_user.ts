@@ -10,24 +10,26 @@ export abstract class UseAppUserDir extends UseAppCbcHmacDir {
   protected readonly useUserKit: UseUserKitSvc = inject(UseUserKitSvc);
 
   protected fetchUser(): void {
-    void this.authSlice.isLogged();
-    void this.useUserKit.userSlice.mark();
+    this.usePlatform.onClient(() => {
+      void this.authSlice.isLogged();
+      void this.useUserKit.userSlice.mark();
 
-    this.useUserKit.userSlice.setPending(true);
-    this.useUserKit.userApi
-      .getUser()
-      .pipe(
-        tap({
-          next: (res: ResApiT<ResProfileT>) => {
-            if (res?.user) this.useUserKit.userSlice.setUser(res.user);
-            else this.useUserKit.userSlice.markNull();
-          },
-          error: (_: ErrApiT<void>) => {
-            this.useUserKit.userSlice.markNull();
-          },
-        }),
-        finalize(() => this.useUserKit.userSlice.setPending(false))
-      )
-      .subscribe();
+      this.useUserKit.userSlice.setPending(true);
+      this.useUserKit.userApi
+        .getUser()
+        .pipe(
+          tap({
+            next: (res: ResApiT<ResProfileT>) => {
+              if (res?.user) this.useUserKit.userSlice.setUser(res.user);
+              else this.useUserKit.userSlice.markNull();
+            },
+            error: (_: ErrApiT<void>) => {
+              this.useUserKit.userSlice.markNull();
+            },
+          }),
+          finalize(() => this.useUserKit.userSlice.setPending(false))
+        )
+        .subscribe();
+    });
   }
 }

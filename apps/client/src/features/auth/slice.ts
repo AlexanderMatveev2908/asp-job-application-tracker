@@ -14,19 +14,19 @@ export class AuthSlice extends UseKitSliceSvc {
   }
 
   public login(accessToken: string, opt: { startTmr: boolean }): void {
-    this.store.dispatch(AuthActT.LOGIN());
+    this.store.dispatch(AuthActT.AUTH__LOGIN());
     this.useStorage.setItem('accessToken', accessToken);
     if (opt.startTmr) this.setLoggingTmr({ key: 'loggingIn', val: true });
   }
 
   public logout(opt: { startTmr: boolean }): void {
-    this.store.dispatch(AuthActT.LOGOUT());
+    this.store.dispatch(AuthActT.AUTH__LOGOUT());
     this.useStorage.delItem('accessToken');
     if (opt.startTmr) this.setLoggingTmr({ key: 'loggingOut', val: true });
   }
 
   private setLoggingTmr(arg: LoggingKeyArgT): void {
-    this.store.dispatch(AuthActT.SET_LOGGING_TMR(arg));
+    this.store.dispatch(AuthActT.AUTH__SET_LOGGING_TMR(arg));
   }
   public endLoggingTmr(key: LoggingKeyT): void {
     this.setLoggingTmr({ key, val: false });
