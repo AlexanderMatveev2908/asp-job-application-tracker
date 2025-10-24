@@ -5,12 +5,12 @@ import { FormPairPwd } from '@/core/forms/pair_pwd/form-pair-pwd';
 import { TokenT } from '@/features/cbcHmac/etc/types';
 import { UseAuthKitSvc } from '@/features/auth/etc/use_auth_kit';
 import { Nullable } from '@/common/types/etc';
-import { ErrApp } from '@/core/lib/err';
 import { PairPwdFormT } from '@/core/forms/pair_pwd/etc/paperwork/form_mng';
 import { catchError, EMPTY, Observable, tap, throwError } from 'rxjs';
 import { ErrApiT, ResApiT, StatusT } from '@/core/store/api/etc/types';
 import { JwtResT } from '@/features/auth/etc/types';
 import { UseRouteMngSvc } from '@/core/hooks/use_route_mng';
+import { ApiShape } from '@/core/store/api/etc/shape';
 
 @Component({
   selector: 'app-recover-pwd',
@@ -26,43 +26,39 @@ export class RecoverPwd extends UseKitPairPwdFormSvc implements OnInit {
 
   public readonly strategy: (data: PairPwdFormT) => Observable<unknown> = (data: PairPwdFormT) => {
     const cbcHmacToken: Nullable<string> = this.cbcHmacSlice.cbcHmac();
-    return !cbcHmacToken
-      ? throwError(
-          () =>
-            new ErrApp(
-              'bug => missing cbc_hmac and still user submit form recover_pwd',
-              StatusT.UNAUTHORIZED
-            )
-        )
-      : this.useAuthKit.authApi
-          .recoverPwd({
-            cbcHmacToken,
-            password: data.password,
+
+    return ApiShape.throwIfCbcHmacMissing(
+      cbcHmacToken,
+      this.useAuthKit.authApi
+        .recoverPwd({
+          cbcHmacToken: cbcHmacToken!,
+          password: data.password,
+        })
+        .pipe(
+          tap((res: ResApiT<JwtResT>) => {
+            this.useAuthKit.authSlice.login(res.accessToken, { withTmr: true });
+            this.cbcHmacSlice.clearCbcHmac();
+
+            this.useNoticeKit.pushNotice({
+              eventT: 'OK',
+              msg: 'Password updated',
+              status: 200,
+            });
+          }),
+          catchError((err: ErrApiT<void>) => {
+            if (err.status !== StatusT.UNAUTHORIZED) return throwError(() => err);
+
+            this.cbcHmacSlice.clearCbcHmac();
+            this.useNoticeKit.pushNotice({
+              eventT: 'ERR',
+              msg: err.error?.msg ?? 'Token invalid',
+              status: 401,
+            });
+
+            return EMPTY;
           })
-          .pipe(
-            tap((res: ResApiT<JwtResT>) => {
-              this.useAuthKit.authSlice.login(res.accessToken, { withTmr: true });
-              this.cbcHmacSlice.clearCbcHmac();
-
-              this.useNoticeKit.pushNotice({
-                eventT: 'OK',
-                msg: 'Password updated',
-                status: 200,
-              });
-            }),
-            catchError((err: ErrApiT<void>) => {
-              if (err.status !== StatusT.UNAUTHORIZED) return throwError(() => err);
-
-              this.cbcHmacSlice.clearCbcHmac();
-              this.useNoticeKit.pushNotice({
-                eventT: 'ERR',
-                msg: err.error?.msg ?? 'Token invalid',
-                status: 401,
-              });
-
-              return EMPTY;
-            })
-          );
+        )
+    );
   };
 
   ngOnInit(): void {

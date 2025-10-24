@@ -32,4 +32,8 @@ export class UserSlice extends UseKitSliceSvc {
   public mark: Signal<number> = computed(() => this.userState().mark);
 
   public handshake: Signal<boolean> = computed(() => this.userState().handShake);
+
+  public reset(): void {
+    this.store.dispatch(UserActT.RESET_USER_STATE());
+  }
 }

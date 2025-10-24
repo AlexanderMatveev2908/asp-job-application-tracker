@@ -77,7 +77,7 @@ export class UseRouteMngSvc extends UseInjCtxSvc {
 
         // ! right after success i delete cbc and to avoid being pushed away i use an internal flag to have a short window to go instead to notice page
         // | i used same strategy for auth in auth out
-        if (this.useNav.allowedFrom() && this.cbcHmacSlice.isTypeOrClearing(expected)) return;
+        if (this.cbcHmacSlice.isTypeOrClearing(expected)) return;
 
         this.pushUsingOpt(opt);
       });
@@ -90,11 +90,9 @@ export class UseRouteMngSvc extends UseInjCtxSvc {
   ): void {
     this.useEffect(() => {
       this.useNav.ifPathStartsWith(path, () => {
-        const cbcHmacToken: Nullable<string> = this.cbcHmacSlice.cbcHmac();
-        const clearing: boolean = this.cbcHmacSlice.deleting();
-        const allowed: boolean = this.useNav.allowedFrom();
+        void this.cbcHmacSlice.cbcHmac();
 
-        if ((!cbcHmacToken || clearing) && allowed) return;
+        if (this.cbcHmacSlice.isNullOrSaving()) return;
 
         // ! if present token, at most is tolerated just one type for special case
         const type: Nullable<TokenT> = this.cbcHmacSlice.getTokenT();

@@ -40,7 +40,7 @@ export abstract class UseCasesVerifyDir extends UseMngVerifyDir {
       .recoverPwd(cbcHmac)
       .pipe(
         tap((_: ResApiT<RecoverPwdResT>) => {
-          this.cbcHmacSlice.saveCbcHmac(cbcHmac);
+          this.cbcHmacSlice.saveCbcHmac(cbcHmac, { startTmr: false });
         }),
         switchMap((res: ResApiT<RecoverPwdResT>) => {
           const suffix: string = res.strategy2FA ? '-2fa' : '';

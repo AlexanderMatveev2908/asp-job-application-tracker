@@ -8,12 +8,16 @@ import { AadCbcHmacT, TokenT } from './etc/types';
 import { LibCbcHmac } from './etc/lib';
 import { Reg } from '@/core/paperwork/reg';
 
+export interface OptSaveCbcHmacT {
+  startTmr: boolean;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class CbcHmacSlice extends UseKitSliceSvc {
   // eslint-disable-next-line no-magic-numbers
-  public static readonly DELETING_RESET_TMR: number = 2 * 1000;
+  public static readonly RESET_TMR: number = 2 * 1000;
 
   public get cbcHmacState(): Signal<CbcHmacStateT> {
     return this.store.selectSignal(getCbcHmacState);
@@ -22,20 +26,18 @@ export class CbcHmacSlice extends UseKitSliceSvc {
   private setCbcHmac(arg: Nullable<string>): void {
     this.store.dispatch(CbcHmacActT.SET_CBC_HMAC({ cbcHmacToken: arg }));
   }
+  public setSaving(val: boolean): void {
+    this.store.dispatch(CbcHmacActT.SET_SAVING({ val }));
+  }
+  public setClearing(val: boolean): void {
+    this.store.dispatch(CbcHmacActT.SET_DELETING({ val }));
+  }
 
-  public saveCbcHmac(arg: string): void;
-  public saveCbcHmac(arg: string, opt: { presentInStorage: boolean }): void;
-  public saveCbcHmac(arg: string, opt?: { presentInStorage: boolean }): void {
+  public saveCbcHmac(arg: string, { startTmr }: OptSaveCbcHmacT): void {
     this.setCbcHmac(arg);
 
-    if (!opt?.presentInStorage) this.useStorage.setItem('cbcHmacToken', arg);
-  }
-
-  private setClearing(val: boolean): void {
-    this.store.dispatch(CbcHmacActT.SET_DELETING({ deleting: val }));
-  }
-  public endClearing(): void {
-    this.setClearing(false);
+    this.useStorage.setItem('cbcHmacToken', arg);
+    if (startTmr) this.setSaving(true);
   }
 
   public clearCbcHmac(): void {
@@ -66,6 +68,14 @@ export class CbcHmacSlice extends UseKitSliceSvc {
   public isTypeOrClearing(expected: TokenT): boolean {
     return this.isType(expected) || this.deleting();
   }
+  public isNullOrSaving(): boolean {
+    return this.cbcHmac() === null || this.saving();
+  }
 
+  public saving: Signal<boolean> = computed(() => this.cbcHmacState().saving);
   public deleting: Signal<boolean> = computed(() => this.cbcHmacState().deleting);
+
+  public reset(): void {
+    this.store.dispatch(CbcHmacActT.RESET_CBC_HMAC_STATE());
+  }
 }

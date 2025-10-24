@@ -3,6 +3,8 @@ import { ObsResT } from '@/core/store/api/etc/types';
 import { inject, Injectable } from '@angular/core';
 import { ResProfileT } from './etc/types';
 import { ApiArgs } from '@/core/store/api/etc/request/args';
+import { PwdFormT } from '@/core/paperwork/etc/pwd';
+import { CbcHmacMandatoryT } from '../cbcHmac/etc/types';
 
 @Injectable({
   providedIn: 'root',
@@ -13,5 +15,11 @@ export class UserApiSvc {
 
   public getUser(): ObsResT<ResProfileT> {
     return this.api.get(ApiArgs.withURL(`${this.base}/profile`).toastOnErr());
+  }
+
+  public getAccessAccount(body: PwdFormT): ObsResT<CbcHmacMandatoryT> {
+    return this.api.post(
+      ApiArgs.withURL(`${this.base}/manage-account`).body(body).toastOnFulfilled()
+    );
   }
 }

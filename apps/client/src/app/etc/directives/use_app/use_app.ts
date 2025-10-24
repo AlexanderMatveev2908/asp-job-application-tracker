@@ -10,10 +10,6 @@ export abstract class UseAppDir extends UseAppUserDir implements OnInit {
     });
 
     this.useEffect(() => {
-      this.fetchUser();
-    });
-
-    this.useEffect(() => {
       this.resetLoggingInTmr();
     });
 
@@ -22,7 +18,15 @@ export abstract class UseAppDir extends UseAppUserDir implements OnInit {
     });
 
     this.useEffect(() => {
-      this.resetCbcTmr();
+      this.resetSavingCbcHmac();
+    });
+
+    this.useEffect(() => {
+      this.resetClearingCbcHmac();
+    });
+
+    this.useEffect(() => {
+      this.fetchUser();
     });
   }
 }
