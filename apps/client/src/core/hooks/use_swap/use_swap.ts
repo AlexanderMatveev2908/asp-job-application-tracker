@@ -1,11 +1,11 @@
-import { computed, Directive, Signal, signal, WritableSignal } from '@angular/core';
+import { computed, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { ConfSwapT, SwapModeT, SwapStateT } from './etc/types';
 import { LibEtc } from '@/core/lib/etc';
 import { FocusDOM } from '@/core/lib/dom/focus';
 import { TimerIdT } from '@/common/types/etc';
 
-@Directive()
-export abstract class UseSwapDir {
+@Injectable()
+export class UseSwapSvc {
   // | added little margin 100ms
   // | normal tim would be 400
   // eslint-disable-next-line no-magic-numbers
@@ -17,7 +17,7 @@ export abstract class UseSwapDir {
     swap: 0,
   });
 
-  protected timerID: TimerIdT = null;
+  private timerID: TimerIdT = null;
 
   // ? private helpers
   private clearTmr(): void {
@@ -37,11 +37,11 @@ export abstract class UseSwapDir {
         this.swapState.update((prev: SwapStateT) => ({ ...prev, mode: onEndSwap }));
 
       this.clearTmr();
-    }, UseSwapDir.TIME_ANIMATION);
+    }, UseSwapSvc.TIME_ANIMATION);
   };
 
   // ? shared helpers
-  protected focusWhen(...kwargs: string[]): void {
+  public focusWhen(...kwargs: string[]): void {
     const { swap, mode } = this.swapState();
     if (mode === 'swapped') FocusDOM.bySwap(kwargs, swap);
   }
@@ -54,7 +54,7 @@ export abstract class UseSwapDir {
   public readonly setSwap: (val: number) => void = (val: number) => {
     this._setSwap(val, 'swapped');
   };
-  protected readonly setSwapOnErr: (val: number) => void = (val: number) => {
+  public readonly setSwapOnErr: (val: number) => void = (val: number) => {
     this._setSwap(val, 'idle');
   };
 

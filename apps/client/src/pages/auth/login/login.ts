@@ -10,7 +10,7 @@ import { UseAuthKitSvc } from '@/features/auth/etc/use_auth_kit';
 import { from, switchMap, tap } from 'rxjs';
 import { JwtResT } from '@/features/auth/etc/types';
 import { ResApiT } from '@/core/store/api/etc/types';
-import { UseKitFormWithPwdSvc } from '@/core/hooks/kits/kit_form/1.use_kit_form_with_pwd';
+import { UseKitFormPwdSvc } from '@/core/forms/pwd/etc/use_kit_form_pwd';
 import { PwdFieldsUiFkt } from '@/core/ui_fkt/form_fields/1.pwd';
 import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
 
@@ -22,7 +22,7 @@ import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [ApiTrackerSvc],
 })
-export class Login extends UseKitFormWithPwdSvc {
+export class Login extends UseKitFormPwdSvc {
   private readonly useAuthKit: UseAuthKitSvc = inject(UseAuthKitSvc);
   public readonly form: FormGroup = LoginFormMng.form;
 

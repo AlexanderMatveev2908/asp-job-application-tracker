@@ -2,7 +2,7 @@ import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angu
 import { ZodSafeParseResult, ZodType } from 'zod';
 import { ShapeCheck } from '../lib/data_structure/shape_check';
 import { Log } from '../lib/dev/log';
-import { UseSwapDir } from '../directives/use_swap/use_swap';
+import { UseSwapSvc } from '../hooks/use_swap/use_swap';
 import { FocusDOM } from '../lib/dom/focus';
 import { Nullable } from '@/common/types/etc';
 
@@ -61,7 +61,7 @@ export class ZodCheck {
 
     setTimeout(() => {
       FocusDOM.byDataField(first);
-    }, UseSwapDir.TIME_ANIMATION);
+    }, UseSwapSvc.TIME_ANIMATION);
   }
 }
 

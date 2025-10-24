@@ -10,7 +10,7 @@ import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-fiel
 import { FormShape } from '@/common/components/forms/form_shape/form-shape';
 import { Observable } from 'rxjs';
 import { PwdFormMng, PwdFormT } from '../../paperwork/etc/pwd';
-import { UseKitFormWithPwdSvc } from '@/core/hooks/kits/kit_form/1.use_kit_form_with_pwd';
+import { UseKitFormPwdSvc } from '@/core/forms/pwd/etc/use_kit_form_pwd';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TxtSvgFieldT } from '@/common/types/forms';
 import { PwdFieldsUiFkt } from '@/core/ui_fkt/form_fields/1.pwd';
@@ -24,7 +24,7 @@ import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [ApiTrackerSvc],
 })
-export class FormPwd extends UseKitFormWithPwdSvc {
+export class FormPwd extends UseKitFormPwdSvc {
   // ? props
   public readonly strategy: InputSignal<(data: PwdFormT) => Observable<unknown>> = input.required();
   public readonly testId: InputSignal<string> = input.required();

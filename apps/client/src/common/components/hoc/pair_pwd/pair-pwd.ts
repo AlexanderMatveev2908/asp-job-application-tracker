@@ -14,7 +14,7 @@ import { FormFieldTxt } from '../../forms/form_field_txt/form-field-txt';
 import { PairPwdStateT, TxtSvgFieldT } from '@/common/types/forms';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { PwdGenerator } from './pwd_generator/pwd-generator';
-import { ConfSwapT } from '@/core/directives/use_swap/etc/types';
+import { ConfSwapT } from '@/core/hooks/use_swap/etc/types';
 import { PwdChecker } from './pwd_checker/pwd-checker';
 import { Nullable } from '@/common/types/etc';
 import { toSignal } from '@angular/core/rxjs-interop';
