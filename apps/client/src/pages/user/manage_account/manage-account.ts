@@ -16,6 +16,7 @@ export class ManageAccount implements OnInit {
   ngOnInit(): void {
     this.useRouteMng.pushOutIfNotTokenType('/user/manage-account', TokenT.MANAGE_ACC, {
       pushTo: '/user/access-manage-account',
+      from: 'ok',
     });
   }
 }

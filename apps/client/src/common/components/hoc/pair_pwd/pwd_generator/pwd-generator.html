@@ -2,10 +2,10 @@
   <button
     #tooltipRef
     (click)="genPwd()"
-    (focus)="onHover()"
-    (blur)="onLeave()"
-    (mouseover)="onHover()"
-    (mouseleave)="onLeave()"
+    (focus)="useHover.onHover()"
+    (blur)="useHover.onLeave()"
+    (mouseover)="useHover.onHover()"
+    (mouseleave)="useHover.onLeave()"
     type="button"
     class="root__btn"
   >
@@ -27,7 +27,7 @@
 >
   <ng-template #tpl>
     <div class="tooltip">
-      <app-tooltip [isHover]="isHover()" [eventT]="'NONE'" [msg]="'Generate Password'" />
+      <app-tooltip [isHover]="useHover.isHover()" [eventT]="'NONE'" [msg]="'Generate Password'" />
     </div>
   </ng-template>
 </app-portal>

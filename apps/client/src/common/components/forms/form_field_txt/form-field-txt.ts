@@ -12,7 +12,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FormFieldErr } from '../form_field_err/form-field-err';
 import { Nullable, OptCbT, SvgT } from '@/common/types/etc';
 import { NgComponentOutlet } from '@angular/common';
-import { UseFormFieldDir } from '@/core/directives/form_field/1.use_form_field';
+import { UseFormFieldDomDir } from '@/core/directives/form_field/1.use_form_field';
 import { Prs } from '@/core/lib/data_structure/prs';
 
 @Component({
@@ -22,7 +22,7 @@ import { Prs } from '@/core/lib/data_structure/prs';
   styleUrl: './form-field-txt.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormFieldTxt extends UseFormFieldDir implements OnInit {
+export class FormFieldTxt extends UseFormFieldDomDir implements OnInit {
   // ? personal props required
   public readonly ctrl: InputSignal<FormControl> = input.required();
   public readonly f: InputSignal<TxtFieldT | TxtSvgFieldT> = input.required();

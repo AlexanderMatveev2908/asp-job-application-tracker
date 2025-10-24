@@ -7,7 +7,7 @@ import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-fiel
 import { UseInjCtxSvc } from '../../hooks/platform/use_inj_ctx';
 
 @Directive()
-export abstract class UseFieldRootDir extends UseInjCtxSvc {
+export abstract class UseFormFieldDir extends UseInjCtxSvc {
   // ? derived
   public val!: Signal<unknown>;
   public interacted!: Signal<boolean>;

@@ -10,7 +10,7 @@ interface NavOptT {
 }
 
 @Injectable()
-export class UseRouter extends UsePath {
+export abstract class UseRouter extends UsePath {
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
   private async _nav(arg: string, { replace, from }: NavOptT): Promise<boolean> {

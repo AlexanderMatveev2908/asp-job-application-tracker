@@ -5,6 +5,14 @@ import { AuthSlice } from '@/features/auth/slice';
 import { UseInjCtxSvc } from './platform/use_inj_ctx';
 import { CbcHmacSlice } from '@/features/cbcHmac/slice';
 import { TokenT } from '@/features/cbcHmac/etc/types';
+import { Nullable } from '@/common/types/etc';
+import { NavFromT } from './use_nav/etc/0.use_path';
+import { v4 } from 'uuid';
+
+export interface PushToOptT {
+  pushTo: string;
+  from?: Nullable<NavFromT>;
+}
 
 @Injectable()
 export class UseRouteMngSvc extends UseInjCtxSvc {
@@ -56,7 +64,13 @@ export class UseRouteMngSvc extends UseInjCtxSvc {
     });
   }
 
-  public pushOutIfNotTokenType(path: string, expected: TokenT, opt?: { pushTo: string }): void {
+  private pushUsingOpt(opt?: PushToOptT): void {
+    const pushTo: string = opt?.pushTo ?? '/';
+    const from: Nullable<NavFromT> = opt?.from ?? null;
+    void this.useNav.replace(pushTo, { from });
+  }
+
+  public pushOutIfNotTokenType(path: string, expected: TokenT, opt?: PushToOptT): void {
     this.useEffect(() => {
       this.useNav.ifPathStartsWith(path, () => {
         void this.cbcHmacSlice.cbcHmac();
@@ -65,8 +79,28 @@ export class UseRouteMngSvc extends UseInjCtxSvc {
         // | i used same strategy for auth in auth out
         if (this.useNav.allowedFrom() && this.cbcHmacSlice.isTypeOrClearing(expected)) return;
 
-        const pushTo: string = opt?.pushTo ?? '/';
-        void this.useNav.replace(pushTo);
+        this.pushUsingOpt(opt);
+      });
+    });
+  }
+
+  public pushIfCbcHmacPresentOrNotType(
+    path: string,
+    opt?: PushToOptT & { tolerated?: TokenT }
+  ): void {
+    this.useEffect(() => {
+      this.useNav.ifPathStartsWith(path, () => {
+        const cbcHmacToken: Nullable<string> = this.cbcHmacSlice.cbcHmac();
+        const clearing: boolean = this.cbcHmacSlice.deleting();
+        const allowed: boolean = this.useNav.allowedFrom();
+
+        if ((!cbcHmacToken || clearing) && allowed) return;
+
+        // ! if present token, at most is tolerated just one type for special case
+        const type: Nullable<TokenT> = this.cbcHmacSlice.getTokenT();
+        if (type === (opt?.tolerated ?? v4())) return;
+
+        this.pushUsingOpt(opt);
       });
     });
   }

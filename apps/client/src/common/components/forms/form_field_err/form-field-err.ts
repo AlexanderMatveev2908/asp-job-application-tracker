@@ -12,7 +12,7 @@ import {
 import { Tooltip } from '../../els/tooltip/tooltip';
 import { FormControl } from '@angular/forms';
 import { ErrsFieldT, RecErrsFieldT } from '@/common/types/forms';
-import { UseFieldRootDir } from '@/core/directives/form_field/0.use_field_root';
+import { UseFormFieldDir } from '@/core/directives/form_field/0.use_field_root';
 import { Prs } from '@/core/lib/data_structure/prs';
 import { Nullable } from '@/common/types/etc';
 
@@ -23,7 +23,7 @@ import { Nullable } from '@/common/types/etc';
   styleUrl: './form-field-err.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormFieldErr extends UseFieldRootDir implements OnInit {
+export class FormFieldErr extends UseFormFieldDir implements OnInit {
   // ? personal props
   public readonly ctrl: InputSignal<FormControl> = input.required();
   public readonly testId: InputSignal<string> = input.required();

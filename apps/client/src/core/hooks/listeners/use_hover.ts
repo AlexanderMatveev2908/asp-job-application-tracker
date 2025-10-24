@@ -1,7 +1,7 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
 
 @Injectable()
-export abstract class UseHoverSvc {
+export class UseHoverSvc {
   public readonly isHover: WritableSignal<boolean> = signal(false);
 
   public onHover(): void {

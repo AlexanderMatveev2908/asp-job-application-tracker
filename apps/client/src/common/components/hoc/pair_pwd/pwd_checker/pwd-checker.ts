@@ -17,7 +17,7 @@ import { Portal } from '@/layout/portal/portal';
 import { FieldPwdCheckerT, PwdCheckerUiFkt } from './etc/ui_fkt';
 import { NgComponentOutlet, NgClass } from '@angular/common';
 import { Reg } from '@/core/paperwork/reg';
-import { UseFieldRootDir } from '@/core/directives/form_field/0.use_field_root';
+import { UseFormFieldDir } from '@/core/directives/form_field/0.use_field_root';
 import { PortalDOM, RecCoordsT } from '@/core/lib/dom/portal';
 import { Nullable } from '@/common/types/etc';
 
@@ -28,7 +28,7 @@ import { Nullable } from '@/common/types/etc';
   styleUrl: './pwd-checker.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PwdChecker extends UseFieldRootDir implements OnInit, AfterViewInit {
+export class PwdChecker extends UseFormFieldDir implements OnInit, AfterViewInit {
   // ? personal props
   public readonly isFocused: InputSignal<boolean> = input.required();
   public readonly pwdFieldRef: InputSignal<FormFieldTxt> = input.required();
