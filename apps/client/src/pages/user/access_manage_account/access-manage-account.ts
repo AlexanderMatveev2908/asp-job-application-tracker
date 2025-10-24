@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { FormPwd } from '@/core/forms/pwd/form-pwd';
 import { Observable, of } from 'rxjs';
-import { PwdFormT } from '@/core/forms/pwd/etc/paperwork/form_mng';
+import { PwdFormT } from '@/core/paperwork/etc/pwd';
 
 @Component({
   selector: 'app-access-manage-account',

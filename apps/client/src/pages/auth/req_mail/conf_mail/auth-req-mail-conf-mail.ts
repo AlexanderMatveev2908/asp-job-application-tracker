@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { Observable, tap } from 'rxjs';
 import { ResApiT } from '@/core/store/api/etc/types';
-import { MailFormT } from '@/core/forms/mail/etc/paperwork/form_mng';
+import { MailFormT } from '@/core/paperwork/etc/mail';
 import { AuthMailForm } from '@/core/forms/auth_mail/auth-mail-form';
-import { UseMailFormDir } from '@/core/forms/mail/etc/directives/use_mail_form';
+import { UseKitMailFormSvc } from '@/core/hooks/kits/kit_form/1.use_kit_mail_form';
 
 @Component({
   selector: 'app-auth-req-mail-conf-mail',
@@ -13,7 +13,7 @@ import { UseMailFormDir } from '@/core/forms/mail/etc/directives/use_mail_form';
   styleUrl: './auth-req-mail-conf-mail.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AuthReqMailConfMail extends UseMailFormDir {
+export class AuthReqMailConfMail extends UseKitMailFormSvc {
   public readonly strategy: (data: MailFormT) => Observable<unknown> = (data: MailFormT) =>
     this.requireMailAPi.confMail(data).pipe(
       tap((_: ResApiT<void>) => {

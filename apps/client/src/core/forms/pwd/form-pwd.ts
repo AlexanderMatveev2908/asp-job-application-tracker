@@ -9,12 +9,11 @@ import {
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
 import { FormShape } from '@/common/components/forms/form_shape/form-shape';
 import { Observable } from 'rxjs';
-import { PwdFormMng, PwdFormT } from './etc/paperwork/form_mng';
+import { PwdFormMng, PwdFormT } from '../../paperwork/etc/pwd';
 import { UseKitFormWithPwdSvc } from '@/core/hooks/kits/kit_form/1.use_kit_form_with_pwd';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TxtSvgFieldT } from '@/common/types/forms';
 import { PwdFieldsUiFkt } from '@/core/ui_fkt/form_fields/1.pwd';
-import { Nullable } from '@/common/types/etc';
 
 @Component({
   selector: 'app-form-pwd',
@@ -26,7 +25,7 @@ import { Nullable } from '@/common/types/etc';
 export class FormPwd extends UseKitFormWithPwdSvc {
   // ? props
   public readonly strategy: InputSignal<(data: PwdFormT) => Observable<unknown>> = input.required();
-  public readonly testId: InputSignal<Nullable<string>> = input<Nullable<string>>(null);
+  public readonly testId: InputSignal<string> = input.required();
 
   // ? not required by parent
   public readonly form: FormGroup = PwdFormMng.form();

@@ -1,8 +1,8 @@
 import { AuthFormShape } from '@/features/auth/components/form_shape/auth-form-shape';
 import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MailFormMng, MailFormT } from '../mail/etc/paperwork/form_mng';
-import { MailFormUiFkt } from '../mail/etc/ui_fkt';
+import { MailFormMng, MailFormT } from '../../paperwork/etc/mail';
+import { MailFormUiFkt } from '../../ui_fkt/form_fields/1.mail';
 import { TxtFieldT } from '@/common/types/forms';
 import { UseKitFormSvc } from '@/core/hooks/kits/kit_form/0.use_kit_form';
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';

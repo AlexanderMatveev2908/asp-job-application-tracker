@@ -1,7 +1,7 @@
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { AuthMailForm } from '@/core/forms/auth_mail/auth-mail-form';
-import { UseMailFormDir } from '@/core/forms/mail/etc/directives/use_mail_form';
-import { MailFormT } from '@/core/forms/mail/etc/paperwork/form_mng';
+import { UseKitMailFormSvc } from '@/core/hooks/kits/kit_form/1.use_kit_mail_form';
+import { MailFormT } from '@/core/paperwork/etc/mail';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable, tap } from 'rxjs';
@@ -13,7 +13,7 @@ import { Observable, tap } from 'rxjs';
   styleUrl: './auth-req-mail-recover-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AuthReqMailRecoverPwd extends UseMailFormDir {
+export class AuthReqMailRecoverPwd extends UseKitMailFormSvc {
   public strategy: (data: MailFormT) => Observable<unknown> = (data: MailFormT) =>
     this.requireMailAPi.recoverPwd(data).pipe(
       tap((_: ResApiT<void>) => {
