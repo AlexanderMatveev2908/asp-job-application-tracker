@@ -1,7 +1,7 @@
 <app-auth-form-shape
   [fromGroup]="form"
   [onSubmit]="onSubmit"
-  [isPending]="isPending()"
+  [isPending]="apiTracker.isPending()"
   [testId]="testId()"
 >
   <div class="w-full">

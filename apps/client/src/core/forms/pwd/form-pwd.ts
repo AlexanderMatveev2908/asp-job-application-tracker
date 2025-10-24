@@ -14,6 +14,7 @@ import { UseKitFormWithPwdSvc } from '@/core/hooks/kits/kit_form/1.use_kit_form_
 import { FormControl, FormGroup } from '@angular/forms';
 import { TxtSvgFieldT } from '@/common/types/forms';
 import { PwdFieldsUiFkt } from '@/core/ui_fkt/form_fields/1.pwd';
+import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
 
 @Component({
   selector: 'app-form-pwd',
@@ -21,6 +22,7 @@ import { PwdFieldsUiFkt } from '@/core/ui_fkt/form_fields/1.pwd';
   templateUrl: './form-pwd.html',
   styleUrl: './form-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [ApiTrackerSvc],
 })
 export class FormPwd extends UseKitFormWithPwdSvc {
   // ? props

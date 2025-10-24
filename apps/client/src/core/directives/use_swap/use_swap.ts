@@ -3,10 +3,9 @@ import { ConfSwapT, SwapModeT, SwapStateT } from './etc/types';
 import { LibEtc } from '@/core/lib/etc';
 import { FocusDOM } from '@/core/lib/dom/focus';
 import { TimerIdT } from '@/common/types/etc';
-import { UseKitFormSvc } from '@/core/hooks/kits/kit_form/0.use_kit_form';
 
 @Directive()
-export abstract class UseSwapDir extends UseKitFormSvc {
+export abstract class UseSwapDir {
   // | added little margin 100ms
   // | normal tim would be 400
   // eslint-disable-next-line no-magic-numbers
