@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
-import { UsePairPwfFormDir } from '@/core/forms/pair_pwd/etc/directives/use_pair_pwd';
+import { UseKitPairPwdFormSvc } from '@/core/hooks/kits/kit_form/0.use_kit_pair_pwd';
 import { FormPairPwd } from '@/core/forms/pair_pwd/form-pair-pwd';
 import { TokenT } from '@/features/cbcHmac/etc/types';
 import { UseAuthKitSvc } from '@/features/auth/etc/use_auth_kit';
@@ -20,7 +20,7 @@ import { UseRouteMngSvc } from '@/core/hooks/use_route_mng';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [UseRouteMngSvc],
 })
-export class RecoverPwd extends UsePairPwfFormDir implements OnInit {
+export class RecoverPwd extends UseKitPairPwdFormSvc implements OnInit {
   private readonly routerProtection: UseRouteMngSvc = inject(UseRouteMngSvc);
   private readonly useAuthKit: UseAuthKitSvc = inject(UseAuthKitSvc);
 
