@@ -21,7 +21,7 @@
 }
 
 @mixin form__content() {
-  @apply w-full flex flex-col gap-10;
+  @apply w-full flex flex-col items-center gap-10;
 }
 
 @mixin swapper__swap($opac) {

@@ -1,0 +1,5 @@
+<form class="root" [formGroup]="form" (ngSubmit)="(onSubmit)" [attr.data-testid]="testId()">
+  <div class="w-full">
+    <app-form-field-txt [f]="mailField" [ctrl]="ctrl" [focusOnMount]="true" />
+  </div>
+</form>
