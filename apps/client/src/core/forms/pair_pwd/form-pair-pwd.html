@@ -1,1 +1,11 @@
-<app-pair-pwd [getCtrl]="getCtrl()" [focusOnMount]="true" />
+<app-form-shape
+  [fromGroup]="form"
+  [isPending]="apiTracker.isPending()"
+  [onSubmit]="onSubmit"
+  [testId]="testId()"
+  [useFullPage]="true"
+>
+  <div class="w-full">
+    <app-pair-pwd [getCtrl]="getCtrl" [focusOnMount]="true" />
+  </div>
+</app-form-shape>

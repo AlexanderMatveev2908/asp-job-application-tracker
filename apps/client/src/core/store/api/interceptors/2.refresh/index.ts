@@ -13,6 +13,8 @@ import { inject } from '@angular/core';
 import { UseStorageSvc } from '@/core/hooks/use_storage';
 import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
 import { AuthSlice } from '@/features/auth/slice';
+import { UseResetStateSvc } from '@/core/hooks/use_reset_state';
+import { UsePlatformSvc } from '@/core/hooks/platform/use_platform';
 
 // const refreshMng = (err: HttpErrorResponse): Promise<HttpEvent<unknown>> => {};
 
@@ -24,10 +26,12 @@ export const refreshMdw: HttpInterceptorFn = (
   const useStorage: UseStorageSvc = inject(UseStorageSvc);
   const useNav: UseNavSvc = inject(UseNavSvc);
   const authSlice: AuthSlice = inject(AuthSlice);
+  const useReset: UseResetStateSvc = inject(UseResetStateSvc);
+  const usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
   return next(req).pipe(
     catchError((err: HttpErrorResponse) => {
-      if (!RefreshMdwNeedRefresh.main(err)) return throwError(() => err);
+      if (!RefreshMdwNeedRefresh.main(err) && usePlatform.isClient) return throwError(() => err);
 
       return RefreshMdwMng.main(err, {
         http,
@@ -36,6 +40,7 @@ export const refreshMdw: HttpInterceptorFn = (
         next,
         authSlice,
         useNav,
+        useReset,
       });
     })
   );

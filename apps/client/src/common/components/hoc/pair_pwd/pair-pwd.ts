@@ -11,17 +11,17 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { FormFieldTxt } from '../../forms/form_field_txt/form-field-txt';
-import { PairPwdUiFkt } from '@/common/components/hoc/pair_pwd/etc/ui_fkt';
 import { PairPwdStateT, TxtSvgFieldT } from '@/common/types/forms';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { PwdGenerator } from './pwd_generator/pwd-generator';
-import { ConfSwapT } from '@/core/directives/use_swap/etc/types';
+import { ConfSwapT } from '@/core/hooks/use_swap/etc/types';
 import { PwdChecker } from './pwd_checker/pwd-checker';
-import { UseFocusSvc } from '@/core/hooks/listeners/use_focus';
 import { Nullable } from '@/common/types/etc';
-import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Observable } from 'rxjs';
+import { PwdFieldsUiFkt } from '@/core/ui_fkt/form_fields/1.pwd';
+import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
+import { UseFocusSvc } from '@/core/hooks/listeners/use_focus';
 
 @Component({
   selector: 'app-pair-pwd',
@@ -29,16 +29,16 @@ import { Observable } from 'rxjs';
   templateUrl: './pair-pwd.html',
   styleUrl: './pair-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UseInjCtxSvc],
+  providers: [UseFocusSvc],
 })
-export class PairPwd extends UseFocusSvc implements OnInit {
+export class PairPwd extends UseInjCtxSvc implements OnInit {
   // ? personal props
   public readonly getCtrl: InputSignal<(key: string) => FormControl<unknown>> = input.required();
   // ? component may be inside a swapper
   // ? but not necessarily so by default is always 0
   public readonly confSwap: InputSignal<Nullable<ConfSwapT>> = input<Nullable<ConfSwapT>>(null);
   public readonly focusOnMount: InputSignal<boolean> = input(false);
-  private readonly useInjCtx: UseInjCtxSvc = inject(UseInjCtxSvc);
+  public readonly useFocus: UseFocusSvc = inject(UseFocusSvc);
 
   // ? local state
   public readonly pairPwdState: WritableSignal<PairPwdStateT> = signal({
@@ -48,10 +48,10 @@ export class PairPwd extends UseFocusSvc implements OnInit {
 
   // ? ui fields
   public readonly pwdField: Signal<TxtSvgFieldT> = computed(() =>
-    PairPwdUiFkt.pwdByBool(this.pairPwdState().isPwdTypePwd)
+    PwdFieldsUiFkt.fieldByBool('password', this.pairPwdState().isPwdTypePwd)
   );
   public readonly confPwdField: Signal<TxtSvgFieldT> = computed(() =>
-    PairPwdUiFkt.confPwdByBool(this.pairPwdState().isConfirmPwdTypePwd)
+    PwdFieldsUiFkt.fieldByBool('confirmPassword', this.pairPwdState().isConfirmPwdTypePwd)
   );
 
   // ? confPwd setup to listen pwd changes
@@ -60,7 +60,7 @@ export class PairPwd extends UseFocusSvc implements OnInit {
   public optionalConfPwdDep: Signal<string[]> = computed(() => [this.pwdVal()]);
 
   ngOnInit(): void {
-    this.useInjCtx.inCtx(() => {
+    this.inCtx(() => {
       const pwdCtrl: AbstractControl = this.getCtrl()('password');
       const confPwdCtrl: AbstractControl = this.getCtrl()('confirmPassword');
 

@@ -1,44 +1,43 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
-import { UsePairPwfFormDir } from '@/core/forms/pair_pwd/etc/directives/use_pair_pwd';
+import { UseKitPairPwdFormSvc } from '@/core/forms/pair_pwd/etc/use_kit_pair_pwd';
 import { FormPairPwd } from '@/core/forms/pair_pwd/form-pair-pwd';
-import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
 import { TokenT } from '@/features/cbcHmac/etc/types';
 import { UseAuthKitSvc } from '@/features/auth/etc/use_auth_kit';
 import { Nullable } from '@/common/types/etc';
-import { ErrApp } from '@/core/lib/err';
 import { PairPwdFormT } from '@/core/forms/pair_pwd/etc/paperwork/form_mng';
-import { catchError, EMPTY, tap, throwError } from 'rxjs';
+import { catchError, EMPTY, Observable, tap, throwError } from 'rxjs';
 import { ErrApiT, ResApiT, StatusT } from '@/core/store/api/etc/types';
 import { JwtResT } from '@/features/auth/etc/types';
-import { FormShape } from '@/common/components/forms/form_shape/form-shape';
+import { UseRouteMngSvc } from '@/core/hooks/use_route_mng';
+import { ApiShape } from '@/core/store/api/etc/shape';
 
 @Component({
   selector: 'app-recover-pwd',
-  imports: [CsrWithTitle, FormShape, FormPairPwd],
+  imports: [CsrWithTitle, FormPairPwd],
   templateUrl: './recover-pwd.html',
   styleUrl: './recover-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UseInjCtxSvc],
+  providers: [UseRouteMngSvc],
 })
-export class RecoverPwd extends UsePairPwfFormDir implements OnInit {
-  private readonly useInj: UseInjCtxSvc = inject(UseInjCtxSvc);
+export class RecoverPwd extends UseKitPairPwdFormSvc implements OnInit {
+  private readonly routerProtection: UseRouteMngSvc = inject(UseRouteMngSvc);
   private readonly useAuthKit: UseAuthKitSvc = inject(UseAuthKitSvc);
 
-  public readonly onSubmit: () => void = () => {
+  public readonly strategy: (data: PairPwdFormT) => Observable<unknown> = (data: PairPwdFormT) => {
     const cbcHmacToken: Nullable<string> = this.cbcHmacSlice.cbcHmac();
-    if (!cbcHmacToken) throw new ErrApp('bug cbc hmac submit form recover pwd');
 
-    this.submitForm((data: unknown) =>
+    return ApiShape.throwIfCbcHmacMissing(
+      cbcHmacToken,
       this.useAuthKit.authApi
         .recoverPwd({
-          cbcHmacToken,
-          password: (data as PairPwdFormT).password,
+          cbcHmacToken: cbcHmacToken!,
+          password: data.password,
         })
         .pipe(
           tap((res: ResApiT<JwtResT>) => {
-            this.useAuthKit.authSlice.login(res.accessToken, true);
-            this.cbcHmacSlice.clearCbcHmac();
+            this.useAuthKit.authSlice.login(res.accessToken, { startTmr: true });
+            this.cbcHmacSlice.clearCbcHmac({ startTmr: true });
 
             this.useNoticeKit.pushNotice({
               eventT: 'OK',
@@ -49,7 +48,7 @@ export class RecoverPwd extends UsePairPwfFormDir implements OnInit {
           catchError((err: ErrApiT<void>) => {
             if (err.status !== StatusT.UNAUTHORIZED) return throwError(() => err);
 
-            this.cbcHmacSlice.clearCbcHmac();
+            this.cbcHmacSlice.clearCbcHmac({ startTmr: true });
             this.useNoticeKit.pushNotice({
               eventT: 'ERR',
               msg: err.error?.msg ?? 'Token invalid',
@@ -63,20 +62,6 @@ export class RecoverPwd extends UsePairPwfFormDir implements OnInit {
   };
 
   ngOnInit(): void {
-    this.useInj.useEffect(() => {
-      this.useNoticeKit.useNav.ifPathStartsWith('/auth/recover-pwd', () => {
-        void this.cbcHmacSlice.cbcHmac();
-
-        // ! right after success i delete cbc and to avoid being pushed away i use an internal flag to have a short window to go instead to notice page
-        // | i used same strategy for auth in auth out
-        if (
-          this.useNoticeKit.useNav.allowedFrom() &&
-          this.cbcHmacSlice.isTypeOrClearing(TokenT.RECOVER_PWD)
-        )
-          return;
-
-        void this.useNoticeKit.useNav.replace('/');
-      });
-    });
+    this.routerProtection.pushOutIfNotTokenType('/auth/recover-pwd', TokenT.RECOVER_PWD);
   }
 }

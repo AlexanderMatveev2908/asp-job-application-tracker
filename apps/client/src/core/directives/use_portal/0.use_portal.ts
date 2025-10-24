@@ -1,10 +1,10 @@
 import { Directive, HostListener, signal, ViewChild, WritableSignal } from '@angular/core';
-import { UseHoverSvc } from '../../hooks/listeners/use_hover';
 import { Nullable, RefDomT } from '@/common/types/etc';
 import { PortalDOM, RecCoordsT } from '@/core/lib/dom/portal';
+import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
 
 @Directive()
-export abstract class UsePortalDir extends UseHoverSvc {
+export abstract class UsePortalDir extends UseInjCtxSvc {
   // ? local state
   public readonly coords: WritableSignal<Nullable<RecCoordsT>> = signal(null);
 

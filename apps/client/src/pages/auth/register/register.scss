@@ -1,8 +1,9 @@
+@use 'exports/shapes' as shapes;
+
 :host {
   @apply w-full h-full block;
 }
 
 .swapper__swap {
-  opacity: var(--opac);
-  @apply w-full h-fit px-4 flex flex-col gap-8 transition-all duration-300;
+  @include shapes.swapper__swap(var(--opac), 0 1rem);
 }

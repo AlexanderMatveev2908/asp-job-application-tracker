@@ -1,5 +1,5 @@
 import { CheckFieldT, TxtFieldT } from '@/common/types/forms';
-import { FormFieldsUiFkt } from '@/core/ui_fkt/form_fields';
+import { FormFieldsUiFkt } from '@/core/ui_fkt/form_fields/0.root';
 
 export class RegisterFormUiFkt extends FormFieldsUiFkt {
   public static readonly firstSwap: TxtFieldT[] = [

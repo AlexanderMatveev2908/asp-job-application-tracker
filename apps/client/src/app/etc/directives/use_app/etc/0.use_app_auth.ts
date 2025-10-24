@@ -6,6 +6,7 @@ import { AuthSlice } from '@/features/auth/slice';
 import { Directive, inject, Signal } from '@angular/core';
 import { UseStorageSvc } from '@/core/hooks/use_storage';
 import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
+import { ConstantsApp } from '@/core/constants';
 
 @Directive()
 export abstract class UseAppAuthDir extends UseInjCtxSvc {
@@ -17,7 +18,7 @@ export abstract class UseAppAuthDir extends UseInjCtxSvc {
 
   protected markUserLogged(): void {
     const jwt: Nullable<string> = this.useStorage.getItem('accessToken');
-    if (jwt) this.authSlice.login();
+    if (jwt) this.authSlice.login(jwt, { startTmr: false });
   }
 
   protected resetLoggingInTmr(): void {
@@ -42,8 +43,8 @@ export abstract class UseAppAuthDir extends UseInjCtxSvc {
         return;
       }
 
-      this.authSlice.clearLogging(key);
+      this.authSlice.endLoggingTmr(key);
       this[timerRef] = LibEtc.clearTmrID(this[timerRef]);
-    }, AuthSlice.TIMER_RESET_LOGGING);
+    }, ConstantsApp.TIMER_RESET_WINDOW);
   }
 }

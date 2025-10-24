@@ -1,4 +1,4 @@
-import { UserZod } from '@/core/paperwork/user';
+import { UserZod } from '@/core/paperwork/etc/user';
 import { ZodCheck } from '@/core/paperwork/zod_check';
 import { FormControl, FormGroup } from '@angular/forms';
 import z, { ZodObject, ZodString } from 'zod';

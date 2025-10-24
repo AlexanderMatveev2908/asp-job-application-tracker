@@ -1,27 +1,23 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
-import { AuthFormShape } from '@/features/auth/components/form_shape/auth-form-shape';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { ResApiT } from '@/core/store/api/etc/types';
-import { FormMail } from '@/core/forms/mail/form-mail';
-import { MailFormT } from '@/core/forms/mail/etc/paperwork/form_mng';
-import { UseMailFormDir } from '@/core/forms/mail/etc/directives/use_mail_form';
+import { MailFormT } from '@/core/paperwork/etc/mail';
+import { AuthMailForm } from '@/core/forms/auth_mail/auth-mail-form';
+import { UseKitMailFormSvc } from '@/core/forms/auth_mail/etc/use_kit_mail';
 
 @Component({
   selector: 'app-auth-req-mail-conf-mail',
-  imports: [CsrWithTitle, AuthFormShape, FormMail],
+  imports: [CsrWithTitle, AuthMailForm],
   templateUrl: './auth-req-mail-conf-mail.html',
   styleUrl: './auth-req-mail-conf-mail.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AuthReqMailConfMail extends UseMailFormDir {
-  public readonly onSubmit: () => void = () => {
-    this.submitForm((data: unknown) =>
-      this.requireMailAPi.confMail(data as MailFormT).pipe(
-        tap((_: ResApiT<void>) => {
-          this.useNoticeKit.pushMailNotice('to confirm your account');
-        })
-      )
+export class AuthReqMailConfMail extends UseKitMailFormSvc {
+  public readonly strategy: (data: MailFormT) => Observable<unknown> = (data: MailFormT) =>
+    this.requireMailAPi.confMail(data).pipe(
+      tap((_: ResApiT<void>) => {
+        this.useNoticeKit.pushMailNotice('to confirm your account');
+      })
     );
-  };
 }

@@ -6,11 +6,12 @@ import { UseNoticeKitSvc } from '@/features/notice/etc/use_notice_kit';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export abstract class UseKitFormSvc extends ApiTrackerSvc {
+export abstract class UseKitFormSvc {
   // ? expected to be present
   public abstract form: FormGroup;
 
   // ? svc
+  public readonly apiTracker: ApiTrackerSvc = inject(ApiTrackerSvc);
   protected readonly useNoticeKit: UseNoticeKitSvc = inject(UseNoticeKitSvc);
 
   // ? helpers
@@ -25,6 +26,6 @@ export abstract class UseKitFormSvc extends ApiTrackerSvc {
       return;
     }
 
-    this.track(cb(this.form.value)).subscribe();
+    this.apiTracker.track(cb(this.form.value)).subscribe();
   };
 }

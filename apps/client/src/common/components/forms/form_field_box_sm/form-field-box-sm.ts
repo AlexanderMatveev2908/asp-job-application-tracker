@@ -1,5 +1,5 @@
 import { CheckFieldT } from '@/common/types/forms';
-import { UseFieldRootDir } from '@/core/directives/form_field/0.use_field_root';
+import { UseFormFieldDir } from '@/core/directives/form_field/0.use_field_root';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -26,7 +26,7 @@ import { Prs } from '@/core/lib/data_structure/prs';
   styleUrl: './form-field-box-sm.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormFieldBoxSm extends UseFieldRootDir implements OnInit, AfterViewInit {
+export class FormFieldBoxSm extends UseFormFieldDir implements OnInit, AfterViewInit {
   // ? personal props required
   public readonly ctrl: InputSignal<FormControl> = input.required();
   public readonly f: InputSignal<CheckFieldT> = input.required();

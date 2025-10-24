@@ -1,7 +1,7 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
 
 @Injectable()
-export abstract class UseFocusSvc {
+export class UseFocusSvc {
   public readonly isFocused: WritableSignal<boolean> = signal(false);
 
   public onFocus: () => void = () => {

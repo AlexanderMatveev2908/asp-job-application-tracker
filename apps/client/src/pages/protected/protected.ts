@@ -1,5 +1,3 @@
-import { AuthSlice } from '@/features/auth/slice';
-import { UserSlice } from '@/features/user/slice';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -9,9 +7,8 @@ import {
   Signal,
 } from '@angular/core';
 import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';
-import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
-import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
 import { TestApiSvc } from '@/features/test/api';
+import { UseRouteMngSvc } from '@/core/hooks/use_route_mng';
 
 @Component({
   selector: 'app-protected',
@@ -20,10 +17,7 @@ import { TestApiSvc } from '@/features/test/api';
   styleUrl: './protected.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Protected extends UseInjCtxSvc implements OnInit {
-  private readonly useNav: UseNavSvc = inject(UseNavSvc);
-  private readonly userSlice: UserSlice = inject(UserSlice);
-  private readonly authSlice: AuthSlice = inject(AuthSlice);
+export class Protected extends UseRouteMngSvc implements OnInit {
   private readonly testApi: TestApiSvc = inject(TestApiSvc);
 
   public readonly fetchingUser: Signal<boolean> = computed(
@@ -31,19 +25,10 @@ export class Protected extends UseInjCtxSvc implements OnInit {
   );
 
   ngOnInit(): void {
+    this.pushOutNotLogged('/protected');
+
+    if (!this.isLoggedAllowed()) return;
+
     this.testApi.protectedData().subscribe();
-
-    this.useEffect(() => {
-      this.useNav.ifPathStartsWith('/protected', () => {
-        if (
-          this.authSlice.isLogged() ||
-          this.authSlice.authState().loggingIn ||
-          !this.userSlice.handshake()
-        )
-          return;
-
-        void this.useNav.replace('/auth/login');
-      });
-    });
   }
 }

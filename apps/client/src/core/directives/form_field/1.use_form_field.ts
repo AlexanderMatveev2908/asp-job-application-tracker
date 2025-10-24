@@ -1,10 +1,10 @@
 import { AfterViewInit, Directive, input, InputSignal, ViewChild } from '@angular/core';
-import { UseFieldRootDir } from './0.use_field_root';
+import { UseFormFieldDir } from './0.use_field_root';
 import { RefDomT } from '@/common/types/etc';
 import { FocusDOM } from '@/core/lib/dom/focus';
 
 @Directive()
-export abstract class UseFormFieldDir extends UseFieldRootDir implements AfterViewInit {
+export abstract class UseFormFieldDomDir extends UseFormFieldDir implements AfterViewInit {
   public readonly focusOnMount: InputSignal<boolean> = input(false);
 
   // ? children

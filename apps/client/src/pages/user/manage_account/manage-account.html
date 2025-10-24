@@ -1,0 +1,33 @@
+<app-csr-with-title [title]="'Manage Account'">
+  <div class="root">
+    <div class="root__forms">
+      <app-swapper
+        [swap]="swapState().swap"
+        [setSwap]="setSwap"
+        [maxSwaps]="4"
+        [prefixTestId]="'manage_account'"
+      >
+        <div class="forms__swap" #swapDiv [style.--opac]="getOpacity(0)()">
+          <app-user-wrap-swap [title]="'Change Email'">
+            <app-change-mail-form />
+          </app-user-wrap-swap>
+        </div>
+        <div class="forms__swap" #swapDiv [style.--opac]="getOpacity(1)()">
+          <app-user-wrap-swap [title]="'Change Password'">
+            <app-change-pwd-form />
+          </app-user-wrap-swap>
+        </div>
+        <div class="forms__swap" #swapDiv [style.--opac]="getOpacity(2)()">
+          <app-user-wrap-swap [title]="'Setup 2FA'">
+            <app-setup-2fa />
+          </app-user-wrap-swap>
+        </div>
+        <div class="forms__swap" #swapDiv [style.--opac]="getOpacity(3)()">
+          <app-user-wrap-swap [title]="'Delete Account'">
+            <app-delete-account />
+          </app-user-wrap-swap>
+        </div>
+      </app-swapper>
+    </div>
+  </div>
+</app-csr-with-title>

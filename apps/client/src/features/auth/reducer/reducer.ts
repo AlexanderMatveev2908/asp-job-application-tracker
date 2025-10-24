@@ -18,17 +18,17 @@ export const initState: AuthStateT = {
 
 export const authReducer = createReducer(
   initState,
-  on(AuthActT.LOGIN, (state: AuthStateT) => ({
+  on(AuthActT.AUTH__LOGIN, (state: AuthStateT) => ({
     ...state,
     isLogged: true,
     loggingOut: false,
   })),
-  on(AuthActT.LOGOUT, (state: AuthStateT) => ({
+  on(AuthActT.AUTH__LOGOUT, (state: AuthStateT) => ({
     ...state,
     isLogged: false,
     loggingIn: false,
   })),
-  on(AuthActT.SET_LOGGING_KEY, (state: AuthStateT, action: LoggingKeyArgT) => ({
+  on(AuthActT.AUTH__SET_LOGGING_TMR, (state: AuthStateT, action: LoggingKeyArgT) => ({
     ...state,
     [action.key]: action.val,
   }))

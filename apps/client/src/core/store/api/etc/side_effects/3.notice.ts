@@ -28,16 +28,16 @@ export abstract class SideEffectsNoticeSvc extends SideEffectsToastSvc {
       catchError((err: ErrApiT<T>) => {
         if (
           !options.pushOnErr &&
-          !options.pushOnStatus?.some((code: number) => code === err.status)
+          !options.pushOnStatus?.some((code: number) => code === err?.status)
         )
           return throwError(() => err);
 
-        if (this.cbcHmacSlice.present()) this.cbcHmacSlice.clearCbcHmac();
+        if (this.cbcHmacSlice.present()) this.cbcHmacSlice.clearCbcHmac({ startTmr: true });
 
         this.noticeSlice.notice = {
           eventT: 'ERR',
-          msg: err.error.msg ?? this.DEF_CLIENT_ERR_MSG,
-          status: err.status,
+          msg: err?.error?.msg ?? this.DEF_CLIENT_ERR_MSG,
+          status: err?.status ?? 0,
         };
 
         const navigation: Promise<boolean> = this.useNav.replace('/notice', { from: 'err' });

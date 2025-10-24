@@ -10,7 +10,9 @@ import { UseAuthKitSvc } from '@/features/auth/etc/use_auth_kit';
 import { from, switchMap, tap } from 'rxjs';
 import { JwtResT } from '@/features/auth/etc/types';
 import { ResApiT } from '@/core/store/api/etc/types';
-import { UseKitFormWithPwdSvc } from '@/core/hooks/kits/kit_form/1.use_kit_form_with_pwd';
+import { UseKitFormPwdSvc } from '@/core/forms/pwd/etc/use_kit_form_pwd';
+import { PwdFieldsUiFkt } from '@/core/ui_fkt/form_fields/1.pwd';
+import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
 
 @Component({
   selector: 'app-login',
@@ -18,15 +20,16 @@ import { UseKitFormWithPwdSvc } from '@/core/hooks/kits/kit_form/1.use_kit_form_
   templateUrl: './login.html',
   styleUrl: './login.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [ApiTrackerSvc],
 })
-export class Login extends UseKitFormWithPwdSvc {
+export class Login extends UseKitFormPwdSvc {
   private readonly useAuthKit: UseAuthKitSvc = inject(UseAuthKitSvc);
   public readonly form: FormGroup = LoginFormMng.form;
 
   // ? assets
   public readonly mailField: TxtFieldT = LoginFormUiFkt.mailField;
   public readonly pwdField: Signal<TxtSvgFieldT> = computed(() =>
-    LoginFormUiFkt.pwdByType(this.isPwdTypePwd())
+    PwdFieldsUiFkt.fieldByBool('password', this.isPwdTypePwd())
   );
 
   // ? listeners
@@ -34,7 +37,7 @@ export class Login extends UseKitFormWithPwdSvc {
     this.submitForm((data: unknown) =>
       this.useAuthKit.authApi.login(data as LoginFormT).pipe(
         tap((res: ResApiT<JwtResT>) => {
-          this.useAuthKit.authSlice.login(res.accessToken, true);
+          this.useAuthKit.authSlice.login(res.accessToken, { startTmr: true });
         }),
         switchMap(() => from(this.useNoticeKit.useNav.replace('/')))
       )

@@ -4,13 +4,17 @@
     [f]="pwdField()"
     [ctrl]="getCtrl()('password')"
     [onSvgClick]="toggleByKey('isPwdTypePwd')"
-    [onFocus]="onFocus"
-    [onBlur]="onBlur"
+    [onFocus]="useFocus.onFocus"
+    [onBlur]="useFocus.onBlur"
     [focusOnMount]="focusOnMount()"
   />
 
   <app-pwd-generator [confSwap]="confSwap()" />
-  <app-pwd-checker [confSwap]="confSwap()" [isFocused]="isFocused()" [pwdFieldRef]="pwdFieldRef" />
+  <app-pwd-checker
+    [confSwap]="confSwap()"
+    [isFocused]="useFocus.isFocused()"
+    [pwdFieldRef]="pwdFieldRef"
+  />
 
   <app-form-field-txt
     [f]="confPwdField()"

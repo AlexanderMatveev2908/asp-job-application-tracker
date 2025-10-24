@@ -13,36 +13,23 @@ export class AuthSlice extends UseKitSliceSvc {
     return this.store.selectSignal(getAuthState);
   }
 
-  // ! when checking if a user is logged or not on a certain page
-  // ! there may be cases where it is already pushed out or logging in
-  // ! so u do not want to repeat a certain event but give it margin of action
-  // eslint-disable-next-line no-magic-numbers
-  public static readonly TIMER_RESET_LOGGING: number = 2 * 1000;
-
-  public login(): void;
-  public login(accessToken: string): void;
-  public login(accessToken: string, withTmr: boolean): void;
-
-  public login(accessToken?: string, withTmr?: boolean): void {
-    this.store.dispatch(AuthActT.LOGIN());
-    if (accessToken) this.useStorage.setItem('accessToken', accessToken);
-    if (withTmr) this.setLoggingKey({ key: 'loggingIn', val: true });
+  public login(accessToken: string, opt: { startTmr: boolean }): void {
+    this.store.dispatch(AuthActT.AUTH__LOGIN());
+    this.useStorage.setItem('accessToken', accessToken);
+    if (opt.startTmr) this.setLoggingTmr({ key: 'loggingIn', val: true });
   }
 
-  public logout(): void;
-  public logout(withTmr: boolean): void;
-
-  public logout(withTmr?: boolean): void {
-    this.store.dispatch(AuthActT.LOGOUT());
+  public logout(opt: { startTmr: boolean }): void {
+    this.store.dispatch(AuthActT.AUTH__LOGOUT());
     this.useStorage.delItem('accessToken');
-    if (withTmr) this.setLoggingKey({ key: 'loggingOut', val: true });
+    if (opt.startTmr) this.setLoggingTmr({ key: 'loggingOut', val: true });
   }
 
-  private setLoggingKey(arg: LoggingKeyArgT): void {
-    this.store.dispatch(AuthActT.SET_LOGGING_KEY(arg));
+  private setLoggingTmr(arg: LoggingKeyArgT): void {
+    this.store.dispatch(AuthActT.AUTH__SET_LOGGING_TMR(arg));
   }
-  public clearLogging(key: LoggingKeyT): void {
-    this.setLoggingKey({ key, val: false });
+  public endLoggingTmr(key: LoggingKeyT): void {
+    this.setLoggingTmr({ key, val: false });
   }
 
   public isLogged: Signal<boolean> = computed(() => this.authState().isLogged);

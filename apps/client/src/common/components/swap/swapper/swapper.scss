@@ -5,7 +5,7 @@
 }
 
 .root {
-  @include shapes.form__fields();
+  @include shapes.form__content(0);
 
   .root__swapper {
     transition: transform 0.4s, max-height 0.2s;

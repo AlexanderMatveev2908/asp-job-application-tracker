@@ -10,4 +10,5 @@ export const UserActT = {
   MARK_NULL: createAction('MARK_NULL'),
   SET_PENDING: createAction('SET_PENDING', props<PendingArgT>()),
   TRIGGER_API: createAction('TRIGGER_API'),
+  RESET_USER_STATE: createAction('RESET_USER_STATE'),
 };

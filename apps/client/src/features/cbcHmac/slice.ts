@@ -8,13 +8,14 @@ import { AadCbcHmacT, TokenT } from './etc/types';
 import { LibCbcHmac } from './etc/lib';
 import { Reg } from '@/core/paperwork/reg';
 
+export interface OptSaveCbcHmacT {
+  startTmr: boolean;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class CbcHmacSlice extends UseKitSliceSvc {
-  // eslint-disable-next-line no-magic-numbers
-  public static readonly DELETING_RESET_TMR: number = 2 * 1000;
-
   public get cbcHmacState(): Signal<CbcHmacStateT> {
     return this.store.selectSignal(getCbcHmacState);
   }
@@ -22,27 +23,25 @@ export class CbcHmacSlice extends UseKitSliceSvc {
   private setCbcHmac(arg: Nullable<string>): void {
     this.store.dispatch(CbcHmacActT.SET_CBC_HMAC({ cbcHmacToken: arg }));
   }
+  public setSavingTmr(val: boolean): void {
+    this.store.dispatch(CbcHmacActT.SAVING_TMR({ val }));
+  }
+  public setDeletingTmr(val: boolean): void {
+    this.store.dispatch(CbcHmacActT.DELETING_TMR({ val }));
+  }
 
-  public saveCbcHmac(arg: string): void;
-  public saveCbcHmac(arg: string, presentInStorage: boolean): void;
-  public saveCbcHmac(arg: string, presentInStorage?: boolean): void {
+  public saveCbcHmac(arg: string, { startTmr }: OptSaveCbcHmacT): void {
     this.setCbcHmac(arg);
 
-    if (!presentInStorage) this.useStorage.setItem('cbcHmacToken', arg);
+    this.useStorage.setItem('cbcHmacToken', arg);
+    if (startTmr) this.setSavingTmr(true);
   }
 
-  private setClearing(val: boolean): void {
-    this.store.dispatch(CbcHmacActT.SET_DELETING({ deleting: val }));
-  }
-  public endClearing(): void {
-    this.setClearing(false);
-  }
-
-  public clearCbcHmac(): void {
+  public clearCbcHmac(opt: { startTmr: boolean }): void {
     this.setCbcHmac(null);
     this.useStorage.delItem('cbcHmacToken');
 
-    this.setClearing(true);
+    if (opt.startTmr) this.setDeletingTmr(true);
   }
 
   public cbcHmac: Signal<Nullable<string>> = computed(() => this.cbcHmacState().cbcHmacToken);
@@ -50,10 +49,6 @@ export class CbcHmacSlice extends UseKitSliceSvc {
   public present: Signal<boolean> = computed(
     () => !!this.useStorage.getItem('cbcHmacToken') || !!this.cbcHmacState().cbcHmacToken
   );
-
-  public fromStorage(): Nullable<string> {
-    return this.useStorage.getItem('cbcHmacToken');
-  }
 
   public getTokenT(): Nullable<TokenT> {
     const token: Nullable<string> = this.cbcHmacState().cbcHmacToken;
@@ -70,6 +65,14 @@ export class CbcHmacSlice extends UseKitSliceSvc {
   public isTypeOrClearing(expected: TokenT): boolean {
     return this.isType(expected) || this.deleting();
   }
+  public isNullOrSaving(): boolean {
+    return this.cbcHmac() === null || this.saving();
+  }
 
+  public saving: Signal<boolean> = computed(() => this.cbcHmacState().saving);
   public deleting: Signal<boolean> = computed(() => this.cbcHmacState().deleting);
+
+  public reset(): void {
+    this.store.dispatch(CbcHmacActT.RESET_CBC_HMAC_STATE());
+  }
 }

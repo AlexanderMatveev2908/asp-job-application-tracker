@@ -1,12 +1,12 @@
 import { computed, Directive, input, InputSignal, Signal } from '@angular/core';
-import { ConfSwapT } from '../use_swap/etc/types';
+import { ConfSwapT } from '../../hooks/use_swap/etc/types';
 import { UsePortalDir } from './0.use_portal';
 import { Nullable } from '@/common/types/etc';
 
 // | use WithPortal when sure curr component
 // | will nt be used within a swap/slider
 @Directive()
-export abstract class UseSwapPortalDir extends UsePortalDir {
+export class UseSwapPortalDir extends UsePortalDir {
   // ? optional props
   // | some els may be inside a slider
   // | which require dedicated attention

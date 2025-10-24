@@ -3,10 +3,30 @@
   @apply flex w-full justify-center max-w-full border-2 rounded-xl text-gray-300;
 }
 
+@mixin form__page() {
+  @apply w-full min-h-[70vh] flex flex-col justify-center items-center gap-12;
+}
+
+@mixin form__wrap() {
+  @apply h-fit flex flex-col items-center gap-10 border-3 border-gray-300 rounded-xl p-5 pb-12 pt-8 overflow-hidden;
+}
+
 @mixin form__size() {
   @apply w-[90%] max-w-[800px];
 }
 
-@mixin form__fields() {
+@mixin form__wrap_size() {
+  @include form__wrap();
+  @include form__size();
+}
+
+@mixin form__content($padding) {
+  padding: $padding;
   @apply w-full flex flex-col gap-10;
+}
+
+@mixin swapper__swap($opac, $padding) {
+  @include form__content($padding);
+  opacity: $opac;
+  @apply h-fit transition-all duration-300;
 }

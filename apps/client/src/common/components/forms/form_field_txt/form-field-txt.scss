@@ -1,5 +1,9 @@
 @use 'exports/mix' as mix;
 
+:host {
+  @apply block w-full;
+}
+
 .root {
   @apply w-full flex flex-col gap-4;
 

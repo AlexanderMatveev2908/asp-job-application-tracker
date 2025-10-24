@@ -1,0 +1,12 @@
+<app-form-shape
+  class="root"
+  [fromGroup]="form"
+  [onSubmit]="onSubmit"
+  [testId]="testId()"
+  [isPending]="apiTracker.isPending()"
+  [useFullPage]="false"
+>
+  <div class="w-full">
+    <app-form-field-txt [f]="mailField" [ctrl]="ctrl" [focusOnMount]="true" />
+  </div>
+</app-form-shape>

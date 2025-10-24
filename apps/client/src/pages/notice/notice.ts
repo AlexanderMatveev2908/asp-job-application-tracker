@@ -12,8 +12,7 @@ import { UseStorageSvc } from '@/core/hooks/use_storage';
 import { CsrNoticeWrapper } from '@/common/components/hoc/page/csr_notice_wrapper/csr-notice-wrapper';
 import { Nullable } from '@/common/types/etc';
 import { NoticeWrapperPropsT } from '@/common/components/hoc/page/csr_notice_wrapper/etc/types';
-import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
-import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
+import { UseRouteMngSvc } from '@/core/hooks/use_route_mng';
 
 @Component({
   selector: 'app-notice',
@@ -22,10 +21,9 @@ import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
   styleUrl: './notice.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Notice extends UseInjCtxSvc implements OnInit {
+export class Notice extends UseRouteMngSvc implements OnInit {
   private readonly noticeSlice: NoticeSlice = inject(NoticeSlice);
   private readonly useStorage: UseStorageSvc = inject(UseStorageSvc);
-  private readonly useNav: UseNavSvc = inject(UseNavSvc);
 
   public readonly wrapEventsProps: Signal<NoticeWrapperPropsT> = computed(() => {
     const { cb: _cb, ...rst } = this.noticeSlice._noticeState();
@@ -40,12 +38,6 @@ export class Notice extends UseInjCtxSvc implements OnInit {
       if (stored) this.noticeSlice.notice = stored;
     });
 
-    this.useEffect(() => {
-      this.useNav.ifPathStartsWith('/notice', () => {
-        if (this.useNav.allowedFrom()) return;
-
-        void this.useNav.replace('/');
-      });
-    });
+    this.pushOutIfNotFrom('/notice');
   }
 }

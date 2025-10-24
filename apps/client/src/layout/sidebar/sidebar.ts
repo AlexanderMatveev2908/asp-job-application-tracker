@@ -19,7 +19,6 @@ import { DropStatic } from '@/common/components/drop/static/drop-static';
 import { SpanLinkPropsT, SpanPropsT } from '@/common/components/els/span/etc/types';
 import { Lorem } from '@/core/lib/etc';
 import { NavLink } from '@/common/components/links/nav_link/nav-link';
-import { UseMouseOutSvc } from '@/core/hooks/use_mouse_out';
 import { Nullable, RefDomT } from '@/common/types/etc';
 import { Prs } from '@/core/lib/data_structure/prs';
 import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
@@ -28,6 +27,7 @@ import { UserSlice } from '@/features/user/slice';
 import { UserT } from '@/features/user/etc/types';
 import { SidebarUiFkt } from './etc/ui_fkt';
 import { LogoutBtn } from '@/features/auth/components/logout_btn/logout-btn';
+import { MouseDOM } from '@/core/lib/dom/mouse';
 
 @Component({
   selector: 'app-sidebar',
@@ -39,7 +39,6 @@ import { LogoutBtn } from '@/features/auth/components/logout_btn/logout-btn';
 })
 export class Sidebar extends Lorem {
   // ? svc
-  private readonly useMouseOut: UseMouseOutSvc = inject(UseMouseOutSvc);
   private readonly sideSlice: SidebarSlice = inject(SidebarSlice);
   private readonly useNav: UseNavSvc = inject(UseNavSvc);
   private readonly userSlice: UserSlice = inject(UserSlice);
@@ -98,6 +97,6 @@ export class Sidebar extends Lorem {
 
   @HostListener('document:mousedown', ['$event'])
   public onMouseDown(e: MouseEvent): void {
-    this.useMouseOut.onMouseOut(this.side, e, () => this.sideSlice.close());
+    MouseDOM.onMouseOut(this.side, e, () => this.sideSlice.close());
   }
 }

@@ -32,5 +32,6 @@ export const userReducer = createReducer(
     ...state,
     isPending: action.isPending,
   })),
-  on(UserActT.TRIGGER_API, (state: UserStateT) => ({ ...state, mark: state.mark + 1 }))
+  on(UserActT.TRIGGER_API, (state: UserStateT) => ({ ...state, mark: state.mark + 1 })),
+  on(UserActT.RESET_USER_STATE, (_: UserStateT) => ({ ...initState, handShake: true }))
 );

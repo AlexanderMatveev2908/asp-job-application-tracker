@@ -10,23 +10,23 @@ import {
 import { UsePlatformSvc } from './use_platform';
 
 @Injectable()
-export class UseInjCtxSvc {
+export abstract class UseInjCtxSvc {
   protected readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
   protected readonly inj: EnvironmentInjector = inject(EnvironmentInjector);
 
-  public inCtx(cb: () => void): void {
+  protected inCtx(cb: () => void): void {
     runInInjectionContext(this.inj, () => {
       cb();
     });
   }
 
-  public useEffect(cb: (onCleanup: EffectCleanupRegisterFn) => void): void {
+  protected useEffect(cb: (onCleanup: EffectCleanupRegisterFn) => void): void {
     this.inCtx(() => {
       effect(cb, { injector: this.inj });
     });
   }
 
-  public useDOM(cb: () => void): void {
+  protected useDOM(cb: () => void): void {
     this.usePlatform.onClient(() => {
       this.inCtx(() => {
         afterNextRender(() => {
