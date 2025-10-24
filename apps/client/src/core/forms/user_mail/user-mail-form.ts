@@ -1,4 +1,3 @@
-import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
 import { TxtFieldT } from '@/common/types/forms';
 import { UseKitFormSvc } from '@/core/hooks/kits/kit_form/0.use_kit_form';
@@ -8,10 +7,11 @@ import { MailFormUiFkt } from '@/core/ui_fkt/form_fields/1.mail';
 import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { EMPTY } from 'rxjs';
+import { FormShape } from '@/common/components/forms/form_shape/form-shape';
 
 @Component({
   selector: 'app-user-mail-form',
-  imports: [ReactiveFormsModule, FormFieldTxt, BtnShadow],
+  imports: [ReactiveFormsModule, FormFieldTxt, FormShape],
   templateUrl: './user-mail-form.html',
   styleUrl: './user-mail-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

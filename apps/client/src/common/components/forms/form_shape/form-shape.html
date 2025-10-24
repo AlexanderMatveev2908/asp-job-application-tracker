@@ -1,21 +1,23 @@
+@if(useFullPage()){
 <div class="root">
+  <ng-container *ngTemplateOutlet="formContent" />
+  <ng-container *ngTemplateOutlet="footer" />
+</div>
+}@else {
+<div class="w-full">
+  <ng-container *ngTemplateOutlet="formContent" />
+</div>
+}
+
+<ng-template #formContent>
   <form
     [attr.data-testid]="testId()"
-    class="root__form"
+    [class]="css()"
     [formGroup]="fromGroup()"
     (ngSubmit)="onSubmit()()"
   >
     <ng-content />
 
-    <div class="form__submit">
-      <app-btn-shadow
-        [spanProps]="spanProps"
-        [btnStateProps]="btnProps()"
-        [type]="'submit'"
-        [testId]="derivedSubmitId()"
-      />
-    </div>
+    <app-form-submit [testId]="testId()" [isPending]="isPending()" />
   </form>
-
-  <ng-container *ngTemplateOutlet="footer" />
-</div>
+</ng-template>

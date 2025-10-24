@@ -7,11 +7,11 @@
 .root {
   @include shapes.form__page();
 
-  .root__form {
+  .root__full_page {
     @include shapes.form__idx();
-
-    .form__submit {
-      @apply mx-auto w-[250px];
-    }
   }
+}
+
+.root__content {
+  @include shapes.form__content();
 }
