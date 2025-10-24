@@ -4,6 +4,9 @@
   @apply block w-full;
 }
 
-.root {
+.root__pad {
   @include shapes.app__form__content(true);
+}
+.root__no_pad {
+  @include shapes.app__form__content(false);
 }

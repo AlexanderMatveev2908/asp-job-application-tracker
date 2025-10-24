@@ -14,7 +14,7 @@
         </div>
         <div class="swapper__swap" #swapDiv [style.--opac]="getOpacity(1)()">
           <app-user-wrap-swap [title]="'Change Password'">
-            <app-change-pwd-form />
+            <app-change-pwd-form [confSwap]="confSwap(1)()" />
           </app-user-wrap-swap>
         </div>
         <div class="swapper__swap" #swapDiv [style.--opac]="getOpacity(2)()">
