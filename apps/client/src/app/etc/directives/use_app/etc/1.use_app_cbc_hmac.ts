@@ -5,6 +5,7 @@ import { Directive, inject, Signal } from '@angular/core';
 import { UseAppAuthDir } from './0.use_app_auth';
 import { LibEtc } from '@/core/lib/etc';
 import { CbcHmacKeyTmrT } from '@/features/cbcHmac/reducer/reducer';
+import { ConstantsApp } from '@/core/constants';
 
 @Directive()
 export abstract class UseAppCbcHmacDir extends UseAppAuthDir {
@@ -41,9 +42,9 @@ export abstract class UseAppCbcHmacDir extends UseAppAuthDir {
         return;
       }
 
-      if (key === 'saving') this.cbcHmacSlice.setSaving(false);
-      else this.cbcHmacSlice.setClearing(false);
+      if (key === 'saving') this.cbcHmacSlice.setSavingTmr(false);
+      else this.cbcHmacSlice.setDeletingTmr(false);
       this[timerRef] = LibEtc.clearTmrID(this[timerRef]);
-    }, CbcHmacSlice.RESET_TMR);
+    }, ConstantsApp.TIMER_RESET_WINDOW);
   }
 }

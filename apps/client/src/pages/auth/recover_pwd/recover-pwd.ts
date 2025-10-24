@@ -36,7 +36,7 @@ export class RecoverPwd extends UseKitPairPwdFormSvc implements OnInit {
         })
         .pipe(
           tap((res: ResApiT<JwtResT>) => {
-            this.useAuthKit.authSlice.login(res.accessToken, { withTmr: true });
+            this.useAuthKit.authSlice.login(res.accessToken, { startTmr: true });
             this.cbcHmacSlice.clearCbcHmac();
 
             this.useNoticeKit.pushNotice({

@@ -13,6 +13,7 @@ import { inject } from '@angular/core';
 import { UseStorageSvc } from '@/core/hooks/use_storage';
 import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
 import { AuthSlice } from '@/features/auth/slice';
+import { UseResetStateSvc } from '@/core/hooks/use_reset_state';
 
 // const refreshMng = (err: HttpErrorResponse): Promise<HttpEvent<unknown>> => {};
 
@@ -24,6 +25,7 @@ export const refreshMdw: HttpInterceptorFn = (
   const useStorage: UseStorageSvc = inject(UseStorageSvc);
   const useNav: UseNavSvc = inject(UseNavSvc);
   const authSlice: AuthSlice = inject(AuthSlice);
+  const useReset: UseResetStateSvc = inject(UseResetStateSvc);
 
   return next(req).pipe(
     catchError((err: HttpErrorResponse) => {
@@ -36,6 +38,7 @@ export const refreshMdw: HttpInterceptorFn = (
         next,
         authSlice,
         useNav,
+        useReset,
       });
     })
   );

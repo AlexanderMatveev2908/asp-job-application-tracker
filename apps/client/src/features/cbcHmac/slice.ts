@@ -16,9 +16,6 @@ export interface OptSaveCbcHmacT {
   providedIn: 'root',
 })
 export class CbcHmacSlice extends UseKitSliceSvc {
-  // eslint-disable-next-line no-magic-numbers
-  public static readonly RESET_TMR: number = 2 * 1000;
-
   public get cbcHmacState(): Signal<CbcHmacStateT> {
     return this.store.selectSignal(getCbcHmacState);
   }
@@ -26,25 +23,25 @@ export class CbcHmacSlice extends UseKitSliceSvc {
   private setCbcHmac(arg: Nullable<string>): void {
     this.store.dispatch(CbcHmacActT.SET_CBC_HMAC({ cbcHmacToken: arg }));
   }
-  public setSaving(val: boolean): void {
-    this.store.dispatch(CbcHmacActT.SET_SAVING({ val }));
+  public setSavingTmr(val: boolean): void {
+    this.store.dispatch(CbcHmacActT.SAVING_TMR({ val }));
   }
-  public setClearing(val: boolean): void {
-    this.store.dispatch(CbcHmacActT.SET_DELETING({ val }));
+  public setDeletingTmr(val: boolean): void {
+    this.store.dispatch(CbcHmacActT.DELETING_TMR({ val }));
   }
 
   public saveCbcHmac(arg: string, { startTmr }: OptSaveCbcHmacT): void {
     this.setCbcHmac(arg);
 
     this.useStorage.setItem('cbcHmacToken', arg);
-    if (startTmr) this.setSaving(true);
+    if (startTmr) this.setSavingTmr(true);
   }
 
   public clearCbcHmac(): void {
     this.setCbcHmac(null);
     this.useStorage.delItem('cbcHmacToken');
 
-    this.setClearing(true);
+    this.setDeletingTmr(true);
   }
 
   public cbcHmac: Signal<Nullable<string>> = computed(() => this.cbcHmacState().cbcHmacToken);

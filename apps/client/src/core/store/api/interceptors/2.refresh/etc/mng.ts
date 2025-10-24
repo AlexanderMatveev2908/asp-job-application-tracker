@@ -13,6 +13,7 @@ import { UseStorageSvc } from '@/core/hooks/use_storage';
 import { Log } from '@/core/lib/dev/log';
 import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
 import { AuthSlice } from '@/features/auth/slice';
+import { UseResetStateSvc } from '@/core/hooks/use_reset_state';
 
 export interface RefreshMngArgT {
   http: HttpClient;
@@ -21,6 +22,7 @@ export interface RefreshMngArgT {
   next: HttpHandlerFn;
   useNav: UseNavSvc;
   authSlice: AuthSlice;
+  useReset: UseResetStateSvc;
 }
 
 export class RefreshMdwMng {
@@ -35,12 +37,12 @@ export class RefreshMdwMng {
           const freshJwt: string = res.accessToken;
 
           useStorage.setItem('accessToken', freshJwt);
-          if (!authSlice.isLogged()) authSlice.login();
+          if (!authSlice.isLogged()) authSlice.login(freshJwt, { startTmr: false });
 
           return of(freshJwt);
         }),
         catchError((err: ErrApiT<void>) => {
-          authSlice.logout();
+          authSlice.logout({ startTmr: false });
 
           return throwError(() => err);
         })
@@ -49,7 +51,7 @@ export class RefreshMdwMng {
 
   public static main(
     err: HttpErrorResponse,
-    { http, useStorage, originalReq, next, authSlice, useNav }: RefreshMngArgT
+    { http, useStorage, originalReq, next, authSlice, useNav, useReset }: RefreshMngArgT
   ): Observable<HttpEvent<unknown>> {
     return this.refresh(err, { http, useStorage, authSlice }).pipe(
       switchMap((freshJwt: string) => {
@@ -65,7 +67,7 @@ export class RefreshMdwMng {
       }),
       catchError((err: ErrApiT<void>) => {
         Log.logTtl('❌ refresh fail');
-
+        useReset.main();
         return from(useNav.replace('/auth/login')).pipe(
           catchError((err: unknown) => {
             // | ignore router fail & rethrow real error

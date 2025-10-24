@@ -9,5 +9,5 @@ export interface LoggingKeyArgT {
 export const AuthActT = {
   LOGIN: createAction('LOGIN'),
   LOGOUT: createAction('LOGOUT'),
-  SET_LOGGING_KEY: createAction('SET_LOGGING_KEY', props<LoggingKeyArgT>()),
+  SET_LOGGING_TMR: createAction('SET_LOGGING_TMR', props<LoggingKeyArgT>()),
 };

@@ -28,7 +28,7 @@ export const authReducer = createReducer(
     isLogged: false,
     loggingIn: false,
   })),
-  on(AuthActT.SET_LOGGING_KEY, (state: AuthStateT, action: LoggingKeyArgT) => ({
+  on(AuthActT.SET_LOGGING_TMR, (state: AuthStateT, action: LoggingKeyArgT) => ({
     ...state,
     [action.key]: action.val,
   }))

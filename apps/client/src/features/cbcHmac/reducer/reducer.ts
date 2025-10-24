@@ -28,11 +28,11 @@ export const cbcHmacReducer = createReducer(
       saving: isPayload ? state.saving : false,
     };
   }),
-  on(CbcHmacActT.SET_DELETING, (state: CbcHmacStateT, action: TmrCbcHmacArgT) => ({
+  on(CbcHmacActT.DELETING_TMR, (state: CbcHmacStateT, action: TmrCbcHmacArgT) => ({
     ...state,
     deleting: action.val,
   })),
-  on(CbcHmacActT.SET_SAVING, (state: CbcHmacStateT, action: TmrCbcHmacArgT) => ({
+  on(CbcHmacActT.SAVING_TMR, (state: CbcHmacStateT, action: TmrCbcHmacArgT) => ({
     ...state,
     saving: action.val,
   })),

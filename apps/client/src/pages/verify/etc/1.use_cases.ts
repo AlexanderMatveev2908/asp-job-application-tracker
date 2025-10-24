@@ -19,7 +19,7 @@ export abstract class UseCasesVerifyDir extends UseMngVerifyDir {
     this.verifyApi
       .confMail(cbcHmac)
       .pipe(
-        tap((res: ResApiT<JwtResT>) => this.authSlice.login(res.accessToken, { withTmr: true })),
+        tap((res: ResApiT<JwtResT>) => this.authSlice.login(res.accessToken, { startTmr: true })),
         switchMap((res: ResApiT<JwtResT>) => {
           this.userSlice.triggerApi();
 
