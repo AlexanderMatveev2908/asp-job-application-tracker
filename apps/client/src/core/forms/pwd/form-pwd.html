@@ -1,8 +1,15 @@
-<div class="w-full">
-  <app-form-field-txt
-    [f]="pwdField()"
-    [ctrl]="ctrl()"
-    [onSvgClick]="onTogglePwd()"
-    [focusOnMount]="true"
-  />
-</div>
+<app-form-shape
+  [testId]="testId()"
+  [fromGroup]="form"
+  [onSubmit]="onSubmit"
+  [isPending]="isPending()"
+>
+  <div class="w-full">
+    <app-form-field-txt
+      [f]="pwdField()"
+      [ctrl]="ctrl"
+      [onSvgClick]="onToggle"
+      [focusOnMount]="true"
+    />
+  </div>
+</app-form-shape>

@@ -1,5 +1,3 @@
 <app-csr-with-title [title]="'Confirm Password'">
-  <app-form-shape [fromGroup]="form" [onSubmit]="onSubmit" [isPending]="isPending()">
-    <app-form-pwd [ctrl]="ctrl" [pwdField]="pwdField()" [onTogglePwd]="onToggle" />
-  </app-form-shape>
+  <app-form-pwd [strategy]="strategy" />
 </app-csr-with-title>
