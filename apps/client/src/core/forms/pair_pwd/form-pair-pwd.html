@@ -1,1 +1,8 @@
-<app-pair-pwd [getCtrl]="getCtrl()" [focusOnMount]="true" />
+<app-form-shape
+  [fromGroup]="form"
+  [isPending]="isPending()"
+  [onSubmit]="onSubmit"
+  [testId]="testId()"
+>
+  <app-pair-pwd [getCtrl]="getCtrl" [focusOnMount]="true" />
+</app-form-shape>
