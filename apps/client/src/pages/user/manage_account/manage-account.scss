@@ -1,1 +1,17 @@
-.root{}
+@use 'exports/shapes' as shapes;
+
+:host {
+  @apply w-full h-full block;
+}
+
+.root {
+  @include shapes.form__page();
+
+  .root__forms {
+    @include shapes.form__idx();
+  }
+
+  .forms__swap {
+    @include shapes.swapper__swap(var(--opac));
+  }
+}

@@ -1,1 +1,33 @@
-<app-csr-with-title [title]="'Manage Account'"> </app-csr-with-title>
+<app-csr-with-title [title]="'Manage Account'">
+  <div class="root">
+    <div class="root__forms">
+      <app-swapper
+        [swap]="swapState().swap"
+        [setSwap]="setSwap"
+        [maxSwaps]="4"
+        [prefixTestId]="'manage_account'"
+      >
+        <div class="forms__swap" #swapDiv [style.--opac]="getOpacity(0)()">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam temporibus ullam,
+          aperiam, nemo est iusto aspernatur minus sit, soluta modi ea atque eaque pariatur
+          doloremque incidunt dolorum qui voluptatibus quas!
+        </div>
+        <div class="forms__swap" #swapDiv [style.--opac]="getOpacity(1)()">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam temporibus ullam,
+          aperiam, nemo est iusto aspernatur minus sit, soluta modi ea atque eaque pariatur
+          doloremque incidunt dolorum qui voluptatibus quas!
+        </div>
+        <div class="forms__swap" #swapDiv [style.--opac]="getOpacity(2)()">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam temporibus ullam,
+          aperiam, nemo est iusto aspernatur minus sit, soluta modi ea atque eaque pariatur
+          doloremque incidunt dolorum qui voluptatibus quas!
+        </div>
+        <div class="forms__swap" #swapDiv [style.--opac]="getOpacity(3)()">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam temporibus ullam,
+          aperiam, nemo est iusto aspernatur minus sit, soluta modi ea atque eaque pariatur
+          doloremque incidunt dolorum qui voluptatibus quas!
+        </div>
+      </app-swapper>
+    </div>
+  </div>
+</app-csr-with-title>
