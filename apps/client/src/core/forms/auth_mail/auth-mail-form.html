@@ -1,0 +1,10 @@
+<app-auth-form-shape
+  [fromGroup]="form"
+  [onSubmit]="onSubmit"
+  [isPending]="isPending()"
+  [testId]="testId()"
+>
+  <div class="w-full">
+    <app-form-field-txt [f]="mailField" [ctrl]="ctrl" [focusOnMount]="true" />
+  </div>
+</app-auth-form-shape>
