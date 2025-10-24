@@ -11,7 +11,7 @@
   @apply h-fit flex flex-col items-center gap-14;
 }
 
-@mixin app__form__border() {
+@mixin app__form__container() {
   @include app__form__flex();
   @apply border-3 border-gray-300 rounded-xl p-4 pb-12 pt-10 overflow-hidden;
 }
@@ -20,8 +20,8 @@
   @apply w-[90%] max-w-[800px];
 }
 
-@mixin app__form__border_size() {
-  @include app__form__border();
+@mixin app__form__container_size() {
+  @include app__form__container();
   @include app__form__size();
 }
 

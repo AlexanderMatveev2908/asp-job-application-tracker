@@ -8,7 +8,7 @@
   @include shapes.app__form__page();
 
   .root__swapper {
-    @include shapes.app__form__border_size();
+    @include shapes.app__form__container_size();
   }
 
   .swapper__swap {

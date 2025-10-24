@@ -8,7 +8,7 @@
   @include shapes.app__form__page();
 
   .root__content {
-    @include shapes.app__form__border_size();
+    @include shapes.app__form__container_size();
   }
 }
 
