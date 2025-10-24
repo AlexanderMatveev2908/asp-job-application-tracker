@@ -15,7 +15,7 @@
   @apply w-[90%] max-w-[800px];
 }
 
-@mixin form__idx() {
+@mixin form__wrap_size() {
   @include form__wrap();
   @include form__size();
 }

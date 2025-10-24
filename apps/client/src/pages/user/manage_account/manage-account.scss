@@ -8,7 +8,7 @@
   @include shapes.form__page();
 
   .root__forms {
-    @include shapes.form__idx();
+    @include shapes.form__wrap_size();
   }
 
   .forms__swap {

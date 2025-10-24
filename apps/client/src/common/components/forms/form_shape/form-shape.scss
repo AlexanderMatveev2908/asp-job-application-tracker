@@ -7,11 +7,11 @@
 .root {
   @include shapes.form__page();
 
-  .root__full_page {
-    @include shapes.form__idx();
+  .root__content {
+    @include shapes.form__wrap_size();
   }
 }
 
 .root__content {
-  @include shapes.form__content();
+  @apply w-full flex flex-col gap-12;
 }

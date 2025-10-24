@@ -3,11 +3,9 @@ import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
   ContentChild,
   input,
   InputSignal,
-  Signal,
   TemplateRef,
 } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -24,8 +22,4 @@ import { RefTemplateT } from '@/common/types/etc';
 export class FormShape extends UseFormShapeDir {
   @ContentChild('footer', { read: TemplateRef }) footer: RefTemplateT;
   public readonly useFullPage: InputSignal<boolean> = input.required();
-
-  public readonly css: Signal<string> = computed(() =>
-    this.useFullPage() ? 'root__full_page' : 'root__content'
-  );
 }
