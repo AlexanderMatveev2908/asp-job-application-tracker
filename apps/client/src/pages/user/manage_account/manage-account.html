@@ -8,24 +8,24 @@
         [prefixTestId]="'manage_account'"
       >
         <div class="forms__swap" #swapDiv [style.--opac]="getOpacity(0)()">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam temporibus ullam,
-          aperiam, nemo est iusto aspernatur minus sit, soluta modi ea atque eaque pariatur
-          doloremque incidunt dolorum qui voluptatibus quas!
+          <app-user-wrap-swap [title]="'Change Email'">
+            <app-change-mail-form />
+          </app-user-wrap-swap>
         </div>
         <div class="forms__swap" #swapDiv [style.--opac]="getOpacity(1)()">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam temporibus ullam,
-          aperiam, nemo est iusto aspernatur minus sit, soluta modi ea atque eaque pariatur
-          doloremque incidunt dolorum qui voluptatibus quas!
+          <app-user-wrap-swap [title]="'Change Password'">
+            <app-change-pwd-form />
+          </app-user-wrap-swap>
         </div>
         <div class="forms__swap" #swapDiv [style.--opac]="getOpacity(2)()">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam temporibus ullam,
-          aperiam, nemo est iusto aspernatur minus sit, soluta modi ea atque eaque pariatur
-          doloremque incidunt dolorum qui voluptatibus quas!
+          <app-user-wrap-swap [title]="'Setup 2FA'">
+            <app-setup-2fa />
+          </app-user-wrap-swap>
         </div>
         <div class="forms__swap" #swapDiv [style.--opac]="getOpacity(3)()">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam temporibus ullam,
-          aperiam, nemo est iusto aspernatur minus sit, soluta modi ea atque eaque pariatur
-          doloremque incidunt dolorum qui voluptatibus quas!
+          <app-user-wrap-swap [title]="'Delete Account'">
+            <app-delete-account />
+          </app-user-wrap-swap>
         </div>
       </app-swapper>
     </div>

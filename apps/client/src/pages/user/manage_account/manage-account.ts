@@ -4,10 +4,23 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { Swapper } from '@/common/components/swap/swapper/swapper';
 import { UseSwapSvc } from '@/core/hooks/use_swap/use_swap';
+import { UserWrapSwap } from './components/user_wrap_swap/user-wrap-swap';
+import { ChangeMailForm } from './swaps/change_mail_form/change-mail-form';
+import { ChangePwdForm } from './swaps/change_pwd_form/change-pwd-form';
+import { Setup2fa } from './swaps/setup_2fa/setup-2fa';
+import { DeleteAccount } from './swaps/delete_account/delete-account';
 
 @Component({
   selector: 'app-manage-account',
-  imports: [CsrWithTitle, Swapper],
+  imports: [
+    CsrWithTitle,
+    Swapper,
+    UserWrapSwap,
+    ChangeMailForm,
+    ChangePwdForm,
+    Setup2fa,
+    DeleteAccount,
+  ],
   templateUrl: './manage-account.html',
   styleUrl: './manage-account.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
