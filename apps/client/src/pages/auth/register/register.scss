@@ -5,5 +5,5 @@
 }
 
 .swapper__swap {
-  @include shapes.swapper__swap(var(--opac));
+  @include shapes.swapper__swap(var(--opac), 0 1rem);
 }

@@ -20,12 +20,13 @@
   @include form__size();
 }
 
-@mixin form__content() {
+@mixin form__content($padding) {
+  padding: $padding;
   @apply w-full flex flex-col gap-10;
 }
 
-@mixin swapper__swap($opac) {
-  @include form__content();
+@mixin swapper__swap($opac, $padding) {
+  @include form__content($padding);
   opacity: $opac;
-  @apply h-fit px-4 transition-all duration-300;
+  @apply h-fit transition-all duration-300;
 }
