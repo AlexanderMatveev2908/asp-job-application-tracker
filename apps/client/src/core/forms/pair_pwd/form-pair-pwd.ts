@@ -21,8 +21,13 @@ import { UseIDsDir } from '@/core/directives/use_ids';
   providers: [UseApiTrackerHk],
 })
 export class FormPairPwd extends UseKitFormHk {
-  public readonly confSwap: InputSignal<Nullable<ConfSwapT>> = input<Nullable<ConfSwapT>>(null);
+  // ? directives
   public readonly useKitStrategy: UseKitStrategyDir = inject(UseKitStrategyDir);
+  public readonly useIDsDir: UseIDsDir = inject(UseIDsDir);
+
+  // ? props
+  public readonly confSwap: InputSignal<Nullable<ConfSwapT>> = input<Nullable<ConfSwapT>>(null);
+
   // ? form group
   public readonly form: FormGroup = PairPwdFormMng.form();
 

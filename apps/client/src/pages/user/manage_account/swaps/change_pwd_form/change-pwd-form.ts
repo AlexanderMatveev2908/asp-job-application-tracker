@@ -5,10 +5,11 @@ import { FormPairPwd } from '@/core/forms/pair_pwd/form-pair-pwd';
 import { Observable, of } from 'rxjs';
 import { ConfSwapT } from '@/core/hooks/use_swap/etc/types';
 import { UseKitStrategyDir } from '@/core/directives/forms/kits/0.use_kit_strategy';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-change-pwd-form',
-  imports: [FormPairPwd, UseKitStrategyDir],
+  imports: [FormPairPwd, UseKitStrategyDir, UseIDsDir],
   templateUrl: './change-pwd-form.html',
   styleUrl: './change-pwd-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

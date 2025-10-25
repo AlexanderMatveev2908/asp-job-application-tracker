@@ -21,7 +21,9 @@ import { UseIDsDir } from '@/core/directives/use_ids';
   providers: [UseApiTrackerHk],
 })
 export class UserMailForm extends UseKitFormHk {
+  // ? directives
   public readonly useKitStrategy: UseKitStrategyDir = inject(UseKitStrategyDir);
+  public readonly useIDsDir: UseIDsDir = inject(UseIDsDir);
 
   // ? static assets
   public readonly form: FormGroup = MailFormMng.form();

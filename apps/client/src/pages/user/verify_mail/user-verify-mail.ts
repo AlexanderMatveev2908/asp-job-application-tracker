@@ -6,10 +6,11 @@ import { ResApiT } from '@/core/store/api/etc/types';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { UseKitStrategyDir } from '@/core/directives/forms/kits/0.use_kit_strategy';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-user-verify-mail',
-  imports: [CsrWithTitle, UserMailForm, UseKitStrategyDir],
+  imports: [CsrWithTitle, UserMailForm, UseKitStrategyDir, UseIDsDir],
   templateUrl: './user-verify-mail.html',
   styleUrl: './user-verify-mail.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

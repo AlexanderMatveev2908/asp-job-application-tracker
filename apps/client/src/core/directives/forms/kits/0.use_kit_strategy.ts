@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
   selector: '[appUseKitStrategy]',
 })
 export class UseKitStrategyDir {
-  public readonly testId: InputSignal<string> = input.required();
   public readonly strategy: InputSignal<(data: unknown) => Observable<unknown>> = input.required();
   public readonly useFullPage: InputSignal<boolean> = input.required();
 

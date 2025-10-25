@@ -12,10 +12,11 @@ import { JwtResT } from '@/features/auth/etc/types';
 import { UseRouteMngHk } from '@/core/hooks/use_route_mng';
 import { LibApiShape } from '@/core/store/api/etc/lib/shape';
 import { UseKitStrategyDir } from '@/core/directives/forms/kits/0.use_kit_strategy';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-recover-pwd',
-  imports: [CsrWithTitle, FormPairPwd, UseKitStrategyDir],
+  imports: [CsrWithTitle, FormPairPwd, UseKitStrategyDir, UseIDsDir],
   templateUrl: './recover-pwd.html',
   styleUrl: './recover-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
