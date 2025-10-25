@@ -8,9 +8,19 @@
     [testId]="'login_form'"
   >
     <div class="root">
-      <app-form-field-txt [f]="mailField" [ctrl]="getCtrl('email')" [focusOnMount]="true" />
+      <app-form-field-txt
+        appUseFormFieldDir
+        [f]="mailField"
+        [ctrl]="getCtrl('email')"
+        [focusOnMount]="true"
+      />
 
-      <app-form-field-txt [f]="pwdField()" [ctrl]="getCtrl('password')" [onSvgClick]="onToggle" />
+      <app-form-field-txt
+        appUseFormFieldDir
+        [f]="pwdField()"
+        [ctrl]="getCtrl('password')"
+        [onSvgClick]="onToggle"
+      />
     </div>
   </app-auth-form-shape>
 </app-csr-with-title>

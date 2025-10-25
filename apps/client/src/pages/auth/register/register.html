@@ -17,6 +17,7 @@
         <!--  -->
         @for(f of firstSwapFields; track f.id){
         <app-form-field-txt
+          appUseFormFieldDir
           [f]="f"
           [ctrl]="getCtrl(f.name)"
           [focusOnMount]="f.name === 'firstName'"

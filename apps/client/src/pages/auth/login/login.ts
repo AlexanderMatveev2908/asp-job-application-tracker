@@ -15,10 +15,11 @@ import { PwdFieldsUiFkt } from '@/core/ui_fkt/form_fields/1.pwd';
 import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { UseFormShapeDir } from '@/core/directives/forms/use_form_shape';
+import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
 
 @Component({
   selector: 'app-login',
-  imports: [CsrWithTitle, AuthFormShape, FormFieldTxt, UseIDsDir, UseFormShapeDir],
+  imports: [CsrWithTitle, AuthFormShape, FormFieldTxt, UseIDsDir, UseFormShapeDir, UseFormFieldDir],
   templateUrl: './login.html',
   styleUrl: './login.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

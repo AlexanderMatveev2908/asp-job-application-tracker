@@ -1,6 +1,7 @@
 <div class="root">
   <app-form-field-txt
     #pwdFieldRef
+    appUseFormFieldDir
     [f]="pwdField()"
     [ctrl]="getCtrl()('password')"
     [onSvgClick]="toggleByKey('isPwdTypePwd')"
@@ -18,6 +19,7 @@
   />
 
   <app-form-field-txt
+    appUseFormFieldDir
     [f]="confPwdField()"
     [ctrl]="getCtrl()('confirmPassword')"
     [onSvgClick]="toggleByKey('isConfirmPwdTypePwd')"

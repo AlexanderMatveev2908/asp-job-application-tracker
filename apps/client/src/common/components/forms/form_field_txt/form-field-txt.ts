@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   input,
   InputSignal,
   OnInit,
@@ -13,7 +14,7 @@ import { FormFieldErr } from '../form_field_err/form-field-err';
 import { Nullable, OptCbT, SvgT } from '@/common/types/etc';
 import { NgComponentOutlet } from '@angular/common';
 import { LibPrs } from '@/core/lib/data_structure/prs';
-import { UseFormFieldDomDir } from '@/core/directives/forms/form_field/1.use_form_field';
+import { UseFormFieldDomDir } from '@/core/directives/forms/form_field/0.use_form_field_dom';
 import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
 
 @Component({
@@ -24,6 +25,9 @@ import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_f
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormFieldTxt extends UseFormFieldDomDir implements OnInit {
+  // ? directives
+  public readonly useFormFieldDir: UseFormFieldDir = inject(UseFormFieldDir);
+
   // ? personal props required
   public readonly ctrl: InputSignal<FormControl> = input.required();
   public readonly f: InputSignal<TxtFieldT | TxtSvgFieldT> = input.required();
@@ -49,6 +53,6 @@ export class FormFieldTxt extends UseFormFieldDomDir implements OnInit {
 
   // ? ng lifecycle
   ngOnInit(): void {
-    this.setupWithCtrl(this.ctrl());
+    this.useFormFieldDir.setupWithCtrl(this.ctrl());
   }
 }
