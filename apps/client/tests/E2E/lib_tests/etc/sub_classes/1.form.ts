@@ -1,6 +1,12 @@
 import { expect, Locator } from '@playwright/test';
 import { LibRootTests } from './0.root';
-import { DataFieldT } from '../types';
+import { DataFieldErrT, DataFieldT } from '../types';
+import { Nullable } from '@/common/types/etc';
+
+export interface FillReturnT {
+  field: Locator;
+  errField: Locator;
+}
 
 export abstract class LibFormTests extends LibRootTests {
   public async fillWith(form: Locator, data: DataFieldT): Promise<Locator> {
@@ -10,11 +16,21 @@ export abstract class LibFormTests extends LibRootTests {
     return field;
   }
 
-  public async errWhen(form: Locator, err: DataFieldT): Promise<Locator> {
+  public async errWhen(form: Locator, err: DataFieldT): Promise<FillReturnT> {
     const field: Locator = await this.fillWith(form, err);
 
     const errField: Locator = await this.byIdIn(form, `err__${err.field}`);
     await expect(errField).toHaveCSS('opacity', '1');
+
+    return { field, errField };
+  }
+
+  public async errMsgWhen(form: Locator, err: DataFieldErrT): Promise<Locator> {
+    const { errField, field } = await this.errWhen(form, err);
+
+    const span: Locator = await this.byCssIn(errField, 'root__msg');
+    const txt: Nullable<string> = await span.textContent();
+    await expect(txt).toContain(err.err);
 
     return field;
   }
@@ -23,7 +39,7 @@ export abstract class LibFormTests extends LibRootTests {
     const locators: Locator[] = [];
 
     for (const err of errors) {
-      const field: Locator = await this.errWhen(form, err);
+      const { field } = await this.errWhen(form, err);
       locators.push(field);
     }
 
