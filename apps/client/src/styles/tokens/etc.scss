@@ -6,31 +6,22 @@
   @apply text-red-600 text-3xl;
 }
 
-// ? border style often used
-.bd__sm {
-  @apply border-2 border-gray-300 rounded-xl;
-}
-
-.bd__md {
-  @apply border-3 border-gray-300 rounded-xl;
-}
-
 // ?  scroll
-.scroll__app::-webkit-scrollbar {
+.app__scroll::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
 
-.scroll__app::-webkit-scrollbar-track {
+.app__scroll::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.scroll__app::-webkit-scrollbar-thumb {
+.app__scroll::-webkit-scrollbar-thumb {
   background: var(--gray__300);
   border-radius: 10px;
 }
 
-.scroll__app {
+.app__scroll {
   scrollbar-width: auto;
   scrollbar-color: var(--gray__300) transparent;
 }
