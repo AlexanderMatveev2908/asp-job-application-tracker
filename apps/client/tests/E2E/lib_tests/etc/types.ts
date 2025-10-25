@@ -7,6 +7,10 @@ export interface DataFieldT {
   val: string;
 }
 
+export interface DataFieldErrT extends DataFieldT {
+  err: string;
+}
+
 // ? test/user endpoint
 export interface TkResT {
   user: UserT;
