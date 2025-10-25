@@ -1,18 +1,18 @@
 import { Nullable } from '@/common/types/etc';
 import { Reg } from '../../paperwork/reg';
-import { Prs } from '../data_structure/prs';
-import { ShapeCheck } from '../data_structure/shape_check';
-import { Stack } from './stack';
+import { LibPrs } from '../data_structure/prs';
+import { LibShapeCheck } from '../data_structure/shape_check';
+import { LibStack } from './stack';
 
-export class Log {
+export class LibLog {
   private static _log(title: Nullable<string>, ...args: unknown[]): void {
     // ? 0 private log
     // ? 1 public log
     // ? 2 real caller
     // eslint-disable-next-line no-magic-numbers
-    const caller: string = Stack.getCallerLess(2);
+    const caller: string = LibStack.getCallerLess(2);
 
-    const existsTtl: boolean = ShapeCheck.isStr(title);
+    const existsTtl: boolean = LibShapeCheck.isStr(title);
     const ttl: string = existsTtl ? title! : caller;
     let emoji: string = '';
     if (existsTtl) {
@@ -24,7 +24,7 @@ export class Log {
 
     console.log('\n');
     console.group(
-      `${emoji} ${ttl}${existsTtl ? ` • 🧩 ${caller}` : ''}\n⏰ ${Prs.devDate(Date.now())}`
+      `${emoji} ${ttl}${existsTtl ? ` • 🧩 ${caller}` : ''}\n⏰ ${LibPrs.devDate(Date.now())}`
     );
 
     for (const el of args) console.log(el);

@@ -1,5 +1,5 @@
 import { Nullable } from '@/common/types/etc';
-import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
+import { UseNavSvc } from '@/core/services/use_nav/use_nav';
 import { LibCbcHmac } from '@/features/cbcHmac/etc/lib';
 import { AppEventPayloadT } from '@/core/lib/dom/meta_event/etc/types';
 import { Reg } from '@/core/paperwork/reg';

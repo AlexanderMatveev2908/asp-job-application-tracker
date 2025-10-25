@@ -3,12 +3,12 @@ import { getNoticeState } from './reducer/selectors';
 import { NoticeStateT, NoticeTmptT } from './reducer/reducer';
 import { NoticeActT } from './reducer/actions';
 import { GenericVoidCbT, Nullable } from '@/common/types/etc';
-import { UseKitSliceSvc } from '@/core/hooks/kits/use_kit_slice';
+import { UseKitSliceHk } from '@/core/hooks/kits/use_kit_slice';
 
 @Injectable({
   providedIn: 'root',
 })
-export class NoticeSlice extends UseKitSliceSvc {
+export class NoticeSlice extends UseKitSliceHk {
   public get _noticeState(): Signal<NoticeStateT> {
     return this.store.selectSignal(getNoticeState);
   }

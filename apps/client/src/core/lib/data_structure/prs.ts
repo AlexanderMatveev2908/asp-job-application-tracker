@@ -1,6 +1,6 @@
 import { UserT } from '@/features/user/etc/types';
 
-export class Prs {
+export class LibPrs {
   public static devDate(date: Date | string | number): string {
     {
       const param =

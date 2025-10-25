@@ -1,4 +1,4 @@
-import { UseStorageSvc } from '@/core/hooks/use_storage';
+import { UseStorageSvc } from '@/core/services/use_storage';
 import { envVars } from '@/environments/environment';
 import { HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';

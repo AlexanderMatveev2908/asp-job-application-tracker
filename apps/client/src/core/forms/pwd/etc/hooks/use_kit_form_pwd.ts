@@ -1,8 +1,8 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
-import { UseKitFormSvc } from '../../../hooks/kits/kit_form/0.use_kit_form';
+import { UseKitFormHk } from '../../../../hooks/kits/kit_form/0.use_kit_form';
 
 @Injectable()
-export abstract class UseKitFormPwdSvc extends UseKitFormSvc {
+export abstract class UseKitFormPwdHk extends UseKitFormHk {
   public readonly isPwdTypePwd: WritableSignal<boolean> = signal(true);
 
   public onToggle: () => void = () => {

@@ -1,8 +1,8 @@
 import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { ZodSafeParseResult, ZodType } from 'zod';
-import { ShapeCheck } from '../lib/data_structure/shape_check';
-import { Log } from '../lib/dev/log';
-import { UseSwapSvc } from '../hooks/use_swap/use_swap';
+import { LibShapeCheck } from '../lib/data_structure/shape_check';
+import { LibLog } from '../lib/dev/log';
+import { UseSwapHk } from '../hooks/use_swap/use_swap';
 import { FocusDOM } from '../lib/dom/focus';
 import { Nullable } from '@/common/types/etc';
 
@@ -32,11 +32,11 @@ export class ZodCheck {
   private static _onSubmitFailed(form: FormGroup): Nullable<string> {
     let first: Nullable<string> = null;
 
-    Log.logTtl('submit failed', form.errors);
+    LibLog.logTtl('submit failed', form.errors);
 
     for (const [keyCtrl, ctrl] of Object.entries(form.controls)) {
       const err: Nullable<string> = form.errors?.[keyCtrl];
-      if (!ShapeCheck.isStr(err)) continue;
+      if (!LibShapeCheck.isStr(err)) continue;
 
       if (!first) first = keyCtrl;
 
@@ -61,7 +61,7 @@ export class ZodCheck {
 
     setTimeout(() => {
       FocusDOM.byDataField(first);
-    }, UseSwapSvc.TIME_ANIMATION);
+    }, UseSwapHk.TIME_ANIMATION);
   }
 }
 

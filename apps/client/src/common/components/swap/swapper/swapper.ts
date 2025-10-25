@@ -17,7 +17,7 @@ import {
 import { SwapBtns } from './swap_btns/swap-btns';
 import { ElDomT, Nullable, Opt, RefDomT } from '@/common/types/etc';
 import { ErrApp } from '@/core/lib/err';
-import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
+import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 
 @Component({
   selector: 'app-swapper',
@@ -26,7 +26,7 @@ import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
   styleUrl: './swapper.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Swapper extends UseInjCtxSvc implements AfterViewInit {
+export class Swapper extends UseInjCtxHk implements AfterViewInit {
   // ? personal props
   public readonly swap: InputSignal<number> = input.required();
   public readonly setSwap: InputSignal<(val: number) => void> = input.required();

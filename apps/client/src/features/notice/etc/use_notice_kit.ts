@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { NoticeSlice } from '../slice';
-import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
+import { UseNavSvc } from '@/core/services/use_nav/use_nav';
 import { NoticeStateT } from '../reducer/reducer';
-import { NavFromT } from '@/core/hooks/use_nav/etc/0.use_path';
+import { NavFromT } from '@/core/services/use_nav/etc/0.use_path';
 import { AppEventT } from '@/core/lib/dom/meta_event/etc/types';
 
 @Injectable({

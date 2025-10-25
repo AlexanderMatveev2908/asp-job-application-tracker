@@ -4,7 +4,7 @@ import { Observable, tap } from 'rxjs';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { MailFormT } from '@/core/paperwork/etc/mail';
 import { AuthMailForm } from '@/core/forms/auth_mail/auth-mail-form';
-import { UseKitMailFormSvc } from '@/core/hooks/kits/kit_form/-1.use_kit_mail';
+import { UseKitMailFormHk } from '@/core/hooks/kits/kit_form/-1.use_kit_mail';
 
 @Component({
   selector: 'app-auth-req-mail-conf-mail',
@@ -13,7 +13,7 @@ import { UseKitMailFormSvc } from '@/core/hooks/kits/kit_form/-1.use_kit_mail';
   styleUrl: './auth-req-mail-conf-mail.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AuthReqMailConfMail extends UseKitMailFormSvc {
+export class AuthReqMailConfMail extends UseKitMailFormHk {
   public readonly strategy: (data: MailFormT) => Observable<unknown> = (data: MailFormT) =>
     this.requireMailAPi.confMail(data).pipe(
       tap((_: ResApiT<void>) => {

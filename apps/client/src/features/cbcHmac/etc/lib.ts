@@ -1,5 +1,5 @@
 import { AadCbcHmacT, TokenT } from '@/features/cbcHmac/etc/types';
-import { Binary } from '../../../core/lib/data_structure/binary';
+import { LibBinary } from '../../../core/lib/data_structure/binary';
 import { Nullable } from '@/common/types/etc';
 import { Reg } from '@/core/paperwork/reg';
 
@@ -9,8 +9,8 @@ export class LibCbcHmac {
     const parts: string[] = token.split('.', maxParts);
 
     try {
-      const binaryAad: Uint8Array = Binary.binaryFromHex(parts[0]);
-      const json: string = Binary.utf8FromBinary(binaryAad);
+      const binaryAad: Uint8Array = LibBinary.binaryFromHex(parts[0]);
+      const json: string = LibBinary.utf8FromBinary(binaryAad);
       const map: AadCbcHmacT = JSON.parse(json);
 
       return map;

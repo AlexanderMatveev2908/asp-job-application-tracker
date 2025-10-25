@@ -20,8 +20,8 @@ import { Nullable } from '@/common/types/etc';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Observable } from 'rxjs';
 import { PwdFieldsUiFkt } from '@/core/ui_fkt/form_fields/1.pwd';
-import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
-import { UseFocusSvc } from '@/core/hooks/listeners/use_focus';
+import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
+import { UseFocusHk } from '@/core/hooks/listeners/use_focus';
 
 @Component({
   selector: 'app-pair-pwd',
@@ -29,16 +29,16 @@ import { UseFocusSvc } from '@/core/hooks/listeners/use_focus';
   templateUrl: './pair-pwd.html',
   styleUrl: './pair-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UseFocusSvc],
+  providers: [UseFocusHk],
 })
-export class PairPwd extends UseInjCtxSvc implements OnInit {
+export class PairPwd extends UseInjCtxHk implements OnInit {
   // ? personal props
   public readonly getCtrl: InputSignal<(key: string) => FormControl<unknown>> = input.required();
   // ? component may be inside a swapper
   // ? but not necessarily so by default is always 0
   public readonly confSwap: InputSignal<Nullable<ConfSwapT>> = input<Nullable<ConfSwapT>>(null);
   public readonly focusOnMount: InputSignal<boolean> = input(false);
-  public readonly useFocus: UseFocusSvc = inject(UseFocusSvc);
+  public readonly useFocus: UseFocusHk = inject(UseFocusHk);
 
   // ? local state
   public readonly pairPwdState: WritableSignal<PairPwdStateT> = signal({

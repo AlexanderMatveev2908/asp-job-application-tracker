@@ -1,6 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { OptErrApiT, OptToastApiT } from '../types';
-import { FormPrs } from '@/core/lib/data_structure/form_prs';
+import { LibFormPrs } from '@/core/lib/data_structure/form_prs';
 import { ErrApp } from '@/core/lib/err';
 import { None, Nullable, OrNone } from '@/common/types/etc';
 
@@ -17,7 +17,7 @@ export class ApiArgs<T> {
 
   private parseQuery(query: Record<string, unknown>): HttpParams {
     if (!query) throw new ErrApp('invalid arg parseQuery');
-    return new HttpParams({ fromString: FormPrs.genParamsURL(query) });
+    return new HttpParams({ fromString: LibFormPrs.genParamsURL(query) });
   }
 
   private ifOptToastEmpty(): void {

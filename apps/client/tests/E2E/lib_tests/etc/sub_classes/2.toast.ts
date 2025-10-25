@@ -1,8 +1,8 @@
 /* eslint-disable no-magic-numbers */
 import { expect, Locator } from '@playwright/test';
 import { Nullable } from '@/common/types/etc';
-import { Log } from '@/core/lib/dev/log';
 import { LibFormTests } from './1.form';
+import { LibLog } from '@/core/lib/dev/log';
 
 export type ToastExpT = 'ok' | 'err';
 
@@ -58,7 +58,7 @@ export abstract class LibToastTests extends LibFormTests {
 
       await closeBtn.click();
     } catch {
-      Log.log('ignore if missing');
+      LibLog.log('ignore if missing');
     }
   }
 }

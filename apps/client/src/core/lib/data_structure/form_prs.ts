@@ -1,7 +1,7 @@
-import { ShapeCheck } from './shape_check';
+import { LibShapeCheck } from './shape_check';
 import { ErrApp } from '../err';
 
-export class FormPrs {
+export class LibFormPrs {
   private static appendPrimitive(params: URLSearchParams | FormData, k: string, v: unknown): void {
     params.append(k, typeof v === 'string' ? v : v + '');
   }
@@ -14,7 +14,7 @@ export class FormPrs {
     const arrayKey = key + '[]';
 
     for (const vv of v)
-      if (ShapeCheck.isObj(vv)) this.nestingMng(vv, formParams, arrayKey);
+      if (LibShapeCheck.isObj(vv)) this.nestingMng(vv, formParams, arrayKey);
       else this.appendPrimitive(formParams, arrayKey, vv);
   }
 
@@ -23,16 +23,16 @@ export class FormPrs {
     formParams: URLSearchParams | FormData,
     prefix: string = ''
   ): URLSearchParams | FormData {
-    if (!ShapeCheck.hasObjData(arg))
+    if (!LibShapeCheck.hasObjData(arg))
       throw new ErrApp('passed falsy value where expect Record<string,unknown>');
 
     for (const [k, v] of Object.entries(arg as Record<string, unknown>)) {
-      if (ShapeCheck.isNone(v)) continue;
+      if (LibShapeCheck.isNone(v)) continue;
 
       const key: string = prefix ? `${prefix}[${k}]` : k;
 
       if (Array.isArray(v)) this.handleList(formParams, key, v);
-      else if (ShapeCheck.isObj(v)) this.nestingMng(v, formParams, key);
+      else if (LibShapeCheck.isObj(v)) this.nestingMng(v, formParams, key);
       else this.appendPrimitive(formParams, key, v);
     }
 

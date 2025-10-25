@@ -10,9 +10,9 @@ import { UseAuthKitSvc } from '@/features/auth/etc/use_auth_kit';
 import { from, switchMap, tap } from 'rxjs';
 import { JwtResT } from '@/features/auth/etc/types';
 import { ResApiT } from '@/core/store/api/etc/types';
-import { UseKitFormPwdSvc } from '@/core/forms/pwd/etc/use_kit_form_pwd';
+import { UseKitFormPwdHk } from '@/core/forms/pwd/etc/hooks/use_kit_form_pwd';
 import { PwdFieldsUiFkt } from '@/core/ui_fkt/form_fields/1.pwd';
-import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
+import { ApiTrackerHk } from '@/core/store/api/etc/tracker';
 
 @Component({
   selector: 'app-login',
@@ -20,9 +20,9 @@ import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
   templateUrl: './login.html',
   styleUrl: './login.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ApiTrackerSvc],
+  providers: [ApiTrackerHk],
 })
-export class Login extends UseKitFormPwdSvc {
+export class Login extends UseKitFormPwdHk {
   private readonly useAuthKit: UseAuthKitSvc = inject(UseAuthKitSvc);
   public readonly form: FormGroup = LoginFormMng.form;
 

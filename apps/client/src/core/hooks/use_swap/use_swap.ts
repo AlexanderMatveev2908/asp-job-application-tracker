@@ -3,10 +3,10 @@ import { ConfSwapT, SwapModeT, SwapStateT } from './etc/types';
 import { LibEtc } from '@/core/lib/etc';
 import { FocusDOM } from '@/core/lib/dom/focus';
 import { TimerIdT } from '@/common/types/etc';
-import { UseInjCtxSvc } from '../platform/use_inj_ctx';
+import { UseInjCtxHk } from '../use_inj_ctx';
 
 @Injectable()
-export class UseSwapSvc extends UseInjCtxSvc {
+export class UseSwapHk extends UseInjCtxHk {
   // | added little margin 100ms
   // | normal tim would be 400
   // eslint-disable-next-line no-magic-numbers
@@ -38,7 +38,7 @@ export class UseSwapSvc extends UseInjCtxSvc {
         this.swapState.update((prev: SwapStateT) => ({ ...prev, mode: onEndSwap }));
 
       this.clearTmr();
-    }, UseSwapSvc.TIME_ANIMATION);
+    }, UseSwapHk.TIME_ANIMATION);
   };
 
   // ? shared helpers

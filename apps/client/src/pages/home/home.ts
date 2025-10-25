@@ -1,7 +1,7 @@
 import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
 import { SvgFillBash } from '@/common/components/svgs/fill/bash/bash';
 import { ApiSvc } from '@/core/store/api/api';
-import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
+import { ApiTrackerHk } from '@/core/store/api/etc/tracker';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { ApiArgs } from '@/core/store/api/etc/request/args';
 import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
@@ -19,7 +19,7 @@ import { LinkShadow } from '@/common/components/links/link_shadow/link-shadow';
   styleUrl: './home.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Home extends ApiTrackerSvc {
+export class Home extends ApiTrackerHk {
   // ? svc
   private readonly api: ApiSvc = inject(ApiSvc);
   private readonly authSlice: AuthSlice = inject(AuthSlice);

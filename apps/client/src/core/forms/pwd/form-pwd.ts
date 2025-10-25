@@ -10,11 +10,11 @@ import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-fiel
 import { FormShape } from '@/common/components/forms/form_shape/form-shape';
 import { Observable } from 'rxjs';
 import { PwdFormMng, PwdFormT } from '../../paperwork/etc/pwd';
-import { UseKitFormPwdSvc } from '@/core/forms/pwd/etc/use_kit_form_pwd';
+import { UseKitFormPwdHk } from '@/core/forms/pwd/etc/hooks/use_kit_form_pwd';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TxtSvgFieldT } from '@/common/types/forms';
 import { PwdFieldsUiFkt } from '@/core/ui_fkt/form_fields/1.pwd';
-import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
+import { ApiTrackerHk } from '@/core/store/api/etc/tracker';
 
 @Component({
   selector: 'app-form-pwd',
@@ -22,9 +22,9 @@ import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
   templateUrl: './form-pwd.html',
   styleUrl: './form-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ApiTrackerSvc],
+  providers: [ApiTrackerHk],
 })
-export class FormPwd extends UseKitFormPwdSvc {
+export class FormPwd extends UseKitFormPwdHk {
   // ? props
   public readonly strategy: InputSignal<(data: PwdFormT) => Observable<unknown>> = input.required();
   public readonly testId: InputSignal<string> = input.required();

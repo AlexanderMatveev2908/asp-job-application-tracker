@@ -1,5 +1,5 @@
 import { SpinPageSsr } from '@/common/components/spins/spin_page_ssr/spin-page-ssr';
-import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
+import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -17,7 +17,7 @@ import {
   styleUrl: './page-wrapper.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PageWrapper extends UseInjCtxSvc implements AfterViewInit {
+export class PageWrapper extends UseInjCtxHk implements AfterViewInit {
   // ? local state
   public readonly isHydrated: WritableSignal<boolean> = signal(false);
 

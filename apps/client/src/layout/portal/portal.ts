@@ -15,7 +15,7 @@ import { DomPortalOutlet, TemplatePortal, PortalModule } from '@angular/cdk/port
 import { ElDomT, Nullable, RefTemplateT } from '@/common/types/etc';
 import { v4 } from 'uuid';
 import { RecCoordsT } from '@/core/lib/dom/portal';
-import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
+import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 
 @Component({
   selector: 'app-portal',
@@ -25,7 +25,7 @@ import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
   styleUrl: './portal.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Portal extends UseInjCtxSvc implements AfterViewInit, OnDestroy {
+export class Portal extends UseInjCtxHk implements AfterViewInit, OnDestroy {
   // ? svc
   private readonly appRef: ApplicationRef = inject(ApplicationRef);
   private readonly vcr: ViewContainerRef = inject(ViewContainerRef);

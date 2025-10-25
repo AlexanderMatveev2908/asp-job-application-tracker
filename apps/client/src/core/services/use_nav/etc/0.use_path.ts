@@ -2,7 +2,7 @@ import { Nullable } from '@/common/types/etc';
 import { inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { Navigation, NavigationEnd, Params, Router } from '@angular/router';
 import { filter } from 'rxjs';
-import { ShapeCheck } from '@/core/lib/data_structure/shape_check';
+import { LibShapeCheck } from '@/core/lib/data_structure/shape_check';
 
 // | make navigation predictable & avoid misspelling passing arguments
 export type NavFromT = 'err' | 'ok';
@@ -12,7 +12,7 @@ export interface MetaNavT {
 }
 
 @Injectable()
-export abstract class UsePath {
+export abstract class UsePathHk {
   protected readonly router: Router = inject(Router);
 
   private readonly _currPath: WritableSignal<Nullable<string>> = signal(null);
@@ -50,7 +50,7 @@ export abstract class UsePath {
         this._meta.set((navigation?.extras.state as MetaNavT) ?? null);
 
         const queryParams: Params = this.router.routerState.snapshot.root.queryParams;
-        this._query.set(ShapeCheck.hasObjData(queryParams) ? queryParams : null);
+        this._query.set(LibShapeCheck.hasObjData(queryParams) ? queryParams : null);
       });
   }
 }

@@ -3,12 +3,12 @@ import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-wi
 import { FormPwd } from '@/core/forms/pwd/form-pwd';
 import { Observable, tap } from 'rxjs';
 import { PwdFormT } from '@/core/paperwork/etc/pwd';
-import { UseRouteMngSvc } from '@/core/hooks/use_route_mng';
+import { UseRouteMngHk } from '@/core/hooks/use_route_mng';
 import { UserApiSvc } from '@/features/user/api';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { CbcHmacMandatoryT } from '@/features/cbcHmac/etc/types';
 import { CbcHmacSlice } from '@/features/cbcHmac/slice';
-import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
+import { UseNavSvc } from '@/core/services/use_nav/use_nav';
 
 @Component({
   selector: 'app-access-manage-account',
@@ -16,10 +16,10 @@ import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
   templateUrl: './access-manage-account.html',
   styleUrl: './access-manage-account.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UseRouteMngSvc],
+  providers: [UseRouteMngHk],
 })
 export class AccessManageAccount implements OnInit {
-  private readonly useRouteMng: UseRouteMngSvc = inject(UseRouteMngSvc);
+  private readonly useRouteMng: UseRouteMngHk = inject(UseRouteMngHk);
   private readonly userApi: UserApiSvc = inject(UserApiSvc);
   private readonly cbcHmacSlice: CbcHmacSlice = inject(CbcHmacSlice);
   private readonly useNav: UseNavSvc = inject(UseNavSvc);

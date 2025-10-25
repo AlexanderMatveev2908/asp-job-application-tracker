@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { UsePlatformSvc } from '../../platform/use_platform';
-import { NavFromT, UsePath } from './0.use_path';
+import { UsePlatformSvc } from '../../use_platform';
+import { NavFromT, UsePathHk } from './0.use_path';
 import { Nullable } from '@/common/types/etc';
 
 interface NavOptT {
@@ -9,7 +9,7 @@ interface NavOptT {
 }
 
 @Injectable()
-export abstract class UseRouter extends UsePath {
+export abstract class UseRouterHk extends UsePathHk {
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
   private async _nav(arg: string, { replace, from }: NavOptT): Promise<boolean> {

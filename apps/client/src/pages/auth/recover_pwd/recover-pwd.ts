@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
-import { UseKitPairPwdFormSvc } from '@/core/forms/pair_pwd/etc/use_kit_pair_pwd';
+import { UseKitPairPwdFormHk } from '@/core/forms/pair_pwd/etc/hooks/use_kit_pair_pwd';
 import { FormPairPwd } from '@/core/forms/pair_pwd/form-pair-pwd';
 import { TokenT } from '@/features/cbcHmac/etc/types';
 import { UseAuthKitSvc } from '@/features/auth/etc/use_auth_kit';
@@ -9,8 +9,8 @@ import { PairPwdFormT } from '@/core/forms/pair_pwd/etc/paperwork/form_mng';
 import { catchError, EMPTY, Observable, tap, throwError } from 'rxjs';
 import { ErrApiT, ResApiT, StatusT } from '@/core/store/api/etc/types';
 import { JwtResT } from '@/features/auth/etc/types';
-import { UseRouteMngSvc } from '@/core/hooks/use_route_mng';
-import { ApiShape } from '@/core/store/api/etc/shape';
+import { UseRouteMngHk } from '@/core/hooks/use_route_mng';
+import { LibApiShape } from '@/core/store/api/etc/shape';
 
 @Component({
   selector: 'app-recover-pwd',
@@ -18,16 +18,16 @@ import { ApiShape } from '@/core/store/api/etc/shape';
   templateUrl: './recover-pwd.html',
   styleUrl: './recover-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UseRouteMngSvc],
+  providers: [UseRouteMngHk],
 })
-export class RecoverPwd extends UseKitPairPwdFormSvc implements OnInit {
-  private readonly routerProtection: UseRouteMngSvc = inject(UseRouteMngSvc);
+export class RecoverPwd extends UseKitPairPwdFormHk implements OnInit {
+  private readonly routerProtection: UseRouteMngHk = inject(UseRouteMngHk);
   private readonly useAuthKit: UseAuthKitSvc = inject(UseAuthKitSvc);
 
   public readonly strategy: (data: unknown) => Observable<unknown> = (data: unknown) => {
     const cbcHmacToken: Nullable<string> = this.cbcHmacSlice.cbcHmac();
 
-    return ApiShape.throwIfCbcHmacMissing(
+    return LibApiShape.throwIfCbcHmacMissing(
       cbcHmacToken,
       this.useAuthKit.authApi
         .recoverPwd({

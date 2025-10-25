@@ -1,7 +1,7 @@
 import { SpanPropsT, SpanSizesPropsT } from '@/common/components/els/span/etc/types';
 import { Span } from '@/common/components/els/span/span';
 import { SvgFillLogout } from '@/common/components/svgs/fill/logout/logout';
-import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
+import { ApiTrackerHk } from '@/core/store/api/etc/tracker';
 import { UseLogout } from '@/features/auth/etc/use_logout';
 import { ChangeDetectionStrategy, Component, inject, input, InputSignal } from '@angular/core';
 import { finalize } from 'rxjs';
@@ -13,7 +13,7 @@ import { finalize } from 'rxjs';
   styleUrl: './logout-btn.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LogoutBtn extends ApiTrackerSvc {
+export class LogoutBtn extends ApiTrackerHk {
   private readonly useLogout: UseLogout = inject(UseLogout);
   public readonly closeSomethingCb: InputSignal<() => void> = input.required();
 

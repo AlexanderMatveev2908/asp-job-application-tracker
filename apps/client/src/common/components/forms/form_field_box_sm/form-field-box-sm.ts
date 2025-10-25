@@ -17,7 +17,7 @@ import { Nullable, RefDomT, SvgT } from '@/common/types/etc';
 import { FormControl } from '@angular/forms';
 import { FormFieldErr } from '../form_field_err/form-field-err';
 import { FormFieldBoxAnimations } from './etc/animations';
-import { Prs } from '@/core/lib/data_structure/prs';
+import { LibPrs } from '@/core/lib/data_structure/prs';
 
 @Component({
   selector: 'app-form-field-box-sm',
@@ -44,7 +44,7 @@ export class FormFieldBoxSm extends UseFormFieldDir implements OnInit, AfterView
   }
 
   // ? props err msg
-  public readonly testId: Signal<string> = computed(() => Prs.toSnake(this.f().field));
+  public readonly testId: Signal<string> = computed(() => LibPrs.toSnake(this.f().field));
 
   // ? listeners
   public onToggle(): void {

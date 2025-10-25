@@ -4,10 +4,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MailFormMng, MailFormT } from '../../paperwork/etc/mail';
 import { MailFormUiFkt } from '../../ui_fkt/form_fields/1.mail';
 import { TxtFieldT } from '@/common/types/forms';
-import { UseKitFormSvc } from '@/core/hooks/kits/kit_form/0.use_kit_form';
+import { UseKitFormHk } from '@/core/hooks/kits/kit_form/0.use_kit_form';
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
 import { Observable } from 'rxjs';
-import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
+import { ApiTrackerHk } from '@/core/store/api/etc/tracker';
 
 @Component({
   selector: 'app-auth-mail-form',
@@ -15,9 +15,9 @@ import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
   templateUrl: './auth-mail-form.html',
   styleUrl: './auth-mail-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ApiTrackerSvc],
+  providers: [ApiTrackerHk],
 })
-export class AuthMailForm extends UseKitFormSvc {
+export class AuthMailForm extends UseKitFormHk {
   // ? not need by parent
   public readonly form: FormGroup = MailFormMng.form();
   public readonly mailField: TxtFieldT = MailFormUiFkt.mailField();

@@ -6,7 +6,7 @@ import { StatusT } from './types';
 
 export type HttpResT = HttpResponse<unknown> | HttpErrorResponse;
 
-export class ApiShape {
+export class LibApiShape {
   public static isHttpRes(e: HttpEvent<unknown> | HttpErrorResponse): boolean {
     return e instanceof HttpResponse || e instanceof HttpErrorResponse;
   }

@@ -13,7 +13,7 @@ import { Tooltip } from '../../els/tooltip/tooltip';
 import { FormControl } from '@angular/forms';
 import { ErrsFieldT, RecErrsFieldT } from '@/common/types/forms';
 import { UseFormFieldDir } from '@/core/directives/form_field/0.use_field_root';
-import { Prs } from '@/core/lib/data_structure/prs';
+import { LibPrs } from '@/core/lib/data_structure/prs';
 import { Nullable } from '@/common/types/etc';
 
 @Component({
@@ -36,7 +36,7 @@ export class FormFieldErr extends UseFormFieldDir implements OnInit {
 
   // ? props testid tooltip
   public readonly testIdErrMsg: Signal<string> = computed(() =>
-    Prs.toSnake(`err__${this.testId()}`)
+    LibPrs.toSnake(`err__${this.testId()}`)
   );
 
   // ? ng

@@ -10,8 +10,8 @@ import { Observable, tap } from 'rxjs';
 import { HttpMethod } from '../etc/types';
 import { inject } from '@angular/core';
 import { ApiConfSvc } from '../etc/request/conf/conf';
-import { ShapeCheck } from '@/core/lib/data_structure/shape_check';
-import { ApiShape, HttpResT } from '../etc/shape';
+import { LibShapeCheck } from '@/core/lib/data_structure/shape_check';
+import { LibApiShape, HttpResT } from '../etc/shape';
 import { Nullable } from '@/common/types/etc';
 import { ConfApiT } from '../etc/request/conf/etc/types';
 
@@ -28,7 +28,7 @@ const getParams = (req: HttpRequest<unknown>): Nullable<Record<string, unknown>>
   const params: Record<string, unknown> = {};
   for (const k of reqParams.keys()) params[k] = reqParams.get(k);
 
-  return ShapeCheck.hasObjData(params) ? params : null;
+  return LibShapeCheck.hasObjData(params) ? params : null;
 };
 
 const mng = (
@@ -36,7 +36,7 @@ const mng = (
   e: HttpEvent<unknown> | HttpErrorResponse,
   confApi: ApiConfSvc
 ): void => {
-  if (!ApiShape.isHttpRes(e)) return;
+  if (!LibApiShape.isHttpRes(e)) return;
   const res: HttpResT = e as HttpResT;
 
   const urlReq: string = (res.url ?? '').split('?')[0];

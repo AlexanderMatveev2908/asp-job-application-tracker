@@ -20,8 +20,8 @@ import { SpanLinkPropsT, SpanPropsT } from '@/common/components/els/span/etc/typ
 import { Lorem } from '@/core/lib/etc';
 import { NavLink } from '@/common/components/links/nav_link/nav-link';
 import { Nullable, RefDomT } from '@/common/types/etc';
-import { Prs } from '@/core/lib/data_structure/prs';
-import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
+import { LibPrs } from '@/core/lib/data_structure/prs';
+import { UseNavSvc } from '@/core/services/use_nav/use_nav';
 import { TxtPropsT } from '@/common/components/els/txt/etc/types';
 import { UserSlice } from '@/features/user/slice';
 import { UserT } from '@/features/user/etc/types';
@@ -54,7 +54,7 @@ export class Sidebar extends Lorem {
 
   // ? testId
   public testIdFromPath(path: string): string {
-    return Prs.toSnake(`sidebar__${path}`);
+    return LibPrs.toSnake(`sidebar__${path}`);
   }
 
   // ? derived

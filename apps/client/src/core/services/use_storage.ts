@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
-import { UsePlatformSvc } from './platform/use_platform';
-import { Log } from '../lib/dev/log';
+import { UsePlatformSvc } from './use_platform';
+import { LibLog } from '../lib/dev/log';
 import { ErrApp } from '../lib/err';
-import { ShapeCheck } from '../lib/data_structure/shape_check';
-import { Prs } from '../lib/data_structure/prs';
+import { LibShapeCheck } from '../lib/data_structure/shape_check';
+import { LibPrs } from '../lib/data_structure/prs';
 import { Nullable } from '@/common/types/etc';
 
 export type StorageKeyT = 'notice' | 'accessToken' | 'wakeUp' | 'cbcHmacToken';
@@ -31,8 +31,8 @@ export class UseStorageSvc {
 
   public setItem<T>(key: StorageKeyT, data: T): Nullable<void> {
     return this.checkEnv(() => {
-      if (ShapeCheck.isNone(data)) throw new ErrApp('passed None to set storage');
-      else if (ShapeCheck.isPrimitive(data)) sessionStorage.setItem(key, data + '');
+      if (LibShapeCheck.isNone(data)) throw new ErrApp('passed None to set storage');
+      else if (LibShapeCheck.isPrimitive(data)) sessionStorage.setItem(key, data + '');
       else sessionStorage.setItem(key, JSON.stringify(data));
     });
   }
@@ -41,20 +41,20 @@ export class UseStorageSvc {
     return this.checkEnv(() => {
       const data: unknown = sessionStorage.getItem(key);
 
-      if (ShapeCheck.isNone(data) || ShapeCheck.isNoneBug(data)) {
+      if (LibShapeCheck.isNone(data) || LibShapeCheck.isNoneBug(data)) {
         return null;
       } else {
         const str: string = data as string;
 
         try {
-          if (ShapeCheck.isJsonObj(str)) return JSON.parse(str) as T;
+          if (LibShapeCheck.isJsonObj(str)) return JSON.parse(str) as T;
         } catch {
-          Log.log('isJsonObj failed check');
+          LibLog.log('isJsonObj failed check');
           return str as T;
         }
 
         // ? small help to return true|false as real boolean and not literal strings
-        return (ShapeCheck.isBoolStr(str) ? Prs.strToBool(str) : str) as T;
+        return (LibShapeCheck.isBoolStr(str) ? LibPrs.strToBool(str) : str) as T;
       }
     });
   }

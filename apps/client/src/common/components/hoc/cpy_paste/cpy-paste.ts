@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { Portal } from '@/layout/portal/portal';
 import { UseSwapPortalDir } from '@/core/directives/use_portal/1.use_swap_portal';
-import { Log } from '@/core/lib/dev/log';
+import { LibLog } from '@/core/lib/dev/log';
 import { ErrApp } from '@/core/lib/err';
 import { Nullable, RefDomT, TimerIdT } from '@/common/types/etc';
 import { LibEtc } from '@/core/lib/etc';
@@ -65,7 +65,7 @@ export class CpyPaste extends UseSwapPortalDir implements AfterViewInit {
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      Log.log(err);
+      LibLog.log(err);
     }
   }
 

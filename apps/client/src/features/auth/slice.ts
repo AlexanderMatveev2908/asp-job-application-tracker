@@ -1,14 +1,14 @@
 import { computed, Injectable, Signal } from '@angular/core';
 import { AuthStateT } from './reducer/reducer';
 import { getAuthState } from './reducer/selectors';
-import { UseKitSliceSvc } from '@/core/hooks/kits/use_kit_slice';
+import { UseKitSliceHk } from '@/core/hooks/kits/use_kit_slice';
 import { AuthActT, LoggingKeyArgT, LoggingKeyT } from './reducer/actions';
 import { Nullable } from '@/common/types/etc';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthSlice extends UseKitSliceSvc {
+export class AuthSlice extends UseKitSliceHk {
   public get authState(): Signal<AuthStateT> {
     return this.store.selectSignal(getAuthState);
   }

@@ -3,7 +3,7 @@ import { PairPwd } from '@/common/components/hoc/pair_pwd/pair-pwd';
 import { FormGroup } from '@angular/forms';
 import { PairPwdFormMng, PairPwdFormT } from './etc/paperwork/form_mng';
 import { FormShape } from '@/common/components/forms/form_shape/form-shape';
-import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
+import { ApiTrackerHk } from '@/core/store/api/etc/tracker';
 import { NgClass } from '@angular/common';
 import { Nullable } from '@/common/types/etc';
 import { ConfSwapT } from '@/core/hooks/use_swap/etc/types';
@@ -15,7 +15,7 @@ import { UseKitFormStrategyDir } from '@/core/directives/use_kit_form_strategy';
   templateUrl: './form-pair-pwd.html',
   styleUrl: './form-pair-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ApiTrackerSvc],
+  providers: [ApiTrackerHk],
 })
 export class FormPairPwd extends UseKitFormStrategyDir {
   public readonly confSwap: InputSignal<Nullable<ConfSwapT>> = input<Nullable<ConfSwapT>>(null);

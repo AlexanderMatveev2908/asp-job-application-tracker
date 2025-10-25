@@ -6,7 +6,7 @@ import { UseAppAuthDir } from './0.use_app_auth';
 import { LibEtc } from '@/core/lib/etc';
 import { CbcHmacKeyTmrT } from '@/features/cbcHmac/reducer/reducer';
 import { ConstantsApp } from '@/core/constants';
-import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
+import { UseNavSvc } from '@/core/services/use_nav/use_nav';
 import { TokenT } from '@/features/cbcHmac/etc/types';
 
 @Directive()
