@@ -4,6 +4,7 @@ import { getUserState } from './reducer/selectors';
 import { UseKitSliceHk } from '@/core/hooks/kits/use_kit_slice';
 import { UserT } from './etc/types';
 import { UserActT } from './reducer/actions';
+import { Nullable } from '@/common/types/etc';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,8 @@ export class UserSlice extends UseKitSliceHk {
   public get userState(): Signal<UserStateT> {
     return this.store.selectSignal(getUserState);
   }
+
+  public readonly user: Signal<Nullable<UserT>> = computed(() => this.userState().user);
 
   public setUser(user: UserT): void {
     this.store.dispatch(UserActT.SET_USER(user));
