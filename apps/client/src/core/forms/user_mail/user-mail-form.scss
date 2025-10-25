@@ -5,5 +5,5 @@
 }
 
 .root {
-  @include shapes.app__form__content(false);
+  @extend .app__form__content_no_pad;
 }

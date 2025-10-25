@@ -5,6 +5,6 @@
 }
 
 .root {
-  @include shapes.app__form__size();
+  @extend .app__form__size;
   @apply mx-auto w-full flex justify-around;
 }

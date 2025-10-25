@@ -16,7 +16,7 @@
 
     .input__field {
       @apply w-full;
-      @include mix.input__sdw(var(--pad));
+      @include mix.app__input__sdw(var(--pad));
     }
 
     .input__svg {

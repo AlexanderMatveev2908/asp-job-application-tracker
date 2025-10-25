@@ -9,5 +9,5 @@
   @apply cursor-pointer;
   @include shapes.app__btn__res(var(--pad));
   @include mix.el__shw(var(--clr));
-  @include mix.el__scl(1.15);
+  @include mix.app__el__scl(1.15);
 }

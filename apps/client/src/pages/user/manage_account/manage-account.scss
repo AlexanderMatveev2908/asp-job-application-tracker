@@ -5,10 +5,10 @@
 }
 
 .root {
-  @include shapes.app__form__page();
+  @extend .app__form__page;
 
   .root__swapper {
-    @include shapes.app__form__container_size();
+    @extend .app__form__container_size;
   }
 
   .swapper__swap {
