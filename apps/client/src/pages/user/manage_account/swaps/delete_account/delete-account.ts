@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
 import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
-import { UseSpanDir } from '@/core/directives/span/use_span';
+import { UseSpanDir } from '@/core/directives/use_span';
 import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({

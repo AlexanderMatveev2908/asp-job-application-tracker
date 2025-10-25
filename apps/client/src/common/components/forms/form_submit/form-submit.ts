@@ -11,7 +11,7 @@ import { BtnShadow } from '../../btns/btn_shadow/btn-shadow';
 import { SpanEventPropsT } from '../../els/span/etc/types';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { BtnStatePropsT } from '@/common/types/etc';
-import { UseSpanDir } from '@/core/directives/span/use_span';
+import { UseSpanDir } from '@/core/directives/use_span';
 
 @Component({
   selector: 'app-form-submit',

@@ -22,7 +22,7 @@ import { NoticeWrapperPropsT } from './etc/types';
 import { LinkShadow } from '@/common/components/links/link_shadow/link-shadow';
 import { envVars } from '@/environments/environment';
 import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
-import { UseSpanDir } from '@/core/directives/span/use_span';
+import { UseSpanDir } from '@/core/directives/use_span';
 import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({

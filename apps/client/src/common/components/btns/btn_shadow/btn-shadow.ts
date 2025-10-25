@@ -11,7 +11,7 @@ import { Span } from '../../els/span/span';
 import { WrapBtnApi } from '../../hoc/btns/wrap_btn_api/wrap-btn-api';
 import { BtnListenersT, BtnStatePropsT, BtnT, Nullable } from '@/common/types/etc';
 import { UseIDsDir } from '@/core/directives/use_ids';
-import { UseSpanDir } from '@/core/directives/span/use_span';
+import { UseSpanDir } from '@/core/directives/use_span';
 import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
 import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
 

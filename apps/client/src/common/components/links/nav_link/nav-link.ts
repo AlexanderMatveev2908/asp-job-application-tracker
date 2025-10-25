@@ -12,7 +12,7 @@ import { RouterLink } from '@angular/router';
 import { Span } from '../../els/span/span';
 import { NgClass } from '@angular/common';
 import { Nullable } from '@/common/types/etc';
-import { UseSpanDir } from '@/core/directives/span/use_span';
+import { UseSpanDir } from '@/core/directives/use_span';
 import { SpanSizesPropsT } from '../../els/span/etc/types';
 import { UseIDsDir } from '@/core/directives/use_ids';
 

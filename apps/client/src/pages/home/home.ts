@@ -12,7 +12,7 @@ import { SvgFillSecurity } from '@/common/components/svgs/fill/security/security
 import { AuthSlice } from '@/features/auth/slice';
 import { LinkShadow } from '@/common/components/links/link_shadow/link-shadow';
 import { UseIDsDir } from '@/core/directives/use_ids';
-import { UseSpanDir } from '@/core/directives/span/use_span';
+import { UseSpanDir } from '@/core/directives/use_span';
 
 @Component({
   selector: 'app-home',

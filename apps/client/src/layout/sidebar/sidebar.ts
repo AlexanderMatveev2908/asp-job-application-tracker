@@ -28,7 +28,7 @@ import { SidebarUiFkt } from './etc/ui_fkt';
 import { LogoutBtn } from '@/features/auth/components/logout_btn/logout-btn';
 import { MouseDOM } from '@/core/lib/dom/mouse';
 import { UseIDsDir } from '@/core/directives/use_ids';
-import { UseSpanDir } from '@/core/directives/span/use_span';
+import { UseSpanDir } from '@/core/directives/use_span';
 
 @Component({
   selector: 'app-sidebar',

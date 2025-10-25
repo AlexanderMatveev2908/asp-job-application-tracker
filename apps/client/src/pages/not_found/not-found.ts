@@ -5,7 +5,7 @@ import { CsrNoticeWrapper } from '@/common/components/hoc/page/csr_notice_wrappe
 import { AppEventT } from '@/core/lib/dom/meta_event/etc/types';
 import { NoticeWrapperPropsT } from '@/common/components/hoc/page/csr_notice_wrapper/etc/types';
 import { SpanLinkPropsT } from '@/common/components/els/span/etc/types';
-import { UseSpanDir } from '@/core/directives/span/use_span';
+import { UseSpanDir } from '@/core/directives/use_span';
 import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({

@@ -12,7 +12,7 @@ import { SwapBtnsUiFkt } from './etc/ui_fkt';
 import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
 import { LibPrs } from '@/core/lib/data_structure/prs';
 import { UseIDsDir } from '@/core/directives/use_ids';
-import { UseSpanDir } from '@/core/directives/span/use_span';
+import { UseSpanDir } from '@/core/directives/use_span';
 
 @Component({
   selector: 'app-swap-btns',

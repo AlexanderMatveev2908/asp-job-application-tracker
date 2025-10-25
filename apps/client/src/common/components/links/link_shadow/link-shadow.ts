@@ -12,7 +12,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { Span } from '../../els/span/span';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
-import { UseSpanDir } from '@/core/directives/span/use_span';
+import { UseSpanDir } from '@/core/directives/use_span';
 import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
 
 @Component({
