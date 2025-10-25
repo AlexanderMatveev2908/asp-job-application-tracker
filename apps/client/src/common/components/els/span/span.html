@@ -2,7 +2,12 @@
   @let Svg = spanProps().Svg;
   <!--  -->
   @if (Svg) {
-  <app-wrap-txt-api [isPending]="isPending()" [spinSizeT]="spinSize()" [eventT]="eventT()">
+  <app-wrap-txt-api
+    [spinSizeT]="spinSize()"
+    appUseWrapApiDir
+    [isPending]="isPending()"
+    [eventT]="eventT()"
+  >
     <div [class]="svgCls()">
       <ng-container *ngComponentOutlet="Svg; inputs: {}" />
     </div>

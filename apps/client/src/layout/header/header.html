@@ -6,7 +6,12 @@
   </div>
 
   <div class="root__right">
-    <app-wrap-txt-api [eventT]="'INFO'" [isPending]="fetchingUser()" [spinSizeT]="'md'">
+    <app-wrap-txt-api
+      [spinSizeT]="'md'"
+      appUseWrapApiDir
+      [eventT]="'INFO'"
+      [isPending]="fetchingUser()"
+    >
       <app-drop-abs
         [spanProps]="spanDropProps()"
         [spanSizesProps]="spanDropSizesProps"

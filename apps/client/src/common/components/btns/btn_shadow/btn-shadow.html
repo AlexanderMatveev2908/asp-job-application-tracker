@@ -1,4 +1,8 @@
-<app-wrap-btn-api [isPending]="btnStateProps().isPending" [eventT]="useSpanDir.spanProps().eventT">
+<app-wrap-btn-api
+  appUseWrapApiDir
+  [isPending]="btnStateProps().isPending"
+  [eventT]="useSpanDir.spanProps().eventT"
+>
   <button
     (click)="onClick()"
     [type]="type()"

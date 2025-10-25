@@ -14,10 +14,11 @@ import { UseIDsDir } from '@/core/directives/use_ids';
 import { UseSpanDir } from '@/core/directives/use_span';
 import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
 import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
+import { UseWrapApiDir } from '@/core/directives/use_wrap_api';
 
 @Component({
   selector: 'app-btn-shadow',
-  imports: [Span, WrapBtnApi],
+  imports: [Span, WrapBtnApi, UseWrapApiDir],
   templateUrl: './btn-shadow.html',
   styleUrl: './btn-shadow.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

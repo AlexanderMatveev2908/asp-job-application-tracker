@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { SpinBtn } from '@/common/components/spins/spin_btn/spin-btn';
 import { UseWrapApiDir } from '@/core/directives/use_wrap_api';
 import { UseMetaEventDir } from '@/core/directives/use_meta_event';
@@ -10,4 +10,6 @@ import { UseMetaEventDir } from '@/core/directives/use_meta_event';
   styleUrl: './wrap-btn-api.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WrapBtnApi extends UseWrapApiDir {}
+export class WrapBtnApi {
+  public readonly useWrapApiDir: UseWrapApiDir = inject(UseWrapApiDir);
+}

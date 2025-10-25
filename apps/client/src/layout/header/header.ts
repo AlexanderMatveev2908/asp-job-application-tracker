@@ -32,6 +32,7 @@ import { LogoutBtn } from '@/features/auth/components/logout_btn/logout-btn';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { UseSpanDir } from '@/core/directives/use_span';
 import { UseDropDir } from '@/core/directives/use_drop';
+import { UseWrapApiDir } from '@/core/directives/use_wrap_api';
 
 @Component({
   selector: 'app-header',
@@ -48,6 +49,7 @@ import { UseDropDir } from '@/core/directives/use_drop';
     UseIDsDir,
     UseSpanDir,
     UseDropDir,
+    UseWrapApiDir,
   ],
   templateUrl: './header.html',
   styleUrl: './header.scss',
