@@ -1,20 +1,21 @@
 import { Directive, Signal } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map, Observable, startWith } from 'rxjs';
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
+import { Nullable } from '@/common/types/etc';
 
 @Directive({
   selector: '[appUseFormFieldDir]',
 })
 export class UseFormFieldDir extends UseInjCtxHk {
   // ? derived
-  public val!: Signal<unknown>;
-  public interacted!: Signal<boolean>;
+  public val: Nullable<Signal<unknown>> = null;
+  public interacted: Nullable<Signal<boolean>> = null;
 
   // ? private helpers
-  private assignFields(c: AbstractControl): void {
+  private assignFields(c: FormControl): void {
     this.val = toSignal(c.valueChanges as Observable<unknown>, {
       initialValue: c.value as unknown,
     });
@@ -28,8 +29,8 @@ export class UseFormFieldDir extends UseInjCtxHk {
   }
 
   // ? helpers
-  public setupWithCtrl(ctrl: AbstractControl): void {
-    const c: AbstractControl = ctrl;
+  public setupWithCtrl(ctrl: FormControl): void {
+    const c: FormControl = ctrl;
 
     this.inCtx(() => {
       this.assignFields(c);
@@ -37,7 +38,7 @@ export class UseFormFieldDir extends UseInjCtxHk {
   }
 
   public setupWithFieldRef(inst: FormFieldTxt): void {
-    const c: AbstractControl = inst.ctrl();
+    const c: FormControl = inst.ctrl();
 
     this.inCtx(() => {
       this.assignFields(c);

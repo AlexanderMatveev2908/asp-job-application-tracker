@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { FormFieldTxt } from '../../forms/form_field_txt/form-field-txt';
 import { PairPwdStateT, TxtSvgFieldT } from '@/common/types/forms';
-import { AbstractControl, FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { PwdGenerator } from './pwd_generator/pwd-generator';
 import { ConfSwapT } from '@/core/hooks/use_swap/etc/types';
 import { PwdChecker } from './pwd_checker/pwd-checker';
@@ -57,13 +57,13 @@ export class PairPwd extends UseInjCtxHk implements OnInit {
 
   // ? confPwd setup to listen pwd changes
 
-  private pwdVal!: Signal<string>;
-  public optionalConfPwdDep: Signal<string[]> = computed(() => [this.pwdVal()]);
+  private pwdVal: Nullable<Signal<string>> = null;
+  public optionalConfPwdDep: Signal<Nullable<string>[]> = computed(() => [this.pwdVal?.() ?? null]);
 
   ngOnInit(): void {
     this.inCtx(() => {
-      const pwdCtrl: AbstractControl = this.getCtrl()('password');
-      const confPwdCtrl: AbstractControl = this.getCtrl()('confirmPassword');
+      const pwdCtrl: FormControl = this.getCtrl()('password');
+      const confPwdCtrl: FormControl = this.getCtrl()('confirmPassword');
 
       this.pwdVal = toSignal(pwdCtrl.valueChanges as Observable<string>, {
         initialValue: pwdCtrl.value,

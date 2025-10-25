@@ -45,9 +45,10 @@ export class PwdChecker implements OnInit, AfterViewInit {
   public readonly coords: WritableSignal<Nullable<RecCoordsT>> = signal<Nullable<RecCoordsT>>(null);
 
   // ? derived
-  public pwdLen: Signal<number> = computed(
-    () => (this.useFormFieldDir.val() as string)?.trim()?.length ?? 0
-  );
+  public pwdLen: Signal<number> = computed(() => {
+    const val: Nullable<string> = this.useFormFieldDir?.val?.() as Nullable<string>;
+    return val ? val?.trim()?.length ?? 0 : 0;
+  });
   public readonly showTooltip: Signal<boolean> = computed(
     () => !this.confSwap() || (!!this.confSwap()?.isCurr && this.confSwap()?.mode !== 'swapping')
   );
@@ -57,15 +58,19 @@ export class PwdChecker implements OnInit, AfterViewInit {
 
   // ? listeners & ng lifecycle
   public getSvgCls(reg: RegExp): string {
-    if (!this.useFormFieldDir.interacted()) return 'text-gray-300';
-    else if (reg.test(this.useFormFieldDir.val() as string)) return 'text-green-600';
+    const val: Nullable<string> = this.useFormFieldDir?.val?.() as Nullable<string>;
+
+    if (!this.useFormFieldDir?.interacted?.()) return 'text-gray-300';
+    else if (reg.test(val ?? '')) return 'text-green-600';
     else return 'text-red-600';
   }
 
   public getBorderClr(): string {
-    return !this.useFormFieldDir.interacted()
+    const val: Nullable<string> = this.useFormFieldDir?.val?.() as Nullable<string>;
+
+    return !this.useFormFieldDir.interacted?.()
       ? 'border-gray-300'
-      : Reg.isPwd(this.useFormFieldDir.val() as string)
+      : Reg.isPwd(val ?? '')
       ? 'border-green-600'
       : 'border-red-600';
   }

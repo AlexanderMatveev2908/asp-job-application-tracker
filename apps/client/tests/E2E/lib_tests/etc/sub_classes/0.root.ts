@@ -9,7 +9,7 @@ export abstract class LibRootTests {
   protected readonly TIMEOUT_PUSH_URL: number = 30 * 1000;
   protected readonly TIMEOUT_PRE_INTERACTION: number = 1000;
 
-  protected readonly page!: Page;
+  protected readonly page: Page;
   constructor(page: Page) {
     this.page = page;
   }

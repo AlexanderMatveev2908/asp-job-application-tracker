@@ -41,8 +41,8 @@ export class FormFieldBoxSm implements OnInit, AfterViewInit {
 
   // ? helpers
   public getTwd(): string {
-    if (!this.useFormFieldDir.interacted()) return 'text-gray-300 border-gray-300';
-    else if (this.useFormFieldDir.val()) return 'text-green-600 border-green-600';
+    if (!this.useFormFieldDir.interacted?.()) return 'text-gray-300 border-gray-300';
+    else if (this.useFormFieldDir.val?.()) return 'text-green-600 border-green-600';
     else return 'text-red-600 border-red-600';
   }
 
@@ -54,7 +54,7 @@ export class FormFieldBoxSm implements OnInit, AfterViewInit {
     const c: FormControl = this.ctrl();
     c.markAsDirty();
     c.markAsTouched();
-    c.setValue(!this.useFormFieldDir.val());
+    c.setValue(!this.useFormFieldDir.val?.());
     c.updateValueAndValidity();
   }
 
@@ -64,7 +64,7 @@ export class FormFieldBoxSm implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.useFormFieldDir.useEffect(() => {
-      const val: Nullable<boolean> = this.useFormFieldDir.val() as Nullable<boolean>;
+      const val: Nullable<boolean> = (this.useFormFieldDir.val?.() ?? null) as Nullable<boolean>;
 
       FormFieldBoxAnimations.main({
         checkbox: this.checkbox,

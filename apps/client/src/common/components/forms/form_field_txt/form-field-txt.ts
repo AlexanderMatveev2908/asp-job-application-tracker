@@ -31,7 +31,7 @@ export class FormFieldTxt extends UseFormFieldDomDir implements OnInit {
   // ? personal props required
   public readonly ctrl: InputSignal<FormControl> = input.required();
   public readonly f: InputSignal<TxtFieldT | TxtSvgFieldT> = input.required();
-  public readonly optionalDep: InputSignal<Nullable<string[]>> = input<Nullable<string[]>>(null);
+  public readonly optionalDep: InputSignal<Nullable<unknown[]>> = input<Nullable<unknown[]>>(null);
 
   // ? personal props optional
   public readonly onSvgClick: InputSignal<Nullable<() => void>> = input<Nullable<() => void>>(null);

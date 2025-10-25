@@ -11,7 +11,7 @@ export abstract class UseFormFieldDomDir implements AfterViewInit {
   public readonly focusOnMount: InputSignal<boolean> = input(false);
 
   // ? children
-  @ViewChild('formField') formField!: RefDomT;
+  @ViewChild('formField') formField: RefDomT;
 
   ngAfterViewInit(): void {
     this.useFormFieldDir.useDOM(() => {

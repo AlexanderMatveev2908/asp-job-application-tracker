@@ -36,7 +36,7 @@ export class FormFieldErr implements OnInit {
     prev: null,
     curr: null,
   });
-  public readonly optionalDep: InputSignal<Nullable<string[]>> = input<Nullable<string[]>>(null);
+  public readonly optionalDep: InputSignal<Nullable<unknown[]>> = input<Nullable<unknown[]>>(null);
 
   // ? props testid tooltip
   public readonly testIdErrMsg: Signal<string> = computed(() =>
@@ -49,14 +49,14 @@ export class FormFieldErr implements OnInit {
 
     this.useFormFieldDir.useEffect(() => {
       const c: FormControl = this.ctrl();
-      void this.useFormFieldDir.val();
+      void this.useFormFieldDir?.val?.();
       void this.optionalDep();
 
       const errors: ErrsFieldT = c.errors as ErrsFieldT;
 
       this.recErrs.update((prev: RecErrsFieldT) => ({
         prev: prev.curr,
-        curr: errors?.zod && this.useFormFieldDir.interacted() ? errors.zod : null,
+        curr: errors?.zod && this.useFormFieldDir.interacted?.() ? errors.zod : null,
       }));
     });
   }

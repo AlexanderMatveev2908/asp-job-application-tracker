@@ -7,9 +7,9 @@
     <input
       #formField
       [formControl]="ctrl()"
-      (focus)="onFocus()?.(useFormFieldDir.val())"
-      (blur)="onBlur()?.(useFormFieldDir.val())"
-      (input)="onChange()?.(useFormFieldDir.val())"
+      (focus)="onFocus()?.(useFormFieldDir.val?.())"
+      (blur)="onBlur()?.(useFormFieldDir.val?.())"
+      (input)="onChange()?.(useFormFieldDir.val?.())"
       [attr.data-field]="f().field"
       [attr.data-testid]="testId()"
       class="input__field txt__md"
