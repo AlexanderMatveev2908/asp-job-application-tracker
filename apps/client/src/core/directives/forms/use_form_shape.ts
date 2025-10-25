@@ -1,9 +1,11 @@
 import { Directive, input, InputSignal } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { UseTestIdDir } from '../use_test_id';
+import { UseIDsDir } from '../use_ids';
 
-@Directive()
-export abstract class UseFormShapeDir extends UseTestIdDir {
+@Directive({
+  selector: '[appUseShapeDir]',
+})
+export class UseFormShapeDir extends UseIDsDir {
   public readonly fromGroup: InputSignal<FormGroup> = input.required();
   public readonly onSubmit: InputSignal<() => void> = input.required();
   public readonly isPending: InputSignal<boolean> = input.required();

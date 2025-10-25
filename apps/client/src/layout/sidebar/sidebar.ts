@@ -17,7 +17,6 @@ import { LinksUiFkt } from '@/core/ui_fkt/links';
 import { BlackBgPropsT } from '@/layout/black_bg/etc/types';
 import { DropStatic } from '@/common/components/drop/static/drop-static';
 import { SpanLinkPropsT, SpanPropsT } from '@/common/components/els/span/etc/types';
-import { Lorem } from '@/core/lib/etc';
 import { NavLink } from '@/common/components/links/nav_link/nav-link';
 import { Nullable, RefDomT } from '@/common/types/etc';
 import { LibPrs } from '@/core/lib/data_structure/prs';
@@ -28,16 +27,28 @@ import { UserT } from '@/features/user/etc/types';
 import { SidebarUiFkt } from './etc/ui_fkt';
 import { LogoutBtn } from '@/features/auth/components/logout_btn/logout-btn';
 import { MouseDOM } from '@/core/lib/dom/mouse';
+import { UseIDsDir } from '@/core/directives/use_ids';
+import { UseSpanRootDir } from '@/core/directives/span/0.use_span_root';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [BlackBg, NgClass, TxtClamp, DropStatic, NavLink, LogoutBtn, LogoutBtn],
+  imports: [
+    BlackBg,
+    NgClass,
+    TxtClamp,
+    DropStatic,
+    NavLink,
+    LogoutBtn,
+    LogoutBtn,
+    UseIDsDir,
+    UseSpanRootDir,
+  ],
 
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Sidebar extends Lorem {
+export class Sidebar {
   // ? svc
   private readonly sideSlice: SidebarSlice = inject(SidebarSlice);
   private readonly useNav: UseNavSvc = inject(UseNavSvc);

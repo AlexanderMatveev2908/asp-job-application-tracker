@@ -16,6 +16,7 @@
     <div class="body__wrap_links">
       @for(lk of allUsersLinks; track lk.id){
       <app-nav-link
+        appUseSpanDir
         [spanProps]="lk"
         [currPath]="currPath()"
         [setIsDropOpen]="onSideClick"
@@ -25,6 +26,7 @@
 
       <app-drop-static
         [spanProps]="spanUserProps()"
+        appUseIDsDir
         [testId]="'sidebar__drop_user'"
         [isOpen]="isDropOpen()"
         [setIsOpen]="setIsDropOpen"
@@ -34,6 +36,7 @@
           <div class="body__wrap_links">
             @for(lk of linksUser(); track lk.id){
             <app-nav-link
+              appUseSpanDir
               [testId]="testIdFromPath(lk.path)"
               [spanProps]="lk"
               [path]="lk.path"

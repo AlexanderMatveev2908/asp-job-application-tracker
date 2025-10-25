@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 
 @Directive({
   selector: '[appUseKitStrategy]',
-  standalone: true,
 })
 export class UseKitStrategyDir {
   public readonly testId: InputSignal<string> = input.required();

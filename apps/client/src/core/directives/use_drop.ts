@@ -7,12 +7,11 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { UseTestIdDir } from './use_test_id';
 import { RefDomT, RefTemplateT } from '@/common/types/etc';
 import { MouseDOM } from '../lib/dom/mouse';
 
 @Directive()
-export abstract class UseDropDir extends UseTestIdDir {
+export abstract class UseDropDir {
   // ? props
   public readonly isOpen: InputSignal<boolean> = input.required();
   public readonly setIsOpen: InputSignal<(val: boolean) => void> = input.required();

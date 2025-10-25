@@ -11,13 +11,17 @@
 
 <ng-template #formContent>
   <form
-    [attr.data-testid]="testId()"
+    [attr.data-testid]="useShapeDir.testId()"
     class="root__content"
-    [formGroup]="fromGroup()"
-    (ngSubmit)="onSubmit()()"
+    [formGroup]="useShapeDir.fromGroup()"
+    (ngSubmit)="useShapeDir.onSubmit()()"
   >
     <ng-content />
 
-    <app-form-submit [testId]="testId()" [isPending]="isPending()" />
+    <app-form-submit
+      appUseIDsDir
+      [testId]="useShapeDir.testId()"
+      [isPending]="useShapeDir.isPending()"
+    />
   </form>
 </ng-template>

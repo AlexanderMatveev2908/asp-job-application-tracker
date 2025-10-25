@@ -1,5 +1,5 @@
 import { Nullable } from '@/common/types/etc';
-import { UseTestIdDir } from '@/core/directives/use_test_id';
+import { UseIDsDir } from '@/core/directives/use_ids';
 import { AppEventMetaT, AppEventT } from '@/core/lib/dom/meta_event/etc/types';
 import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
 import { NgClass } from '@angular/common';
@@ -7,6 +7,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   input,
   InputSignal,
   Signal,
@@ -21,7 +22,9 @@ export type ArrowTooltipT = 'left' | 'right';
   styleUrl: './tooltip.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Tooltip extends UseTestIdDir {
+export class Tooltip {
+  public readonly useIDsDir: UseIDsDir = inject(UseIDsDir);
+
   // ? personal props required
   public readonly isHover: InputSignal<boolean> = input.required();
   public readonly msg: InputSignal<Nullable<string>> = input.required();

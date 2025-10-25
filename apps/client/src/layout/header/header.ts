@@ -29,6 +29,8 @@ import { UserSlice } from '@/features/user/slice';
 import { UserT } from '@/features/user/etc/types';
 import { WrapTxtApi } from '@/common/components/hoc/txt/wrap_txt_api/wrap-txt-api';
 import { LogoutBtn } from '@/features/auth/components/logout_btn/logout-btn';
+import { UseIDsDir } from '@/core/directives/use_ids';
+import { UseSpanRootDir } from '@/core/directives/span/0.use_span_root';
 
 @Component({
   selector: 'app-header',
@@ -42,6 +44,8 @@ import { LogoutBtn } from '@/features/auth/components/logout_btn/logout-btn';
     NavLink,
     WrapTxtApi,
     LogoutBtn,
+    UseIDsDir,
+    UseSpanRootDir,
   ],
   templateUrl: './header.html',
   styleUrl: './header.scss',

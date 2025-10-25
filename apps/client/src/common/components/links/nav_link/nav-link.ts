@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   input,
   InputSignal,
   Signal,
@@ -21,10 +22,12 @@ import { SpanSizesPropsT } from '../../els/span/etc/types';
   styleUrl: './nav-link.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavLink extends UseSpanRootDir {
+export class NavLink {
+  public readonly useSpanDir: UseSpanRootDir = inject(UseSpanRootDir);
+
   // ? app-span props
   public readonly path: InputSignal<string> = input.required();
-  public override readonly spanSizesProps: InputSignal<Partial<SpanSizesPropsT>> = input<
+  public readonly spanSizesProps: InputSignal<Partial<SpanSizesPropsT>> = input<
     Partial<SpanSizesPropsT>
   >({
     txt: 'lg',

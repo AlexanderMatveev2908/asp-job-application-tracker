@@ -9,10 +9,11 @@ import { Nullable } from '@/common/types/etc';
 import { ConfSwapT } from '@/core/hooks/use_swap/etc/types';
 import { UseKitStrategyDir } from '@/core/directives/forms/kits/0.use_kit_strategy';
 import { UseKitFormHk } from '@/core/hooks/kits/kit_form/0.use_kit_form';
+import { UseFormShapeDir } from '@/core/directives/forms/use_form_shape';
 
 @Component({
   selector: 'app-form-pair-pwd',
-  imports: [PairPwd, FormShape, NgClass],
+  imports: [PairPwd, FormShape, NgClass, UseFormShapeDir],
   templateUrl: './form-pair-pwd.html',
   styleUrl: './form-pair-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

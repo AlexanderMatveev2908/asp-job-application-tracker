@@ -5,7 +5,7 @@ import { AuthSpanLinks } from '../span_links/auth-span-links';
 
 @Component({
   selector: 'app-auth-form-shape',
-  imports: [FormShape, AuthSpanLinks],
+  imports: [FormShape, AuthSpanLinks, UseFormShapeDir],
   templateUrl: './auth-form-shape.html',
   styleUrl: './auth-form-shape.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

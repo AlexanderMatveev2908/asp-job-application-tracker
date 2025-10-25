@@ -15,10 +15,11 @@ import { ErrsFieldT, RecErrsFieldT } from '@/common/types/forms';
 import { LibPrs } from '@/core/lib/data_structure/prs';
 import { Nullable } from '@/common/types/etc';
 import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_field_root';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-form-field-err',
-  imports: [Tooltip],
+  imports: [Tooltip, UseIDsDir],
   templateUrl: './form-field-err.html',
   styleUrl: './form-field-err.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

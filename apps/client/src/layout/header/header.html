@@ -9,6 +9,7 @@
     <app-wrap-txt-api [eventT]="'INFO'" [isPending]="fetchingUser()" [spinSizeT]="'md'">
       <app-drop-abs
         [isOpen]="isDropOpen()"
+        appUseIDsDir
         [testId]="'header__drop'"
         [setIsOpen]="setIsDropOpen"
         [spanProps]="spanDropProps()"
@@ -19,6 +20,7 @@
           <div class="right__drop_content">
             @for(lk of dropLinks(); track lk.id){
             <app-nav-link
+              appUseSpanDir
               [testId]="testIdFromPath(lk.path)"
               [spanProps]="lk"
               [path]="lk.path"

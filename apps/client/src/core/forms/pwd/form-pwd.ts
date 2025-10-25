@@ -15,10 +15,11 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { TxtSvgFieldT } from '@/common/types/forms';
 import { PwdFieldsUiFkt } from '@/core/ui_fkt/form_fields/1.pwd';
 import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
+import { UseFormShapeDir } from '@/core/directives/forms/use_form_shape';
 
 @Component({
   selector: 'app-form-pwd',
-  imports: [FormFieldTxt, FormShape],
+  imports: [FormFieldTxt, FormShape, UseFormShapeDir],
   templateUrl: './form-pwd.html',
   styleUrl: './form-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   input,
   InputSignal,
   Signal,
@@ -18,6 +19,7 @@ import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { ElDomT, RefDomT } from '@/common/types/etc';
 import { DropStaticTwdCss, RecTwdClsDropT } from './etc';
 import { UseDropDir } from '@/core/directives/use_drop';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-drop-static',
@@ -27,6 +29,8 @@ import { UseDropDir } from '@/core/directives/use_drop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DropStatic extends UseDropDir implements AfterViewInit, AfterContentChecked {
+  public readonly useIDsDir: UseIDsDir = inject(UseIDsDir);
+
   // ? app-span component props
   public readonly spanProps: InputSignal<SpanPropsT> = input.required();
   public readonly spanSizesProps: SpanSizesPropsT = {

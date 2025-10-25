@@ -9,10 +9,11 @@ import { FormShape } from '@/common/components/forms/form_shape/form-shape';
 import { NgClass } from '@angular/common';
 import { UseKitStrategyDir } from '@/core/directives/forms/kits/0.use_kit_strategy';
 import { UseKitFormHk } from '@/core/hooks/kits/kit_form/0.use_kit_form';
+import { UseFormShapeDir } from '@/core/directives/forms/use_form_shape';
 
 @Component({
   selector: 'app-user-mail-form',
-  imports: [ReactiveFormsModule, FormFieldTxt, FormShape, NgClass],
+  imports: [ReactiveFormsModule, FormFieldTxt, FormShape, NgClass, UseFormShapeDir],
   templateUrl: './user-mail-form.html',
   styleUrl: './user-mail-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
