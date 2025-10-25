@@ -1,11 +1,17 @@
 <app-form-shape
+  appUseFormShapeDir
   [fromGroup]="form"
   [isPending]="apiTracker.isPending()"
   [onSubmit]="onSubmit"
-  [testId]="testId()"
-  [useFullPage]="useFullPage()"
+  [useFullPage]="useKitStrategy.useFullPage()"
+  appUseIDsDir
+  [testId]="useIDsDir.testId()"
 >
-  <div class="root" [ngClass]="useFullPage() ? 'root__pad' : 'root__no_pad'">
-    <app-pair-pwd [getCtrl]="getCtrl" [focusOnMount]="useFullPage()" [confSwap]="confSwap()" />
+  <div class="root" [ngClass]="useKitStrategy.cssCls()">
+    <app-pair-pwd
+      [getCtrl]="getCtrl"
+      [focusOnMount]="useKitStrategy.useFullPage()"
+      [confSwap]="confSwap()"
+    />
   </div>
 </app-form-shape>

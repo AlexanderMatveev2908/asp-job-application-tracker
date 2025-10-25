@@ -10,18 +10,19 @@ import { Popup } from '../popup/popup';
 import { PopupStaticPropsT } from '../popup/etc/types';
 import { SpinBtn } from '@/common/components/spins/spin_btn/spin-btn';
 import { WakeUpApiSvc } from '@/features/wake_up/api';
-import { UsePlatformSvc } from '@/core/hooks/platform/use_platform';
+import { UsePlatformSvc } from '@/core/services/use_platform';
 import { ToastSlice } from '@/features/toast/slice';
-import { UseStorageSvc } from '@/core/hooks/use_storage';
-import { Prs } from '@/core/lib/data_structure/prs';
+import { UseStorageSvc } from '@/core/services/use_storage';
+import { LibPrs } from '@/core/lib/data_structure/prs';
 import { WakeUpSlice } from '@/features/wake_up/slice';
 import { ErrApiT, ResApiT } from '@/core/store/api/etc/types';
 import { finalize } from 'rxjs';
 import { Nullable } from '@/common/types/etc';
+import { UseMetaEventDir } from '@/core/directives/use_meta_event';
 
 @Component({
   selector: 'app-wake-up',
-  imports: [Popup, SpinBtn],
+  imports: [Popup, SpinBtn, UseMetaEventDir],
   templateUrl: './wake-up.html',
   styleUrl: './wake-up.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -59,7 +60,7 @@ export class WakeUp implements AfterViewInit {
 
     const now: number = Date.now();
     // eslint-disable-next-line no-magic-numbers
-    const MS_OFFSET: number = Prs.minutesToMs(15);
+    const MS_OFFSET: number = LibPrs.minutesToMs(15);
     if (now - lastCall < MS_OFFSET) return false;
 
     return true;

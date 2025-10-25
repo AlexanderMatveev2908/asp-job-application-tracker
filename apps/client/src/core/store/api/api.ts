@@ -3,14 +3,14 @@ import { inject, Injectable } from '@angular/core';
 import { ApiArgs } from './etc/request/args';
 import { ObsResT, ResApiT } from './etc/types';
 import { Opt } from '@/common/types/etc';
-import { SideEffectsMng } from './etc/side_effects/4.final';
+import { ApiSideEffectsSvc } from './etc/side_effects/4.final';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiSvc {
   private readonly http: HttpClient = inject(HttpClient);
-  private readonly eventsMng: SideEffectsMng = inject(SideEffectsMng);
+  private readonly eventsMng: ApiSideEffectsSvc = inject(ApiSideEffectsSvc);
 
   // ? 🚦 request handlers
   public get<T, K>(args: ApiArgs<K>): ObsResT<T> {

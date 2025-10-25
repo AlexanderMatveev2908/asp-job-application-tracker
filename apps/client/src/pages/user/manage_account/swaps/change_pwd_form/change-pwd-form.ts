@@ -1,23 +1,24 @@
 import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
-import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
-import { UseKitPairPwdFormSvc } from '@/core/forms/pair_pwd/etc/use_kit_pair_pwd';
+import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
+import { UseKitPairPwdFormHk } from '@/core/forms/pair_pwd/etc/hooks/use_kit_pair_pwd';
 import { FormPairPwd } from '@/core/forms/pair_pwd/form-pair-pwd';
-import { PairPwdFormT } from '@/core/forms/pair_pwd/etc/paperwork/form_mng';
 import { Observable, of } from 'rxjs';
 import { ConfSwapT } from '@/core/hooks/use_swap/etc/types';
+import { UseKitStrategyDir } from '@/core/directives/forms/kits/use_kit_strategy';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-change-pwd-form',
-  imports: [FormPairPwd],
+  imports: [FormPairPwd, UseKitStrategyDir, UseIDsDir],
   templateUrl: './change-pwd-form.html',
   styleUrl: './change-pwd-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ApiTrackerSvc],
+  providers: [UseApiTrackerHk],
 })
-export class ChangePwdForm extends UseKitPairPwdFormSvc {
+export class ChangePwdForm extends UseKitPairPwdFormHk {
   public readonly confSwap: InputSignal<ConfSwapT> = input.required();
 
-  public readonly strategy: (data: PairPwdFormT) => Observable<unknown> = (data: PairPwdFormT) => {
+  public readonly strategy: (data: unknown) => Observable<unknown> = (data: unknown) => {
     console.log(data);
 
     return of(data);

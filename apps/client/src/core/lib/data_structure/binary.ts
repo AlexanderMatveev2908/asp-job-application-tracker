@@ -1,6 +1,6 @@
 import { Nullable } from '@/common/types/etc';
 
-export class Binary {
+export class LibBinary {
   public static binaryFromHex(arg: string): Uint8Array {
     const pairs: Nullable<RegExpMatchArray> = arg.match(/.{1,2}/g);
     if (!pairs) return new Uint8Array();

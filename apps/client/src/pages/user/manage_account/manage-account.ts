@@ -1,9 +1,9 @@
-import { UseRouteMngSvc } from '@/core/hooks/use_route_mng';
+import { UseRouteMngHk } from '@/core/hooks/use_route_mng';
 import { TokenT } from '@/features/cbcHmac/etc/types';
 import { AfterViewInit, ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { Swapper } from '@/common/components/swap/swapper/swapper';
-import { UseSwapSvc } from '@/core/hooks/use_swap/use_swap';
+import { UseSwapHk } from '@/core/hooks/use_swap/use_swap';
 import { UserWrapSwap } from './components/user_wrap_swap/user-wrap-swap';
 import { ChangeMailForm } from './swaps/change_mail_form/change-mail-form';
 import { ChangePwdForm } from './swaps/change_pwd_form/change-pwd-form';
@@ -24,10 +24,10 @@ import { DeleteAccount } from './swaps/delete_account/delete-account';
   templateUrl: './manage-account.html',
   styleUrl: './manage-account.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UseRouteMngSvc],
+  providers: [UseRouteMngHk],
 })
-export class ManageAccount extends UseSwapSvc implements OnInit, AfterViewInit {
-  private readonly useRouteMng: UseRouteMngSvc = inject(UseRouteMngSvc);
+export class ManageAccount extends UseSwapHk implements OnInit, AfterViewInit {
+  private readonly useRouteMng: UseRouteMngHk = inject(UseRouteMngHk);
 
   ngOnInit(): void {
     this.useRouteMng.pushOutIfNotTokenType('/user/manage-account', TokenT.MANAGE_ACC, {

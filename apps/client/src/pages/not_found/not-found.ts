@@ -5,10 +5,12 @@ import { CsrNoticeWrapper } from '@/common/components/hoc/page/csr_notice_wrappe
 import { AppEventT } from '@/core/lib/dom/meta_event/etc/types';
 import { NoticeWrapperPropsT } from '@/common/components/hoc/page/csr_notice_wrapper/etc/types';
 import { SpanLinkPropsT } from '@/common/components/els/span/etc/types';
+import { UseSpanDir } from '@/core/directives/use_span';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-not-found',
-  imports: [CsrNoticeWrapper, LinkShadow, CsrNoticeWrapper],
+  imports: [CsrNoticeWrapper, LinkShadow, CsrNoticeWrapper, UseSpanDir, UseIDsDir],
   templateUrl: './not-found.html',
   styleUrl: './not-found.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

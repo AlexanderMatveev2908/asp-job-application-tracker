@@ -1,10 +1,10 @@
 import { Directive, HostListener, signal, ViewChild, WritableSignal } from '@angular/core';
 import { Nullable, RefDomT } from '@/common/types/etc';
 import { PortalDOM, RecCoordsT } from '@/core/lib/dom/portal';
-import { UseInjCtxSvc } from '@/core/hooks/platform/use_inj_ctx';
+import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 
 @Directive()
-export abstract class UsePortalDir extends UseInjCtxSvc {
+export abstract class UsePortalDir extends UseInjCtxHk {
   // ? local state
   public readonly coords: WritableSignal<Nullable<RecCoordsT>> = signal(null);
 

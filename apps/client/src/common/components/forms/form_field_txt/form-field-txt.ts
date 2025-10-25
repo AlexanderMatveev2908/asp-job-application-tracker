@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   input,
   InputSignal,
   OnInit,
@@ -12,21 +13,25 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FormFieldErr } from '../form_field_err/form-field-err';
 import { Nullable, OptCbT, SvgT } from '@/common/types/etc';
 import { NgComponentOutlet } from '@angular/common';
-import { UseFormFieldDomDir } from '@/core/directives/form_field/1.use_form_field';
-import { Prs } from '@/core/lib/data_structure/prs';
+import { LibPrs } from '@/core/lib/data_structure/prs';
+import { UseFormFieldDomDir } from '@/core/directives/forms/form_field/1.use_form_field_dom';
+import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
 
 @Component({
   selector: 'app-form-field-txt',
-  imports: [ReactiveFormsModule, FormFieldErr, NgComponentOutlet],
+  imports: [ReactiveFormsModule, FormFieldErr, NgComponentOutlet, UseFormFieldDir],
   templateUrl: './form-field-txt.html',
   styleUrl: './form-field-txt.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormFieldTxt extends UseFormFieldDomDir implements OnInit {
+  // ? directives
+  public readonly useFormFieldDir: UseFormFieldDir = inject(UseFormFieldDir);
+
   // ? personal props required
   public readonly ctrl: InputSignal<FormControl> = input.required();
   public readonly f: InputSignal<TxtFieldT | TxtSvgFieldT> = input.required();
-  public readonly optionalDep: InputSignal<Nullable<string[]>> = input<Nullable<string[]>>(null);
+  public readonly optionalDep: InputSignal<Nullable<unknown[]>> = input<Nullable<unknown[]>>(null);
 
   // ? personal props optional
   public readonly onSvgClick: InputSignal<Nullable<() => void>> = input<Nullable<() => void>>(null);
@@ -36,7 +41,7 @@ export class FormFieldTxt extends UseFormFieldDomDir implements OnInit {
   public readonly onBlur: InputSignal<OptCbT> = input<OptCbT>(null);
   public readonly onChange: InputSignal<OptCbT> = input<OptCbT>(null);
 
-  public readonly testId: Signal<string> = computed(() => Prs.toSnake(this.f().field));
+  public readonly testId: Signal<string> = computed(() => LibPrs.toSnake(this.f().field));
 
   // ? derived
   public readonly Svg: Signal<Nullable<SvgT>> = computed(
@@ -48,6 +53,6 @@ export class FormFieldTxt extends UseFormFieldDomDir implements OnInit {
 
   // ? ng lifecycle
   ngOnInit(): void {
-    this.setupWithCtrl(this.ctrl());
+    this.useFormFieldDir.setupWithCtrl(this.ctrl());
   }
 }

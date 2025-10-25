@@ -1,7 +1,7 @@
 <div class="root">
-  @if(isPending()){
+  @if(useWrapApiDir.isPending()){
   <div [ngClass]="css()">
-    <app-spin-txt [eventT]="eventT()" />
+    <app-spin-txt appUseMetaEventDir [eventT]="useWrapApiDir.eventT()" />
   </div>
   }@else {
   <ng-content />

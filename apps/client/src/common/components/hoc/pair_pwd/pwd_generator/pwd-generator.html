@@ -27,7 +27,12 @@
 >
   <ng-template #tpl>
     <div class="tooltip">
-      <app-tooltip [isHover]="useHover.isHover()" [eventT]="'NONE'" [msg]="'Generate Password'" />
+      <app-tooltip
+        [isHover]="useHover.isHover()"
+        [eventT]="'NONE'"
+        [msg]="'Generate Password'"
+        appUseIDsDir
+      />
     </div>
   </ng-template>
 </app-portal>

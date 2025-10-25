@@ -2,17 +2,21 @@
   <div class="root">
     <div class="root__wrap_btn">
       <app-btn-shadow
+        appUseSpanDir
         [spanProps]="spanProps"
         [btnStateProps]="btnStateProps()"
         [listenersProps]="btnEventsProps"
+        appUseIDsDir
         [testId]="'script_btn'"
       />
     </div>
 
     <div class="root__wrap_btn">
       <app-link-shadow
+        appUseSpanDir
         [spanProps]="spanLinkProps()"
         [path]="spanLinkProps().path"
+        appUseIDsDir
         [testId]="'link_protected'"
       />
     </div>

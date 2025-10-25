@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';
 import { Nullable } from '@/common/types/etc';
 import { ErrApp } from '@/core/lib/err';
-import { UsePlatformSvc } from '@/core/hooks/platform/use_platform';
-import { UseRefSvc } from '@/core/hooks/use_ref';
+import { UsePlatformSvc } from '@/core/services/use_platform';
+import { UseRefHk } from '@/core/hooks/use_ref';
 import { UseCasesVerifyDir } from './etc/1.use_cases';
 import { AadCbcHmacT, TokenT } from '@/features/cbcHmac/etc/types';
 
@@ -14,11 +14,11 @@ import { AadCbcHmacT, TokenT } from '@/features/cbcHmac/etc/types';
   templateUrl: './verify.html',
   styleUrl: './verify.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UseRefSvc],
+  providers: [UseRefHk],
 })
 export class Verify extends UseCasesVerifyDir implements OnInit {
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
-  private readonly useRef: UseRefSvc = inject(UseRefSvc);
+  private readonly useRef: UseRefHk = inject(UseRefHk);
 
   ngOnInit(): void {
     this.usePlatform.onClient(() => {

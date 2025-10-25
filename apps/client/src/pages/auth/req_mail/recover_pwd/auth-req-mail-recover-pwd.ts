@@ -1,6 +1,6 @@
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { AuthMailForm } from '@/core/forms/auth_mail/auth-mail-form';
-import { UseKitMailFormSvc } from '@/core/forms/auth_mail/etc/use_kit_mail';
+import { UseKitMailFormHk } from '@/core/hooks/kits/kit_form/-1.use_kit_mail';
 import { MailFormT } from '@/core/paperwork/etc/mail';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
@@ -13,11 +13,11 @@ import { Observable, tap } from 'rxjs';
   styleUrl: './auth-req-mail-recover-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AuthReqMailRecoverPwd extends UseKitMailFormSvc {
+export class AuthReqMailRecoverPwd extends UseKitMailFormHk {
   public strategy: (data: MailFormT) => Observable<unknown> = (data: MailFormT) =>
     this.requireMailAPi.recoverPwd(data).pipe(
       tap((_: ResApiT<void>) => {
-        this.useNoticeKit.pushMailNotice('to recover your password');
+        this.useSideApiKit.pushMailNotice('to recover your password');
       })
     );
 }

@@ -2,23 +2,28 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   input,
   InputSignal,
   Signal,
 } from '@angular/core';
 import { BtnShadow } from '../../btns/btn_shadow/btn-shadow';
 import { SpanEventPropsT } from '../../els/span/etc/types';
-import { UseTestIdDir } from '@/core/directives/use_test_id';
+import { UseIDsDir } from '@/core/directives/use_ids';
 import { BtnStatePropsT } from '@/common/types/etc';
+import { UseSpanDir } from '@/core/directives/use_span';
 
 @Component({
   selector: 'app-form-submit',
-  imports: [BtnShadow],
+  imports: [BtnShadow, UseIDsDir, UseSpanDir],
   templateUrl: './form-submit.html',
   styleUrl: './form-submit.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormSubmit extends UseTestIdDir {
+export class FormSubmit {
+  // ? directives
+  public readonly useIDsDir: UseIDsDir = inject(UseIDsDir);
+  // ? props
   public readonly isPending: InputSignal<boolean> = input.required();
 
   // ? span of btn props • static
@@ -35,5 +40,5 @@ export class FormSubmit extends UseTestIdDir {
   }));
 
   // ? playwright stuff
-  public derivedSubmitId: Signal<string> = computed(() => this.testId() + '__submit');
+  public derivedSubmitId: Signal<string> = computed(() => this.useIDsDir.testId() + '__submit');
 }

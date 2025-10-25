@@ -14,18 +14,19 @@ import { Tooltip } from '@/common/components/els/tooltip/tooltip';
 import { PwdGen } from './etc/pwd_gen';
 import { CpyPaste } from '../../cpy_paste/cpy-paste';
 import { Nullable, SvgT } from '@/common/types/etc';
-import { UseHoverSvc } from '@/core/hooks/listeners/use_hover';
+import { UseHoverHk } from '@/core/hooks/listeners/use_hover';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-pwd-generator',
-  imports: [NgComponentOutlet, Portal, Tooltip, CpyPaste],
+  imports: [NgComponentOutlet, Portal, Tooltip, CpyPaste, UseIDsDir],
   templateUrl: './pwd-generator.html',
   styleUrl: './pwd-generator.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UseHoverSvc],
+  providers: [UseHoverHk],
 })
 export class PwdGenerator extends UseSwapPortalDir implements AfterViewInit {
-  public readonly useHover: UseHoverSvc = inject(UseHoverSvc);
+  public readonly useHover: UseHoverHk = inject(UseHoverHk);
   // ? static assets
   public readonly Svg: SvgT = SvgFillPwdGen;
 

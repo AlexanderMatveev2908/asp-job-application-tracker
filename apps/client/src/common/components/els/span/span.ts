@@ -11,10 +11,11 @@ import { SpanPropsT, SpanSizesPropsT } from './etc/types';
 import { WrapTxtApi } from '../../hoc/txt/wrap_txt_api/wrap-txt-api';
 import { AppEventT } from '@/core/lib/dom/meta_event/etc/types';
 import { SpinTxtClsT } from '@/common/types/css';
+import { UseWrapApiDir } from '@/core/directives/use_wrap_api';
 
 @Component({
   selector: 'app-span',
-  imports: [NgComponentOutlet, WrapTxtApi],
+  imports: [NgComponentOutlet, WrapTxtApi, UseWrapApiDir],
   templateUrl: './span.html',
   styleUrl: './span.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

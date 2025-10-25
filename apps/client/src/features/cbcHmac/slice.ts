@@ -1,7 +1,7 @@
 import { computed, Injectable, Signal } from '@angular/core';
 import { CbcHmacStateT } from './reducer/reducer';
 import { getCbcHmacState } from './reducer/selectors';
-import { UseKitSliceSvc } from '@/core/hooks/kits/use_kit_slice';
+import { UseKitSliceHk } from '@/core/hooks/kits/use_kit_slice';
 import { Nullable } from '@/common/types/etc';
 import { CbcHmacActT } from './reducer/actions';
 import { AadCbcHmacT, TokenT } from './etc/types';
@@ -15,7 +15,7 @@ export interface OptSaveCbcHmacT {
 @Injectable({
   providedIn: 'root',
 })
-export class CbcHmacSlice extends UseKitSliceSvc {
+export class CbcHmacSlice extends UseKitSliceHk {
   public get cbcHmacState(): Signal<CbcHmacStateT> {
     return this.store.selectSignal(getCbcHmacState);
   }

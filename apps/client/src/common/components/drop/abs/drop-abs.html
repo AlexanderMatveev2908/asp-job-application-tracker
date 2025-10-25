@@ -1,9 +1,9 @@
-<div #drop [attr.data-testid]="testId()" class="root">
-  <button class="root__btn" (click)="onClick()">
+<div #drop [attr.data-testid]="useIDsDir.testId()" class="root">
+  <button class="root__btn" (click)="useDropDir.onClick()">
     <app-span [spanProps]="spanProps()" [sizesProps]="spanSizesProps()" />
   </button>
 
   <div class="root__content" [ngClass]="translation()">
-    <ng-container *ngTemplateOutlet="dropContentRef" />
+    <ng-container *ngTemplateOutlet="useDropDir.dropContentRef" />
   </div>
 </div>

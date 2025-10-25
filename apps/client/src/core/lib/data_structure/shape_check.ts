@@ -1,4 +1,4 @@
-export class ShapeCheck {
+export class LibShapeCheck {
   public static isStr(str: unknown): boolean {
     return typeof str === 'string' && !!str.trim().length;
   }

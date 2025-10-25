@@ -1,4 +1,4 @@
-export class MemoryMng {
+export class LibMemoryMng {
   // eslint-disable-next-line complexity
   public static cpy<T>(arg: T): T {
     if (arg === null || typeof arg === 'function' || typeof arg !== 'object') return arg;
@@ -7,19 +7,19 @@ export class MemoryMng {
 
     if (arg instanceof RegExp) return new RegExp(arg.source, arg.flags) as T;
 
-    if (arg instanceof Set) return new Set(Array.from(arg, (v: T) => MemoryMng.cpy(v))) as T;
+    if (arg instanceof Set) return new Set(Array.from(arg, (v: T) => LibMemoryMng.cpy(v))) as T;
 
     if (arg instanceof Map)
       return new Map(
-        Array.from(arg.entries(), ([k, v]: [T, T]) => [MemoryMng.cpy(k), MemoryMng.cpy(v)])
+        Array.from(arg.entries(), ([k, v]: [T, T]) => [LibMemoryMng.cpy(k), LibMemoryMng.cpy(v)])
       ) as T;
 
-    if (Array.isArray(arg)) return arg.map((v: T) => MemoryMng.cpy(v)) as T;
+    if (Array.isArray(arg)) return arg.map((v: T) => LibMemoryMng.cpy(v)) as T;
 
     const obj: Record<string, unknown> = {};
 
     for (const k in arg)
-      if (Object.prototype.hasOwnProperty.call(arg, k)) obj[k] = MemoryMng.cpy(obj[k]);
+      if (Object.prototype.hasOwnProperty.call(arg, k)) obj[k] = LibMemoryMng.cpy(obj[k]);
 
     return obj as T;
   }
@@ -37,7 +37,7 @@ export class MemoryMng {
 
     if (Array.isArray(a) && Array.isArray(b)) {
       if (a.length !== b.length) return false;
-      for (let i = 0; i < a.length; i++) if (!MemoryMng.isSame(a[i], b[i])) return false;
+      for (let i = 0; i < a.length; i++) if (!LibMemoryMng.isSame(a[i], b[i])) return false;
 
       return true;
     }
@@ -49,7 +49,7 @@ export class MemoryMng {
         let found = false;
         for (const other of b) {
           // eslint-disable-next-line max-depth
-          if (MemoryMng.isSame(item, other)) {
+          if (LibMemoryMng.isSame(item, other)) {
             found = true;
             break;
           }
@@ -64,7 +64,7 @@ export class MemoryMng {
       for (const [key, valueA] of a.entries()) {
         if (!b.has(key)) return false;
         const valueB = b.get(key);
-        if (!MemoryMng.isSame(valueA, valueB)) return false;
+        if (!LibMemoryMng.isSame(valueA, valueB)) return false;
       }
       return true;
     }
@@ -77,7 +77,7 @@ export class MemoryMng {
       if (!Object.prototype.hasOwnProperty.call(b, key)) return false;
       const valA = (a as Record<string, unknown>)[key];
       const valB = (b as Record<string, unknown>)[key];
-      if (!MemoryMng.isSame(valA, valB)) return false;
+      if (!LibMemoryMng.isSame(valA, valB)) return false;
     }
 
     return true;
@@ -89,18 +89,18 @@ export class MemoryMng {
     if (Object.isFrozen(arg)) return arg;
 
     if (Array.isArray(arg)) {
-      arg.forEach((v: T) => MemoryMng.freeze(v));
+      arg.forEach((v: T) => LibMemoryMng.freeze(v));
     } else if (arg instanceof Map) {
       arg.forEach((v: T, k: T) => {
-        MemoryMng.freeze(k);
-        MemoryMng.freeze(v);
+        LibMemoryMng.freeze(k);
+        LibMemoryMng.freeze(v);
       });
     } else if (arg instanceof Set) {
-      arg.forEach((v: T) => MemoryMng.freeze(v));
+      arg.forEach((v: T) => LibMemoryMng.freeze(v));
     } else {
       for (const k in arg)
         if (Object.prototype.hasOwnProperty.call(arg, k))
-          MemoryMng.freeze((arg as Record<string, unknown>)[k]);
+          LibMemoryMng.freeze((arg as Record<string, unknown>)[k]);
     }
 
     return Object.freeze(arg);

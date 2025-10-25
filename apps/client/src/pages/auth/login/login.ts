@@ -10,19 +10,23 @@ import { UseAuthKitSvc } from '@/features/auth/etc/use_auth_kit';
 import { from, switchMap, tap } from 'rxjs';
 import { JwtResT } from '@/features/auth/etc/types';
 import { ResApiT } from '@/core/store/api/etc/types';
-import { UseKitFormPwdSvc } from '@/core/forms/pwd/etc/use_kit_form_pwd';
+import { UseKitFormPwdHk } from '@/core/forms/pwd/etc/hooks/use_kit_form_pwd';
 import { PwdFieldsUiFkt } from '@/core/ui_fkt/form_fields/1.pwd';
-import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
+import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
+import { UseIDsDir } from '@/core/directives/use_ids';
+import { UseFormShapeDir } from '@/core/directives/forms/use_form_shape';
+import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
+import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 
 @Component({
   selector: 'app-login',
-  imports: [CsrWithTitle, AuthFormShape, FormFieldTxt],
+  imports: [CsrWithTitle, AuthFormShape, FormFieldTxt, UseIDsDir, UseFormShapeDir, UseFormFieldDir],
   templateUrl: './login.html',
   styleUrl: './login.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ApiTrackerSvc],
+  providers: [UseApiTrackerHk, UseInjCtxHk],
 })
-export class Login extends UseKitFormPwdSvc {
+export class Login extends UseKitFormPwdHk {
   private readonly useAuthKit: UseAuthKitSvc = inject(UseAuthKitSvc);
   public readonly form: FormGroup = LoginFormMng.form;
 
@@ -39,7 +43,7 @@ export class Login extends UseKitFormPwdSvc {
         tap((res: ResApiT<JwtResT>) => {
           this.useAuthKit.authSlice.login(res.accessToken, { startTmr: true });
         }),
-        switchMap(() => from(this.useNoticeKit.useNav.replace('/')))
+        switchMap(() => from(this.useSideApiKit.useNav.replace('/')))
       )
     );
   };

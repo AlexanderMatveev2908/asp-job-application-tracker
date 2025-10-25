@@ -2,8 +2,8 @@ import { inject, Injectable } from '@angular/core';
 import { UseAuthKitSvc } from './use_auth_kit';
 import { ObsResT, ResApiT } from '@/core/store/api/etc/types';
 import { from, tap } from 'rxjs';
-import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
-import { UseResetStateSvc } from '@/core/hooks/use_reset_state';
+import { UseNavSvc } from '@/core/services/use_nav/use_nav';
+import { UseResetStateSvc } from '@/core/services/use_reset_state';
 
 @Injectable({
   providedIn: 'root',

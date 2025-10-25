@@ -1,9 +1,9 @@
 <a
-  [attr.data-testid]="testId()"
+  [attr.data-testid]="useIdsDir.testId()"
   class="root"
   (click)="setIsDropOpen()(false)"
   [routerLink]="path()"
   [ngClass]="isActive() ? 'active' : ''"
 >
-  <app-span [spanProps]="spanProps()" [sizesProps]="spanSizesProps()" />
+  <app-span [spanProps]="useSpanDir.spanProps()" [sizesProps]="spanSizesProps()" />
 </a>

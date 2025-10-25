@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   input,
   InputSignal,
   OnInit,
@@ -12,18 +13,21 @@ import {
 import { Tooltip } from '../../els/tooltip/tooltip';
 import { FormControl } from '@angular/forms';
 import { ErrsFieldT, RecErrsFieldT } from '@/common/types/forms';
-import { UseFormFieldDir } from '@/core/directives/form_field/0.use_field_root';
-import { Prs } from '@/core/lib/data_structure/prs';
+import { LibPrs } from '@/core/lib/data_structure/prs';
 import { Nullable } from '@/common/types/etc';
+import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-form-field-err',
-  imports: [Tooltip],
+  imports: [Tooltip, UseIDsDir],
   templateUrl: './form-field-err.html',
   styleUrl: './form-field-err.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormFieldErr extends UseFormFieldDir implements OnInit {
+export class FormFieldErr implements OnInit {
+  public readonly useFormFieldDir: UseFormFieldDir = inject(UseFormFieldDir);
+
   // ? personal props
   public readonly ctrl: InputSignal<FormControl> = input.required();
   public readonly testId: InputSignal<string> = input.required();
@@ -32,27 +36,27 @@ export class FormFieldErr extends UseFormFieldDir implements OnInit {
     prev: null,
     curr: null,
   });
-  public readonly optionalDep: InputSignal<Nullable<string[]>> = input<Nullable<string[]>>(null);
+  public readonly optionalDep: InputSignal<Nullable<unknown[]>> = input<Nullable<unknown[]>>(null);
 
   // ? props testid tooltip
   public readonly testIdErrMsg: Signal<string> = computed(() =>
-    Prs.toSnake(`err__${this.testId()}`)
+    LibPrs.toSnake(`err__${this.testId()}`)
   );
 
   // ? ng
   ngOnInit(): void {
-    this.setupWithCtrl(this.ctrl());
+    this.useFormFieldDir.setupWithCtrl(this.ctrl());
 
-    this.useEffect(() => {
+    this.useFormFieldDir.useEffect(() => {
       const c: FormControl = this.ctrl();
-      void this.val();
+      void this.useFormFieldDir?.val?.();
       void this.optionalDep();
 
       const errors: ErrsFieldT = c.errors as ErrsFieldT;
 
       this.recErrs.update((prev: RecErrsFieldT) => ({
         prev: prev.curr,
-        curr: errors?.zod && this.interacted() ? errors.zod : null,
+        curr: errors?.zod && this.useFormFieldDir.interacted?.() ? errors.zod : null,
       }));
     });
   }

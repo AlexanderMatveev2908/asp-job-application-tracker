@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';
 import { TestApiSvc } from '@/features/test/api';
-import { UseRouteMngSvc } from '@/core/hooks/use_route_mng';
+import { UseRouteMngHk } from '@/core/hooks/use_route_mng';
 
 @Component({
   selector: 'app-protected',
@@ -17,7 +17,7 @@ import { UseRouteMngSvc } from '@/core/hooks/use_route_mng';
   styleUrl: './protected.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Protected extends UseRouteMngSvc implements OnInit {
+export class Protected extends UseRouteMngHk implements OnInit {
   private readonly testApi: TestApiSvc = inject(TestApiSvc);
 
   public readonly fetchingUser: Signal<boolean> = computed(

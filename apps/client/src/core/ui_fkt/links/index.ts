@@ -1,7 +1,7 @@
 import { RootUiFkt } from '../root_ui';
 import { SvgStrokeHome } from '@/common/components/svgs/stroke/home/home';
 import { SvgFillBriefcase } from '@/common/components/svgs/fill/briefcase/briefcase';
-import { ShapeCheck } from '../../lib/data_structure/shape_check';
+import { LibShapeCheck } from '../../lib/data_structure/shape_check';
 import { SvgStrokeRegister } from '@/common/components/svgs/stroke/register/register';
 import { SvgStrokePassword } from '@/common/components/svgs/stroke/password/password';
 import { SvgFillLogin } from '@/common/components/svgs/fill/login/login';
@@ -50,7 +50,7 @@ export class LinksUiFkt extends RootUiFkt {
   private static readonly _logged: Omit<SpanLinkPropsT, 'id' | 'eventT'>[] = [
     {
       label: 'Verify account',
-      path: '/user/require-email/confirm-email',
+      path: '/user/confirm-email',
       Svg: SvgFillVerify,
     },
     {
@@ -80,7 +80,7 @@ export class LinksUiFkt extends RootUiFkt {
   }
 
   public static isCurrPath(currPath: Nullable<string>, lkPath: string): boolean {
-    if (!ShapeCheck.isStr(currPath)) return false;
+    if (!LibShapeCheck.isStr(currPath)) return false;
 
     const currCut = LinksUiFkt.cutPath(currPath!);
     const lkCut = LinksUiFkt.cutPath(lkPath);

@@ -6,6 +6,7 @@ import {
   Component,
   computed,
   HostListener,
+  inject,
   input,
   InputSignal,
   OnInit,
@@ -17,9 +18,9 @@ import { Portal } from '@/layout/portal/portal';
 import { FieldPwdCheckerT, PwdCheckerUiFkt } from './etc/ui_fkt';
 import { NgComponentOutlet, NgClass } from '@angular/common';
 import { Reg } from '@/core/paperwork/reg';
-import { UseFormFieldDir } from '@/core/directives/form_field/0.use_field_root';
 import { PortalDOM, RecCoordsT } from '@/core/lib/dom/portal';
 import { Nullable } from '@/common/types/etc';
+import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
 
 @Component({
   selector: 'app-pwd-checker',
@@ -28,7 +29,9 @@ import { Nullable } from '@/common/types/etc';
   styleUrl: './pwd-checker.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PwdChecker extends UseFormFieldDir implements OnInit, AfterViewInit {
+export class PwdChecker implements OnInit, AfterViewInit {
+  public readonly useFormFieldDir: UseFormFieldDir = inject(UseFormFieldDir);
+
   // ? personal props
   public readonly isFocused: InputSignal<boolean> = input.required();
   public readonly pwdFieldRef: InputSignal<FormFieldTxt> = input.required();
@@ -42,7 +45,10 @@ export class PwdChecker extends UseFormFieldDir implements OnInit, AfterViewInit
   public readonly coords: WritableSignal<Nullable<RecCoordsT>> = signal<Nullable<RecCoordsT>>(null);
 
   // ? derived
-  public pwdLen: Signal<number> = computed(() => (this.val() as string)?.trim()?.length ?? 0);
+  public pwdLen: Signal<number> = computed(() => {
+    const val: Nullable<string> = this.useFormFieldDir?.val?.() as Nullable<string>;
+    return val ? val?.trim()?.length ?? 0 : 0;
+  });
   public readonly showTooltip: Signal<boolean> = computed(
     () => !this.confSwap() || (!!this.confSwap()?.isCurr && this.confSwap()?.mode !== 'swapping')
   );
@@ -52,25 +58,29 @@ export class PwdChecker extends UseFormFieldDir implements OnInit, AfterViewInit
 
   // ? listeners & ng lifecycle
   public getSvgCls(reg: RegExp): string {
-    if (!this.interacted()) return 'text-gray-300';
-    else if (reg.test(this.val() as string)) return 'text-green-600';
+    const val: Nullable<string> = this.useFormFieldDir?.val?.() as Nullable<string>;
+
+    if (!this.useFormFieldDir?.interacted?.()) return 'text-gray-300';
+    else if (reg.test(val ?? '')) return 'text-green-600';
     else return 'text-red-600';
   }
 
   public getBorderClr(): string {
-    return !this.interacted()
+    const val: Nullable<string> = this.useFormFieldDir?.val?.() as Nullable<string>;
+
+    return !this.useFormFieldDir.interacted?.()
       ? 'border-gray-300'
-      : Reg.isPwd(this.val() as string)
+      : Reg.isPwd(val ?? '')
       ? 'border-green-600'
       : 'border-red-600';
   }
 
   ngOnInit(): void {
-    this.setupWithFieldRef(this.pwdFieldRef());
+    this.useFormFieldDir.setupWithFieldRef(this.pwdFieldRef());
   }
 
   ngAfterViewInit(): void {
-    this.useEffect(() => {
+    this.useFormFieldDir.useEffect(() => {
       const conf: Nullable<ConfSwapT> = this.confSwap();
 
       if (!conf || (conf.isCurr && conf.mode !== 'swapping'))

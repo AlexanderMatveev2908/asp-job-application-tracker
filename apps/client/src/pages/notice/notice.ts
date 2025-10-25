@@ -8,11 +8,11 @@ import {
 } from '@angular/core';
 import { NoticeSlice } from '@/features/notice/slice';
 import { NoticeWithoutCb } from '@/features/notice/reducer/reducer';
-import { UseStorageSvc } from '@/core/hooks/use_storage';
+import { UseStorageSvc } from '@/core/services/use_storage';
 import { CsrNoticeWrapper } from '@/common/components/hoc/page/csr_notice_wrapper/csr-notice-wrapper';
 import { Nullable } from '@/common/types/etc';
 import { NoticeWrapperPropsT } from '@/common/components/hoc/page/csr_notice_wrapper/etc/types';
-import { UseRouteMngSvc } from '@/core/hooks/use_route_mng';
+import { UseRouteMngHk } from '@/core/hooks/use_route_mng';
 
 @Component({
   selector: 'app-notice',
@@ -21,7 +21,7 @@ import { UseRouteMngSvc } from '@/core/hooks/use_route_mng';
   styleUrl: './notice.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Notice extends UseRouteMngSvc implements OnInit {
+export class Notice extends UseRouteMngHk implements OnInit {
   private readonly noticeSlice: NoticeSlice = inject(NoticeSlice);
   private readonly useStorage: UseStorageSvc = inject(UseStorageSvc);
 

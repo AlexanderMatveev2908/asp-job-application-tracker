@@ -7,9 +7,9 @@
     <input
       #formField
       [formControl]="ctrl()"
-      (focus)="onFocus()?.(val())"
-      (blur)="onBlur()?.(val())"
-      (input)="onChange()?.(val())"
+      (focus)="onFocus()?.(useFormFieldDir.val?.())"
+      (blur)="onBlur()?.(useFormFieldDir.val?.())"
+      (input)="onChange()?.(useFormFieldDir.val?.())"
       [attr.data-field]="f().field"
       [attr.data-testid]="testId()"
       class="input__field txt__md"
@@ -24,6 +24,11 @@
     </button>
     }
 
-    <app-form-field-err [ctrl]="ctrl()" [testId]="testId()" [optionalDep]="optionalDep()" />
+    <app-form-field-err
+      appUseFormFieldDir
+      [ctrl]="ctrl()"
+      [testId]="testId()"
+      [optionalDep]="optionalDep()"
+    />
   </div>
 </div>

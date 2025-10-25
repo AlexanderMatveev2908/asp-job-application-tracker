@@ -1,12 +1,12 @@
 import { computed, inject, Injectable, Signal } from '@angular/core';
-import { UseNavSvc } from './use_nav/use_nav';
+import { UseNavSvc } from '../services/use_nav/use_nav';
 import { UserSlice } from '@/features/user/slice';
 import { AuthSlice } from '@/features/auth/slice';
-import { UseInjCtxSvc } from './platform/use_inj_ctx';
+import { UseInjCtxHk } from './use_inj_ctx';
 import { CbcHmacSlice } from '@/features/cbcHmac/slice';
 import { TokenT } from '@/features/cbcHmac/etc/types';
 import { Nullable } from '@/common/types/etc';
-import { NavFromT } from './use_nav/etc/0.use_path';
+import { NavFromT } from '../services/use_nav/etc/0.use_path';
 import { v4 } from 'uuid';
 
 export interface PushToOptT {
@@ -15,7 +15,7 @@ export interface PushToOptT {
 }
 
 @Injectable()
-export class UseRouteMngSvc extends UseInjCtxSvc {
+export class UseRouteMngHk extends UseInjCtxHk {
   protected readonly useNav: UseNavSvc = inject(UseNavSvc);
   protected readonly userSlice: UserSlice = inject(UserSlice);
   protected readonly authSlice: AuthSlice = inject(AuthSlice);

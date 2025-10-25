@@ -1,5 +1,5 @@
-<div [attr.data-testid]="testId()" #drop class="root" [ngClass]="">
-  <button class="root__btn" (click)="onClick()" [ngClass]="twd().root">
+<div [attr.data-testid]="useIDsDir.testId()" #drop class="root" [ngClass]="">
+  <button class="root__btn" (click)="useDropDir.onClick()" [ngClass]="twd().root">
     <app-span [spanProps]="spanProps()" [sizesProps]="spanSizesProps" />
 
     <div class="svg__2xl btn__arrow" [ngClass]="twd().arrow">
@@ -13,6 +13,6 @@
     [style.max-height]="maxH()"
     [ngClass]="twd().wrapContent"
   >
-    <ng-container *ngTemplateOutlet="dropContentRef" />
+    <ng-container *ngTemplateOutlet="useDropDir.dropContentRef" />
   </div>
 </div>

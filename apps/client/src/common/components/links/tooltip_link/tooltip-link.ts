@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   HostListener,
+  inject,
   input,
   InputSignal,
   signal,
@@ -12,17 +13,21 @@ import {
 import { SpanLinkPropsT } from '../../els/span/etc/types';
 import { NgComponentOutlet } from '@angular/common';
 import { ArrowTooltipT, Tooltip } from '../../els/tooltip/tooltip';
-import { UseHoverSvc } from '@/core/hooks/listeners/use_hover';
+import { UseHoverHk } from '@/core/hooks/listeners/use_hover';
 import { RouterLink } from '@angular/router';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-tooltip-link',
-  imports: [NgComponentOutlet, Tooltip, RouterLink],
+  imports: [NgComponentOutlet, Tooltip, RouterLink, UseIDsDir],
   templateUrl: './tooltip-link.html',
   styleUrl: './tooltip-link.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TooltipLink extends UseHoverSvc implements AfterViewInit {
+export class TooltipLink extends UseHoverHk implements AfterViewInit {
+  // ? directives
+  public readonly useIDsDir: UseIDsDir = inject(UseIDsDir);
+
   public readonly lk: InputSignal<SpanLinkPropsT> = input.required();
   public readonly arrowOn: InputSignal<ArrowTooltipT> = input<ArrowTooltipT>('right');
 

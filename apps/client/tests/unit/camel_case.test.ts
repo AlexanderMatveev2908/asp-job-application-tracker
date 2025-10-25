@@ -1,4 +1,4 @@
-import { Prs } from '@/core/lib/data_structure/prs';
+import { LibPrs } from '@/core/lib/data_structure/prs';
 import { describe, expect, it } from 'vitest';
 
 describe('parse from camel case to simple txt', () => {
@@ -6,13 +6,13 @@ describe('parse from camel case to simple txt', () => {
     const devTxt: string = 'myDevVariableCamelCase';
     const expected: string = 'my dev variable camel case';
 
-    expect(Prs.txtOfCamelCase(devTxt, { titleCase: false })).toBe(expected);
+    expect(LibPrs.txtOfCamelCase(devTxt, { titleCase: false })).toBe(expected);
   });
 
   it('1. should return all title case', () => {
     const devTxt: string = 'myDevVariableCamelCase';
     const expected: string = 'My Dev Variable Camel Case';
 
-    expect(Prs.txtOfCamelCase(devTxt, { titleCase: true })).toBe(expected);
+    expect(LibPrs.txtOfCamelCase(devTxt, { titleCase: true })).toBe(expected);
   });
 });

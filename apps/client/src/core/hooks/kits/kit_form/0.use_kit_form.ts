@@ -1,26 +1,25 @@
 import { inject, Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
 import { ZodCheck } from '@/core/paperwork/zod_check';
-import { UseNoticeKitSvc } from '@/features/notice/etc/use_notice_kit';
 import { Observable } from 'rxjs';
+import { UseKitSideApiSvc } from '@/core/services/use_kit_side_api';
+import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
+import { UseInjCtxHk } from '../../use_inj_ctx';
 
 @Injectable()
-export abstract class UseKitFormSvc {
-  // ? expected to be present
+export abstract class UseKitFormHk {
   public abstract form: FormGroup;
 
-  // ? svc
-  public readonly apiTracker: ApiTrackerSvc = inject(ApiTrackerSvc);
-  protected readonly useNoticeKit: UseNoticeKitSvc = inject(UseNoticeKitSvc);
+  protected readonly apiTracker: UseApiTrackerHk = inject(UseApiTrackerHk);
+  protected readonly useSideApiKit: UseKitSideApiSvc = inject(UseKitSideApiSvc);
+  protected readonly useInjCtx: UseInjCtxHk = inject(UseInjCtxHk);
 
-  // ? helpers
-  public readonly getCtrl: (name: string) => FormControl = (name: string) =>
+  public readonly getCtrl: (name: string) => FormControl = (name: string): FormControl =>
     this.form.get(name) as FormControl;
 
   protected readonly submitForm: (cb: (data: unknown) => Observable<unknown>) => void = (
     cb: (data: unknown) => Observable<unknown>
-  ) => {
+  ): void => {
     if (!this.form.valid) {
       ZodCheck.onSubmitFailed(this.form);
       return;

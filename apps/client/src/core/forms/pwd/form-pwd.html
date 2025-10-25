@@ -1,12 +1,15 @@
 <app-form-shape
-  [testId]="testId()"
+  appUseFormShapeDir
   [fromGroup]="form"
   [onSubmit]="onSubmit"
   [isPending]="apiTracker.isPending()"
   [useFullPage]="true"
+  appUseIDsDir
+  [testId]="testId()"
 >
   <div class="root">
     <app-form-field-txt
+      appUseFormFieldDir
       [f]="pwdField()"
       [ctrl]="ctrl"
       [onSvgClick]="onToggle"

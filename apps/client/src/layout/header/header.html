@@ -6,24 +6,33 @@
   </div>
 
   <div class="root__right">
-    <app-wrap-txt-api [eventT]="'INFO'" [isPending]="fetchingUser()" [spinSizeT]="'md'">
+    <app-wrap-txt-api
+      [spinSizeT]="'md'"
+      appUseWrapApiDir
+      [eventT]="'INFO'"
+      [isPending]="fetchingUser()"
+    >
       <app-drop-abs
-        [isOpen]="isDropOpen()"
-        [testId]="'header__drop'"
-        [setIsOpen]="setIsDropOpen"
         [spanProps]="spanDropProps()"
         [spanSizesProps]="spanDropSizesProps"
+        appUseDropDir
+        [isOpen]="isDropOpen()"
         [closeOnMouseOut]="true"
+        [setIsOpen]="setIsDropOpen"
+        appUseIDsDir
+        [testId]="'header__drop'"
       >
         <ng-template #dropContent>
           <div class="right__drop_content">
             @for(lk of dropLinks(); track lk.id){
             <app-nav-link
-              [testId]="testIdFromPath(lk.path)"
+              appUseSpanDir
               [spanProps]="lk"
               [path]="lk.path"
               [currPath]="currPath()"
               [setIsDropOpen]="setIsDropOpen"
+              appUseIDsDir
+              [testId]="testIdFromPath(lk.path)"
             />
             } @if(user()){
             <app-logout-btn [closeSomethingCb]="setIsDropOpen.bind(this, false)" />

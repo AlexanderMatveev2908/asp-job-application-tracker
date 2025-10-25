@@ -9,11 +9,11 @@ import { ErrApiT, ResApiT } from '../../../etc/types';
 import { catchError, from, Observable, of, switchMap, throwError } from 'rxjs';
 import { RefreshMdwConst } from './constants';
 import { JwtResT } from '@/features/auth/etc/types';
-import { UseStorageSvc } from '@/core/hooks/use_storage';
-import { Log } from '@/core/lib/dev/log';
-import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
+import { UseStorageSvc } from '@/core/services/use_storage';
+import { LibLog } from '@/core/lib/dev/log';
+import { UseNavSvc } from '@/core/services/use_nav/use_nav';
 import { AuthSlice } from '@/features/auth/slice';
-import { UseResetStateSvc } from '@/core/hooks/use_reset_state';
+import { UseResetStateSvc } from '@/core/services/use_reset_state';
 
 export interface RefreshMngArgT {
   http: HttpClient;
@@ -55,7 +55,7 @@ export class RefreshMdwMng {
   ): Observable<HttpEvent<unknown>> {
     return this.refresh(err, { http, useStorage, authSlice }).pipe(
       switchMap((freshJwt: string) => {
-        Log.logTtl('✅ refresh ok');
+        LibLog.logTtl('✅ refresh ok');
 
         const retryRequest: HttpRequest<unknown> = originalReq.clone({
           setHeaders: {
@@ -66,12 +66,12 @@ export class RefreshMdwMng {
         return next(retryRequest);
       }),
       catchError((err: ErrApiT<void>) => {
-        Log.logTtl('❌ refresh fail');
+        LibLog.logTtl('❌ refresh fail');
         useReset.main();
         return from(useNav.replace('/auth/login')).pipe(
           catchError((err: unknown) => {
             // | ignore router fail & rethrow real error
-            Log.logTtl('❌ navigation bug');
+            LibLog.logTtl('❌ navigation bug');
             return throwError(() => err);
           }),
           switchMap(() => throwError(() => err))

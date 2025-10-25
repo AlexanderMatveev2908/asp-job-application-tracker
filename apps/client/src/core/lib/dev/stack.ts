@@ -1,7 +1,7 @@
 import { Opt } from '@/common/types/etc';
-import { ShapeCheck } from '../data_structure/shape_check';
+import { LibShapeCheck } from '../data_structure/shape_check';
 
-export class Stack {
+export class LibStack {
   private static getTraces(upCount: number): string[] {
     const err: Error = new Error();
     const traces: Opt<string[]> = err.stack?.split('\n');
@@ -32,7 +32,7 @@ export class Stack {
     for (const t of traces) {
       caller = this.getSplittedName(t);
 
-      if (ShapeCheck.isStr(caller)) return caller.replace(/[_<>/]/g, '');
+      if (LibShapeCheck.isStr(caller)) return caller.replace(/[_<>/]/g, '');
     }
 
     return 'unknown caller';

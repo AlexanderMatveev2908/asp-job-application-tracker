@@ -13,7 +13,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
-import { UsePlatformSvc } from '@/core/hooks/platform/use_platform';
+import { UsePlatformSvc } from '@/core/services/use_platform';
 import { RefDomT, RefTemplateT } from '@/common/types/etc';
 import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
 import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';
@@ -22,10 +22,21 @@ import { NoticeWrapperPropsT } from './etc/types';
 import { LinkShadow } from '@/common/components/links/link_shadow/link-shadow';
 import { envVars } from '@/environments/environment';
 import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
+import { UseSpanDir } from '@/core/directives/use_span';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-csr-notice-wrapper',
-  imports: [NgComponentOutlet, NgClass, PageWrapper, NgTemplateOutlet, PageWrapper, LinkShadow],
+  imports: [
+    NgComponentOutlet,
+    NgClass,
+    PageWrapper,
+    NgTemplateOutlet,
+    PageWrapper,
+    LinkShadow,
+    UseSpanDir,
+    UseIDsDir,
+  ],
   templateUrl: './csr-notice-wrapper.html',
   styleUrl: './csr-notice-wrapper.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

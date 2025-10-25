@@ -1,7 +1,7 @@
 import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
 import { SvgFillBash } from '@/common/components/svgs/fill/bash/bash';
 import { ApiSvc } from '@/core/store/api/api';
-import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
+import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { ApiArgs } from '@/core/store/api/etc/request/args';
 import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
@@ -11,15 +11,17 @@ import { SpanEventPropsT, SpanLinkPropsT } from '@/common/components/els/span/et
 import { SvgFillSecurity } from '@/common/components/svgs/fill/security/security';
 import { AuthSlice } from '@/features/auth/slice';
 import { LinkShadow } from '@/common/components/links/link_shadow/link-shadow';
+import { UseIDsDir } from '@/core/directives/use_ids';
+import { UseSpanDir } from '@/core/directives/use_span';
 
 @Component({
   selector: 'app-home',
-  imports: [PageWrapper, BtnShadow, PageWrapper, LinkShadow],
+  imports: [PageWrapper, BtnShadow, PageWrapper, LinkShadow, UseIDsDir, UseSpanDir],
   templateUrl: './home.html',
   styleUrl: './home.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Home extends ApiTrackerSvc {
+export class Home extends UseApiTrackerHk {
   // ? svc
   private readonly api: ApiSvc = inject(ApiSvc);
   private readonly authSlice: AuthSlice = inject(AuthSlice);

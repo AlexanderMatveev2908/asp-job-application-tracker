@@ -1,10 +1,10 @@
 import { CheckFieldT, TxtFieldT } from '@/common/types/forms';
 import { RootUiFkt } from '../root_ui';
-import { Prs } from '../../lib/data_structure/prs';
+import { LibPrs } from '../../lib/data_structure/prs';
 
 export class FormFieldsUiFkt extends RootUiFkt {
   private static labelOf(arg: { name: string; label?: string }): string {
-    return arg?.label ?? Prs.txtOfCamelCase(arg.name, { titleCase: true });
+    return arg?.label ?? LibPrs.txtOfCamelCase(arg.name, { titleCase: true });
   }
 
   public static txtFieldOf(arg: Partial<TxtFieldT> & { name: string }): TxtFieldT {

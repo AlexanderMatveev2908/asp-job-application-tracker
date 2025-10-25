@@ -10,11 +10,11 @@ import { catchError, Observable, throwError } from 'rxjs';
 import { RefreshMdwNeedRefresh } from './etc/need_refresh';
 import { RefreshMdwMng } from './etc/mng';
 import { inject } from '@angular/core';
-import { UseStorageSvc } from '@/core/hooks/use_storage';
-import { UseNavSvc } from '@/core/hooks/use_nav/use_nav';
+import { UseStorageSvc } from '@/core/services/use_storage';
+import { UseNavSvc } from '@/core/services/use_nav/use_nav';
 import { AuthSlice } from '@/features/auth/slice';
-import { UseResetStateSvc } from '@/core/hooks/use_reset_state';
-import { UsePlatformSvc } from '@/core/hooks/platform/use_platform';
+import { UseResetStateSvc } from '@/core/services/use_reset_state';
+import { UsePlatformSvc } from '@/core/services/use_platform';
 
 // const refreshMng = (err: HttpErrorResponse): Promise<HttpEvent<unknown>> => {};
 

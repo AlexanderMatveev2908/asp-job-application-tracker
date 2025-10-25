@@ -10,11 +10,13 @@ import {
 import { BtnShadow } from '../../../btns/btn_shadow/btn-shadow';
 import { SwapBtnsUiFkt } from './etc/ui_fkt';
 import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
-import { Prs } from '@/core/lib/data_structure/prs';
+import { LibPrs } from '@/core/lib/data_structure/prs';
+import { UseIDsDir } from '@/core/directives/use_ids';
+import { UseSpanDir } from '@/core/directives/use_span';
 
 @Component({
   selector: 'app-swap-btns',
-  imports: [BtnShadow],
+  imports: [BtnShadow, UseIDsDir, UseSpanDir],
   templateUrl: './swap-btns.html',
   styleUrl: './swap-btns.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -41,7 +43,7 @@ export class SwapBtns {
 
   // ? props btn shadow
   public getTestId(idx: number): string {
-    return Prs.toSnake(this.prefixTestId() + (!idx ? 'prev_swap' : 'next_swap'));
+    return LibPrs.toSnake(this.prefixTestId() + (!idx ? 'prev_swap' : 'next_swap'));
   }
 
   public getBtnState(idx: number): Signal<BtnStatePropsT> {

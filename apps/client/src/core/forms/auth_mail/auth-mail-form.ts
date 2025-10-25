@@ -4,20 +4,24 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MailFormMng, MailFormT } from '../../paperwork/etc/mail';
 import { MailFormUiFkt } from '../../ui_fkt/form_fields/1.mail';
 import { TxtFieldT } from '@/common/types/forms';
-import { UseKitFormSvc } from '@/core/hooks/kits/kit_form/0.use_kit_form';
+import { UseKitFormHk } from '@/core/hooks/kits/kit_form/0.use_kit_form';
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
 import { Observable } from 'rxjs';
-import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
+import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
+import { UseFormShapeDir } from '@/core/directives/forms/use_form_shape';
+import { UseIDsDir } from '@/core/directives/use_ids';
+import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
+import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 
 @Component({
   selector: 'app-auth-mail-form',
-  imports: [AuthFormShape, FormFieldTxt],
+  imports: [AuthFormShape, FormFieldTxt, UseFormShapeDir, UseIDsDir, UseFormFieldDir],
   templateUrl: './auth-mail-form.html',
   styleUrl: './auth-mail-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ApiTrackerSvc],
+  providers: [UseApiTrackerHk, UseInjCtxHk],
 })
-export class AuthMailForm extends UseKitFormSvc {
+export class AuthMailForm extends UseKitFormHk {
   // ? not need by parent
   public readonly form: FormGroup = MailFormMng.form();
   public readonly mailField: TxtFieldT = MailFormUiFkt.mailField();
