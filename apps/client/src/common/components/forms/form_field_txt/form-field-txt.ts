@@ -14,10 +14,11 @@ import { Nullable, OptCbT, SvgT } from '@/common/types/etc';
 import { NgComponentOutlet } from '@angular/common';
 import { LibPrs } from '@/core/lib/data_structure/prs';
 import { UseFormFieldDomDir } from '@/core/directives/forms/form_field/1.use_form_field';
+import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
 
 @Component({
   selector: 'app-form-field-txt',
-  imports: [ReactiveFormsModule, FormFieldErr, NgComponentOutlet],
+  imports: [ReactiveFormsModule, FormFieldErr, NgComponentOutlet, UseFormFieldDir],
   templateUrl: './form-field-txt.html',
   styleUrl: './form-field-txt.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

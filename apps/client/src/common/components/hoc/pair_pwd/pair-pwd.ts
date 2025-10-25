@@ -22,10 +22,11 @@ import { Observable } from 'rxjs';
 import { PwdFieldsUiFkt } from '@/core/ui_fkt/form_fields/1.pwd';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 import { UseFocusHk } from '@/core/hooks/listeners/use_focus';
+import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
 
 @Component({
   selector: 'app-pair-pwd',
-  imports: [FormFieldTxt, PwdGenerator, PwdChecker],
+  imports: [FormFieldTxt, PwdGenerator, PwdChecker, UseFormFieldDir],
   templateUrl: './pair-pwd.html',
   styleUrl: './pair-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

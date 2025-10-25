@@ -1,5 +1,5 @@
 import { AfterViewInit, Directive, input, InputSignal, ViewChild } from '@angular/core';
-import { UseFormFieldDir } from './0.use_field_root';
+import { UseFormFieldDir } from './0.use_form_field';
 import { RefDomT } from '@/common/types/etc';
 import { FocusDOM } from '@/core/lib/dom/focus';
 

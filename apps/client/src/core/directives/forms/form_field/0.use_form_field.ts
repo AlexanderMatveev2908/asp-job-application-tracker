@@ -5,8 +5,10 @@ import { map, Observable, startWith } from 'rxjs';
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 
-@Directive()
-export abstract class UseFormFieldDir extends UseInjCtxHk {
+@Directive({
+  selector: '[appUseFormFieldDir]',
+})
+export class UseFormFieldDir extends UseInjCtxHk {
   // ? derived
   public val!: Signal<unknown>;
   public interacted!: Signal<boolean>;
@@ -26,7 +28,7 @@ export abstract class UseFormFieldDir extends UseInjCtxHk {
   }
 
   // ? helpers
-  protected setupWithCtrl(ctrl: AbstractControl): void {
+  public setupWithCtrl(ctrl: AbstractControl): void {
     const c: AbstractControl = ctrl;
 
     this.inCtx(() => {
@@ -34,7 +36,7 @@ export abstract class UseFormFieldDir extends UseInjCtxHk {
     });
   }
 
-  protected setupWithFieldRef(inst: FormFieldTxt): void {
+  public setupWithFieldRef(inst: FormFieldTxt): void {
     const c: AbstractControl = inst.ctrl();
 
     this.inCtx(() => {

@@ -27,7 +27,7 @@
       <div #swapDiv class="app__swapper__swap" [style.--opac]="useSwap.getOpacity(1)()">
         <app-pair-pwd [getCtrl]="getCtrl" [confSwap]="useSwap.confSwap(1)()" />
 
-        <app-form-field-box-sm [f]="terms" [ctrl]="getCtrl('terms')" />
+        <app-form-field-box-sm appUseFormFieldDir [f]="terms" [ctrl]="getCtrl('terms')" />
       </div>
     </app-swapper>
   </app-auth-form-shape>

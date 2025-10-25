@@ -19,6 +19,7 @@ import { UseKitSwapFormHk } from '@/core/hooks/kits/kit_form/1.use_kit_swap_form
 import { UseSwapHk } from '@/core/hooks/use_swap/use_swap';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { UseFormShapeDir } from '@/core/directives/forms/use_form_shape';
+import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
 
 @Component({
   selector: 'app-register',
@@ -33,6 +34,7 @@ import { UseFormShapeDir } from '@/core/directives/forms/use_form_shape';
     AuthFormShape,
     UseIDsDir,
     UseFormShapeDir,
+    UseFormFieldDir,
   ],
   templateUrl: './register.html',
   styleUrl: './register.scss',
