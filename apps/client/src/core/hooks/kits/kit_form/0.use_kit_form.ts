@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { ZodCheck } from '@/core/paperwork/zod_check';
-import { UseNoticeKitSvc } from '@/features/notice/etc/use_notice_kit';
+import { UseKitSideApiSvc } from '@/core/services/use_kit_side_api';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -12,7 +12,7 @@ export abstract class UseKitFormHk {
 
   // ? svc
   public readonly apiTracker: UseApiTrackerHk = inject(UseApiTrackerHk);
-  protected readonly useNoticeKit: UseNoticeKitSvc = inject(UseNoticeKitSvc);
+  protected readonly useNoticeKit: UseKitSideApiSvc = inject(UseKitSideApiSvc);
 
   // ? helpers
   public readonly getCtrl: (name: string) => FormControl = (name: string) =>
