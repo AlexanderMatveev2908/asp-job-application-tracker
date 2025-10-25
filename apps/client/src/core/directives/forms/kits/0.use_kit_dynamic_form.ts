@@ -12,7 +12,7 @@ export abstract class UseKitDynamicFormDir {
 
   // ? svc
   public readonly apiTracker: UseApiTrackerHk = inject(UseApiTrackerHk);
-  protected readonly useNoticeKit: UseKitSideApiSvc = inject(UseKitSideApiSvc);
+  protected readonly useSideApiKit: UseKitSideApiSvc = inject(UseKitSideApiSvc);
 
   // ? helpers
   public readonly getCtrl: (name: string) => FormControl = (name: string) =>

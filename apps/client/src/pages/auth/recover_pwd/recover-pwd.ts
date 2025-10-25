@@ -41,7 +41,7 @@ export class RecoverPwd extends UseKitPairPwdFormHk implements OnInit {
             this.useAuthKit.authSlice.login(res.accessToken, { startTmr: true });
             this.cbcHmacSlice.clearCbcHmac({ startTmr: true });
 
-            this.useNoticeKit.pushNotice({
+            this.useSideApiKit.pushNotice({
               eventT: 'OK',
               msg: 'Password updated',
               status: 200,
@@ -51,7 +51,7 @@ export class RecoverPwd extends UseKitPairPwdFormHk implements OnInit {
             if (err.status !== StatusT.UNAUTHORIZED) return throwError(() => err);
 
             this.cbcHmacSlice.clearCbcHmac({ startTmr: true });
-            this.useNoticeKit.pushNotice({
+            this.useSideApiKit.pushNotice({
               eventT: 'ERR',
               msg: err.error?.msg ?? 'Token invalid',
               status: 401,

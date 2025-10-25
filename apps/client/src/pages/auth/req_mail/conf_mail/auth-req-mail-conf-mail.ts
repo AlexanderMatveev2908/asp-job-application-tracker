@@ -17,7 +17,7 @@ export class AuthReqMailConfMail extends UseKitMailFormHk {
   public readonly strategy: (data: MailFormT) => Observable<unknown> = (data: MailFormT) =>
     this.requireMailAPi.confMail(data).pipe(
       tap((_: ResApiT<void>) => {
-        this.useNoticeKit.pushMailNotice('to confirm your account');
+        this.useSideApiKit.pushMailNotice('to confirm your account');
       })
     );
 }
