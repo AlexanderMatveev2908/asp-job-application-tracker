@@ -4,6 +4,6 @@
   @apply w-full h-full block;
 }
 
-.swapper__swap {
-  @include shapes.swapper__swap(var(--opac), 0 1rem);
+.app__swapper__swap {
+  @include shapes.app__swapper__swap(var(--opac), true);
 }

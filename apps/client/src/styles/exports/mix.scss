@@ -1,4 +1,4 @@
-@mixin shadow($clr) {
+@mixin app__shadow($clr) {
   color: var(--clr);
   box-shadow: 0 0 5px $clr, 0 0 10px $clr, 0 0 15px $clr, 0 0 20px $clr, 0 0 25px $clr;
 }
@@ -7,11 +7,11 @@
   border-color: var(--clr);
 
   &:hover {
-    @include shadow($clr);
+    @include app__shadow($clr);
   }
 }
 
-@mixin btn__scl($scale_hover) {
+@mixin app__btn__scl($scale_hover) {
   transition: all 0.3s ease;
 
   &:enabled:hover {
@@ -24,7 +24,7 @@
   }
 }
 
-@mixin el__scl($scale_hover) {
+@mixin app__el__scl($scale_hover) {
   transition: all 0.3s ease;
 
   &:hover {
@@ -37,7 +37,7 @@
   }
 }
 
-@mixin input__sdw($p) {
+@mixin app__input__sdw($p) {
   padding: $p;
 
   @apply transition-all duration-300 outline-none border-2 border-gray-300 rounded-xl bg-neutral-950;

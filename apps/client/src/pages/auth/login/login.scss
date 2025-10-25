@@ -1,5 +1,5 @@
 @use 'exports/shapes' as shapes;
 
 .root {
-  @include shapes.form__content(0 1rem);
+  @extend .app__form__content_pad;
 }

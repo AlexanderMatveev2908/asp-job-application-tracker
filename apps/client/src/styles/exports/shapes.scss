@@ -1,32 +1,47 @@
-@mixin btn__res($padding) {
+@mixin app__btn__res($padding) {
   padding: $padding;
   @apply flex w-full justify-center max-w-full border-2 rounded-xl text-gray-300;
 }
 
-@mixin form__page() {
-  @apply w-full min-h-[70vh] flex flex-col justify-center items-center gap-12;
-}
-
-@mixin form__wrap() {
-  @apply h-fit flex flex-col items-center gap-10 border-3 border-gray-300 rounded-xl p-5 pb-12 pt-8 overflow-hidden;
-}
-
-@mixin form__size() {
-  @apply w-[90%] max-w-[800px];
-}
-
-@mixin form__wrap_size() {
-  @include form__wrap();
-  @include form__size();
-}
-
-@mixin form__content($padding) {
-  padding: $padding;
+@mixin app__form__content($with_padding) {
+  padding: if($with_padding, 0 1rem, 0);
   @apply w-full flex flex-col gap-10;
 }
 
-@mixin swapper__swap($opac, $padding) {
-  @include form__content($padding);
+// ? derived • sass would not support runtime conditions so i compile classes before build
+.app__form__content_pad {
+  @include app__form__content(true);
+}
+
+.app__form__content_no_pad {
+  @include app__form__content(false);
+}
+
+@mixin app__swapper__swap($opac, $with_padding) {
+  @extend .app__form__content_pad;
   opacity: $opac;
   @apply h-fit transition-all duration-300;
+}
+
+// ? static
+.app__form__page {
+  @apply w-full min-h-[70vh] flex flex-col justify-center items-center gap-12;
+}
+
+.app__form__flex {
+  @apply h-fit flex flex-col items-center gap-14;
+}
+
+.app__form__container {
+  @extend .app__form__flex;
+  @apply border-3 border-gray-300 rounded-xl p-4 pb-12 pt-10 overflow-hidden;
+}
+
+.app__form__size {
+  @apply w-[90%] max-w-[800px];
+}
+
+.app__form__container_size {
+  @extend .app__form__container;
+  @extend .app__form__size;
 }

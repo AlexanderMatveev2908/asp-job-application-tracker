@@ -40,7 +40,7 @@
   @apply text-neutral-300;
 }
 
-.grad__txt {
+.app__txt__grad {
   background: linear-gradient(to right, var(--white__0), var(--neutral__500));
   background-clip: text;
   -webkit-background-clip: text;
@@ -48,7 +48,7 @@
   color: transparent;
 }
 
-.clamp__txt {
+.app__txt__clamp {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;

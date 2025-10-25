@@ -11,7 +11,7 @@
       [swap]="useSwap.swapState().swap"
       [prefixTestId]="'register_form__'"
     >
-      <div #swapDiv class="swapper__swap" [style.--opac]="useSwap.getOpacity(0)()">
+      <div #swapDiv class="app__swapper__swap" [style.--opac]="useSwap.getOpacity(0)()">
         <!--  -->
         @for(f of firstSwapFields; track f.id){
         <app-form-field-txt
@@ -22,7 +22,7 @@
         }
       </div>
 
-      <div #swapDiv class="swapper__swap" [style.--opac]="useSwap.getOpacity(1)()">
+      <div #swapDiv class="app__swapper__swap" [style.--opac]="useSwap.getOpacity(1)()">
         <app-pair-pwd [getCtrl]="getCtrl" [confSwap]="useSwap.confSwap(1)()" />
 
         <app-form-field-box-sm [f]="terms" [ctrl]="getCtrl('terms')" />

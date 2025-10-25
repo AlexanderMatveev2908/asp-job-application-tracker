@@ -3,9 +3,9 @@
   [isPending]="apiTracker.isPending()"
   [onSubmit]="onSubmit"
   [testId]="testId()"
-  [useFullPage]="true"
+  [useFullPage]="useFullPage()"
 >
-  <div class="w-full">
-    <app-pair-pwd [getCtrl]="getCtrl" [focusOnMount]="true" />
+  <div class="root" [ngClass]="useFullPage() ? 'root__pad' : 'root__no_pad'">
+    <app-pair-pwd [getCtrl]="getCtrl" [focusOnMount]="useFullPage()" [confSwap]="confSwap()" />
   </div>
 </app-form-shape>

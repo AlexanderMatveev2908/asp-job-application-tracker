@@ -5,7 +5,7 @@
 
   .root__btn {
     @apply text-gray-300;
-    @include mix.el__scl(1.3);
+    @include mix.app__el__scl(1.3);
 
     &:hover {
       @apply text-blue-600;

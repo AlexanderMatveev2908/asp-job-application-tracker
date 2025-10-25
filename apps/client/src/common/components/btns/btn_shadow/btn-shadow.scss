@@ -3,11 +3,11 @@
 
 .root {
   @apply bg-neutral-950;
-  @include shapes.btn__res(var(--pad));
-  @include mix.btn__scl(1.15);
+  @include shapes.app__btn__res(var(--pad));
+  @include mix.app__btn__scl(1.15);
   border-color: var(--clr);
 
   &:enabled:hover {
-    @include mix.shadow(var(--clr));
+    @include mix.app__shadow(var(--clr));
   }
 }

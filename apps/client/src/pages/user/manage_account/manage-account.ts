@@ -1,6 +1,6 @@
 import { UseRouteMngSvc } from '@/core/hooks/use_route_mng';
 import { TokenT } from '@/features/cbcHmac/etc/types';
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { Swapper } from '@/common/components/swap/swapper/swapper';
 import { UseSwapSvc } from '@/core/hooks/use_swap/use_swap';
@@ -26,7 +26,7 @@ import { DeleteAccount } from './swaps/delete_account/delete-account';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [UseRouteMngSvc],
 })
-export class ManageAccount extends UseSwapSvc implements OnInit {
+export class ManageAccount extends UseSwapSvc implements OnInit, AfterViewInit {
   private readonly useRouteMng: UseRouteMngSvc = inject(UseRouteMngSvc);
 
   ngOnInit(): void {
@@ -34,5 +34,9 @@ export class ManageAccount extends UseSwapSvc implements OnInit {
       pushTo: '/user/access-manage-account',
       from: 'ok',
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.useEffect(() => this.focusWhen('email', 'password'));
   }
 }

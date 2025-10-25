@@ -6,10 +6,13 @@ import { PairPwdFormMng, PairPwdFormT } from './etc/paperwork/form_mng';
 import { FormShape } from '@/common/components/forms/form_shape/form-shape';
 import { Observable } from 'rxjs';
 import { ApiTrackerSvc } from '@/core/store/api/etc/tracker';
+import { NgClass } from '@angular/common';
+import { Nullable } from '@/common/types/etc';
+import { ConfSwapT } from '@/core/hooks/use_swap/etc/types';
 
 @Component({
   selector: 'app-form-pair-pwd',
-  imports: [PairPwd, FormShape],
+  imports: [PairPwd, FormShape, NgClass],
   templateUrl: './form-pair-pwd.html',
   styleUrl: './form-pair-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,6 +23,8 @@ export class FormPairPwd extends UseKitFormSvc {
   public readonly strategy: InputSignal<(data: PairPwdFormT) => Observable<unknown>> =
     input.required();
   public readonly testId: InputSignal<string> = input.required();
+  public readonly useFullPage: InputSignal<boolean> = input.required();
+  public readonly confSwap: InputSignal<Nullable<ConfSwapT>> = input<Nullable<ConfSwapT>>(null);
 
   // ? form group
   public readonly form: FormGroup = PairPwdFormMng.form();
