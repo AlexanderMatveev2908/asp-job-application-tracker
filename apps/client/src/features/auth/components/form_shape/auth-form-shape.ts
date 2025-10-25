@@ -1,5 +1,5 @@
 import { FormShape } from '@/common/components/forms/form_shape/form-shape';
-import { UseFormShapeDir } from '@/core/directives/use_form_shape';
+import { UseFormShapeDir } from '@/core/directives/forms/use_form_shape';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AuthSpanLinks } from '../span_links/auth-span-links';
 

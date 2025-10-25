@@ -1,5 +1,4 @@
 import { CheckFieldT } from '@/common/types/forms';
-import { UseFormFieldDir } from '@/core/directives/form_field/0.use_field_root';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -18,6 +17,7 @@ import { FormControl } from '@angular/forms';
 import { FormFieldErr } from '../form_field_err/form-field-err';
 import { FormFieldBoxAnimations } from './etc/animations';
 import { LibPrs } from '@/core/lib/data_structure/prs';
+import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_field_root';
 
 @Component({
   selector: 'app-form-field-box-sm',

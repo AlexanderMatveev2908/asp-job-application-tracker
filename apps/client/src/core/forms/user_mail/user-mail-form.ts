@@ -6,7 +6,7 @@ import { MailFormUiFkt } from '@/core/ui_fkt/form_fields/1.mail';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormShape } from '@/common/components/forms/form_shape/form-shape';
-import { UseKitFormStrategyDir } from '@/core/directives/use_kit_form_strategy';
+import { UseKitFormStrategyDir } from '@/core/directives/forms/kits/0.use_kit_form_strategy';
 import { NgClass } from '@angular/common';
 
 @Component({

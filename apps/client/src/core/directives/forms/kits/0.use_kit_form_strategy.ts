@@ -1,5 +1,5 @@
 import { computed, Directive, input, InputSignal, Signal } from '@angular/core';
-import { UseKitFormHk } from '../hooks/kits/kit_form/0.use_kit_form';
+import { UseKitFormHk } from '../../../hooks/kits/kit_form/0.use_kit_form';
 import { Observable } from 'rxjs';
 
 @Directive()

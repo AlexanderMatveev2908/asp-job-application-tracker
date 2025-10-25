@@ -17,9 +17,9 @@ import { Portal } from '@/layout/portal/portal';
 import { FieldPwdCheckerT, PwdCheckerUiFkt } from './etc/ui_fkt';
 import { NgComponentOutlet, NgClass } from '@angular/common';
 import { Reg } from '@/core/paperwork/reg';
-import { UseFormFieldDir } from '@/core/directives/form_field/0.use_field_root';
 import { PortalDOM, RecCoordsT } from '@/core/lib/dom/portal';
 import { Nullable } from '@/common/types/etc';
+import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_field_root';
 
 @Component({
   selector: 'app-pwd-checker',

@@ -12,8 +12,8 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FormFieldErr } from '../form_field_err/form-field-err';
 import { Nullable, OptCbT, SvgT } from '@/common/types/etc';
 import { NgComponentOutlet } from '@angular/common';
-import { UseFormFieldDomDir } from '@/core/directives/form_field/1.use_form_field';
 import { LibPrs } from '@/core/lib/data_structure/prs';
+import { UseFormFieldDomDir } from '@/core/directives/forms/form_field/1.use_form_field';
 
 @Component({
   selector: 'app-form-field-txt',

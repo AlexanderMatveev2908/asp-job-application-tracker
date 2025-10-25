@@ -1,4 +1,4 @@
-import { UseFormShapeDir } from '@/core/directives/use_form_shape';
+import { UseFormShapeDir } from '@/core/directives/forms/use_form_shape';
 import { NgTemplateOutlet } from '@angular/common';
 import {
   ChangeDetectionStrategy,

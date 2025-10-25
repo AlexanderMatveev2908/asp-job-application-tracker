@@ -7,7 +7,7 @@ import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { NgClass } from '@angular/common';
 import { Nullable } from '@/common/types/etc';
 import { ConfSwapT } from '@/core/hooks/use_swap/etc/types';
-import { UseKitFormStrategyDir } from '@/core/directives/use_kit_form_strategy';
+import { UseKitFormStrategyDir } from '@/core/directives/forms/kits/0.use_kit_form_strategy';
 
 @Component({
   selector: 'app-form-pair-pwd',

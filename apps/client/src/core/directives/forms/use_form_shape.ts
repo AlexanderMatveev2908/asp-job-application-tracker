@@ -1,6 +1,6 @@
 import { Directive, input, InputSignal } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { UseTestIdDir } from './use_test_id';
+import { UseTestIdDir } from '../use_test_id';
 
 @Directive()
 export abstract class UseFormShapeDir extends UseTestIdDir {

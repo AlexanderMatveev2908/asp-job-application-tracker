@@ -12,9 +12,9 @@ import {
 import { Tooltip } from '../../els/tooltip/tooltip';
 import { FormControl } from '@angular/forms';
 import { ErrsFieldT, RecErrsFieldT } from '@/common/types/forms';
-import { UseFormFieldDir } from '@/core/directives/form_field/0.use_field_root';
 import { LibPrs } from '@/core/lib/data_structure/prs';
 import { Nullable } from '@/common/types/etc';
+import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_field_root';
 
 @Component({
   selector: 'app-form-field-err',
