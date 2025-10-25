@@ -3,9 +3,9 @@
   [onSubmit]="onSubmit"
   [testId]="testId()"
   [isPending]="apiTracker.isPending()"
-  [useFullPage]="false"
+  [useFullPage]="useFullPage()"
 >
-  <div class="root">
-    <app-form-field-txt [f]="mailField" [ctrl]="ctrl" [focusOnMount]="true" />
+  <div [ngClass]="cssCls()">
+    <app-form-field-txt [f]="mailField" [ctrl]="ctrl" [focusOnMount]="useFullPage()" />
   </div>
 </app-form-shape>

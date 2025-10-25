@@ -22,6 +22,7 @@ import { Verify } from '@/pages/verify/verify';
 import { LayoutUser } from '@/pages/user/layout/layout-user';
 import { ManageAccount } from '@/pages/user/manage_account/manage-account';
 import { AccessManageAccount } from '@/pages/user/access_manage_account/access-manage-account';
+import { UserVerifyMail } from '@/pages/user/verify_mail/user-verify-mail';
 
 export const routes: Routes = [
   {
@@ -91,6 +92,10 @@ export const routes: Routes = [
       {
         path: 'access-manage-account',
         component: AccessManageAccount,
+      },
+      {
+        path: 'confirm-email',
+        component: UserVerifyMail,
       },
     ],
   },

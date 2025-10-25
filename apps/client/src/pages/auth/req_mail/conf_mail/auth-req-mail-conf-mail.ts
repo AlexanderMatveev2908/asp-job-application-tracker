@@ -4,7 +4,7 @@ import { Observable, tap } from 'rxjs';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { MailFormT } from '@/core/paperwork/etc/mail';
 import { AuthMailForm } from '@/core/forms/auth_mail/auth-mail-form';
-import { UseKitMailFormSvc } from '@/core/forms/auth_mail/etc/use_kit_mail';
+import { UseKitMailFormSvc } from '@/core/hooks/kits/kit_form/-1.use_kit_mail';
 
 @Component({
   selector: 'app-auth-req-mail-conf-mail',

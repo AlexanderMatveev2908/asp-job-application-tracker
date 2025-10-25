@@ -24,7 +24,7 @@ export class RecoverPwd extends UseKitPairPwdFormSvc implements OnInit {
   private readonly routerProtection: UseRouteMngSvc = inject(UseRouteMngSvc);
   private readonly useAuthKit: UseAuthKitSvc = inject(UseAuthKitSvc);
 
-  public readonly strategy: (data: PairPwdFormT) => Observable<unknown> = (data: PairPwdFormT) => {
+  public readonly strategy: (data: unknown) => Observable<unknown> = (data: unknown) => {
     const cbcHmacToken: Nullable<string> = this.cbcHmacSlice.cbcHmac();
 
     return ApiShape.throwIfCbcHmacMissing(
@@ -32,7 +32,7 @@ export class RecoverPwd extends UseKitPairPwdFormSvc implements OnInit {
       this.useAuthKit.authApi
         .recoverPwd({
           cbcHmacToken: cbcHmacToken!,
-          password: data.password,
+          password: (data as PairPwdFormT).password,
         })
         .pipe(
           tap((res: ResApiT<JwtResT>) => {

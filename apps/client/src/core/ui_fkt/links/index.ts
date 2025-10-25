@@ -50,7 +50,7 @@ export class LinksUiFkt extends RootUiFkt {
   private static readonly _logged: Omit<SpanLinkPropsT, 'id' | 'eventT'>[] = [
     {
       label: 'Verify account',
-      path: '/user/require-email/confirm-email',
+      path: '/user/confirm-email',
       Svg: SvgFillVerify,
     },
     {
