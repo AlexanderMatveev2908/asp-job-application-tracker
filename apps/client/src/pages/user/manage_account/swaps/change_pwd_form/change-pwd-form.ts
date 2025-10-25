@@ -4,10 +4,11 @@ import { UseKitPairPwdFormHk } from '@/core/forms/pair_pwd/etc/hooks/use_kit_pai
 import { FormPairPwd } from '@/core/forms/pair_pwd/form-pair-pwd';
 import { Observable, of } from 'rxjs';
 import { ConfSwapT } from '@/core/hooks/use_swap/etc/types';
+import { UseKitStrategyDir } from '@/core/directives/forms/kits/0.use_kit_strategy';
 
 @Component({
   selector: 'app-change-pwd-form',
-  imports: [FormPairPwd],
+  imports: [FormPairPwd, UseKitStrategyDir],
   templateUrl: './change-pwd-form.html',
   styleUrl: './change-pwd-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, InputSignal } from '@angular/core';
 import { PairPwd } from '@/common/components/hoc/pair_pwd/pair-pwd';
 import { FormGroup } from '@angular/forms';
 import { PairPwdFormMng, PairPwdFormT } from './etc/paperwork/form_mng';
@@ -7,7 +7,8 @@ import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { NgClass } from '@angular/common';
 import { Nullable } from '@/common/types/etc';
 import { ConfSwapT } from '@/core/hooks/use_swap/etc/types';
-import { UseKitFormStrategyDir } from '@/core/directives/forms/kits/0.use_kit_form_strategy';
+import { UseKitStrategyDir } from '@/core/directives/forms/kits/0.use_kit_strategy';
+import { UseKitFormHk } from '@/core/hooks/kits/kit_form/0.use_kit_form';
 
 @Component({
   selector: 'app-form-pair-pwd',
@@ -17,13 +18,13 @@ import { UseKitFormStrategyDir } from '@/core/directives/forms/kits/0.use_kit_fo
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [UseApiTrackerHk],
 })
-export class FormPairPwd extends UseKitFormStrategyDir {
+export class FormPairPwd extends UseKitFormHk {
   public readonly confSwap: InputSignal<Nullable<ConfSwapT>> = input<Nullable<ConfSwapT>>(null);
-
+  public readonly useKitStrategy: UseKitStrategyDir = inject(UseKitStrategyDir);
   // ? form group
   public readonly form: FormGroup = PairPwdFormMng.form();
 
   public readonly onSubmit: () => void = () => {
-    this.submitForm((data: unknown) => this.strategy()(data as PairPwdFormT));
+    this.submitForm((data: unknown) => this.useKitStrategy.strategy()(data as PairPwdFormT));
   };
 }

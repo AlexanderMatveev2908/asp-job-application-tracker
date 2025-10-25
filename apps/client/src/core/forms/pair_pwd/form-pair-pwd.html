@@ -2,10 +2,14 @@
   [fromGroup]="form"
   [isPending]="apiTracker.isPending()"
   [onSubmit]="onSubmit"
-  [testId]="testId()"
-  [useFullPage]="useFullPage()"
+  [testId]="useKitStrategy.testId()"
+  [useFullPage]="useKitStrategy.useFullPage()"
 >
-  <div class="root" [ngClass]="cssCls()">
-    <app-pair-pwd [getCtrl]="getCtrl" [focusOnMount]="useFullPage()" [confSwap]="confSwap()" />
+  <div class="root" [ngClass]="useKitStrategy.cssCls()">
+    <app-pair-pwd
+      [getCtrl]="getCtrl"
+      [focusOnMount]="useKitStrategy.useFullPage()"
+      [confSwap]="confSwap()"
+    />
   </div>
 </app-form-shape>

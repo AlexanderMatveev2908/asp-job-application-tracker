@@ -3,11 +3,12 @@ import { TxtFieldT } from '@/common/types/forms';
 import { MailFormMng, MailFormT } from '@/core/paperwork/etc/mail';
 import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { MailFormUiFkt } from '@/core/ui_fkt/form_fields/1.mail';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormShape } from '@/common/components/forms/form_shape/form-shape';
-import { UseKitFormStrategyDir } from '@/core/directives/forms/kits/0.use_kit_form_strategy';
 import { NgClass } from '@angular/common';
+import { UseKitStrategyDir } from '@/core/directives/forms/kits/0.use_kit_strategy';
+import { UseKitFormHk } from '@/core/hooks/kits/kit_form/0.use_kit_form';
 
 @Component({
   selector: 'app-user-mail-form',
@@ -17,13 +18,15 @@ import { NgClass } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [UseApiTrackerHk],
 })
-export class UserMailForm extends UseKitFormStrategyDir {
+export class UserMailForm extends UseKitFormHk {
+  public readonly useKitStrategy: UseKitStrategyDir = inject(UseKitStrategyDir);
+
   // ? static assets
   public readonly form: FormGroup = MailFormMng.form();
   public readonly mailField: TxtFieldT = MailFormUiFkt.mailField();
   public readonly ctrl: FormControl = this.getCtrl('email');
 
   public readonly onSubmit: () => void = () => {
-    this.submitForm((data: unknown) => this.strategy()(data as MailFormT));
+    this.submitForm((data: unknown) => this.useKitStrategy.strategy()(data as MailFormT));
   };
 }

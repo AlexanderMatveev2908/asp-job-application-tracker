@@ -5,10 +5,11 @@ import { MailFormT } from '@/core/paperwork/etc/mail';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable, tap } from 'rxjs';
+import { UseKitStrategyDir } from '@/core/directives/forms/kits/0.use_kit_strategy';
 
 @Component({
   selector: 'app-user-verify-mail',
-  imports: [CsrWithTitle, UserMailForm],
+  imports: [CsrWithTitle, UserMailForm, UseKitStrategyDir],
   templateUrl: './user-verify-mail.html',
   styleUrl: './user-verify-mail.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

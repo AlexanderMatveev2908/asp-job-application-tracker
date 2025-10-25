@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 @Directive()
 export abstract class UseKitDynamicFormDir {
-  // ? expected to be present
+  // ? props
   public form: InputSignal<FormGroup> = input.required();
 
   // ? svc

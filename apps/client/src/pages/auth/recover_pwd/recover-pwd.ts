@@ -11,10 +11,11 @@ import { ErrApiT, ResApiT, StatusT } from '@/core/store/api/etc/types';
 import { JwtResT } from '@/features/auth/etc/types';
 import { UseRouteMngHk } from '@/core/hooks/use_route_mng';
 import { LibApiShape } from '@/core/store/api/etc/lib/shape';
+import { UseKitStrategyDir } from '@/core/directives/forms/kits/0.use_kit_strategy';
 
 @Component({
   selector: 'app-recover-pwd',
-  imports: [CsrWithTitle, FormPairPwd],
+  imports: [CsrWithTitle, FormPairPwd, UseKitStrategyDir],
   templateUrl: './recover-pwd.html',
   styleUrl: './recover-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

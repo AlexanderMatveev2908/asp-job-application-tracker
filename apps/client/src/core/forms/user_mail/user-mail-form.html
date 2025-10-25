@@ -1,11 +1,15 @@
 <app-form-shape
   [fromGroup]="form"
   [onSubmit]="onSubmit"
-  [testId]="testId()"
+  [testId]="useKitStrategy.testId()"
   [isPending]="apiTracker.isPending()"
-  [useFullPage]="useFullPage()"
+  [useFullPage]="useKitStrategy.useFullPage()"
 >
-  <div [ngClass]="cssCls()">
-    <app-form-field-txt [f]="mailField" [ctrl]="ctrl" [focusOnMount]="useFullPage()" />
+  <div [ngClass]="useKitStrategy.cssCls()">
+    <app-form-field-txt
+      [f]="mailField"
+      [ctrl]="ctrl"
+      [focusOnMount]="useKitStrategy.useFullPage()"
+    />
   </div>
 </app-form-shape>
