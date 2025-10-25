@@ -10,7 +10,7 @@ import { catchError, EMPTY, Observable, tap, throwError } from 'rxjs';
 import { ErrApiT, ResApiT, StatusT } from '@/core/store/api/etc/types';
 import { JwtResT } from '@/features/auth/etc/types';
 import { UseRouteMngHk } from '@/core/hooks/use_route_mng';
-import { LibApiShape } from '@/core/store/api/etc/shape';
+import { LibApiShape } from '@/core/store/api/etc/lib/shape';
 
 @Component({
   selector: 'app-recover-pwd',

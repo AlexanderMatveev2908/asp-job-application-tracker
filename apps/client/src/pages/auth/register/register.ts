@@ -14,7 +14,7 @@ import { JwtResT } from '@/features/auth/etc/types';
 import { tap } from 'rxjs';
 import { AuthFormShape } from '@/features/auth/components/form_shape/auth-form-shape';
 import { UseAuthKitSvc } from '@/features/auth/etc/use_auth_kit';
-import { ApiTrackerHk } from '@/core/store/api/etc/tracker';
+import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { UseKitSwapFormHk } from '@/core/hooks/kits/kit_form/1.use_kit_swap_form';
 import { UseSwapHk } from '@/core/hooks/use_swap/use_swap';
 
@@ -33,7 +33,7 @@ import { UseSwapHk } from '@/core/hooks/use_swap/use_swap';
   templateUrl: './register.html',
   styleUrl: './register.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ApiTrackerHk, UseSwapHk],
+  providers: [UseApiTrackerHk, UseSwapHk],
 })
 export class Register extends UseKitSwapFormHk implements AfterViewInit {
   // ? svc

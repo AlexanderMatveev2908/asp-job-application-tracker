@@ -14,7 +14,7 @@ import { UseKitFormPwdHk } from '@/core/forms/pwd/etc/hooks/use_kit_form_pwd';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TxtSvgFieldT } from '@/common/types/forms';
 import { PwdFieldsUiFkt } from '@/core/ui_fkt/form_fields/1.pwd';
-import { ApiTrackerHk } from '@/core/store/api/etc/tracker';
+import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 
 @Component({
   selector: 'app-form-pwd',
@@ -22,7 +22,7 @@ import { ApiTrackerHk } from '@/core/store/api/etc/tracker';
   templateUrl: './form-pwd.html',
   styleUrl: './form-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ApiTrackerHk],
+  providers: [UseApiTrackerHk],
 })
 export class FormPwd extends UseKitFormPwdHk {
   // ? props

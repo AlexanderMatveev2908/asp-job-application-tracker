@@ -11,7 +11,7 @@ import { HttpMethod } from '../etc/types';
 import { inject } from '@angular/core';
 import { ApiConfSvc } from '../etc/request/conf/conf';
 import { LibShapeCheck } from '@/core/lib/data_structure/shape_check';
-import { LibApiShape, HttpResT } from '../etc/shape';
+import { LibApiShape, HttpResT } from '../etc/lib/shape';
 import { Nullable } from '@/common/types/etc';
 import { ConfApiT } from '../etc/request/conf/etc/types';
 

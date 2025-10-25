@@ -2,7 +2,7 @@ import { Nullable } from '@/common/types/etc';
 import { ErrApp } from '@/core/lib/err';
 import { HttpErrorResponse, HttpEvent, HttpResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { StatusT } from './types';
+import { StatusT } from '../types';
 
 export type HttpResT = HttpResponse<unknown> | HttpErrorResponse;
 

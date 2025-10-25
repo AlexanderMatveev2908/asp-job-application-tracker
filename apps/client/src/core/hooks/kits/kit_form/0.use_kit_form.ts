@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ApiTrackerHk } from '@/core/store/api/etc/tracker';
+import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { ZodCheck } from '@/core/paperwork/zod_check';
 import { UseNoticeKitSvc } from '@/features/notice/etc/use_notice_kit';
 import { Observable } from 'rxjs';
@@ -11,7 +11,7 @@ export abstract class UseKitFormHk {
   public abstract form: FormGroup;
 
   // ? svc
-  public readonly apiTracker: ApiTrackerHk = inject(ApiTrackerHk);
+  public readonly apiTracker: UseApiTrackerHk = inject(UseApiTrackerHk);
   protected readonly useNoticeKit: UseNoticeKitSvc = inject(UseNoticeKitSvc);
 
   // ? helpers

@@ -12,7 +12,7 @@ import { JwtResT } from '@/features/auth/etc/types';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { UseKitFormPwdHk } from '@/core/forms/pwd/etc/hooks/use_kit_form_pwd';
 import { PwdFieldsUiFkt } from '@/core/ui_fkt/form_fields/1.pwd';
-import { ApiTrackerHk } from '@/core/store/api/etc/tracker';
+import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +20,7 @@ import { ApiTrackerHk } from '@/core/store/api/etc/tracker';
   templateUrl: './login.html',
   styleUrl: './login.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ApiTrackerHk],
+  providers: [UseApiTrackerHk],
 })
 export class Login extends UseKitFormPwdHk {
   private readonly useAuthKit: UseAuthKitSvc = inject(UseAuthKitSvc);

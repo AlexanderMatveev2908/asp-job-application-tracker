@@ -7,7 +7,7 @@ import { TxtFieldT } from '@/common/types/forms';
 import { UseKitFormHk } from '@/core/hooks/kits/kit_form/0.use_kit_form';
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
 import { Observable } from 'rxjs';
-import { ApiTrackerHk } from '@/core/store/api/etc/tracker';
+import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 
 @Component({
   selector: 'app-auth-mail-form',
@@ -15,7 +15,7 @@ import { ApiTrackerHk } from '@/core/store/api/etc/tracker';
   templateUrl: './auth-mail-form.html',
   styleUrl: './auth-mail-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ApiTrackerHk],
+  providers: [UseApiTrackerHk],
 })
 export class AuthMailForm extends UseKitFormHk {
   // ? not need by parent

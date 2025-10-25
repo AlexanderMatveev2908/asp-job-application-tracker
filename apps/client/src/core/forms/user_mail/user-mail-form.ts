@@ -1,7 +1,7 @@
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
 import { TxtFieldT } from '@/common/types/forms';
 import { MailFormMng, MailFormT } from '@/core/paperwork/etc/mail';
-import { ApiTrackerHk } from '@/core/store/api/etc/tracker';
+import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { MailFormUiFkt } from '@/core/ui_fkt/form_fields/1.mail';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -15,7 +15,7 @@ import { NgClass } from '@angular/common';
   templateUrl: './user-mail-form.html',
   styleUrl: './user-mail-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [ApiTrackerHk],
+  providers: [UseApiTrackerHk],
 })
 export class UserMailForm extends UseKitFormStrategyDir {
   // ? static assets
