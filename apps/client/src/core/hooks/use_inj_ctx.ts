@@ -10,7 +10,7 @@ import {
 import { UsePlatformSvc } from '../services/use_platform';
 
 @Injectable()
-export abstract class UseInjCtxHk {
+export class UseInjCtxHk {
   protected readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
   protected readonly inj: EnvironmentInjector = inject(EnvironmentInjector);
 

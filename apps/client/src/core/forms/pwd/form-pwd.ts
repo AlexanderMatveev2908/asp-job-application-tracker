@@ -18,6 +18,7 @@ import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { UseFormShapeDir } from '@/core/directives/forms/use_form_shape';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
+import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 
 @Component({
   selector: 'app-form-pwd',
@@ -25,7 +26,7 @@ import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_f
   templateUrl: './form-pwd.html',
   styleUrl: './form-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UseApiTrackerHk],
+  providers: [UseApiTrackerHk, UseInjCtxHk],
 })
 export class FormPwd extends UseKitFormPwdHk {
   // ? props

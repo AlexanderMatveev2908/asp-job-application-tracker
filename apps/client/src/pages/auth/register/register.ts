@@ -20,6 +20,7 @@ import { UseSwapHk } from '@/core/hooks/use_swap/use_swap';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { UseFormShapeDir } from '@/core/directives/forms/use_form_shape';
 import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
+import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 
 @Component({
   selector: 'app-register',
@@ -39,7 +40,7 @@ import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_f
   templateUrl: './register.html',
   styleUrl: './register.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UseApiTrackerHk, UseSwapHk],
+  providers: [UseApiTrackerHk, UseSwapHk, UseInjCtxHk],
 })
 export class Register extends UseKitSwapFormHk implements AfterViewInit {
   // ? svc

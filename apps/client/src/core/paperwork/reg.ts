@@ -98,4 +98,8 @@ export class Reg {
   public static isEmoji(arg: OrNone<string>): boolean {
     return this.check(arg, this.EMOJI);
   }
+
+  public static isMail(arg: OrNone<string>): boolean {
+    return this.check(arg, this.MAIL);
+  }
 }

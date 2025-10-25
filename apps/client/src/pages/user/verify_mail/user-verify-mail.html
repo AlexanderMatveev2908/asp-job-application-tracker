@@ -1,5 +1,6 @@
 <app-csr-with-title [title]="'Verify Account'">
   <app-user-mail-form
+    [mailMustBe]="'equal'"
     appUseKitStrategy
     [strategy]="strategy"
     [useFullPage]="true"

@@ -16,6 +16,7 @@ import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { UseFormShapeDir } from '@/core/directives/forms/use_form_shape';
 import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
+import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,7 @@ import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_f
   templateUrl: './login.html',
   styleUrl: './login.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UseApiTrackerHk],
+  providers: [UseApiTrackerHk, UseInjCtxHk],
 })
 export class Login extends UseKitFormPwdHk {
   private readonly useAuthKit: UseAuthKitSvc = inject(UseAuthKitSvc);

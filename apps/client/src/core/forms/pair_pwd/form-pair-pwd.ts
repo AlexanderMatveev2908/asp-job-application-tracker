@@ -11,6 +11,7 @@ import { UseKitStrategyDir } from '@/core/directives/forms/kits/use_kit_strategy
 import { UseKitFormHk } from '@/core/hooks/kits/kit_form/0.use_kit_form';
 import { UseFormShapeDir } from '@/core/directives/forms/use_form_shape';
 import { UseIDsDir } from '@/core/directives/use_ids';
+import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 
 @Component({
   selector: 'app-form-pair-pwd',
@@ -18,7 +19,7 @@ import { UseIDsDir } from '@/core/directives/use_ids';
   templateUrl: './form-pair-pwd.html',
   styleUrl: './form-pair-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UseApiTrackerHk],
+  providers: [UseApiTrackerHk, UseInjCtxHk],
 })
 export class FormPairPwd extends UseKitFormHk {
   // ? directives

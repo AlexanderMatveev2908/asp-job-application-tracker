@@ -4,6 +4,7 @@ import { ZodCheck } from '@/core/paperwork/zod_check';
 import { Observable } from 'rxjs';
 import { UseKitSideApiSvc } from '@/core/services/use_kit_side_api';
 import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
+import { UseInjCtxHk } from '../../use_inj_ctx';
 
 @Injectable()
 export abstract class UseKitFormHk {
@@ -11,6 +12,7 @@ export abstract class UseKitFormHk {
 
   protected readonly apiTracker: UseApiTrackerHk = inject(UseApiTrackerHk);
   protected readonly useSideApiKit: UseKitSideApiSvc = inject(UseKitSideApiSvc);
+  protected readonly useInjCtx: UseInjCtxHk = inject(UseInjCtxHk);
 
   public readonly getCtrl: (name: string) => FormControl = (name: string): FormControl =>
     this.form.get(name) as FormControl;
