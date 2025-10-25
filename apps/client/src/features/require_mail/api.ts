@@ -20,4 +20,10 @@ export class RequireMailApiSvc {
   public recoverPwd(body: MailFormT): ObsResT<void> {
     return this.api.post(ApiArgs.withURL(`${this.base}/recover-pwd`).body(body).toastOnFulfilled());
   }
+
+  public confMailLogged(body: MailFormT): ObsResT<void> {
+    return this.api.post(
+      ApiArgs.withURL(`${this.base}/confirm-email-logged`).body(body).toastOnFulfilled()
+    );
+  }
 }
