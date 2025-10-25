@@ -1,11 +1,11 @@
 <app-form-shape
-  appUseIDsDir
-  [testId]="testId()"
   appUseFormShapeDir
   [fromGroup]="form"
   [onSubmit]="onSubmit"
   [isPending]="apiTracker.isPending()"
   [useFullPage]="true"
+  appUseIDsDir
+  [testId]="testId()"
 >
   <div class="root">
     <app-form-field-txt

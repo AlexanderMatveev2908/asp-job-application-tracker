@@ -1,11 +1,11 @@
 <app-form-shape
-  appUseIDsDir
-  [testId]="useIDsDir.testId()"
   appUseFormShapeDir
   [fromGroup]="form"
   [isPending]="apiTracker.isPending()"
   [onSubmit]="onSubmit"
   [useFullPage]="useKitStrategy.useFullPage()"
+  appUseIDsDir
+  [testId]="useIDsDir.testId()"
 >
   <div class="root" [ngClass]="useKitStrategy.cssCls()">
     <app-pair-pwd

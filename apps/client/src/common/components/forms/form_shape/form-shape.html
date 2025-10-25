@@ -19,9 +19,9 @@
     <ng-content />
 
     <app-form-submit
+      [isPending]="useShapeDir.isPending()"
       appUseIDsDir
       [testId]="useIDsDir.testId()"
-      [isPending]="useShapeDir.isPending()"
     />
   </form>
 </ng-template>
