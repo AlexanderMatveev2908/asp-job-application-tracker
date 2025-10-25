@@ -3,6 +3,8 @@ import { RefDomT } from '@/common/types/etc';
 import { FocusDOM } from '@/core/lib/dom/focus';
 import { UseFormFieldDir } from './0.use_form_field';
 
+// ! marked as 1.* even if does not extend UseFormFieldDir
+// ! because still expect is as abstract field
 @Directive()
 export abstract class UseFormFieldDomDir implements AfterViewInit {
   public abstract useFormFieldDir: UseFormFieldDir;
