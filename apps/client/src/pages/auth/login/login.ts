@@ -13,10 +13,12 @@ import { ResApiT } from '@/core/store/api/etc/types';
 import { UseKitFormPwdHk } from '@/core/forms/pwd/etc/hooks/use_kit_form_pwd';
 import { PwdFieldsUiFkt } from '@/core/ui_fkt/form_fields/1.pwd';
 import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
+import { UseIDsDir } from '@/core/directives/use_ids';
+import { UseFormShapeDir } from '@/core/directives/forms/use_form_shape';
 
 @Component({
   selector: 'app-login',
-  imports: [CsrWithTitle, AuthFormShape, FormFieldTxt],
+  imports: [CsrWithTitle, AuthFormShape, FormFieldTxt, UseIDsDir, UseFormShapeDir],
   templateUrl: './login.html',
   styleUrl: './login.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

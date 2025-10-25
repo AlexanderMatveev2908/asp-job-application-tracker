@@ -30,7 +30,7 @@ import { UserT } from '@/features/user/etc/types';
 import { WrapTxtApi } from '@/common/components/hoc/txt/wrap_txt_api/wrap-txt-api';
 import { LogoutBtn } from '@/features/auth/components/logout_btn/logout-btn';
 import { UseIDsDir } from '@/core/directives/use_ids';
-import { UseSpanRootDir } from '@/core/directives/span/0.use_span_root';
+import { UseSpanDir } from '@/core/directives/span/use_span';
 
 @Component({
   selector: 'app-header',
@@ -45,7 +45,7 @@ import { UseSpanRootDir } from '@/core/directives/span/0.use_span_root';
     WrapTxtApi,
     LogoutBtn,
     UseIDsDir,
-    UseSpanRootDir,
+    UseSpanDir,
   ],
   templateUrl: './header.html',
   styleUrl: './header.scss',

@@ -23,8 +23,8 @@
 <ng-template #content>
   <app-span
     [spanProps]="{
-      label: spanProps().label,
-      Svg: spanProps().Svg ?? null
+      label: useSpanDir.spanProps().label,
+      Svg: useSpanDir.spanProps().Svg ?? null
     }"
   />
 </ng-template>

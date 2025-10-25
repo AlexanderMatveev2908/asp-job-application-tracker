@@ -11,10 +11,12 @@ import { BtnShadow } from '../../../btns/btn_shadow/btn-shadow';
 import { SwapBtnsUiFkt } from './etc/ui_fkt';
 import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
 import { LibPrs } from '@/core/lib/data_structure/prs';
+import { UseIDsDir } from '@/core/directives/use_ids';
+import { UseSpanDir } from '@/core/directives/span/use_span';
 
 @Component({
   selector: 'app-swap-btns',
-  imports: [BtnShadow],
+  imports: [BtnShadow, UseIDsDir, UseSpanDir],
   templateUrl: './swap-btns.html',
   styleUrl: './swap-btns.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

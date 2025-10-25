@@ -26,17 +26,18 @@
 
       <app-drop-static
         [spanProps]="spanUserProps()"
-        appUseIDsDir
-        [testId]="'sidebar__drop_user'"
         [isOpen]="isDropOpen()"
         [setIsOpen]="setIsDropOpen"
         [closeOnMouseOut]="false"
+        appUseIDsDir
+        [testId]="'sidebar__drop_user'"
       >
         <ng-template #dropContent>
           <div class="body__wrap_links">
             @for(lk of linksUser(); track lk.id){
             <app-nav-link
               appUseSpanDir
+              appUseIDsDir
               [testId]="testIdFromPath(lk.path)"
               [spanProps]="lk"
               [path]="lk.path"

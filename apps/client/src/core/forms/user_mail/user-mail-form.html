@@ -1,8 +1,9 @@
 <app-form-shape
-  appUseShapeDir
+  appUseIDsDir
+  [testId]="useKitStrategy.testId()"
+  appUseFormShapeDir
   [fromGroup]="form"
   [onSubmit]="onSubmit"
-  [testId]="useKitStrategy.testId()"
   [isPending]="apiTracker.isPending()"
   [useFullPage]="useKitStrategy.useFullPage()"
 >

@@ -1,8 +1,10 @@
 <app-csr-with-title [title]="'Register'">
   <app-auth-form-shape
+    appUseFormShapeDir
     [fromGroup]="form"
     [onSubmit]="onSubmit"
     [isPending]="apiTracker.isPending()"
+    appUseIDsDir
     [testId]="'register_form'"
   >
     <app-swapper

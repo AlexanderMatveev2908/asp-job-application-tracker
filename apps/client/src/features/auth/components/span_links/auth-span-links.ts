@@ -12,10 +12,11 @@ import {
 import { AuthSpanLinksUiFkt } from './etc/ui_fkt';
 import { SpanLinkPropsT } from '@/common/components/els/span/etc/types';
 import { TooltipLink } from '@/common/components/links/tooltip_link/tooltip-link';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-auth-span-links',
-  imports: [TooltipLink],
+  imports: [TooltipLink, UseIDsDir],
   templateUrl: './auth-span-links.html',
   styleUrl: './auth-span-links.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

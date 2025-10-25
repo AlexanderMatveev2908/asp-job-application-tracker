@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   input,
   InputSignal,
   Signal,
@@ -9,7 +10,10 @@ import {
 import { RouterLink } from '@angular/router';
 import { NgTemplateOutlet } from '@angular/common';
 import { Span } from '../../els/span/span';
-import { UseMetaSpanDir } from '@/core/directives/span/1.use_span_meta';
+import { UseIDsDir } from '@/core/directives/use_ids';
+import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
+import { UseSpanDir } from '@/core/directives/span/use_span';
+import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
 
 @Component({
   selector: 'app-link-shadow',
@@ -18,11 +22,21 @@ import { UseMetaSpanDir } from '@/core/directives/span/1.use_span_meta';
   styleUrl: './link-shadow.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LinkShadow extends UseMetaSpanDir {
+export class LinkShadow {
+  // ? directives
+  public readonly useIDsDir: UseIDsDir = inject(UseIDsDir);
+  public readonly useSpanDir: UseSpanDir = inject(UseSpanDir);
+
+  // ? personal props
+  public readonly paddingProps: InputSignal<string> = input('10px 15px');
   public readonly path: InputSignal<string> = input.required();
 
   // ? derived
   public readonly isExternal: Signal<boolean> = computed(() =>
     /^(https?:\/\/|mailto:|tel:)/.test(this.path())
+  );
+
+  public readonly metaEvent: Signal<AppEventMetaT> = computed(() =>
+    MetaEventDOM.byT(this.useSpanDir.spanProps().eventT)
   );
 }

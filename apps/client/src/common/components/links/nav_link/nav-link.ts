@@ -12,8 +12,9 @@ import { RouterLink } from '@angular/router';
 import { Span } from '../../els/span/span';
 import { NgClass } from '@angular/common';
 import { Nullable } from '@/common/types/etc';
-import { UseSpanRootDir } from '@/core/directives/span/0.use_span_root';
+import { UseSpanDir } from '@/core/directives/span/use_span';
 import { SpanSizesPropsT } from '../../els/span/etc/types';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-nav-link',
@@ -23,7 +24,8 @@ import { SpanSizesPropsT } from '../../els/span/etc/types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavLink {
-  public readonly useSpanDir: UseSpanRootDir = inject(UseSpanRootDir);
+  public readonly useSpanDir: UseSpanDir = inject(UseSpanDir);
+  public readonly useIdsDir: UseIDsDir = inject(UseIDsDir);
 
   // ? app-span props
   public readonly path: InputSignal<string> = input.required();

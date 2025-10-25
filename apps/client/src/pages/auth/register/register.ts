@@ -17,6 +17,8 @@ import { UseAuthKitSvc } from '@/features/auth/etc/use_auth_kit';
 import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { UseKitSwapFormHk } from '@/core/hooks/kits/kit_form/1.use_kit_swap_form';
 import { UseSwapHk } from '@/core/hooks/use_swap/use_swap';
+import { UseIDsDir } from '@/core/directives/use_ids';
+import { UseFormShapeDir } from '@/core/directives/forms/use_form_shape';
 
 @Component({
   selector: 'app-register',
@@ -29,6 +31,8 @@ import { UseSwapHk } from '@/core/hooks/use_swap/use_swap';
     PortalModule,
     FormFieldBoxSm,
     AuthFormShape,
+    UseIDsDir,
+    UseFormShapeDir,
   ],
   templateUrl: './register.html',
   styleUrl: './register.scss',

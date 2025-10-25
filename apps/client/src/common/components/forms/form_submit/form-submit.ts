@@ -11,17 +11,20 @@ import { BtnShadow } from '../../btns/btn_shadow/btn-shadow';
 import { SpanEventPropsT } from '../../els/span/etc/types';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { BtnStatePropsT } from '@/common/types/etc';
+import { UseSpanDir } from '@/core/directives/span/use_span';
 
 @Component({
   selector: 'app-form-submit',
-  imports: [BtnShadow],
+  imports: [BtnShadow, UseIDsDir, UseSpanDir],
   templateUrl: './form-submit.html',
   styleUrl: './form-submit.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormSubmit {
-  public readonly isPending: InputSignal<boolean> = input.required();
+  // ? directives
   public readonly useIDsDir: UseIDsDir = inject(UseIDsDir);
+  // ? props
+  public readonly isPending: InputSignal<boolean> = input.required();
 
   // ? span of btn props • static
   public readonly spanProps: SpanEventPropsT = {

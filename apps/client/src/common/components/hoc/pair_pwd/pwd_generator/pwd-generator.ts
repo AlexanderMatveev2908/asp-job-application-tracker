@@ -15,10 +15,11 @@ import { PwdGen } from './etc/pwd_gen';
 import { CpyPaste } from '../../cpy_paste/cpy-paste';
 import { Nullable, SvgT } from '@/common/types/etc';
 import { UseHoverHk } from '@/core/hooks/listeners/use_hover';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-pwd-generator',
-  imports: [NgComponentOutlet, Portal, Tooltip, CpyPaste],
+  imports: [NgComponentOutlet, Portal, Tooltip, CpyPaste, UseIDsDir],
   templateUrl: './pwd-generator.html',
   styleUrl: './pwd-generator.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

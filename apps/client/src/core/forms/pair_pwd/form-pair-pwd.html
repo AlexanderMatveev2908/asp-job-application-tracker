@@ -1,9 +1,10 @@
 <app-form-shape
-  appUseShapeDir
+  appUseIDsDir
+  [testId]="useKitStrategy.testId()"
+  appUseFormShapeDir
   [fromGroup]="form"
   [isPending]="apiTracker.isPending()"
   [onSubmit]="onSubmit"
-  [testId]="useKitStrategy.testId()"
   [useFullPage]="useKitStrategy.useFullPage()"
 >
   <div class="root" [ngClass]="useKitStrategy.cssCls()">

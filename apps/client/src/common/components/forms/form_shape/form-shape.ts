@@ -23,6 +23,7 @@ import { UseIDsDir } from '@/core/directives/use_ids';
 })
 export class FormShape {
   public readonly useShapeDir: UseFormShapeDir = inject(UseFormShapeDir);
+  public readonly useIDsDir: UseIDsDir = inject(UseIDsDir);
 
   @ContentChild('footer', { read: TemplateRef }) footer: RefTemplateT;
   public readonly useFullPage: InputSignal<boolean> = input.required();

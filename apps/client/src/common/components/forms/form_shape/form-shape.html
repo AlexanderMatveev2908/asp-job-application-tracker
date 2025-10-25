@@ -11,7 +11,7 @@
 
 <ng-template #formContent>
   <form
-    [attr.data-testid]="useShapeDir.testId()"
+    [attr.data-testid]="useIDsDir.testId()"
     class="root__content"
     [formGroup]="useShapeDir.fromGroup()"
     (ngSubmit)="useShapeDir.onSubmit()()"
@@ -20,7 +20,7 @@
 
     <app-form-submit
       appUseIDsDir
-      [testId]="useShapeDir.testId()"
+      [testId]="useIDsDir.testId()"
       [isPending]="useShapeDir.isPending()"
     />
   </form>

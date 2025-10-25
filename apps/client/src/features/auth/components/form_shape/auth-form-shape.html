@@ -1,9 +1,10 @@
 <app-form-shape
-  appUseShapeDir
-  [fromGroup]="fromGroup()"
-  [onSubmit]="onSubmit()"
-  [isPending]="isPending()"
-  [testId]="testId()"
+  appUseIDsDir
+  appUseFormShapeDir
+  [testId]="useIDsDir.testId()"
+  [fromGroup]="useFormShapeDir.fromGroup()"
+  [onSubmit]="useFormShapeDir.onSubmit()"
+  [isPending]="useFormShapeDir.isPending()"
   [useFullPage]="true"
 >
   <ng-content />

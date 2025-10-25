@@ -10,10 +10,11 @@ import { ConfSwapT } from '@/core/hooks/use_swap/etc/types';
 import { UseKitStrategyDir } from '@/core/directives/forms/kits/0.use_kit_strategy';
 import { UseKitFormHk } from '@/core/hooks/kits/kit_form/0.use_kit_form';
 import { UseFormShapeDir } from '@/core/directives/forms/use_form_shape';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-form-pair-pwd',
-  imports: [PairPwd, FormShape, NgClass, UseFormShapeDir],
+  imports: [PairPwd, FormShape, NgClass, UseFormShapeDir, UseIDsDir],
   templateUrl: './form-pair-pwd.html',
   styleUrl: './form-pair-pwd.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

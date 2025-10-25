@@ -1,8 +1,19 @@
-import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  InputSignal,
+  Signal,
+} from '@angular/core';
 import { Span } from '../../els/span/span';
 import { WrapBtnApi } from '../../hoc/btns/wrap_btn_api/wrap-btn-api';
 import { BtnListenersT, BtnStatePropsT, BtnT, Nullable } from '@/common/types/etc';
-import { UseMetaSpanDir } from '@/core/directives/span/1.use_span_meta';
+import { UseIDsDir } from '@/core/directives/use_ids';
+import { UseSpanDir } from '@/core/directives/span/use_span';
+import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
+import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
 
 @Component({
   selector: 'app-btn-shadow',
@@ -11,8 +22,13 @@ import { UseMetaSpanDir } from '@/core/directives/span/1.use_span_meta';
   styleUrl: './btn-shadow.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BtnShadow extends UseMetaSpanDir {
+export class BtnShadow {
+  // ? directives
+  public readonly useIDsDir: UseIDsDir = inject(UseIDsDir);
+  public readonly useSpanDir: UseSpanDir = inject(UseSpanDir);
+
   // ? btn personal props
+  public readonly paddingProps: InputSignal<string> = input('10px 15px');
   public readonly btnStateProps: InputSignal<BtnStatePropsT> = input<BtnStatePropsT>({
     isDisabled: false,
     isPending: false,
@@ -28,4 +44,8 @@ export class BtnShadow extends UseMetaSpanDir {
     const res: void | Promise<void> = clickEvent();
     if (res instanceof Promise) await res;
   }
+
+  public readonly metaEvent: Signal<AppEventMetaT> = computed(() =>
+    MetaEventDOM.byT(this.useSpanDir.spanProps().eventT)
+  );
 }
