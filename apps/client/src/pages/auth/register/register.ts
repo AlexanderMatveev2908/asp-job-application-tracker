@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, EffectRef, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CheckFieldT, TxtFieldT } from '@/common/types/forms';
@@ -35,7 +35,7 @@ import { UseSwapSvc } from '@/core/hooks/use_swap/use_swap';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [ApiTrackerSvc, UseSwapSvc],
 })
-export class Register extends UseKitSwapFormSvc {
+export class Register extends UseKitSwapFormSvc implements AfterViewInit {
   // ? svc
   private readonly useAuthKit: UseAuthKitSvc = inject(UseAuthKitSvc);
 
@@ -47,9 +47,10 @@ export class Register extends UseKitSwapFormSvc {
   public readonly terms: CheckFieldT = RegisterFormUiFkt.termsField;
 
   // ? listeners
-  private readonly focusOnSwap: EffectRef = effect(() =>
-    this.useSwap.focusWhen('firstName', 'password')
-  );
+
+  ngAfterViewInit(): void {
+    this.useSwap.useEffect(() => this.useSwap.focusWhen('firstName', 'password'));
+  }
 
   public onSubmit: () => Promise<void> = async () => {
     this.submitSwapForm({

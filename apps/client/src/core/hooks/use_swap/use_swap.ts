@@ -3,9 +3,10 @@ import { ConfSwapT, SwapModeT, SwapStateT } from './etc/types';
 import { LibEtc } from '@/core/lib/etc';
 import { FocusDOM } from '@/core/lib/dom/focus';
 import { TimerIdT } from '@/common/types/etc';
+import { UseInjCtxSvc } from '../platform/use_inj_ctx';
 
 @Injectable()
-export class UseSwapSvc {
+export class UseSwapSvc extends UseInjCtxSvc {
   // | added little margin 100ms
   // | normal tim would be 400
   // eslint-disable-next-line no-magic-numbers
