@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { animate } from '@motionone/dom';
 import { v4 } from 'uuid';
-import { UseSpinDir } from '@/core/directives/use_spin';
+import { UseMetaEventDir } from '@/core/directives/use_meta_event';
 
 @Component({
   selector: 'app-spin-btn',
@@ -19,7 +19,10 @@ import { UseSpinDir } from '@/core/directives/use_spin';
   styleUrl: './spin-btn.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SpinBtn extends UseSpinDir implements AfterViewInit {
+export class SpinBtn implements AfterViewInit {
+  // ? directives
+  public readonly useMetaEventDir: UseMetaEventDir = inject(UseMetaEventDir);
+
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
 
   // ? static ids to map for spin

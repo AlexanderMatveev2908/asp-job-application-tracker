@@ -8,11 +8,12 @@
   <div class="root__right">
     <app-wrap-txt-api [eventT]="'INFO'" [isPending]="fetchingUser()" [spinSizeT]="'md'">
       <app-drop-abs
-        [isOpen]="isDropOpen()"
-        [setIsOpen]="setIsDropOpen"
         [spanProps]="spanDropProps()"
         [spanSizesProps]="spanDropSizesProps"
+        appUseDropDir
+        [isOpen]="isDropOpen()"
         [closeOnMouseOut]="true"
+        [setIsOpen]="setIsDropOpen"
         appUseIDsDir
         [testId]="'header__drop'"
       >

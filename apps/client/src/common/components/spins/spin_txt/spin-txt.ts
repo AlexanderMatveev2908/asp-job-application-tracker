@@ -1,5 +1,5 @@
-import { UseSpinDir } from '@/core/directives/use_spin';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { UseMetaEventDir } from '@/core/directives/use_meta_event';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 @Component({
   selector: 'app-spin-txt',
@@ -8,4 +8,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './spin-txt.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SpinTxt extends UseSpinDir {}
+export class SpinTxt {
+  public readonly useMetaEventDir: UseMetaEventDir = inject(UseMetaEventDir);
+}

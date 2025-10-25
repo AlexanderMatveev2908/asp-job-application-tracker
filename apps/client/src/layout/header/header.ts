@@ -31,6 +31,7 @@ import { WrapTxtApi } from '@/common/components/hoc/txt/wrap_txt_api/wrap-txt-ap
 import { LogoutBtn } from '@/features/auth/components/logout_btn/logout-btn';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { UseSpanDir } from '@/core/directives/use_span';
+import { UseDropDir } from '@/core/directives/use_drop';
 
 @Component({
   selector: 'app-header',
@@ -46,6 +47,7 @@ import { UseSpanDir } from '@/core/directives/use_span';
     LogoutBtn,
     UseIDsDir,
     UseSpanDir,
+    UseDropDir,
   ],
   templateUrl: './header.html',
   styleUrl: './header.scss',

@@ -28,8 +28,10 @@ import { UseIDsDir } from '@/core/directives/use_ids';
   styleUrl: './drop-static.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DropStatic extends UseDropDir implements AfterViewInit, AfterContentChecked {
+export class DropStatic implements AfterViewInit, AfterContentChecked {
+  // ? directives
   public readonly useIDsDir: UseIDsDir = inject(UseIDsDir);
+  public readonly useDropDir: UseDropDir = inject(UseDropDir);
 
   // ? app-span component props
   public readonly spanProps: InputSignal<SpanPropsT> = input.required();
@@ -46,12 +48,12 @@ export class DropStatic extends UseDropDir implements AfterViewInit, AfterConten
 
   // ? style
   public readonly twd: Signal<RecTwdClsDropT> = computed(() => {
-    const isDropOpen: boolean = this.isOpen();
+    const isDropOpen: boolean = this.useDropDir.isOpen();
     return DropStaticTwdCss.byState(isDropOpen);
   });
 
   public readonly maxH: Signal<string> = computed(() =>
-    this.isOpen() ? `${this.wrapperH()}px` : '0px'
+    this.useDropDir.isOpen() ? `${this.wrapperH()}px` : '0px'
   );
 
   // ? listeners & ng lifecycle

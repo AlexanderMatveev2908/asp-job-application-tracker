@@ -2,8 +2,10 @@ import { computed, Directive, input, InputSignal, Signal } from '@angular/core';
 import { AppEventMetaT, AppEventT } from '../lib/dom/meta_event/etc/types';
 import { MetaEventDOM } from '../lib/dom/meta_event/meta_event';
 
-@Directive()
-export abstract class UseSpinDir {
+@Directive({
+  selector: '[appUseMetaEventDir]',
+})
+export class UseMetaEventDir {
   // ? personal props
   public readonly eventT: InputSignal<AppEventT> = input.required();
 

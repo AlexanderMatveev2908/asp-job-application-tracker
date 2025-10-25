@@ -8,7 +8,7 @@
 >
   @if(txtClampProps()) {
   <div class="root__span_mail">
-    <app-txt-clamp [props]="txtClampProps()" [lines]="2" />
+    <app-txt-clamp [lines]="2" appUseTxtDir [props]="txtClampProps()" />
   </div>
   }
 
@@ -27,6 +27,7 @@
 
       <app-drop-static
         [spanProps]="spanUserProps()"
+        appUseDropDir
         [isOpen]="isDropOpen()"
         [setIsOpen]="setIsDropOpen"
         [closeOnMouseOut]="false"

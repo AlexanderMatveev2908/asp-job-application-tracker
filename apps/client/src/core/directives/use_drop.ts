@@ -10,8 +10,10 @@ import {
 import { RefDomT, RefTemplateT } from '@/common/types/etc';
 import { MouseDOM } from '../lib/dom/mouse';
 
-@Directive()
-export abstract class UseDropDir {
+@Directive({
+  selector: '[appUseDropDir]',
+})
+export class UseDropDir {
   // ? props
   public readonly isOpen: InputSignal<boolean> = input.required();
   public readonly setIsOpen: InputSignal<(val: boolean) => void> = input.required();
