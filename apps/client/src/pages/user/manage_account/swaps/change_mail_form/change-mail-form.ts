@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { UserMailForm } from '@/core/forms/user_mail/user-mail-form';
 import { Observable, of } from 'rxjs';
-import { UseKitStrategyDir } from '@/core/directives/forms/kits/0.use_kit_strategy';
+import { UseKitStrategyDir } from '@/core/directives/forms/kits/use_kit_strategy';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { UserSlice } from '@/features/user/slice';
 import { FormGroup } from '@angular/forms';

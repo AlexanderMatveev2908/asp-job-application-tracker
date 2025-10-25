@@ -4,7 +4,7 @@ import { UseKitPairPwdFormHk } from '@/core/forms/pair_pwd/etc/hooks/use_kit_pai
 import { FormPairPwd } from '@/core/forms/pair_pwd/form-pair-pwd';
 import { Observable, of } from 'rxjs';
 import { ConfSwapT } from '@/core/hooks/use_swap/etc/types';
-import { UseKitStrategyDir } from '@/core/directives/forms/kits/0.use_kit_strategy';
+import { UseKitStrategyDir } from '@/core/directives/forms/kits/use_kit_strategy';
 import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({

@@ -5,7 +5,7 @@ import { MailFormMng, MailFormT } from '@/core/paperwork/etc/mail';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { UseKitStrategyDir } from '@/core/directives/forms/kits/0.use_kit_strategy';
+import { UseKitStrategyDir } from '@/core/directives/forms/kits/use_kit_strategy';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { FormGroup } from '@angular/forms';
 import { VerifyMailFormUserMng } from './etc/paperwork/verify_mail_user_form_mng';
