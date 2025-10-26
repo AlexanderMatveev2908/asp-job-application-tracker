@@ -32,6 +32,7 @@ export class Swapper extends UseInjCtxHk implements AfterViewInit {
   public readonly setSwap: InputSignal<(val: number) => void> = input.required();
   public readonly maxSwaps: InputSignal<number> = input.required();
   public readonly prefixTestId: InputSignal<string> = input.required();
+  public readonly optionalDep: InputSignal<Nullable<unknown[]>> = input<Nullable<unknown[]>>(null);
 
   // ? derived by content
   public readonly maxH: WritableSignal<Nullable<string>> = signal(null);
@@ -75,6 +76,11 @@ export class Swapper extends UseInjCtxHk implements AfterViewInit {
   // ? listener
   ngAfterViewInit(): void {
     this.useDOM(() => {
+      this.calcH();
+    });
+
+    this.useEffect(() => {
+      void this.optionalDep();
       this.calcH();
     });
   }

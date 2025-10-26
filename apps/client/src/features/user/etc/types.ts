@@ -6,6 +6,7 @@ export interface UserT extends SqlTableT {
   email: string;
   tmpEmail: Nullable<string>;
   isVerified: boolean;
+  use2FA: boolean;
 
   toptSecret?: string;
   password?: string;
@@ -19,3 +20,10 @@ interface BaseUserFormArgT {
   cbcHmacToken: string;
 }
 export type UserFormArgT<T> = T extends void ? BaseUserFormArgT : BaseUserFormArgT & T;
+
+export interface Setup2faReturnT {
+  totpSecret: string;
+  backupCodes: string[];
+  totpSecretQrCode: string;
+  zipFile: string;
+}

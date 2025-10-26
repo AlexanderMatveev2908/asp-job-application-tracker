@@ -1,6 +1,16 @@
 import { UseRouteMngHk } from '@/core/hooks/use_route_mng';
 import { TokenT } from '@/features/cbcHmac/etc/types';
-import { AfterViewInit, ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnInit,
+  signal,
+  Signal,
+  WritableSignal,
+} from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { Swapper } from '@/common/components/swap/swapper/swapper';
 import { UseSwapHk } from '@/core/hooks/use_swap/use_swap';
@@ -28,6 +38,12 @@ import { DeleteAccount } from './swap_forms/delete_account/delete-account';
 })
 export class ManageAccount extends UseSwapHk implements OnInit, AfterViewInit {
   private readonly useRouteMng: UseRouteMngHk = inject(UseRouteMngHk);
+  private readonly _triggerCalcH: WritableSignal<number> = signal(0);
+
+  public readonly optionalDep: Signal<unknown[]> = computed(() => [this._triggerCalcH()]);
+  public readonly triggerCalcH: () => void = () => {
+    this._triggerCalcH.set(this._triggerCalcH() + 1);
+  };
 
   ngOnInit(): void {
     this.useRouteMng.pushOutIfNotTokenType('/user/manage-account', TokenT.MANAGE_ACC, {

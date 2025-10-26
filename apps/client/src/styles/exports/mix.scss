@@ -47,3 +47,18 @@
       0 0 15px var(--white__0), 0 0 20px var(--white__0);
   }
 }
+
+@mixin with_w($w) {
+  min-width: $w;
+  max-width: $w;
+}
+
+@mixin with_h($h) {
+  min-height: $h;
+  max-height: $h;
+}
+
+@mixin sqr($v) {
+  @include with_w($v);
+  @include with_h($v);
+}

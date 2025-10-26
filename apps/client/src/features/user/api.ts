@@ -1,7 +1,7 @@
 import { UseApiSvc } from '@/core/store/api/use_api';
 import { ObsOnOkT, ObsResT, StatusT } from '@/core/store/api/etc/types';
 import { inject, Injectable } from '@angular/core';
-import { ResProfileT, UserFormArgT } from './etc/types';
+import { ResProfileT, Setup2faReturnT, UserFormArgT } from './etc/types';
 import { PwdFormT } from '@/core/paperwork/etc/pwd';
 import { CbcHmacMandatoryT } from '../cbcHmac/etc/types';
 import { LibApiArgs } from '@/core/store/api/etc/lib/api_args';
@@ -48,6 +48,15 @@ export class UserApiSvc {
         .query({
           cbcHmacToken: data.cbcHmacToken,
         })
+        .toastOnFulfilled()
+        .pushOnStatus([StatusT.UNAUTHORIZED])
+    );
+  }
+
+  public setup2FA(data: UserFormArgT<void>): ObsOnOkT<Setup2faReturnT> {
+    return this.api.patch(
+      LibApiArgs.withURL(`${this.base}/2FA`)
+        .body(data)
         .toastOnFulfilled()
         .pushOnStatus([StatusT.UNAUTHORIZED])
     );

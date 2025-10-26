@@ -1,3 +1,4 @@
+import { OrNone } from '@/common/types/etc';
 import { UserT } from '@/features/user/etc/types';
 
 export class LibPrs {
@@ -56,5 +57,20 @@ export class LibPrs {
   }
   public static initials(user: UserT): string {
     return `${this.firstUpper(user.firstName)}${this.firstUpper(user.lastName)}`;
+  }
+
+  public static prettyPrintCols(vals: OrNone<string[]>): string {
+    let str: string = '';
+
+    if (!vals) return str;
+
+    const maxValsForRow: number = 3;
+    for (let i = 0; i < vals.length; i++) {
+      // eslint-disable-next-line no-magic-numbers
+      str += i % maxValsForRow === 0 ? `\n` : ' '.repeat(3);
+      str += vals[i];
+    }
+
+    return str.trim();
   }
 }

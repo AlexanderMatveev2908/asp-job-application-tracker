@@ -28,7 +28,10 @@ import { PortalDOM, RecCoordsT } from '@/core/lib/dom/portal';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CpyPaste extends UseSwapPortalDir implements AfterViewInit {
+  public readonly optionalDep: InputSignal<Nullable<unknown[]>> = input<Nullable<unknown[]>>(null);
+
   // ? local state
+  public readonly label: InputSignal<Nullable<string>> = input<Nullable<string>>(null);
   public readonly txt: InputSignal<Nullable<string>> = input.required();
   public readonly copied: WritableSignal<boolean> = signal(false);
   private timerID: TimerIdT = null;
@@ -72,6 +75,11 @@ export class CpyPaste extends UseSwapPortalDir implements AfterViewInit {
   // ? animations
   ngAfterViewInit(): void {
     this.useDOM(() => {
+      this.setCoords();
+    });
+
+    this.useEffect(() => {
+      void this.optionalDep();
       this.setCoords();
     });
 

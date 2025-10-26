@@ -1,5 +1,4 @@
 import { ElDomT, None, Nullable, RefDomT } from '@/common/types/etc';
-import { ErrApp } from '../err';
 
 export interface RecCoordsT {
   top: Nullable<string>;
@@ -36,7 +35,7 @@ export class PortalDOM {
   }
 
   public static coordToInt(arg: string | None): number {
-    if (!arg) throw new ErrApp('expected value to parse as int');
+    if (!arg) return 0;
 
     const splitted: string[] = arg.split('px');
     const int: number = +splitted[0];
