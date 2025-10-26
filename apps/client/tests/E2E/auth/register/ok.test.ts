@@ -38,7 +38,7 @@ test('ok', async ({ browser }: { browser: Browser }) => {
 
   await lib.fillFor(form, swap_0);
 
-  await lib.swap('next');
+  await lib.nextSwap();
 
   await lib.fillFor(form, swap_1);
 

@@ -61,7 +61,8 @@ export abstract class LibApiTests extends LibToastTests {
 
     await this.waitPushTo('/user/manage-account');
 
-    const swapper: Locator = await this.byIdInPage('manage_account__swapper');
+    this.setSwapperID('manage_account');
+    const swapper: Locator = await this.getSwapper();
 
     return swapper;
   }

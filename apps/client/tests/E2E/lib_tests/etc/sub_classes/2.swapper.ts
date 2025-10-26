@@ -30,7 +30,7 @@ export abstract class LibSwapperTests extends LibFormTests {
     return btn;
   }
 
-  public async swap(where: WhereSwapT): Promise<Locator> {
+  private async swap(where: WhereSwapT): Promise<Locator> {
     const btn: Locator = await this.getSwapBtn(where);
 
     await btn.click();
@@ -39,5 +39,13 @@ export abstract class LibSwapperTests extends LibFormTests {
     await this.timer(timeAnimation);
 
     return btn;
+  }
+
+  public async nextSwap(): Promise<Locator> {
+    return this.swap('next');
+  }
+
+  public async prevSwap(): Promise<Locator> {
+    return this.swap('prev');
   }
 }

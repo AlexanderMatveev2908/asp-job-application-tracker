@@ -35,7 +35,7 @@ test('trigger errors', async ({ browser }: { browser: Browser }) => {
   const prev: Locator = await lib.getSwapBtn('prev');
   await expect(prev).toBeDisabled();
 
-  await lib.swap('next');
+  await lib.nextSwap();
 
   const pwd: Locator = await lib.byIdIn(form, 'password');
   await lib.isFocused(pwd);
@@ -49,7 +49,7 @@ test('trigger errors', async ({ browser }: { browser: Browser }) => {
 
   await firstName.fill('John');
 
-  await lib.swap('next');
+  await lib.nextSwap();
 
   await lib.submit();
 
