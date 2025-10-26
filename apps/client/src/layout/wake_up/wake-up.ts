@@ -1,11 +1,4 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  signal,
-  WritableSignal,
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Popup } from '../popup/popup';
 import { PopupStaticPropsT } from '../popup/etc/types';
 import { SpinBtn } from '@/common/components/spins/spin_btn/spin-btn';
@@ -19,6 +12,7 @@ import { ErrApiT, ResApiT } from '@/core/store/api/etc/types';
 import { finalize } from 'rxjs';
 import { Nullable } from '@/common/types/etc';
 import { UseMetaEventDir } from '@/core/directives/use_meta_event';
+import { UseKitPopHk } from '@/core/hooks/kits/use_kit_pop';
 
 @Component({
   selector: 'app-wake-up',
@@ -26,6 +20,7 @@ import { UseMetaEventDir } from '@/core/directives/use_meta_event';
   templateUrl: './wake-up.html',
   styleUrl: './wake-up.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [UseKitPopHk],
 })
 export class WakeUp implements AfterViewInit {
   // ? svc
@@ -34,19 +29,14 @@ export class WakeUp implements AfterViewInit {
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
   private readonly toastSlice: ToastSlice = inject(ToastSlice);
   private readonly useStorage: UseStorageSvc = inject(UseStorageSvc);
-
-  // ? local state
-  public readonly isPop: WritableSignal<Nullable<boolean>> = signal(null);
-  private readonly closePop: () => void = () => {
-    this.isPop.set(false);
-  };
+  public readonly useKitPop: UseKitPopHk = inject(UseKitPopHk);
 
   // ? popup props
   public readonly popupStaticProps: PopupStaticPropsT = {
     cls: 'wake_up',
     closeOnMouseOut: false,
     eventT: 'INFO',
-    closePop: this.closePop,
+    closePop: this.useKitPop.closePop,
   };
 
   // ? cbs
@@ -69,10 +59,12 @@ export class WakeUp implements AfterViewInit {
   ngAfterViewInit(): void {
     if (!this.pollIf()) return;
 
-    this.isPop.set(true);
+    this.useKitPop.isPop.set(true);
 
     this.usePlatform
-      .whenStable<ResApiT<void>>(this.wakeUpApi.poll().pipe(finalize(() => this.isPop.set(false))))
+      .whenStable<ResApiT<void>>(
+        this.wakeUpApi.poll().pipe(finalize(() => this.useKitPop.isPop.set(false)))
+      )
       .subscribe({
         next: (_: ResApiT<void>) => {
           const now = Date.now();

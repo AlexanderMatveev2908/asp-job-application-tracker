@@ -50,10 +50,12 @@ export class PwdChecker implements OnInit, AfterViewInit {
     return val ? val?.trim()?.length ?? 0 : 0;
   });
   public readonly showTooltip: Signal<boolean> = computed(
-    () => !this.confSwap() || (!!this.confSwap()?.isCurr && this.confSwap()?.mode !== 'swapping')
+    () =>
+      !this.confSwap() ||
+      (!!this.confSwap()?.isCurr && this.confSwap()?.mode !== 'swapping' && this.isFocused())
   );
   public readonly transform: Signal<string> = computed(
-    () => `translate(-50%, ${this.isFocused() ? '-150px' : '0px'})`
+    () => `translate(-50%, ${this.showTooltip() ? '-150px' : '0px'})`
   );
 
   // ? listeners & ng lifecycle

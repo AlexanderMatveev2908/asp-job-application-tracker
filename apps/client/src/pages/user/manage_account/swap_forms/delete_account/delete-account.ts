@@ -1,17 +1,37 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
 import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
 import { UseSpanDir } from '@/core/directives/use_span';
 import { UseIDsDir } from '@/core/directives/use_ids';
+import { UseKitPopHk } from '@/core/hooks/kits/use_kit_pop';
+import { PopupStaticPropsT } from '@/layout/popup/etc/types';
+import { Popup } from '@/layout/popup/popup';
+import { Portal } from '@/layout/portal/portal';
+import { UsePortalDir } from '@/core/directives/use_portal/0.use_portal';
 
 @Component({
   selector: 'app-delete-account',
-  imports: [BtnShadow, UseSpanDir, UseIDsDir],
+  imports: [BtnShadow, UseSpanDir, UseIDsDir, Popup, Portal],
   templateUrl: './delete-account.html',
   styleUrl: './delete-account.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [UseKitPopHk],
 })
-export class DeleteAccount {
+export class DeleteAccount extends UsePortalDir {
+  public readonly useKitPop: UseKitPopHk = inject(UseKitPopHk);
+
+  public onBtnCLick: () => void = () => {
+    this.useKitPop.isPop.set(true);
+  };
+
+  // ? popup props
+  public readonly popupStaticProps: PopupStaticPropsT = {
+    cls: 'del_acc',
+    closeOnMouseOut: true,
+    eventT: 'ERR',
+    closePop: this.useKitPop.closePop,
+  };
+
   public readonly spanProps: SpanEventPropsT = {
     label: 'Delete',
     Svg: null,

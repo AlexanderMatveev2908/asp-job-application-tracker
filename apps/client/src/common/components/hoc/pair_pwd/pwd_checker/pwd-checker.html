@@ -15,7 +15,7 @@
     <div
       class="root"
       [ngClass]="getBorderClr()"
-      [style.opacity]="isFocused() ? 1 : 0"
+      [style.opacity]="showTooltip() ? 1 : 0"
       [style.--trsl]="transform()"
     >
       @for(f of fieldsCheckers; track f.id; let idx = $index){

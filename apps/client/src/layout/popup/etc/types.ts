@@ -14,4 +14,4 @@ export interface PopupStaticPropsT {
   closePop: () => void;
 }
 
-export type PopupClsT = 'wake_up';
+export type PopupClsT = 'wake_up' | 'del_acc';
