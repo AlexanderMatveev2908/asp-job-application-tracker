@@ -36,4 +36,15 @@ export class VerifyApiSvc {
         .pushOnErr()
     );
   }
+
+  public confNewMail(cbcHmacToken: string): ObsOnOkT<JwtResT> {
+    return this.api.get(
+      ApiArgs.withURL(`${this.base}/new-email`)
+        .query({
+          cbcHmacToken,
+        })
+        .toastOnFulfilled()
+        .pushOnErr()
+    );
+  }
 }

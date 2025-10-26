@@ -50,4 +50,24 @@ export abstract class UseCasesVerifyDir extends UseMngVerifyDir {
       )
       .subscribe();
   }
+
+  protected confNewMail(cbcHmac: string): void {
+    this.verifyApi
+      .confNewMail(cbcHmac)
+      .pipe(
+        tap((res: ResApiT<JwtResT>) => this.authSlice.login(res.accessToken, { startTmr: false })),
+        switchMap((res: ResApiT<JwtResT>) => {
+          this.userSlice.triggerApi();
+
+          this.noticeSlice.notice = {
+            eventT: 'OK',
+            msg: res.msg ?? 'email address changes',
+            status: 200,
+          };
+
+          return from(this.useNav.replace('/notice', { from: 'ok' }));
+        })
+      )
+      .subscribe();
+  }
 }

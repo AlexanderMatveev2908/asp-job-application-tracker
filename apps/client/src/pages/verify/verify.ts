@@ -29,6 +29,7 @@ export class Verify extends UseCasesVerifyDir implements OnInit {
 
       // ! extractAad also check cbcHmac is a string and not null
       const aad: Nullable<AadCbcHmacT> = this.extractAad(cbcHmac);
+
       if (!aad) return;
 
       switch (aad.tokenT) {
@@ -38,6 +39,10 @@ export class Verify extends UseCasesVerifyDir implements OnInit {
 
         case TokenT.RECOVER_PWD:
           this.recoverPwd(cbcHmac!);
+          break;
+
+        case TokenT.CHANGE_EMAIL:
+          this.confNewMail(cbcHmac!);
           break;
 
         default:
