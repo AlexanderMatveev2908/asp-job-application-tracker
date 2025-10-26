@@ -1,1 +1,15 @@
-<app-swap-item [title]="'TOTP'">0</app-swap-item>
+<app-swap-item [title]="'TOTP'">
+  <form class="root tb">
+    <div class="root__content">
+      @for (part of partsFields; track part.id){
+      <div class="content__group">
+        @for(f of part.fields; track f.id){
+
+        <input type="text" class="w-[30px] h-[30px]" />
+        }
+      </div>
+
+      }
+    </div>
+  </form>
+</app-swap-item>

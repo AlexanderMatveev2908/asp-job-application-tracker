@@ -1,1 +1,9 @@
-.root{}
+.root {
+  .root__content {
+    @apply w-full flex items-center justify-center gap-x-8 gap-y-4 flex-wrap;
+
+    .content__group {
+      @apply w-fit flex justify-center items-center gap-8;
+    }
+  }
+}
