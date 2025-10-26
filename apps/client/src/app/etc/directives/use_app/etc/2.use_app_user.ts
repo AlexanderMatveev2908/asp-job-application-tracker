@@ -1,4 +1,4 @@
-import { UseUserKitSvc } from '@/features/user/etc/use_user_kit';
+import { UseUserKitSvc } from '@/features/user/etc/services/use_user_kit';
 import { Directive, inject } from '@angular/core';
 import { finalize, tap } from 'rxjs';
 import { ErrApiT, ResApiT } from '@/core/store/api/etc/types';

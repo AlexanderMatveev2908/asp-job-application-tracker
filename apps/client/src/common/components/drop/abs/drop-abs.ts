@@ -20,10 +20,9 @@ import { UseIDsDir } from '@/core/directives/use_ids';
   styleUrl: './drop-abs.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DropAbs {
+export class DropAbs extends UseDropDir {
   // ? directives
   public readonly useIDsDir: UseIDsDir = inject(UseIDsDir);
-  public readonly useDropDir: UseDropDir = inject(UseDropDir);
 
   // ? app-span props
   public readonly spanProps: InputSignal<SpanPropsT> = input.required();
@@ -31,8 +30,6 @@ export class DropAbs {
 
   // ? derived data
   public readonly translation: Signal<string> = computed(() =>
-    this.useDropDir.isOpen()
-      ? 'translate-y-[0%] opacity-1'
-      : 'translate-y-[40%] pointer-events-none opacity-0'
+    this.isOpen() ? 'translate-y-[0%] opacity-1' : 'translate-y-[40%] pointer-events-none opacity-0'
   );
 }

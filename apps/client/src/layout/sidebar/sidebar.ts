@@ -29,7 +29,6 @@ import { LogoutBtn } from '@/features/auth/components/logout_btn/logout-btn';
 import { MouseDOM } from '@/core/lib/dom/mouse';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { UseSpanDir } from '@/core/directives/use_span';
-import { UseDropDir } from '@/core/directives/use_drop';
 import { UseTxtDir } from '@/core/directives/use_txt';
 
 @Component({
@@ -44,7 +43,6 @@ import { UseTxtDir } from '@/core/directives/use_txt';
     LogoutBtn,
     UseIDsDir,
     UseSpanDir,
-    UseDropDir,
     UseTxtDir,
   ],
 

@@ -17,6 +17,7 @@ export abstract class UseMngVerifyDir {
   private readonly verifyTokenT: Set<TokenT> = new Set<TokenT>([
     TokenT.CONF_EMAIL,
     TokenT.RECOVER_PWD,
+    TokenT.CHANGE_EMAIL,
   ]);
 
   protected extractAad(cbcHmac: Nullable<string>): Nullable<AadCbcHmacT> {
