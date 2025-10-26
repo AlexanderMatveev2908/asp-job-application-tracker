@@ -18,6 +18,7 @@ import { UseKitFormUserSvc } from '@/features/user/etc/services/use_kit_form_use
 import { UseMetaEventDir } from '@/core/directives/use_meta_event';
 import { Notice2fa } from './content_options/notice/notice-2fa';
 import { ContentSetup2fa } from './content_options/setup/content-setup-2fa';
+import { ConfSwapT } from '@/core/hooks/use_swap/etc/types';
 
 @Component({
   selector: 'app-setup-2fa',
@@ -30,8 +31,11 @@ import { ContentSetup2fa } from './content_options/setup/content-setup-2fa';
 export class Setup2fa {
   // ? props
   public readonly triggerCalcH: InputSignal<() => void> = input.required();
+  public readonly confSwap: InputSignal<ConfSwapT> = input.required();
 
+  // ? local api state
   public readonly resSetup2FA: WritableSignal<Nullable<Setup2faReturnT>> = signal(null);
+
   // ? scv
   private readonly useKitFormUser: UseKitFormUserSvc = inject(UseKitFormUserSvc);
 
@@ -44,8 +48,6 @@ export class Setup2fa {
   // ? listeners
   public readonly onClick: () => void = () => {
     const cbcHmac: Nullable<string> = this.useKitFormUser.cbcHmacSlice.cbcHmac();
-
-    console.log('run');
 
     LibApiShape.throwIfCbcHmacMissing(
       cbcHmac,

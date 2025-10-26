@@ -17,7 +17,21 @@
       <img [src]="resSetup2FA()?.totpSecretQrCode" alt="totp qr_code" />
     </a>
 
-    <div class=""></div>
+    <div class="response__btns">
+      <app-cpy-paste
+        [txt]="resSetup2FA()?.totpSecret ?? ''"
+        [label]="'TOTP Secret'"
+        [confSwap]="confSwap()"
+        [optionalDep]="optionalDep()"
+      />
+
+      <app-cpy-paste
+        [txt]="prettyPrintedCodes()"
+        [label]="'Backup Codes'"
+        [confSwap]="confSwap()"
+        [optionalDep]="optionalDep()"
+      />
+    </div>
   </div>
   }
 </div>

@@ -13,16 +13,19 @@
             <app-change-mail-form />
           </app-user-wrap-swap>
         </div>
+
         <div class="swapper__swap" #swapDiv [style.--opac]="getOpacity(1)()">
           <app-user-wrap-swap [title]="'Change Password'">
             <app-change-pwd-form [confSwap]="confSwap(1)()" />
           </app-user-wrap-swap>
         </div>
+
         <div class="swapper__swap" #swapDiv [style.--opac]="getOpacity(2)()">
           <app-user-wrap-swap [title]="'Setup 2FA'">
-            <app-setup-2fa [triggerCalcH]="triggerCalcH" />
+            <app-setup-2fa [triggerCalcH]="triggerCalcH" [confSwap]="confSwap(2)()" />
           </app-user-wrap-swap>
         </div>
+
         <div class="swapper__swap" #swapDiv [style.--opac]="getOpacity(3)()">
           <app-user-wrap-swap [title]="'Delete Account'">
             <app-delete-account />
