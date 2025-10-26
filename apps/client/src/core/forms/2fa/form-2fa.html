@@ -7,8 +7,12 @@
         [maxSwaps]="2"
         [prefixTestId]="'form_2fa'"
       >
-        <div #swapDiv class="">0</div>
-        <div #swapDiv class="">1</div>
+        <div #swapDiv>
+          <app-swap-item [title]="'TOTP'">0</app-swap-item>
+        </div>
+        <div #swapDiv>
+          <app-swap-item [title]="'Backup Code'">1</app-swap-item>
+        </div>
       </app-swapper>
     </div>
   </div>
