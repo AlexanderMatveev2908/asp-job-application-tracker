@@ -38,8 +38,7 @@ test('ok', async ({ browser }: { browser: Browser }) => {
 
   await lib.fillFor(form, swap_0);
 
-  const nextSwap: Locator = await lib.byIdIn(form, 'register_form__next_swap');
-  await nextSwap.click();
+  await lib.swap('next');
 
   await lib.fillFor(form, swap_1);
 

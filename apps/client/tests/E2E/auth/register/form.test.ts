@@ -32,13 +32,10 @@ test('trigger errors', async ({ browser }: { browser: Browser }) => {
 
   const [firstName, lastName] = await lib.errFor(form, swap_0);
 
-  const prev: Locator = await lib.byIdIn(form, 'register_form__prev_swap');
+  const prev: Locator = await lib.getSwapBtn('prev');
   await expect(prev).toBeDisabled();
 
-  const next: Locator = await lib.byIdIn(form, 'register_form__next_swap');
-  await expect(next).toBeEnabled();
-  await next.click();
-  await lib.timer();
+  await lib.swap('next');
 
   const pwd: Locator = await lib.byIdIn(form, 'password');
   await lib.isFocused(pwd);
@@ -51,8 +48,8 @@ test('trigger errors', async ({ browser }: { browser: Browser }) => {
   await lib.isFocused(firstName);
 
   await firstName.fill('John');
-  await next.click();
-  await lib.timer();
+
+  await lib.swap('next');
 
   await lib.submit();
 

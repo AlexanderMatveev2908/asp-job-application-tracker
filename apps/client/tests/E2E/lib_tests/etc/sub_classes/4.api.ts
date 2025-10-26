@@ -1,5 +1,5 @@
 import { TkResT } from '../types';
-import { LibToastTests } from './2.toast';
+import { LibToastTests } from './3.toast';
 import { RegisterFormT } from '@/features/auth/pages/register/paperwork/form_mng';
 import { APIResponse, expect, Locator } from '@playwright/test';
 import { Reg } from '@/core/paperwork/reg';

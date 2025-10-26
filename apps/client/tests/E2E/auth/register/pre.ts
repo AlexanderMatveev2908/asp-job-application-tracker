@@ -13,6 +13,8 @@ export const preRegister = async (browser: Browser): Promise<PreRegisterReturnT>
   await lib.closeToastIfPresent();
 
   lib.setFormID('register_form');
+  lib.setSwapperID('register_form');
+
   const form: Locator = await lib.getForm();
 
   return {
