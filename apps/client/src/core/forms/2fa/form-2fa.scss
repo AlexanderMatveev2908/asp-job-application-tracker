@@ -5,5 +5,9 @@
 
   .root__swapper {
     @extend .app__form__container_size;
+
+    .swapper__swap {
+      @include shapes.app__swapper__swap(var(--opac), false);
+    }
   }
 }
