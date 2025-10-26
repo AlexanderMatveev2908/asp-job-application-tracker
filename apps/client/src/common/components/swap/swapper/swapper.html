@@ -1,4 +1,4 @@
-<div class="root" [attr.data-testid]="prefixTestId() + '__swapper'">
+<div class="root" [attr.data-testid]="swapperID()">
   <div
     class="root__swapper"
     [style.--cols]="maxSwaps()"
@@ -13,7 +13,7 @@
       [swap]="swap()"
       [setSwap]="setSwap()"
       [maxSwaps]="maxSwaps()"
-      [prefixTestId]="prefixTestId()"
+      [prefixTestId]="swapperID()"
     />
   </div>
 </div>

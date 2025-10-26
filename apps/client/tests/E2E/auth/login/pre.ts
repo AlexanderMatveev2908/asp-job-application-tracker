@@ -11,7 +11,9 @@ export const preTestLogin = async (brw: Browser): Promise<PreTestFormResT> => {
   // ? page test
   const lib: LibTests = await LibTests.fromBrowser(brw);
   await lib.nav('/auth/login');
-  const form: Locator = await lib.byIdInPage('login_form');
+
+  lib.setFormID('login_form');
+  const form: Locator = await lib.getForm();
 
   return {
     lib,

@@ -38,16 +38,14 @@ test('ok', async ({ browser }: { browser: Browser }) => {
 
   await lib.fillFor(form, swap_0);
 
-  const nextSwap: Locator = await lib.byIdIn(form, 'register_form__next_swap');
-  await nextSwap.click();
+  await lib.nextSwap();
 
   await lib.fillFor(form, swap_1);
 
   const terms: Locator = await lib.byIdIn(form, 'terms');
   await terms.click();
 
-  const mainBtn: Locator = await lib.byIdIn(form, 'register_form__submit');
-  await mainBtn.click();
+  await lib.submit();
 
   await lib.waitPushTo('/notice');
   await lib.isToastOk();

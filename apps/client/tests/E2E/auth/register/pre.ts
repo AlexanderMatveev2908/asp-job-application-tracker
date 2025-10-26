@@ -11,7 +11,11 @@ export const preRegister = async (browser: Browser): Promise<PreRegisterReturnT>
 
   await lib.nav('/auth/register');
   await lib.closeToastIfPresent();
-  const form: Locator = await lib.byIdInPage('register_form');
+
+  lib.setFormID('register_form');
+  lib.setSwapperID('register_form');
+
+  const form: Locator = await lib.getForm();
 
   return {
     lib,

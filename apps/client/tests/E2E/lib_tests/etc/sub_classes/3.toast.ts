@@ -1,12 +1,12 @@
 /* eslint-disable no-magic-numbers */
 import { expect, Locator } from '@playwright/test';
 import { Nullable } from '@/common/types/etc';
-import { LibFormTests } from './1.form';
 import { LibLog } from '@/core/lib/dev/log';
+import { LibSwapperTests } from './2.swapper';
 
 export type ToastExpT = 'ok' | 'err';
 
-export abstract class LibToastTests extends LibFormTests {
+export abstract class LibToastTests extends LibSwapperTests {
   private async getToast(): Promise<Locator> {
     const toast: Locator = await this.byIdInPage('toast');
     return toast;

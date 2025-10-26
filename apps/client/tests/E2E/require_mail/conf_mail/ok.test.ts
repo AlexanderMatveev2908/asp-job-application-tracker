@@ -7,7 +7,9 @@ test('ok', async ({ browser }: { browser: Browser }) => {
   const { lib, res } = await preRequireMail(browser);
 
   await lib.nav('/auth/require-email/confirm-email');
-  const form: Locator = await lib.byIdInPage('req_mail_conf_mail_form');
+
+  lib.setFormID('req_mail_conf_mail_form');
+  const form: Locator = await lib.getForm();
 
   const data: DataFieldT = {
     field: 'email',
@@ -16,8 +18,8 @@ test('ok', async ({ browser }: { browser: Browser }) => {
 
   await lib.fillWith(form, data);
 
-  const submit: Locator = await lib.byIdIn(form, 'req_mail_conf_mail_form__submit');
-  await submit.click();
+  await lib.submit();
+
   await lib.waitPushTo('/notice');
   await lib.isToastOk();
   await lib.txtInPage(LibConstTests.CONF_ACCOUNT_MSG);

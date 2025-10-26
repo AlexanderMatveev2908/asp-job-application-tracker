@@ -43,7 +43,8 @@ export class SwapBtns {
 
   // ? props btn shadow
   public getTestId(idx: number): string {
-    return LibPrs.toSnake(this.prefixTestId() + (!idx ? 'prev_swap' : 'next_swap'));
+    console.log(this.prefixTestId());
+    return LibPrs.toSnake(this.prefixTestId() + (!idx ? '_prev_swap' : '_next_swap'));
   }
 
   public getBtnState(idx: number): Signal<BtnStatePropsT> {

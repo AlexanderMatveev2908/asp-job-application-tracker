@@ -39,6 +39,7 @@ export class Swapper extends UseInjCtxHk implements AfterViewInit {
   // ? derived
   // eslint-disable-next-line no-magic-numbers
   public readonly transform: Signal<string> = computed(() => `-${this.swap() * 100}%`);
+  public readonly swapperID: Signal<string> = computed(() => `${this.prefixTestId()}__swapper`);
 
   // ? projected
   @ContentChildren('swapDiv', { descendants: false })

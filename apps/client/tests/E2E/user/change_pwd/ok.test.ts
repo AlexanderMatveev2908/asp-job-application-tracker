@@ -1,18 +1,15 @@
-import test, { Browser, Locator } from '@playwright/test';
-import { preVerifyTest } from '../pre';
-import { TokenT } from '@/features/cbcHmac/etc/types';
-import { DataFieldT } from 'tests/E2E/lib_tests/etc/types';
 import { PwdGen } from '@/common/components/hoc/pair_pwd/pwd_generator/etc/pwd_gen';
+import test, { Browser, Locator } from '@playwright/test';
+import { LibTests } from 'tests/E2E/lib_tests';
+import { DataFieldT } from 'tests/E2E/lib_tests/etc/types';
 
 test('ok', async ({ browser }: { browser: Browser }) => {
-  const { lib, res } = await preVerifyTest(browser, TokenT.RECOVER_PWD);
+  const { lib, swapper } = await LibTests.withAccessAccount(browser);
 
-  await lib.nav(`/verify?cbcHmacToken=${res.cbcHmacToken}`);
-  await lib.waitPushTo('/auth/recover-pwd');
-  await lib.isToastOk();
+  await lib.nextSwap();
+  lib.setFormID('change_pwd_form');
+  const form: Locator = await lib.getFormIn(swapper);
 
-  lib.setFormID('recover_pwd_form');
-  const form: Locator = await lib.getForm();
   // eslint-disable-next-line no-magic-numbers
   const newPwd: string = PwdGen.pwdOf(4);
   const data: DataFieldT[] = [
@@ -25,6 +22,7 @@ test('ok', async ({ browser }: { browser: Browser }) => {
       val: newPwd,
     },
   ];
+
   await lib.fillFor(form, data);
 
   await lib.submit();

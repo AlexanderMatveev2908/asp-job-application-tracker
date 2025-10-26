@@ -1,5 +1,5 @@
 import { Browser, BrowserContext, Locator, Page } from '@playwright/test';
-import { GetTokensArgT, LibApiTests } from './etc/sub_classes/3.api';
+import { GetTokensArgT, LibApiTests } from './etc/sub_classes/4.api';
 import { PreTestResT, TkResT } from './etc/types';
 
 export class LibTests extends LibApiTests {

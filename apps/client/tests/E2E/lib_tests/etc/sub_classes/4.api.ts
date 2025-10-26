@@ -1,5 +1,5 @@
 import { TkResT } from '../types';
-import { LibToastTests } from './2.toast';
+import { LibToastTests } from './3.toast';
 import { RegisterFormT } from '@/features/auth/pages/register/paperwork/form_mng';
 import { APIResponse, expect, Locator } from '@playwright/test';
 import { Reg } from '@/core/paperwork/reg';
@@ -49,18 +49,20 @@ export abstract class LibApiTests extends LibToastTests {
     await this.nav('/user/manage-account');
     await this.waitPushTo('/user/access-manage-account');
 
-    const form: Locator = await this.byIdInPage('access_manage_acc_form');
+    this.setFormID('access_manage_acc_form');
+    const form: Locator = await this.getForm();
 
     await this.fillWith(form, {
       field: 'password',
       val: pwd,
     });
 
-    const submit: Locator = await this.byIdIn(form, 'access_manage_acc_form__submit');
-    await submit.click();
+    await this.submit();
+
     await this.waitPushTo('/user/manage-account');
 
-    const swapper: Locator = await this.byIdInPage('manage_account__swapper');
+    this.setSwapperID('manage_account');
+    const swapper: Locator = await this.getSwapper();
 
     return swapper;
   }
