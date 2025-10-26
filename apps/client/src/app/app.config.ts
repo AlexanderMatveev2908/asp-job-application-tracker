@@ -13,7 +13,7 @@ import { provideStore } from '@ngrx/store';
 import { rootReducer } from '../core/store';
 import { useRootApiMdw } from '@/core/store/api/interceptors/0.use_root_api';
 import { useConfApiMdw } from '@/core/store/api/interceptors/1.use_conf_api';
-import { useRefreshApiMdw } from '@/core/store/api/interceptors/2.refresh/use_refresh_api';
+import { useRefreshApiMdw } from '@/core/store/api/interceptors/2.use_refresh_api';
 
 export const appConfig: ApplicationConfig = {
   providers: [

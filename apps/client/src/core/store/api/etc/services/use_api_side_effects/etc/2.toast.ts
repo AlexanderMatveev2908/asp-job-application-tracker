@@ -1,6 +1,6 @@
 import { ToastSlice } from '@/features/toast/slice';
 import { inject, Injectable } from '@angular/core';
-import { ErrApiT, ObsResT, OptToastApiT, ResApiT } from '../../types';
+import { ErrApiT, ObsResT, OptToastApiT, ResApiT } from '../../../types';
 import { Nullable } from '@/common/types/etc';
 import { tap } from 'rxjs';
 import { UseSideEffectsLogHk } from './1.log';

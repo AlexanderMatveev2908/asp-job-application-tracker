@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { UseApiConfSvc } from '../use_api_conf/use_api_conf';
+import { UseApiConfSvc } from '../../use_api_conf/use_api_conf';
 
 @Injectable()
 export abstract class UseSideEffectsRootHk {

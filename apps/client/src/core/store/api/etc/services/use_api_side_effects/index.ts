@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UseSideEffectsNoticeHk } from './3.notice';
+import { UseSideEffectsNoticeHk } from './etc/3.notice';
 import { ObsOnOkT, ObsResT } from '../../types';
 import { LibApiArgs } from '../../lib/req_args/args';
 

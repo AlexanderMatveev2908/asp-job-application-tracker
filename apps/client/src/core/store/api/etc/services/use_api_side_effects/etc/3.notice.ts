@@ -1,7 +1,7 @@
 import { NoticeSlice } from '@/features/notice/slice';
 import { inject, Injectable } from '@angular/core';
 import { UseSideEffectsToastHk } from './2.toast';
-import { ErrApiT, ObsOnOkT, ObsResT, OptErrApiT, StatusT } from '../../types';
+import { ErrApiT, ObsOnOkT, ObsResT, OptErrApiT, StatusT } from '../../../types';
 import { Nullable } from '@/common/types/etc';
 import { catchError, EMPTY, from, switchMap, throwError } from 'rxjs';
 import { UseNavSvc } from '@/core/services/use_nav/use_nav';

@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ObsResT, ResApiT } from './etc/types';
 import { Opt } from '@/common/types/etc';
-import { UseApiSideEffectsSvc } from './etc/services/use_api_side_effects/4.final';
+import { UseApiSideEffectsSvc } from './etc/services/use_api_side_effects';
 import { LibApiArgs } from './etc/lib/req_args/args';
 
 @Injectable({

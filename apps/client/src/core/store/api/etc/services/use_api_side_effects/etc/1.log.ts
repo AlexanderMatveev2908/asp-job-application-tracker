@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { UseSideEffectsRootHk } from './0.root';
-import { ErrApiT, ObsResT, ResApiT } from '../../types';
+import { ErrApiT, ObsResT, ResApiT } from '../../../types';
 import { Nullable } from '@/common/types/etc';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LibLog } from '@/core/lib/dev/log';
 import { tap } from 'rxjs';
 import { envVars } from '@/environments/environment';
-import { ConfApiT } from '../use_api_conf/etc/types';
+import { ConfApiT } from '../../use_api_conf/etc/types';
 
 @Injectable()
 export abstract class UseSideEffectsLogHk extends UseSideEffectsRootHk {
