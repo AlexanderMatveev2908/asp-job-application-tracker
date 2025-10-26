@@ -19,7 +19,7 @@ export class UserVerifyMail extends UseKitMailFormHk {
   public readonly strategy: (data: unknown) => Observable<unknown> = (data: unknown) =>
     this.requireMailAPi.confMailLogged(data as MailFormT).pipe(
       tap((_: ResApiT<void>) => {
-        this.useSideApiKit.pushMailNotice('to confirm your account');
+        this.useKitNav.pushMailNotice('to confirm your account');
       })
     );
 }

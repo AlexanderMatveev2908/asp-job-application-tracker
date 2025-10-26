@@ -43,7 +43,7 @@ export class Login extends UseKitFormPwdHk {
         tap((res: ResApiT<JwtResT>) => {
           this.useAuthKit.authSlice.login(res.accessToken, { startTmr: true });
         }),
-        switchMap(() => from(this.useSideApiKit.useNav.replace('/')))
+        switchMap(() => from(this.useKitNav.useNav.replace('/')))
       )
     );
   };

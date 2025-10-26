@@ -67,7 +67,7 @@ export class Register extends UseKitSwapFormHk implements AfterViewInit {
           tap((res: ResApiT<JwtResT>) => {
             this.useAuthKit.authSlice.login(res.accessToken, { startTmr: true });
 
-            this.useSideApiKit.pushMailNotice('to confirm your account');
+            this.useKitNav.pushMailNotice('to confirm your account');
           })
         ),
     });

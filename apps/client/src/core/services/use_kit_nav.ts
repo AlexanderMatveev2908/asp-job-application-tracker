@@ -8,7 +8,7 @@ import { AppEventT } from '@/core/lib/dom/meta_event/etc/types';
 @Injectable({
   providedIn: 'root',
 })
-export class UseKitSideApiSvc {
+export class UseKitNav {
   public readonly noticeSlice: NoticeSlice = inject(NoticeSlice);
   public readonly useNav: UseNavSvc = inject(UseNavSvc);
 

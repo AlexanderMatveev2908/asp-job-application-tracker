@@ -5,12 +5,12 @@ import { Reg } from '@/core/paperwork/reg';
 import { AadCbcHmacT, TokenT } from '@/features/cbcHmac/etc/types';
 import { ToastSlice } from '@/features/toast/slice';
 import { Directive, inject } from '@angular/core';
-import { UseKitSideApiSvc } from '@/core/services/use_kit_side_api';
+import { UseKitNav } from '@/core/services/use_kit_nav';
 
 @Directive()
 export abstract class UseMngVerifyDir {
   protected readonly toastSlice: ToastSlice = inject(ToastSlice);
-  protected readonly useKitSideApi: UseKitSideApiSvc = inject(UseKitSideApiSvc);
+  protected readonly useKitSideApi: UseKitNav = inject(UseKitNav);
 
   private readonly verifyTokenT: Set<TokenT> = new Set<TokenT>([
     TokenT.CONF_EMAIL,

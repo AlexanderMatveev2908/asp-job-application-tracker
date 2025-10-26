@@ -17,7 +17,7 @@ export class AuthReqMailRecoverPwd extends UseKitMailFormHk {
   public strategy: (data: MailFormT) => Observable<unknown> = (data: MailFormT) =>
     this.requireMailAPi.recoverPwd(data).pipe(
       tap((_: ResApiT<void>) => {
-        this.useSideApiKit.pushMailNotice('to recover your password');
+        this.useKitNav.pushMailNotice('to recover your password');
       })
     );
 }
