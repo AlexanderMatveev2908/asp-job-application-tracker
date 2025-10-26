@@ -66,7 +66,7 @@ export class UserMailForm extends UseKitFormHk implements OnInit {
   public readonly ctrl: FormControl = this.getCtrl('email');
 
   private readonly msgEqual: string = 'Email must be the same declared at registration time';
-  private readonly msgDiff: string = 'New email must be different  from the old one';
+  private readonly msgDiff: string = 'New email must be different from the old one';
 
   public readonly onSubmit: () => void = () => {
     this.submitForm((data: unknown) => this.useKitStrategy.strategy()(data as MailFormT));

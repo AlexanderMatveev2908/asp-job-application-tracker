@@ -6,7 +6,6 @@ import { DataFieldErrT, DataFieldT, TkResT } from 'tests/E2E/lib_tests/etc/types
 
 test('ok', async ({ browser }: { browser: Browser }) => {
   const lib: LibTests = await LibTests.fromBrowser(browser);
-  await lib.nav('/');
 
   const res: TkResT = await lib.getTk();
   await lib.nav('/user/confirm-email');

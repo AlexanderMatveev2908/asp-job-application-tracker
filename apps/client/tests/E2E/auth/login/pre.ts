@@ -6,7 +6,6 @@ export const preTestLogin = async (brw: Browser): Promise<PreTestFormResT> => {
   // ! request page only
   // ! never return it
   const _lib: LibTests = await LibTests.fromBrowser(brw);
-  await _lib.nav('/');
   const res: TkResT = await _lib.getTk();
 
   // ? page test
