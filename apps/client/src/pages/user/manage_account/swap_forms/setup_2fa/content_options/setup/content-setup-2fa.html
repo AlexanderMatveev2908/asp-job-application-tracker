@@ -6,14 +6,19 @@
       [type]="'button'"
       [spanProps]="spanProps"
       appUseIDsDir
-      [testId]="'setup_2fa'"
+      [testId]="'setup_2fa_form__submit'"
       [btnStateProps]="btnStateT()"
       [listenersProps]="btnListeners()"
     />
   </div>
   }@else {
   <div class="root__response">
-    <a [href]="resSetup2FA()?.totpSecretQrCode" download="qr_code.png" class="response__qr_code">
+    <a
+      [attr.data-testid]="'setup_2fa_form__qr_code'"
+      [href]="resSetup2FA()?.totpSecretQrCode"
+      download="qr_code.png"
+      class="response__qr_code"
+    >
       <img [src]="resSetup2FA()?.totpSecretQrCode" alt="totp qr_code" />
     </a>
 
@@ -36,6 +41,7 @@
     <div class="response__zip">
       <app-link-shadow
         appUseIDsDir
+        [testId]="'setup_2fa_form__zip'"
         appUseSpanDir
         [spanProps]="spanZipProps"
         [path]="resSetup2FA()?.zipFile ?? ''"

@@ -1,5 +1,5 @@
 /* eslint-disable no-magic-numbers */
-import { expect, Locator, Page } from '@playwright/test';
+import { Download, expect, Locator, Page } from '@playwright/test';
 import { envVars } from '@/environments/environment';
 
 export abstract class LibRootTests {
@@ -12,6 +12,10 @@ export abstract class LibRootTests {
   protected readonly page: Page;
   constructor(page: Page) {
     this.page = page;
+  }
+
+  public getPage(): Page {
+    return this.page;
   }
 
   protected async exists(el: Locator): Promise<void> {
@@ -73,7 +77,11 @@ export abstract class LibRootTests {
     return el;
   }
 
-  public clickInPage(id: string): Promise<Locator> {
-    return this.clickIn(this.page, id);
+  public async clickInPage(id: string): Promise<Locator> {
+    return await this.clickIn(this.page, id);
+  }
+
+  public async waitDownload(): Promise<Download> {
+    return await this.page.waitForEvent('download');
   }
 }
