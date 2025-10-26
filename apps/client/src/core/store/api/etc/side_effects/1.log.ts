@@ -6,7 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { LibLog } from '@/core/lib/dev/log';
 import { tap } from 'rxjs';
 import { envVars } from '@/environments/environment';
-import { ConfApiT } from '../request/conf/etc/types';
+import { ConfApiT } from '../services/use_api_conf/etc/types';
 
 @Injectable()
 export abstract class SideEffectsLogHk extends SideEffectsRootHk {

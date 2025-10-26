@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
-import { ApiConfSvc } from '../request/conf/conf';
+import { UseApiConfSvc } from '../services/use_api_conf/use_api_conf';
 
 @Injectable()
 export abstract class SideEffectsRootHk {
-  protected readonly confApi: ApiConfSvc = inject(ApiConfSvc);
+  protected readonly confApi: UseApiConfSvc = inject(UseApiConfSvc);
   protected readonly DEF_CLIENT_ERR_MSG: string =
     'A wild Snorlax fall asleep blocking the road 💤. Try later';
 }

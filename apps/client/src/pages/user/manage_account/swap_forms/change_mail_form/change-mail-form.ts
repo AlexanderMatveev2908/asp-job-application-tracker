@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { UserMailForm } from '@/core/forms/user_mail/user-mail-form';
 import { Observable, tap } from 'rxjs';
 import { UseKitStrategyDir } from '@/core/directives/forms/kits/use_kit_strategy';
 import { UseIDsDir } from '@/core/directives/use_ids';
-import { UseKitFormUserHk } from '@/features/user/etc/hooks/use_kit_form_user';
+import { UseKitFormUserSvc } from '@/features/user/etc/services/use_kit_form_user';
 import { Nullable } from '@/common/types/etc';
 import { LibApiShape } from '@/core/store/api/etc/lib/shape';
 import { MailFormT } from '@/core/paperwork/etc/mail';
@@ -16,17 +16,19 @@ import { ResApiT } from '@/core/store/api/etc/types';
   styleUrl: './change-mail-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChangeMailForm extends UseKitFormUserHk {
+export class ChangeMailForm {
+  private readonly useKitUserForm: UseKitFormUserSvc = inject(UseKitFormUserSvc);
+
   public readonly strategy: (data: unknown) => Observable<unknown> = (data: unknown) => {
-    const cbcHmac: Nullable<string> = this.cbcHmacSlice.cbcHmac();
+    const cbcHmac: Nullable<string> = this.useKitUserForm.cbcHmacSlice.cbcHmac();
 
     return LibApiShape.throwIfCbcHmacMissing(
       cbcHmac,
-      this.useKitUser.userApi
+      this.useKitUserForm.useKitUser.userApi
         .changeMail({ ...(data as MailFormT), cbcHmacToken: cbcHmac as string })
         .pipe(
           tap((_: ResApiT<void>) => {
-            this.useKitSideApi.pushMailNotice('to your new email address');
+            this.useKitUserForm.useKitSideApi.pushMailNotice('to your new email address');
           })
         )
     );
