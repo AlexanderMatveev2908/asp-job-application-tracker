@@ -9,4 +9,10 @@
       @apply w-[250px] h-[250px];
     }
   }
+
+  .root__msg {
+    border-color: var(--clr);
+    color: var(--clr);
+    @apply text-center border-b-3 pb-1;
+  }
 }

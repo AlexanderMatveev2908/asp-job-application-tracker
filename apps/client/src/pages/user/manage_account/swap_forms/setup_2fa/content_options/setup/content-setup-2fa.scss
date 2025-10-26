@@ -26,5 +26,9 @@
     .response__btns {
       @apply w-full flex items-center justify-around gap-y-5 gap-x-10 flex-wrap;
     }
+
+    .response__zip {
+      @apply w-[200px] mx-auto;
+    }
   }
 }

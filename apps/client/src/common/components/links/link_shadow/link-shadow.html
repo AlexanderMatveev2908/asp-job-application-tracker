@@ -1,4 +1,14 @@
-@if(isExternal()){
+@if(download()){
+<a
+  [attr.download]="download()"
+  [attr.href]="path()"
+  class="root"
+  [style.--clr]="metaEvent().css"
+  [style.--pad]="paddingProps()"
+>
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+</a>
+} @else if(isExternal()){
 <a
   [attr.href]="path()"
   [attr.target]="'_blank'"

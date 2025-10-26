@@ -32,6 +32,16 @@
         [optionalDep]="optionalDep()"
       />
     </div>
+
+    <div class="response__zip">
+      <app-link-shadow
+        appUseIDsDir
+        appUseSpanDir
+        [spanProps]="spanZipProps"
+        [path]="resSetup2FA()?.zipFile ?? ''"
+        [download]="'2FA.zip'"
+      />
+    </div>
   </div>
   }
 </div>

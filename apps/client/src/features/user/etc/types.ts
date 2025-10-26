@@ -6,6 +6,7 @@ export interface UserT extends SqlTableT {
   email: string;
   tmpEmail: Nullable<string>;
   isVerified: boolean;
+  use2FA: boolean;
 
   toptSecret?: string;
   password?: string;

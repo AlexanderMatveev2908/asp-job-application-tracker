@@ -1,5 +1,5 @@
 <div class="root">
-  @if(user()?.toptSecret && !resSetup2FA()){
+  @if(user()?.use2FA && !resSetup2FA()){
   <app-notice-2fa appUseMetaEventDir [eventT]="'OK'" [txt]="'Account have 2FA setup'" />
   } @else if (!user()?.isVerified) {
   <app-notice-2fa

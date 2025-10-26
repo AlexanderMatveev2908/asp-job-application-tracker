@@ -3,7 +3,7 @@
     <ng-container *ngComponentOutlet="useMetaEvent.metaEvent().Svg" />
   </div>
 
-  <span class="txt__2xl text-yellow-600 text-center">
+  <span class="root__msg txt__2xl" [style.--clr]="useMetaEvent.metaEvent().css">
     {{ txt() }}
   </span>
 </div>

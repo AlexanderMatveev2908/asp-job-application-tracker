@@ -19,10 +19,11 @@ import { CpyPaste } from '@/common/components/hoc/cpy_paste/cpy-paste';
 import { ConfSwapT } from '@/core/hooks/use_swap/etc/types';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 import { LibPrs } from '@/core/lib/data_structure/prs';
+import { LinkShadow } from '@/common/components/links/link_shadow/link-shadow';
 
 @Component({
   selector: 'app-content-setup-2fa',
-  imports: [UseSpanDir, BtnShadow, UseIDsDir, CpyPaste],
+  imports: [UseSpanDir, BtnShadow, UseIDsDir, CpyPaste, LinkShadow],
   templateUrl: './content-setup-2fa.html',
   styleUrl: './content-setup-2fa.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -46,6 +47,12 @@ export class ContentSetup2fa extends UseInjCtxHk implements OnInit {
   public readonly spanProps: SpanEventPropsT = {
     eventT: 'OK',
     label: 'Setup',
+    Svg: null,
+  };
+  // ? span zip link
+  public readonly spanZipProps: SpanEventPropsT = {
+    eventT: 'INFO',
+    label: 'Zip',
     Svg: null,
   };
 

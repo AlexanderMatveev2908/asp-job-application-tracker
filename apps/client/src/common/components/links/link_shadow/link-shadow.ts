@@ -14,6 +14,7 @@ import { UseIDsDir } from '@/core/directives/use_ids';
 import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
 import { UseSpanDir } from '@/core/directives/use_span';
 import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
+import { Nullable } from '@/common/types/etc';
 
 @Component({
   selector: 'app-link-shadow',
@@ -30,6 +31,7 @@ export class LinkShadow {
   // ? personal props
   public readonly paddingProps: InputSignal<string> = input('10px 15px');
   public readonly path: InputSignal<string> = input.required();
+  public readonly download: InputSignal<Nullable<string>> = input<Nullable<string>>(null);
 
   // ? derived
   public readonly isExternal: Signal<boolean> = computed(() =>
