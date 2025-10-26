@@ -22,6 +22,7 @@ import { CloseBtn } from '@/common/components/btns/close_btn/close-btn';
 import { ElDomT, Nullable, RefDomT, RefTemplateT } from '@/common/types/etc';
 import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-popup',
@@ -31,6 +32,9 @@ import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Popup extends UseInjCtxHk implements AfterViewInit {
+  // ? directives
+  private readonly useIDs: UseIDsDir = inject(UseIDsDir);
+
   // ? svc
   private readonly animationsPop: AnimationsPopSvc = inject(AnimationsPopSvc);
 
@@ -56,6 +60,7 @@ export class Popup extends UseInjCtxHk implements AfterViewInit {
     MetaEventDOM.byT(this.staticProps().eventT)
   );
   public cssZ: Signal<string> = computed(() => `z__${this.staticProps().cls}`);
+  public readonly testID: Signal<string> = computed(() => `${this.useIDs.testId()}__popup`);
 
   // ? children
   @ViewChild('popup') popup: RefDomT;

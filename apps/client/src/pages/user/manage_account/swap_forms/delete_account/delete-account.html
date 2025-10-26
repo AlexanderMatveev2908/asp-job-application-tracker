@@ -10,6 +10,7 @@
       }"
       [spanProps]="spanProps"
       appUseIDsDir
+      [testId]="'del_acc__popup__open'"
     />
   </div>
 </div>
@@ -21,9 +22,16 @@
   }"
 >
   <ng-template #tpl>
-    <app-popup [staticProps]="popupStaticProps" [isPop]="useKitPop.isPop()">
+    <app-popup
+      appUseIDsDir
+      [testId]="'del_acc'"
+      [staticProps]="popupStaticProps"
+      [isPop]="useKitPop.isPop()"
+    >
       <ng-template #popContent>
         <app-pop-choices
+          appUseIDsDir
+          [testId]="'del_acc'"
           [txt]="'Are You sure you want to delete your account and all associated data ?'"
           [choiceA]="popChoiceA()"
           [choiceB]="popChoiceB"

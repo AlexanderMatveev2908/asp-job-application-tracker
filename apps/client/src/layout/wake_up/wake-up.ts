@@ -13,10 +13,11 @@ import { finalize } from 'rxjs';
 import { Nullable } from '@/common/types/etc';
 import { UseMetaEventDir } from '@/core/directives/use_meta_event';
 import { UseKitPopHk } from '@/core/hooks/kits/use_kit_pop';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-wake-up',
-  imports: [Popup, SpinBtn, UseMetaEventDir],
+  imports: [Popup, SpinBtn, UseMetaEventDir, UseIDsDir],
   templateUrl: './wake-up.html',
   styleUrl: './wake-up.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

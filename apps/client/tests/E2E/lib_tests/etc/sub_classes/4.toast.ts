@@ -1,33 +1,20 @@
-/* eslint-disable no-magic-numbers */
 import { expect, Locator } from '@playwright/test';
 import { Nullable } from '@/common/types/etc';
 import { LibLog } from '@/core/lib/dev/log';
-import { LibSwapperTests } from './2.swapper';
+import { LibPopupTests } from './3.popup';
+import { LibCss } from '@/core/lib/data_structure/css';
 
 export type ToastExpT = 'ok' | 'err';
 
-export abstract class LibToastTests extends LibSwapperTests {
+export abstract class LibToastTests extends LibPopupTests {
   private async getToast(): Promise<Locator> {
     const toast: Locator = await this.byIdInPage('toast');
     return toast;
   }
 
-  private readonly twdGreen600: string = '#16a34a';
-  private readonly twdRed600: string = '#dc2626';
-
-  private hexToRgb(hex: string): string {
-    const binary: number = parseInt(hex.replace('#', ''), 16);
-
-    const r = (binary >> 16) & 0xff;
-    const g = (binary >> 8) & 0xff;
-    const b = binary & 0xff;
-
-    return `rgb(${r}, ${g}, ${b})`;
-  }
-
   private async isOfType(successType: boolean): Promise<void> {
     const toast: Locator = await this.getToast();
-    const rgb: string = this.hexToRgb(successType ? this.twdGreen600 : this.twdRed600);
+    const rgb: string = LibCss.hexToRgb(successType ? LibCss.twdGreen600 : LibCss.twdRed600);
     await expect(toast).toHaveCSS('border-color', rgb);
 
     const txt: Nullable<string> = await toast.evaluate((parent: HTMLElement) => {

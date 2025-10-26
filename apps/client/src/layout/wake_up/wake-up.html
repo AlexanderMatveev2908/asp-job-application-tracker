@@ -1,4 +1,9 @@
-<app-popup [staticProps]="popupStaticProps" [isPop]="useKitPop.isPop()" [allowClose]="false">
+<app-popup
+  appUseIDsDir
+  [staticProps]="popupStaticProps"
+  [isPop]="useKitPop.isPop()"
+  [allowClose]="false"
+>
   <ng-template #popContent>
     <div class="root">
       <span class="txt__xl">Server waking up... 💤</span>
