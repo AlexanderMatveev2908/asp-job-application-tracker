@@ -41,4 +41,15 @@ export class UserApiSvc {
         .pushOnStatus([StatusT.UNAUTHORIZED])
     );
   }
+
+  public delAccount(data: UserFormArgT<void>): ObsOnOkT<void> {
+    return this.api.delete(
+      LibApiArgs.withURL(`${this.base}/delete-account`)
+        .query({
+          cbcHmacToken: data.cbcHmacToken,
+        })
+        .toastOnFulfilled()
+        .pushOnStatus([StatusT.UNAUTHORIZED])
+    );
+  }
 }

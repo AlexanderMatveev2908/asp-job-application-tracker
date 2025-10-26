@@ -37,7 +37,7 @@ export class ChangePwdForm extends UseKitPairPwdFormHk {
         })
         .pipe(
           tap((_: ResApiT<void>) => {
-            this.useKitUserForm.useKitSideApi.pushNotice({
+            this.useKitUserForm.useKitNav.pushNotice({
               eventT: 'OK',
               msg: 'Password changed',
               status: 200,

@@ -43,7 +43,6 @@ export class SwapBtns {
 
   // ? props btn shadow
   public getTestId(idx: number): string {
-    console.log(this.prefixTestId());
     return LibPrs.toSnake(this.prefixTestId() + (!idx ? '_prev_swap' : '_next_swap'));
   }
 

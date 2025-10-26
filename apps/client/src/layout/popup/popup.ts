@@ -80,6 +80,7 @@ export class Popup extends UseInjCtxHk implements AfterViewInit {
     const target: Nullable<HTMLElement> = e.target as Nullable<HTMLElement>;
     if (!popDOM || !target) return;
 
-    if (!popDOM.contains(target) && this.allowClose()) this.staticProps().closePop();
+    if (this.isPop() && !popDOM.contains(target) && this.allowClose())
+      this.staticProps().closePop();
   }
 }

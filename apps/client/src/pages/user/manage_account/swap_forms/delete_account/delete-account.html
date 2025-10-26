@@ -1,5 +1,34 @@
+<div #tooltipRef></div>
+
 <div class="root">
   <div class="w-[250px]">
-    <app-btn-shadow appUseSpanDir [type]="'button'" [spanProps]="spanProps" appUseIDsDir />
+    <app-btn-shadow
+      appUseSpanDir
+      [type]="'button'"
+      [listenersProps]="{
+        onClick: onBtnCLick
+      }"
+      [spanProps]="spanProps"
+      appUseIDsDir
+    />
   </div>
 </div>
+
+<app-portal
+  [coords]="{
+    top: coords()?.top,
+    left: coords()?.left
+  }"
+>
+  <ng-template #tpl>
+    <app-popup [staticProps]="popupStaticProps" [isPop]="useKitPop.isPop()">
+      <ng-template #popContent>
+        <app-pop-choices
+          [txt]="'Are You sure you want to delete your account and all associated data ?'"
+          [choiceA]="popChoiceA()"
+          [choiceB]="popChoiceB"
+        />
+      </ng-template>
+    </app-popup>
+  </ng-template>
+</app-portal>
