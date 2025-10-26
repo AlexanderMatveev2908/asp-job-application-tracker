@@ -1,0 +1,9 @@
+@use 'exports/shapes.scss';
+
+.root {
+  @extend .app__form__page;
+
+  .root__swapper {
+    @extend .app__form__container_size;
+  }
+}
