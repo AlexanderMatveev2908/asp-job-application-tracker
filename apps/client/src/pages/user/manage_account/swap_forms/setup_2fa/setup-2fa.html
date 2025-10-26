@@ -1,5 +1,9 @@
 <div class="root">
-  <div class="w-[250px]">
-    <app-btn-shadow appUseSpanDir [type]="'button'" [spanProps]="spanProps" appUseIDsDir />
-  </div>
+  @if(user()?.toptSecret){} @else if (!user()?.isVerified) {
+  <app-content2fa-message
+    appUseMetaEventDir
+    [eventT]="'WARN'"
+    [txt]="'Account must be first verified to setup 2FA'"
+  />
+  } @else{}
 </div>

@@ -19,3 +19,10 @@ interface BaseUserFormArgT {
   cbcHmacToken: string;
 }
 export type UserFormArgT<T> = T extends void ? BaseUserFormArgT : BaseUserFormArgT & T;
+
+export interface Setup2faReturnT {
+  totpSecret: string;
+  backupCodes: string[];
+  totpSecretQrCode: string;
+  zipFile: string;
+}
