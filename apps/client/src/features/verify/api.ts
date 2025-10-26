@@ -1,8 +1,8 @@
-import { ApiSvc } from '@/core/store/api/api';
+import { UseApiSvc } from '@/core/store/api/use_api';
 import { ObsOnOkT } from '@/core/store/api/etc/types';
 import { inject, Injectable } from '@angular/core';
 import { JwtResT } from '../auth/etc/types';
-import { ApiArgs } from '@/core/store/api/etc/request/args';
+import { LibApiArgs } from '@/core/store/api/etc/lib/api_args';
 
 export interface RecoverPwdResT {
   strategy2FA: boolean;
@@ -13,11 +13,11 @@ export interface RecoverPwdResT {
 })
 export class VerifyApiSvc {
   private readonly base: string = '/verify';
-  private readonly api: ApiSvc = inject(ApiSvc);
+  private readonly api: UseApiSvc = inject(UseApiSvc);
 
   public confMail(cbcHmacToken: string): ObsOnOkT<JwtResT> {
     return this.api.get(
-      ApiArgs.withURL(`${this.base}/confirm-email`)
+      LibApiArgs.withURL(`${this.base}/confirm-email`)
         .query({
           cbcHmacToken,
         })
@@ -28,7 +28,7 @@ export class VerifyApiSvc {
 
   public recoverPwd(cbcHmacToken: string): ObsOnOkT<RecoverPwdResT> {
     return this.api.get(
-      ApiArgs.withURL(`${this.base}/recover-pwd`)
+      LibApiArgs.withURL(`${this.base}/recover-pwd`)
         .query({
           cbcHmacToken,
         })
@@ -39,7 +39,7 @@ export class VerifyApiSvc {
 
   public confNewMail(cbcHmacToken: string): ObsOnOkT<JwtResT> {
     return this.api.get(
-      ApiArgs.withURL(`${this.base}/new-email`)
+      LibApiArgs.withURL(`${this.base}/new-email`)
         .query({
           cbcHmacToken,
         })

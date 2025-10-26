@@ -1,10 +1,12 @@
 import { Nullable } from '@/common/types/etc';
-import { ResApiMandatoryMsg, StatusT } from '../../../etc/types';
+import { ResApiMandatoryMsg, StatusT } from '../../../../etc/types';
 import { HttpErrorResponse } from '@angular/common/http';
 import { envVars } from '@/environments/environment';
 import { RefreshMdwConst } from './constants';
 
 export class RefreshMdwNeedRefresh {
+  protected static readonly constMdw: RefreshMdwConst = new RefreshMdwConst();
+
   private static extractData(err: HttpErrorResponse): ResApiMandatoryMsg<void> {
     let data: Nullable<ResApiMandatoryMsg<void>> = null;
 
@@ -29,13 +31,13 @@ export class RefreshMdwNeedRefresh {
     return status === StatusT.UNAUTHORIZED;
   }
   private static isJwtErr(msg: string): boolean {
-    return RefreshMdwConst.KEY_MSG_ERR.some((err: string) => msg.includes(err));
+    return this.constMdw.KEY_MSG_ERR.some((err: string) => msg.includes(err));
   }
   private static isRefreshing(endpoint: string): boolean {
-    return endpoint === RefreshMdwConst.ENDPOINT_REFRESH;
+    return endpoint === this.constMdw.ENDPOINT_REFRESH;
   }
 
-  public static main(err: HttpErrorResponse): boolean {
+  public static needRefresh(err: HttpErrorResponse): boolean {
     const data: ResApiMandatoryMsg<void> = this.extractData(err);
 
     const partial: string = (err.url ?? 'Unknown url').replace(envVars.backURL, '');

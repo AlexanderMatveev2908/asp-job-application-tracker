@@ -1,14 +1,14 @@
 import { NoticeSlice } from '@/features/notice/slice';
 import { inject, Injectable } from '@angular/core';
-import { SideEffectsToastHk } from './2.toast';
-import { ErrApiT, ObsOnOkT, ObsResT, OptErrApiT, StatusT } from '../types';
+import { UseSideEffectsToastHk } from './2.toast';
+import { ErrApiT, ObsOnOkT, ObsResT, OptErrApiT, StatusT } from '../../../types';
 import { Nullable } from '@/common/types/etc';
 import { catchError, EMPTY, from, switchMap, throwError } from 'rxjs';
 import { UseNavSvc } from '@/core/services/use_nav/use_nav';
 import { CbcHmacSlice } from '@/features/cbcHmac/slice';
 
 @Injectable()
-export abstract class SideEffectsNoticeHk extends SideEffectsToastHk {
+export abstract class UseSideEffectsNoticeHk extends UseSideEffectsToastHk {
   // ? svc
   private readonly noticeSlice: NoticeSlice = inject(NoticeSlice);
   private readonly useNav: UseNavSvc = inject(UseNavSvc);

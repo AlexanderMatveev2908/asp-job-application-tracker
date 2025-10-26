@@ -9,11 +9,11 @@ import {
 import { Observable, tap } from 'rxjs';
 import { HttpMethod } from '../etc/types';
 import { inject } from '@angular/core';
-import { ApiConfSvc } from '../etc/request/conf/conf';
+import { UseApiConfSvc } from '../etc/services/use_api_conf';
 import { LibShapeCheck } from '@/core/lib/data_structure/shape_check';
 import { LibApiShape, HttpResT } from '../etc/lib/shape';
 import { Nullable } from '@/common/types/etc';
-import { ConfApiT } from '../etc/request/conf/etc/types';
+import { ConfApiT } from '../etc/services/use_api_conf/etc/types';
 
 const getDataSent = (req: HttpRequest<unknown>): Nullable<Record<string, unknown>> => {
   let dataSent: Nullable<Record<string, unknown>>;
@@ -34,7 +34,7 @@ const getParams = (req: HttpRequest<unknown>): Nullable<Record<string, unknown>>
 const mng = (
   req: HttpRequest<unknown>,
   e: HttpEvent<unknown> | HttpErrorResponse,
-  confApi: ApiConfSvc
+  confApi: UseApiConfSvc
 ): void => {
   if (!LibApiShape.isHttpRes(e)) return;
   const res: HttpResT = e as HttpResT;
@@ -59,11 +59,11 @@ const mng = (
   confApi.setNext(conf);
 };
 
-export const addConfApiMdw: HttpInterceptorFn = (
+export const useConfApiMdw: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> => {
-  const confApi: ApiConfSvc = inject(ApiConfSvc);
+  const confApi: UseApiConfSvc = inject(UseApiConfSvc);
 
   return next(req).pipe(
     tap({

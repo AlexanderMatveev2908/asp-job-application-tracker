@@ -4,7 +4,7 @@ import { HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angul
 import { inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
-export const baseApiMdw: HttpInterceptorFn = (
+export const useRootApiMdw: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> => {

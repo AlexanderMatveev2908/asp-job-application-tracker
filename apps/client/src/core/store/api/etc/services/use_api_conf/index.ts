@@ -6,7 +6,7 @@ import { ConfApiT } from './etc/types';
 @Injectable({
   providedIn: 'root',
 })
-export class ApiConfSvc {
+export class UseApiConfSvc {
   private readonly conf: BehaviorSubject<Nullable<ConfApiT>> = new BehaviorSubject<
     Nullable<ConfApiT>
   >(null);

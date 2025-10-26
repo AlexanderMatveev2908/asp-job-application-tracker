@@ -19,17 +19,16 @@ export abstract class UseCasesVerifyDir extends UseMngVerifyDir {
     this.verifyApi
       .confMail(cbcHmac)
       .pipe(
-        tap((res: ResApiT<JwtResT>) => this.authSlice.login(res.accessToken, { startTmr: true })),
-        switchMap((res: ResApiT<JwtResT>) => {
+        tap((res: ResApiT<JwtResT>) => {
+          this.authSlice.login(res.accessToken, { startTmr: false });
+
           this.userSlice.triggerApi();
 
-          this.noticeSlice.notice = {
+          this.useKitSideApi.pushNotice({
             eventT: 'OK',
             msg: res.msg ?? 'account verified',
             status: 200,
-          };
-
-          return from(this.useNav.replace('/notice', { from: 'ok' }));
+          });
         })
       )
       .subscribe();
@@ -45,7 +44,9 @@ export abstract class UseCasesVerifyDir extends UseMngVerifyDir {
         switchMap((res: ResApiT<RecoverPwdResT>) => {
           const suffix: string = res.strategy2FA ? '-2fa' : '';
 
-          return from(this.useNav.replace(`/auth/recover-pwd${suffix}`, { from: 'ok' }));
+          return from(
+            this.useKitSideApi.useNav.replace(`/auth/recover-pwd${suffix}`, { from: 'ok' })
+          );
         })
       )
       .subscribe();
@@ -55,17 +56,16 @@ export abstract class UseCasesVerifyDir extends UseMngVerifyDir {
     this.verifyApi
       .confNewMail(cbcHmac)
       .pipe(
-        tap((res: ResApiT<JwtResT>) => this.authSlice.login(res.accessToken, { startTmr: false })),
-        switchMap((res: ResApiT<JwtResT>) => {
+        tap((res: ResApiT<JwtResT>) => {
+          this.authSlice.login(res.accessToken, { startTmr: false });
+
           this.userSlice.triggerApi();
 
-          this.noticeSlice.notice = {
+          this.useKitSideApi.pushNotice({
             eventT: 'OK',
             msg: res.msg ?? 'email address changes',
             status: 200,
-          };
-
-          return from(this.useNav.replace('/notice', { from: 'ok' }));
+          });
         })
       )
       .subscribe();

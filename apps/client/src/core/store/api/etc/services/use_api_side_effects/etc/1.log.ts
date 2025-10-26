@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { SideEffectsRootHk } from './0.root';
-import { ErrApiT, ObsResT, ResApiT } from '../types';
+import { UseSideEffectsRootHk } from './0.root';
+import { ErrApiT, ObsResT, ResApiT } from '../../../types';
 import { Nullable } from '@/common/types/etc';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LibLog } from '@/core/lib/dev/log';
 import { tap } from 'rxjs';
 import { envVars } from '@/environments/environment';
-import { ConfApiT } from '../request/conf/etc/types';
+import { ConfApiT } from '../../use_api_conf/etc/types';
 
 @Injectable()
-export abstract class SideEffectsLogHk extends SideEffectsRootHk {
+export abstract class UseSideEffectsLogHk extends UseSideEffectsRootHk {
   private _log<T>(res: ResApiT<T> | ErrApiT<T>, emoji: string): void {
     const conf: Nullable<ConfApiT> = this.confApi.getCurr();
     const content: ResApiT<T> = res instanceof HttpErrorResponse ? res.error : res;
