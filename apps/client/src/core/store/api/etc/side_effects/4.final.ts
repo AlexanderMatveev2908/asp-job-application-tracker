@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SideEffectsNoticeHk } from './3.notice';
 import { ObsOnOkT, ObsResT } from '../types';
-import { ApiArgs } from '../request/args';
+import { ApiArgs } from '../req_args/args';
 
 @Injectable({
   providedIn: 'root',

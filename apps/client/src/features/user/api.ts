@@ -1,8 +1,8 @@
-import { ApiSvc } from '@/core/store/api/api';
+import { UseApiSvc } from '@/core/store/api/use_api';
 import { ObsOnOkT, ObsResT, StatusT } from '@/core/store/api/etc/types';
 import { inject, Injectable } from '@angular/core';
 import { ResProfileT } from './etc/types';
-import { ApiArgs } from '@/core/store/api/etc/request/args';
+import { ApiArgs } from '@/core/store/api/etc/req_args/args';
 import { PwdFormT } from '@/core/paperwork/etc/pwd';
 import { CbcHmacMandatoryT } from '../cbcHmac/etc/types';
 import { MailFormT } from '@/core/paperwork/etc/mail';
@@ -15,7 +15,7 @@ export interface ChangeMailFormT extends MailFormT {
   providedIn: 'root',
 })
 export class UserApiSvc {
-  private readonly api: ApiSvc = inject(ApiSvc);
+  private readonly api: UseApiSvc = inject(UseApiSvc);
   private readonly base: string = '/user';
 
   public getUser(): ObsResT<ResProfileT> {

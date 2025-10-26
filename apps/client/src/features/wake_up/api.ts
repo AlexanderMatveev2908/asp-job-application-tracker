@@ -1,6 +1,6 @@
-import { ApiSvc } from '@/core/store/api/api';
+import { UseApiSvc } from '@/core/store/api/use_api';
 import { ResApiT } from '@/core/store/api/etc/types';
-import { ApiArgs } from '@/core/store/api/etc/request/args';
+import { ApiArgs } from '@/core/store/api/etc/req_args/args';
 import { inject, Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
 import { WakeUpSlice } from './slice';
@@ -9,7 +9,7 @@ import { WakeUpSlice } from './slice';
   providedIn: 'root',
 })
 export class WakeUpApiSvc {
-  private readonly api: ApiSvc = inject(ApiSvc);
+  private readonly api: UseApiSvc = inject(UseApiSvc);
   private readonly wakeUpSlice: WakeUpSlice = inject(WakeUpSlice);
 
   private wakeUp(): Observable<ResApiT<void>> {

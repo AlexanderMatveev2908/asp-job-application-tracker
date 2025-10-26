@@ -1,5 +1,5 @@
-import { ApiSvc } from '@/core/store/api/api';
-import { ApiArgs } from '@/core/store/api/etc/request/args';
+import { UseApiSvc } from '@/core/store/api/use_api';
+import { ApiArgs } from '@/core/store/api/etc/req_args/args';
 import { ObsResT } from '@/core/store/api/etc/types';
 import { inject, Injectable } from '@angular/core';
 
@@ -8,7 +8,7 @@ import { inject, Injectable } from '@angular/core';
 })
 export class TestApiSvc {
   private readonly base: string = '/test';
-  private readonly api: ApiSvc = inject(ApiSvc);
+  private readonly api: UseApiSvc = inject(UseApiSvc);
 
   public protectedData(): ObsResT<void> {
     return this.api.get(ApiArgs.withURL(`${this.base}/protected`).toastOnFulfilled());

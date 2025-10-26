@@ -1,9 +1,9 @@
 import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
 import { SvgFillBash } from '@/common/components/svgs/fill/bash/bash';
-import { ApiSvc } from '@/core/store/api/api';
+import { UseApiSvc } from '@/core/store/api/use_api';
 import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { ResApiT } from '@/core/store/api/etc/types';
-import { ApiArgs } from '@/core/store/api/etc/request/args';
+import { ApiArgs } from '@/core/store/api/etc/req_args/args';
 import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';
 import { BtnListenersT, BtnStatePropsT } from '@/common/types/etc';
@@ -23,7 +23,7 @@ import { UseSpanDir } from '@/core/directives/use_span';
 })
 export class Home extends UseApiTrackerHk {
   // ? svc
-  private readonly api: ApiSvc = inject(ApiSvc);
+  private readonly api: UseApiSvc = inject(UseApiSvc);
   private readonly authSlice: AuthSlice = inject(AuthSlice);
 
   // ? btn props

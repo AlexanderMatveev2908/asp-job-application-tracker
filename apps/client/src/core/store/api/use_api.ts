@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { ApiArgs } from './etc/request/args';
+import { ApiArgs } from './etc/req_args/args';
 import { ObsResT, ResApiT } from './etc/types';
 import { Opt } from '@/common/types/etc';
 import { ApiSideEffectsSvc } from './etc/side_effects/4.final';
@@ -8,7 +8,7 @@ import { ApiSideEffectsSvc } from './etc/side_effects/4.final';
 @Injectable({
   providedIn: 'root',
 })
-export class ApiSvc {
+export class UseApiSvc {
   private readonly http: HttpClient = inject(HttpClient);
   private readonly eventsMng: ApiSideEffectsSvc = inject(ApiSideEffectsSvc);
 

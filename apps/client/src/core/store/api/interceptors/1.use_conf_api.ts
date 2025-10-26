@@ -59,7 +59,7 @@ const mng = (
   confApi.setNext(conf);
 };
 
-export const addConfApiMdw: HttpInterceptorFn = (
+export const useConfApiMdw: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> => {

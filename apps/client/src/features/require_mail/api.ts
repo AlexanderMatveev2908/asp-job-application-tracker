@@ -1,7 +1,7 @@
-import { ApiSvc } from '@/core/store/api/api';
+import { UseApiSvc } from '@/core/store/api/use_api';
 import { inject, Injectable } from '@angular/core';
 import { ObsResT } from '@/core/store/api/etc/types';
-import { ApiArgs } from '@/core/store/api/etc/request/args';
+import { ApiArgs } from '@/core/store/api/etc/req_args/args';
 import { MailFormT } from '@/core/paperwork/etc/mail';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { MailFormT } from '@/core/paperwork/etc/mail';
 })
 export class RequireMailApiSvc {
   private readonly base: string = '/require-email';
-  private readonly api: ApiSvc = inject(ApiSvc);
+  private readonly api: UseApiSvc = inject(UseApiSvc);
 
   public confMail(body: MailFormT): ObsResT<void> {
     return this.api.post(

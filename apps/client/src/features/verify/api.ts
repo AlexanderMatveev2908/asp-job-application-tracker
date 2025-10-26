@@ -1,8 +1,8 @@
-import { ApiSvc } from '@/core/store/api/api';
+import { UseApiSvc } from '@/core/store/api/use_api';
 import { ObsOnOkT } from '@/core/store/api/etc/types';
 import { inject, Injectable } from '@angular/core';
 import { JwtResT } from '../auth/etc/types';
-import { ApiArgs } from '@/core/store/api/etc/request/args';
+import { ApiArgs } from '@/core/store/api/etc/req_args/args';
 
 export interface RecoverPwdResT {
   strategy2FA: boolean;
@@ -13,7 +13,7 @@ export interface RecoverPwdResT {
 })
 export class VerifyApiSvc {
   private readonly base: string = '/verify';
-  private readonly api: ApiSvc = inject(ApiSvc);
+  private readonly api: UseApiSvc = inject(UseApiSvc);
 
   public confMail(cbcHmacToken: string): ObsOnOkT<JwtResT> {
     return this.api.get(

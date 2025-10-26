@@ -18,7 +18,7 @@ import { UsePlatformSvc } from '@/core/services/use_platform';
 
 // const refreshMng = (err: HttpErrorResponse): Promise<HttpEvent<unknown>> => {};
 
-export const refreshMdw: HttpInterceptorFn = (
+export const useRefreshApiMdw: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> => {
