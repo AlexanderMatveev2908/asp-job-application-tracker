@@ -3,11 +3,21 @@
     {{ txt() }}
   </span>
 
-  <div class="mt-20 w-full flex justify-center flex-wrap gap-x-20 gap-y-8">
-    @for(btn of [choiceA(),choiceB()]; track btn.id; let idx = $index){
-
+  <div class="mt-20 w-full flex justify-center flex-wrap gap-x-20 gap-y-14">
+    @for(ch of [ withDefault('a'),withDefault('b') ] ;track ch.id){
     <div class="w-[250px]">
-      <app-btn-shadow appUseIDsDir appUseSpanDir [spanProps]="getSpanProps(idx)()" />
+      <app-btn-shadow
+        appUseIDsDir
+        appUseSpanDir
+        [spanProps]="ch"
+        [btnStateProps]="{
+          isPending: ch.isPending,
+          isDisabled: ch.isDisabled
+        }"
+        [listenersProps]="{
+          onClick: ch.onClick
+        }"
+      />
     </div>
     }
   </div>

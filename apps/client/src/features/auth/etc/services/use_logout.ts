@@ -16,7 +16,6 @@ export class UseLogout {
   public main(): ObsResT<void> {
     return this.useAuthKit.authApi.logout().pipe(
       tap((_: ResApiT<void>) => {
-        this.useAuthKit.authSlice.logout({ startTmr: true });
         this.useReset.main();
 
         return from(this.useNav.replace('/'));

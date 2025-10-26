@@ -28,7 +28,7 @@ export class ChangeMailForm {
         .changeMail({ ...(data as MailFormT), cbcHmacToken: cbcHmac as string })
         .pipe(
           tap((_: ResApiT<void>) => {
-            this.useKitUserForm.useKitSideApi.pushMailNotice('to your new email address');
+            this.useKitUserForm.useKitNav.pushMailNotice('to your new email address');
           })
         )
     );

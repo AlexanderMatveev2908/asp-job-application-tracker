@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
 import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
 import { UseSpanDir } from '@/core/directives/use_span';
@@ -10,6 +10,13 @@ import { Portal } from '@/layout/portal/portal';
 import { UsePortalDir } from '@/core/directives/use_portal/0.use_portal';
 import { BtnPopChoicePropsT, PopChoices } from '@/common/components/hoc/pop_choices/pop-choices';
 import { v4 } from 'uuid';
+import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
+import { UseKitFormUserSvc } from '@/features/user/etc/services/use_kit_form_user';
+import { LibApiShape } from '@/core/store/api/etc/lib/shape';
+import { Nullable } from '@/common/types/etc';
+import { tap } from 'rxjs';
+import { ResApiT } from '@/core/store/api/etc/types';
+import { UseResetStateSvc } from '@/core/services/use_reset_state';
 
 @Component({
   selector: 'app-delete-account',
@@ -17,10 +24,37 @@ import { v4 } from 'uuid';
   templateUrl: './delete-account.html',
   styleUrl: './delete-account.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UseKitPopHk],
+  providers: [UseKitPopHk, UseApiTrackerHk],
 })
 export class DeleteAccount extends UsePortalDir {
+  private readonly useApiTracker: UseApiTrackerHk = inject(UseApiTrackerHk);
+  private readonly useReset: UseResetStateSvc = inject(UseResetStateSvc);
+  private readonly useKitUserForm: UseKitFormUserSvc = inject(UseKitFormUserSvc);
+
   public readonly useKitPop: UseKitPopHk = inject(UseKitPopHk);
+
+  private readonly delAcc: () => void = () => {
+    const cbcHmacToken: Nullable<string> = this.useKitUserForm.cbcHmacSlice.cbcHmac();
+
+    LibApiShape.throwIfCbcHmacMissing(
+      cbcHmacToken,
+      this.useApiTracker.track(
+        this.useKitUserForm.useKitUser.userApi
+          .delAccount({ cbcHmacToken: cbcHmacToken as string })
+          .pipe(
+            tap((_: ResApiT<void>) => {
+              this.useReset.main();
+
+              this.useKitUserForm.useKitNav.pushNotice({
+                eventT: 'OK',
+                msg: 'Account deleted',
+                status: 200,
+              });
+            })
+          )
+      )
+    ).subscribe();
+  };
 
   public onBtnCLick: () => void = () => {
     this.useKitPop.isPop.set(true);
@@ -42,9 +76,13 @@ export class DeleteAccount extends UsePortalDir {
   };
 
   // ? pop choices props
-  public readonly popChoiceA: BtnPopChoicePropsT = { label: 'Delete', isPending: false, id: v4() };
-  public readonly popChoiceB: BtnPopChoicePropsT = {
-    label: 'Change idea',
+  public readonly popChoiceA: Signal<Partial<BtnPopChoicePropsT>> = computed(() => ({
+    onClick: this.delAcc,
+    isPending: this.useApiTracker.isPending(),
+    id: v4(),
+  }));
+  public readonly popChoiceB: Partial<BtnPopChoicePropsT> = {
+    onClick: this.useKitPop.closePop,
     isPending: false,
     id: v4(),
   };

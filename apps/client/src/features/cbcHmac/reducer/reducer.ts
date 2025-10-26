@@ -36,5 +36,5 @@ export const cbcHmacReducer = createReducer(
     ...state,
     saving: action.val,
   })),
-  on(CbcHmacActT.RESET_CBC_HMAC_STATE, (_: CbcHmacStateT) => initState)
+  on(CbcHmacActT.RESET_CBC_HMAC_STATE, (_: CbcHmacStateT) => ({ ...initState, deleting: true }))
 );
