@@ -14,3 +14,8 @@ export interface UserT extends SqlTableT {
 export interface ResProfileT {
   user?: UserT;
 }
+
+interface BaseUserFormArgT {
+  cbcHmacToken: string;
+}
+export type UserFormArgT<T> = T extends void ? BaseUserFormArgT : BaseUserFormArgT & T;

@@ -1,15 +1,11 @@
 import { UseApiSvc } from '@/core/store/api/use_api';
 import { ObsOnOkT, ObsResT, StatusT } from '@/core/store/api/etc/types';
 import { inject, Injectable } from '@angular/core';
-import { ResProfileT } from './etc/types';
+import { ResProfileT, UserFormArgT } from './etc/types';
 import { PwdFormT } from '@/core/paperwork/etc/pwd';
 import { CbcHmacMandatoryT } from '../cbcHmac/etc/types';
-import { MailFormT } from '@/core/paperwork/etc/mail';
 import { LibApiArgs } from '@/core/store/api/etc/lib/api_args';
-
-export interface ChangeMailFormT extends MailFormT {
-  cbcHmacToken: string;
-}
+import { MailFormT } from '@/core/paperwork/etc/mail';
 
 @Injectable({
   providedIn: 'root',
@@ -28,9 +24,18 @@ export class UserApiSvc {
     );
   }
 
-  public changeMail(body: ChangeMailFormT): ObsOnOkT<void> {
+  public changeMail(body: UserFormArgT<MailFormT>): ObsOnOkT<void> {
     return this.api.patch(
       LibApiArgs.withURL(`${this.base}/change-email`)
+        .body(body)
+        .toastOnFulfilled()
+        .pushOnStatus([StatusT.UNAUTHORIZED])
+    );
+  }
+
+  public changePwd(body: UserFormArgT<PwdFormT>): ObsOnOkT<void> {
+    return this.api.patch(
+      LibApiArgs.withURL(`${this.base}/change-pwd`)
         .body(body)
         .toastOnFulfilled()
         .pushOnStatus([StatusT.UNAUTHORIZED])

@@ -1,18 +1,16 @@
 import { Nullable } from '@/common/types/etc';
-import { UseNavSvc } from '@/core/services/use_nav/use_nav';
 import { LibCbcHmac } from '@/features/cbcHmac/etc/lib';
 import { AppEventPayloadT } from '@/core/lib/dom/meta_event/etc/types';
 import { Reg } from '@/core/paperwork/reg';
 import { AadCbcHmacT, TokenT } from '@/features/cbcHmac/etc/types';
-import { NoticeSlice } from '@/features/notice/slice';
 import { ToastSlice } from '@/features/toast/slice';
 import { Directive, inject } from '@angular/core';
+import { UseKitSideApiSvc } from '@/core/services/use_kit_side_api';
 
 @Directive()
 export abstract class UseMngVerifyDir {
   protected readonly toastSlice: ToastSlice = inject(ToastSlice);
-  protected readonly noticeSlice: NoticeSlice = inject(NoticeSlice);
-  protected readonly useNav: UseNavSvc = inject(UseNavSvc);
+  protected readonly useKitSideApi: UseKitSideApiSvc = inject(UseKitSideApiSvc);
 
   private readonly verifyTokenT: Set<TokenT> = new Set<TokenT>([
     TokenT.CONF_EMAIL,
@@ -32,10 +30,9 @@ export abstract class UseMngVerifyDir {
         status: 401,
       };
 
-      this.noticeSlice.notice = payload;
       this.toastSlice.openToast(payload);
 
-      void this.useNav.replace('/notice', { from: 'err' });
+      this.useKitSideApi.pushNotice(payload);
 
       return null;
     }
