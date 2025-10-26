@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { UserSlice } from '../slice';
-import { UserApiSvc } from '../api';
+import { UserSlice } from '../../slice';
+import { UserApiSvc } from '../../api';
 
 @Injectable({
   providedIn: 'root',

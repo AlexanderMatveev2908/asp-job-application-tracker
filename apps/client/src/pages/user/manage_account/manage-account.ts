@@ -5,10 +5,10 @@ import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-wi
 import { Swapper } from '@/common/components/swap/swapper/swapper';
 import { UseSwapHk } from '@/core/hooks/use_swap/use_swap';
 import { UserWrapSwap } from './components/user_wrap_swap/user-wrap-swap';
-import { ChangeMailForm } from './swaps/change_mail_form/change-mail-form';
-import { ChangePwdForm } from './swaps/change_pwd_form/change-pwd-form';
-import { Setup2fa } from './swaps/setup_2fa/setup-2fa';
-import { DeleteAccount } from './swaps/delete_account/delete-account';
+import { ChangeMailForm } from './swap_forms/change_mail_form/change-mail-form';
+import { ChangePwdForm } from './swap_forms/change_pwd_form/change-pwd-form';
+import { Setup2fa } from './swap_forms/setup_2fa/setup-2fa';
+import { DeleteAccount } from './swap_forms/delete_account/delete-account';
 
 @Component({
   selector: 'app-manage-account',

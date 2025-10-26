@@ -2,7 +2,7 @@ import { SpanPropsT, SpanSizesPropsT } from '@/common/components/els/span/etc/ty
 import { Span } from '@/common/components/els/span/span';
 import { SvgFillLogout } from '@/common/components/svgs/fill/logout/logout';
 import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
-import { UseLogout } from '@/features/auth/etc/use_logout';
+import { UseLogout } from '@/features/auth/etc/services/use_logout';
 import { ChangeDetectionStrategy, Component, inject, input, InputSignal } from '@angular/core';
 import { finalize } from 'rxjs';
 

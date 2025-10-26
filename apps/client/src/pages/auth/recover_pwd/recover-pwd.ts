@@ -3,7 +3,7 @@ import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-wi
 import { UseKitPairPwdFormHk } from '@/core/forms/pair_pwd/etc/hooks/use_kit_pair_pwd';
 import { FormPairPwd } from '@/core/forms/pair_pwd/form-pair-pwd';
 import { TokenT } from '@/features/cbcHmac/etc/types';
-import { UseAuthKitSvc } from '@/features/auth/etc/use_auth_kit';
+import { UseAuthKitSvc } from '@/features/auth/etc/services/use_auth_kit';
 import { Nullable } from '@/common/types/etc';
 import { PairPwdFormT } from '@/core/forms/pair_pwd/etc/paperwork/form_mng';
 import { catchError, EMPTY, Observable, tap, throwError } from 'rxjs';

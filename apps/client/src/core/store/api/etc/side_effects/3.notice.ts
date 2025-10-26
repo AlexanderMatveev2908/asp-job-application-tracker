@@ -22,7 +22,10 @@ export abstract class SideEffectsNoticeHk extends SideEffectsToastHk {
 
   // ? main
   protected withNotice<T>(cb: ObsResT<T>, opt: Nullable<Partial<OptErrApiT>>): ObsOnOkT<T> {
-    const options: Partial<OptErrApiT> = opt ?? this.defOptErr;
+    const options: Partial<OptErrApiT> = {
+      pushOnErr: !!opt?.pushOnErr,
+      pushOnStatus: [...this.defOptErr.pushOnStatus, ...(opt?.pushOnStatus ?? [])],
+    };
 
     return cb.pipe(
       catchError((err: ErrApiT<T>) => {
