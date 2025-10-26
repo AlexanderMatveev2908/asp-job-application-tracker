@@ -1,4 +1,4 @@
-<div #tooltipRef class="fixed inset-0 z-50 bg-white"></div>
+<div #tooltipRef></div>
 
 <div class="root">
   <div class="w-[250px]">
@@ -20,7 +20,7 @@
     left: coords()?.left
   }"
 >
-  <div class="w-full h-full tb z-50">
+  <ng-template #tpl>
     <app-popup [staticProps]="popupStaticProps" [isPop]="useKitPop.isPop()"></app-popup>
-  </div>
+  </ng-template>
 </app-portal>
