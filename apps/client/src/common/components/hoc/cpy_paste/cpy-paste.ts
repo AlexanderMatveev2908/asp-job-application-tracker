@@ -29,6 +29,7 @@ import { PortalDOM, RecCoordsT } from '@/core/lib/dom/portal';
 })
 export class CpyPaste extends UseSwapPortalDir implements AfterViewInit {
   // ? local state
+  public readonly label: InputSignal<Nullable<string>> = input<Nullable<string>>(null);
   public readonly txt: InputSignal<Nullable<string>> = input.required();
   public readonly copied: WritableSignal<boolean> = signal(false);
   private timerID: TimerIdT = null;
