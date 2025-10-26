@@ -1,0 +1,14 @@
+<div class="w-full flex flex-col justify-center items-center px-6">
+  <span class="txt__3xl text-center">
+    {{ txt() }}
+  </span>
+
+  <div class="mt-20 w-full flex justify-center flex-wrap gap-x-20 gap-y-8">
+    @for(btn of [choiceA(),choiceB()]; track btn.id; let idx = $index){
+
+    <div class="w-[250px]">
+      <app-btn-shadow appUseIDsDir appUseSpanDir [spanProps]="getSpanProps(idx)()" />
+    </div>
+    }
+  </div>
+</div>
