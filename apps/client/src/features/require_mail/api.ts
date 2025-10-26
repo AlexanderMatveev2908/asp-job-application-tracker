@@ -2,7 +2,7 @@ import { UseApiSvc } from '@/core/store/api/use_api';
 import { inject, Injectable } from '@angular/core';
 import { ObsResT } from '@/core/store/api/etc/types';
 import { MailFormT } from '@/core/paperwork/etc/mail';
-import { LibApiArgs } from '@/core/store/api/etc/lib/req_args/args';
+import { LibApiArgs } from '@/core/store/api/etc/lib/api_args';
 
 @Injectable({
   providedIn: 'root',

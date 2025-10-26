@@ -9,7 +9,7 @@ import {
 import { Observable, tap } from 'rxjs';
 import { HttpMethod } from '../etc/types';
 import { inject } from '@angular/core';
-import { UseApiConfSvc } from '../etc/services/use_api_conf/use_api_conf';
+import { UseApiConfSvc } from '../etc/services/use_api_conf';
 import { LibShapeCheck } from '@/core/lib/data_structure/shape_check';
 import { LibApiShape, HttpResT } from '../etc/lib/shape';
 import { Nullable } from '@/common/types/etc';

@@ -1,7 +1,7 @@
 import { UseApiSvc } from '@/core/store/api/use_api';
 import { ObsResT } from '@/core/store/api/etc/types';
 import { inject, Injectable } from '@angular/core';
-import { LibApiArgs } from '@/core/store/api/etc/lib/req_args/args';
+import { LibApiArgs } from '@/core/store/api/etc/lib/api_args';
 
 @Injectable({
   providedIn: 'root',

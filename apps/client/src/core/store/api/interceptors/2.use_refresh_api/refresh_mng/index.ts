@@ -7,13 +7,13 @@ import {
 } from '@angular/common/http';
 import { ErrApiT, ResApiT } from '../../../etc/types';
 import { catchError, from, Observable, of, switchMap, throwError } from 'rxjs';
-import { RefreshMdwConst } from './constants';
 import { JwtResT } from '@/features/auth/etc/types';
 import { UseStorageSvc } from '@/core/services/use_storage';
 import { LibLog } from '@/core/lib/dev/log';
 import { UseNavSvc } from '@/core/services/use_nav/use_nav';
 import { AuthSlice } from '@/features/auth/slice';
 import { UseResetStateSvc } from '@/core/services/use_reset_state';
+import { RefreshMdwNeedRefresh } from './etc/need_refresh';
 
 export interface RefreshMngArgT {
   http: HttpClient;
@@ -25,13 +25,13 @@ export interface RefreshMngArgT {
   useReset: UseResetStateSvc;
 }
 
-export class RefreshMdwMng {
+export class RefreshMdwMng extends RefreshMdwNeedRefresh {
   private static refresh(
     _: HttpErrorResponse,
     { http, useStorage, authSlice }: Pick<RefreshMngArgT, 'http' | 'useStorage' | 'authSlice'>
   ): Observable<string> {
     return http
-      .get<ResApiT<JwtResT>>(RefreshMdwConst.ENDPOINT_REFRESH, { withCredentials: true })
+      .get<ResApiT<JwtResT>>(this.constMdw.ENDPOINT_REFRESH, { withCredentials: true })
       .pipe(
         switchMap((res: ResApiT<JwtResT>) => {
           const freshJwt: string = res.accessToken;

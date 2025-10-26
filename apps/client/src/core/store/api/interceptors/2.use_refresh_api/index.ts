@@ -7,8 +7,7 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
-import { RefreshMdwNeedRefresh } from './etc/need_refresh';
-import { RefreshMdwMng } from './etc/mng';
+import { RefreshMdwMng } from './refresh_mng';
 import { inject } from '@angular/core';
 import { UseStorageSvc } from '@/core/services/use_storage';
 import { UseNavSvc } from '@/core/services/use_nav/use_nav';
@@ -31,7 +30,7 @@ export const useRefreshApiMdw: HttpInterceptorFn = (
 
   return next(req).pipe(
     catchError((err: HttpErrorResponse) => {
-      if (!RefreshMdwNeedRefresh.main(err) && usePlatform.isClient) return throwError(() => err);
+      if (!RefreshMdwMng.needRefresh(err) && usePlatform.isClient) return throwError(() => err);
 
       return RefreshMdwMng.main(err, {
         http,

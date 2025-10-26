@@ -3,7 +3,7 @@ import { ResApiT } from '@/core/store/api/etc/types';
 import { inject, Injectable } from '@angular/core';
 import { Observable, retry } from 'rxjs';
 import { WakeUpSlice } from './slice';
-import { LibApiArgs } from '@/core/store/api/etc/lib/req_args/args';
+import { LibApiArgs } from '@/core/store/api/etc/lib/api_args';
 
 @Injectable({
   providedIn: 'root',

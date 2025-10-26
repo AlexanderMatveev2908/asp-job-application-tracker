@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { ObsResT, ResApiT } from './etc/types';
 import { Opt } from '@/common/types/etc';
 import { UseApiSideEffectsSvc } from './etc/services/use_api_side_effects';
-import { LibApiArgs } from './etc/lib/req_args/args';
+import { LibApiArgs } from './etc/lib/api_args';
 
 @Injectable({
   providedIn: 'root',

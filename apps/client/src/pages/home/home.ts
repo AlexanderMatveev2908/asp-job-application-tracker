@@ -12,7 +12,7 @@ import { AuthSlice } from '@/features/auth/slice';
 import { LinkShadow } from '@/common/components/links/link_shadow/link-shadow';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { UseSpanDir } from '@/core/directives/use_span';
-import { LibApiArgs } from '@/core/store/api/etc/lib/req_args/args';
+import { LibApiArgs } from '@/core/store/api/etc/lib/api_args';
 
 @Component({
   selector: 'app-home',

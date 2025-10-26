@@ -4,7 +4,7 @@ import { inject, Injectable } from '@angular/core';
 import { JwtResT, RecoverPwdArgT } from './etc/types';
 import { RegisterFormT } from './pages/register/paperwork/form_mng';
 import { LoginFormT } from './pages/login/paperwork/from_mng';
-import { LibApiArgs } from '@/core/store/api/etc/lib/req_args/args';
+import { LibApiArgs } from '@/core/store/api/etc/lib/api_args';
 
 @Injectable({
   providedIn: 'root',

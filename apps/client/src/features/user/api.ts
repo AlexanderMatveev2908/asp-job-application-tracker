@@ -5,7 +5,7 @@ import { ResProfileT } from './etc/types';
 import { PwdFormT } from '@/core/paperwork/etc/pwd';
 import { CbcHmacMandatoryT } from '../cbcHmac/etc/types';
 import { MailFormT } from '@/core/paperwork/etc/mail';
-import { LibApiArgs } from '@/core/store/api/etc/lib/req_args/args';
+import { LibApiArgs } from '@/core/store/api/etc/lib/api_args';
 
 export interface ChangeMailFormT extends MailFormT {
   cbcHmacToken: string;
