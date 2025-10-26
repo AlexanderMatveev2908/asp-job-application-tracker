@@ -65,4 +65,15 @@ export abstract class LibRootTests {
   public async txtInPage(txt: string): Promise<Locator> {
     return this.txtIn(this.page, txt);
   }
+
+  public async clickIn(loc: Locator | Page, id: string): Promise<Locator> {
+    const el: Locator = await this.byIdIn(loc, id);
+    await el.click();
+
+    return el;
+  }
+
+  public clickInPage(id: string): Promise<Locator> {
+    return this.clickIn(this.page, id);
+  }
 }

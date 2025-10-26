@@ -35,8 +35,8 @@ export abstract class LibSwapperTests extends LibFormTests {
 
     await btn.click();
 
-    const timeAnimation: number = 500;
-    await this.timer(timeAnimation);
+    const timeAnm: number = 500;
+    await this.timer(timeAnm);
 
     return btn;
   }

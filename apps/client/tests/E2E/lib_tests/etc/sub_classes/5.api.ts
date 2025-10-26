@@ -1,5 +1,5 @@
 import { TkResT } from '../types';
-import { LibToastTests } from './3.toast';
+import { LibToastTests } from './4.toast';
 import { RegisterFormT } from '@/features/auth/pages/register/paperwork/form_mng';
 import { APIResponse, expect, Locator } from '@playwright/test';
 import { Reg } from '@/core/paperwork/reg';
@@ -63,6 +63,8 @@ export abstract class LibApiTests extends LibToastTests {
 
     this.setSwapperID('manage_account');
     const swapper: Locator = await this.getSwapper();
+
+    await this.timer();
 
     return swapper;
   }
