@@ -1,12 +1,12 @@
 import { TkResT } from '../types';
 import { LibToastTests } from './2.toast';
 import { RegisterFormT } from '@/features/auth/pages/register/paperwork/form_mng';
-import { APIResponse, expect } from '@playwright/test';
+import { APIResponse, expect, Locator } from '@playwright/test';
 import { Reg } from '@/core/paperwork/reg';
 import { TokenT } from '@/features/cbcHmac/etc/types';
 
 export interface GetTokensArgT {
-  payload?: Omit<RegisterFormT, 'confirmPassword' | 'terms'>;
+  payload?: Omit<RegisterFormT, 'password' | 'confirmPassword' | 'terms'>;
   verify?: boolean;
   tokenT?: TokenT;
 }
@@ -25,6 +25,8 @@ export abstract class LibApiTests extends LibToastTests {
   }
 
   public async getTk(args?: GetTokensArgT): Promise<TkResT> {
+    await this.nav('/');
+
     let url: string = this.backUrl + `/test/user`;
     url += `?verifyUser=${!!args?.verify}`;
     url += `&tokenT=${args?.tokenT ?? TokenT.CONF_EMAIL}`;
@@ -41,5 +43,25 @@ export abstract class LibApiTests extends LibToastTests {
     await this.saveJwt(data.accessToken);
 
     return data;
+  }
+
+  public async getAccessAccount(pwd: string): Promise<Locator> {
+    await this.nav('/user/manage-account');
+    await this.waitPushTo('/user/access-manage-account');
+
+    const form: Locator = await this.byIdInPage('access_manage_acc_form');
+
+    await this.fillWith(form, {
+      field: 'password',
+      val: pwd,
+    });
+
+    const submit: Locator = await this.byIdIn(form, 'access_manage_acc_form__submit');
+    await submit.click();
+    await this.waitPushTo('/user/manage-account');
+
+    const swapper: Locator = await this.byIdInPage('manage_account__swapper');
+
+    return swapper;
   }
 }

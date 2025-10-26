@@ -1,5 +1,6 @@
-import { Browser, BrowserContext, Page } from '@playwright/test';
-import { LibApiTests } from './etc/sub_classes/3.api';
+import { Browser, BrowserContext, Locator, Page } from '@playwright/test';
+import { GetTokensArgT, LibApiTests } from './etc/sub_classes/3.api';
+import { PreTestResT, TkResT } from './etc/types';
 
 export class LibTests extends LibApiTests {
   public static async fromBrowser(browser: Browser): Promise<LibTests> {
@@ -7,5 +8,20 @@ export class LibTests extends LibApiTests {
     const page: Page = await newCtx.newPage();
 
     return new LibTests(page);
+  }
+
+  public static async withAccessAccount(
+    brw: Browser,
+    opt?: Pick<GetTokensArgT, 'tokenT'>
+  ): Promise<PreTestResT<{ swapper: Locator }>> {
+    const lib: LibTests = await this.fromBrowser(brw);
+    const res: TkResT = await lib.getTk({ tokenT: opt?.tokenT });
+    const swapper: Locator = await lib.getAccessAccount(res.plainPwd);
+
+    return {
+      lib,
+      swapper,
+      res,
+    };
   }
 }

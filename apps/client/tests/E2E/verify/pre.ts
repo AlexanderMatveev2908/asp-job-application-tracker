@@ -5,7 +5,6 @@ import { LibTests } from '../lib_tests';
 
 export const preVerifyTest = async (brw: Browser, tokenT: TokenT): Promise<PreTestResT<void>> => {
   const _lib: LibTests = await LibTests.fromBrowser(brw);
-  await _lib.nav('/');
   const res: TkResT = await _lib.getTk({ tokenT });
 
   const lib: LibTests = await LibTests.fromBrowser(brw);
