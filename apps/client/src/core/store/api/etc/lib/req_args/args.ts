@@ -1,10 +1,10 @@
 import { HttpParams } from '@angular/common/http';
-import { OptErrApiT, OptToastApiT } from '../types';
 import { LibFormPrs } from '@/core/lib/data_structure/form_prs';
 import { ErrApp } from '@/core/lib/err';
 import { None, Nullable, OrNone } from '@/common/types/etc';
+import { OptErrApiT, OptToastApiT } from '../../types';
 
-export class ApiArgs<T> {
+export class LibApiArgs<T> {
   private readonly _url: string = '';
   private _params: Nullable<HttpParams> = null;
   private _optToast: Nullable<Partial<OptToastApiT>> = null;
@@ -27,40 +27,40 @@ export class ApiArgs<T> {
     if (!this._optErr) this._optErr = {};
   }
 
-  public static withURL<K>(url: string): ApiArgs<K> {
-    return new ApiArgs(url);
+  public static withURL<K>(url: string): LibApiArgs<K> {
+    return new LibApiArgs(url);
   }
 
-  public query(query: Record<string, unknown>): ApiArgs<T> {
+  public query(query: Record<string, unknown>): LibApiArgs<T> {
     this._params = this.parseQuery(query);
     return this;
   }
 
-  public body(body: T | FormData): ApiArgs<T> {
+  public body(body: T | FormData): LibApiArgs<T> {
     this._body = body;
     return this;
   }
 
-  public toastOnOk(): ApiArgs<T> {
+  public toastOnOk(): LibApiArgs<T> {
     this.ifOptToastEmpty();
     this._optToast!.toastOk = true;
     return this;
   }
 
-  public toastOnErr(): ApiArgs<T> {
+  public toastOnErr(): LibApiArgs<T> {
     this.ifOptToastEmpty();
     this._optToast!.toastErr = true;
     return this;
   }
 
-  public toastOnFulfilled(): ApiArgs<T> {
+  public toastOnFulfilled(): LibApiArgs<T> {
     this.ifOptToastEmpty();
     this._optToast!.toastOk = true;
     this._optToast!.toastErr = true;
     return this;
   }
 
-  public noToast(): ApiArgs<T> {
+  public noToast(): LibApiArgs<T> {
     this.ifOptToastEmpty();
     this._optToast!.toastOk = false;
     this._optToast!.toastErr = false;
@@ -68,13 +68,13 @@ export class ApiArgs<T> {
     return this;
   }
 
-  public pushOnErr(): ApiArgs<T> {
+  public pushOnErr(): LibApiArgs<T> {
     this.ifOptErrEmpty();
     this._optErr!.pushOnErr = true;
     return this;
   }
 
-  public pushOnStatus(codes: number[]): ApiArgs<T> {
+  public pushOnStatus(codes: number[]): LibApiArgs<T> {
     this.ifOptErrEmpty();
     this._optErr!.pushOnStatus = codes;
     return this;

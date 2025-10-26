@@ -1,8 +1,8 @@
 import { UseApiSvc } from '@/core/store/api/use_api';
 import { inject, Injectable } from '@angular/core';
 import { ObsResT } from '@/core/store/api/etc/types';
-import { ApiArgs } from '@/core/store/api/etc/req_args/args';
 import { MailFormT } from '@/core/paperwork/etc/mail';
+import { LibApiArgs } from '@/core/store/api/etc/lib/req_args/args';
 
 @Injectable({
   providedIn: 'root',
@@ -13,17 +13,19 @@ export class RequireMailApiSvc {
 
   public confMail(body: MailFormT): ObsResT<void> {
     return this.api.post(
-      ApiArgs.withURL(`${this.base}/confirm-email`).body(body).toastOnFulfilled()
+      LibApiArgs.withURL(`${this.base}/confirm-email`).body(body).toastOnFulfilled()
     );
   }
 
   public recoverPwd(body: MailFormT): ObsResT<void> {
-    return this.api.post(ApiArgs.withURL(`${this.base}/recover-pwd`).body(body).toastOnFulfilled());
+    return this.api.post(
+      LibApiArgs.withURL(`${this.base}/recover-pwd`).body(body).toastOnFulfilled()
+    );
   }
 
   public confMailLogged(body: MailFormT): ObsResT<void> {
     return this.api.post(
-      ApiArgs.withURL(`${this.base}/confirm-email-logged`).body(body).toastOnFulfilled()
+      LibApiArgs.withURL(`${this.base}/confirm-email-logged`).body(body).toastOnFulfilled()
     );
   }
 }

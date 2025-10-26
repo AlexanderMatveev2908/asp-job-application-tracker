@@ -1,7 +1,7 @@
 import { UseApiSvc } from '@/core/store/api/use_api';
-import { ApiArgs } from '@/core/store/api/etc/req_args/args';
 import { ObsResT } from '@/core/store/api/etc/types';
 import { inject, Injectable } from '@angular/core';
+import { LibApiArgs } from '@/core/store/api/etc/lib/req_args/args';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +11,6 @@ export class TestApiSvc {
   private readonly api: UseApiSvc = inject(UseApiSvc);
 
   public protectedData(): ObsResT<void> {
-    return this.api.get(ApiArgs.withURL(`${this.base}/protected`).toastOnFulfilled());
+    return this.api.get(LibApiArgs.withURL(`${this.base}/protected`).toastOnFulfilled());
   }
 }
