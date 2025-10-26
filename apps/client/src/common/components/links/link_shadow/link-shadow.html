@@ -1,5 +1,6 @@
 @if(download()){
 <a
+  [attr.data-testid]="useIDsDir.testId()"
   [attr.download]="download()"
   [attr.href]="path()"
   class="root"
@@ -10,6 +11,7 @@
 </a>
 } @else if(isExternal()){
 <a
+  [attr.data-testid]="useIDsDir.testId()"
   [attr.href]="path()"
   [attr.target]="'_blank'"
   [attr.rel]="'noopener noreferrer'"
@@ -21,6 +23,7 @@
 </a>
 }@else {
 <a
+  [attr.data-testid]="useIDsDir.testId()"
   [routerLink]="path()"
   class="root"
   [style.--clr]="metaEvent().css"

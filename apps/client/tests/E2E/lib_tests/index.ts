@@ -12,10 +12,10 @@ export class LibTests extends LibApiTests {
 
   public static async withAccessAccount(
     brw: Browser,
-    opt?: Pick<GetTokensArgT, 'tokenT'>
+    opt?: Pick<GetTokensArgT, 'tokenT' | 'verify'>
   ): Promise<PreTestResT<{ swapper: Locator }>> {
     const lib: LibTests = await this.fromBrowser(brw);
-    const res: TkResT = await lib.getTk({ tokenT: opt?.tokenT });
+    const res: TkResT = await lib.getTk({ tokenT: opt?.tokenT, verify: !!opt?.verify });
     const swapper: Locator = await lib.getAccessAccount(res.plainPwd);
 
     return {
