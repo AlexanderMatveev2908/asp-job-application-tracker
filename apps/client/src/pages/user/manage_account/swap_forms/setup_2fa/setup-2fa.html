@@ -1,9 +1,17 @@
 <div class="root">
-  @if(user()?.toptSecret){} @else if (!user()?.isVerified) {
-  <app-content2fa-message
+  @if(user()?.toptSecret && !resSetup2FA()){
+  <app-notice-2fa appUseMetaEventDir [eventT]="'OK'" [txt]="'Account have 2FA setup'" />
+  } @else if (!user()?.isVerified) {
+  <app-notice-2fa
     appUseMetaEventDir
     [eventT]="'WARN'"
     [txt]="'Account must be first verified to setup 2FA'"
   />
-  } @else{}
+  } @else {
+  <app-content-setup-2fa
+    [resSetup2FA]="resSetup2FA()"
+    [isPending]="useApiTracker.isPending()"
+    [onClick]="onClick"
+  />
+  }
 </div>
