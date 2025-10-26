@@ -1,4 +1,5 @@
 <div class="root">
+  @if(!resSetup2FA()) {
   <div class="w-[250px]">
     <app-btn-shadow
       appUseSpanDir
@@ -10,4 +11,13 @@
       [listenersProps]="btnListeners()"
     />
   </div>
+  }@else {
+  <div class="root__response">
+    <a [href]="resSetup2FA()?.totpSecretQrCode" download="qr_code.png" class="response__qr_code">
+      <img [src]="resSetup2FA()?.totpSecretQrCode" alt="totp qr_code" />
+    </a>
+
+    <div class=""></div>
+  </div>
+  }
 </div>
