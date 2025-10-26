@@ -8,7 +8,8 @@ import { DataFieldErrT, DataFieldT, TkResT } from 'tests/E2E/lib_tests/etc/types
 test('ok', async ({ browser }: { browser: Browser }) => {
   const { res, lib, swapper } = await LibTests.withAccessAccount(browser);
 
-  const mailForm: Locator = await lib.byIdIn(swapper, 'change_email_form');
+  lib.setFormID('change_email_form');
+  const mailForm: Locator = await lib.getFormIn(swapper);
 
   const wrong: DataFieldErrT = {
     field: 'email',
@@ -25,8 +26,7 @@ test('ok', async ({ browser }: { browser: Browser }) => {
 
   await lib.fillWith(mailForm, right);
 
-  const submit: Locator = await lib.byIdIn(mailForm, 'change_email_form__submit');
-  await submit.click();
+  await lib.submit();
 
   await lib.waitPushTo('/notice');
   await lib.isToastOk();

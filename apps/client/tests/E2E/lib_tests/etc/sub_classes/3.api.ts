@@ -49,15 +49,16 @@ export abstract class LibApiTests extends LibToastTests {
     await this.nav('/user/manage-account');
     await this.waitPushTo('/user/access-manage-account');
 
-    const form: Locator = await this.byIdInPage('access_manage_acc_form');
+    this.setFormID('access_manage_acc_form');
+    const form: Locator = await this.getForm();
 
     await this.fillWith(form, {
       field: 'password',
       val: pwd,
     });
 
-    const submit: Locator = await this.byIdIn(form, 'access_manage_acc_form__submit');
-    await submit.click();
+    await this.submit();
+
     await this.waitPushTo('/user/manage-account');
 
     const swapper: Locator = await this.byIdInPage('manage_account__swapper');

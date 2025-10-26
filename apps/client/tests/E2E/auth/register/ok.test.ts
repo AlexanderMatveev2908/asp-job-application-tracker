@@ -46,8 +46,7 @@ test('ok', async ({ browser }: { browser: Browser }) => {
   const terms: Locator = await lib.byIdIn(form, 'terms');
   await terms.click();
 
-  const mainBtn: Locator = await lib.byIdIn(form, 'register_form__submit');
-  await mainBtn.click();
+  await lib.submit();
 
   await lib.waitPushTo('/notice');
   await lib.isToastOk();

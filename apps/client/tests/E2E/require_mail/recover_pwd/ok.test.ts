@@ -7,7 +7,9 @@ test('ok', async ({ browser }: { browser: Browser }) => {
   const { lib, res } = await preRequireMail(browser);
 
   await lib.nav('/auth/require-email/recover-pwd');
-  const form: Locator = await lib.byIdInPage('mail_recover_pwd_form');
+
+  lib.setFormID('mail_recover_pwd_form');
+  const form: Locator = await lib.getForm();
 
   const data: DataFieldT = {
     field: 'email',
@@ -16,8 +18,7 @@ test('ok', async ({ browser }: { browser: Browser }) => {
 
   await lib.fillWith(form, data);
 
-  const submit: Locator = await lib.byIdIn(form, 'mail_recover_pwd_form__submit');
-  await submit.click();
+  await lib.submit();
 
   await lib.waitPushTo('/notice');
   await lib.isToastOk();

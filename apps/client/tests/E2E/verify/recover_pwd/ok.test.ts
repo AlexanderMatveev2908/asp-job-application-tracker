@@ -11,7 +11,8 @@ test('ok', async ({ browser }: { browser: Browser }) => {
   await lib.waitPushTo('/auth/recover-pwd');
   await lib.isToastOk();
 
-  const form: Locator = await lib.byIdInPage('recover_pwd_form');
+  lib.setFormID('recover_pwd_form');
+  const form: Locator = await lib.getForm();
   // eslint-disable-next-line no-magic-numbers
   const newPwd: string = PwdGen.pwdOf(4);
   const data: DataFieldT[] = [
@@ -26,8 +27,8 @@ test('ok', async ({ browser }: { browser: Browser }) => {
   ];
   await lib.fillFor(form, data);
 
-  const submit: Locator = await lib.byIdIn(form, 'recover_pwd_form__submit');
-  await submit.click();
+  await lib.submit();
+
   await lib.waitPushTo('/notice');
   await lib.isToastOk();
 });

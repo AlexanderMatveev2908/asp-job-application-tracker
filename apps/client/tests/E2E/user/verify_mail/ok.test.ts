@@ -10,7 +10,8 @@ test('ok', async ({ browser }: { browser: Browser }) => {
   const res: TkResT = await lib.getTk();
   await lib.nav('/user/confirm-email');
 
-  const form: Locator = await lib.byIdInPage('user_req_mail_conf_mail_form');
+  lib.setFormID('user_req_mail_conf_mail_form');
+  const form: Locator = await lib.getForm();
 
   const wrongData: DataFieldErrT = {
     field: 'email',
@@ -27,8 +28,7 @@ test('ok', async ({ browser }: { browser: Browser }) => {
 
   await lib.fillWith(form, rightData);
 
-  const submit: Locator = await lib.byIdIn(form, 'user_req_mail_conf_mail_form__submit');
-  await submit.click();
+  await lib.submit();
 
   await lib.waitPushTo('/notice');
   await lib.isToastOk();

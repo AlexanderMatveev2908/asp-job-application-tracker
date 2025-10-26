@@ -1,7 +1,8 @@
-import { expect, Locator } from '@playwright/test';
+import { expect, Locator, Page } from '@playwright/test';
 import { LibRootTests } from './0.root';
 import { DataFieldErrT, DataFieldT } from '../types';
 import { Nullable } from '@/common/types/etc';
+import { ErrApp } from '@/core/lib/err';
 
 export interface FillReturnT {
   field: Locator;
@@ -9,6 +10,29 @@ export interface FillReturnT {
 }
 
 export abstract class LibFormTests extends LibRootTests {
+  private formID: Nullable<string> = null;
+
+  public setFormID(id: string): void {
+    this.formID = id;
+  }
+
+  public async getForm(): Promise<Locator> {
+    return this.getFormIn(this.page);
+  }
+
+  public async getFormIn(loc: Page | Locator): Promise<Locator> {
+    if (!this.formID) throw new ErrApp('expected id present');
+    return await this.byIdIn(loc, this.formID);
+  }
+
+  public async submit(): Promise<void> {
+    const form: Locator = await this.getForm();
+
+    const btnID: string = `${this.formID as string}__submit`;
+    const btn: Locator = await this.byIdIn(form, btnID);
+    await btn.click();
+  }
+
   public async fillWith(form: Locator, data: DataFieldT): Promise<Locator> {
     const field: Locator = await this.byIdIn(form, data.field);
     await field.fill(data.val);

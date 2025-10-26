@@ -1,4 +1,4 @@
-import test, { Browser, Locator } from '@playwright/test';
+import test, { Browser } from '@playwright/test';
 import { preTestLogin } from './pre';
 import { DataFieldT } from 'tests/E2E/lib_tests/etc/types';
 import { LoginFormT } from '@/features/auth/pages/login/paperwork/from_mng';
@@ -21,8 +21,7 @@ test('err', async ({ browser }: { browser: Browser }) => {
 
   await lib.fillFor(form, fields);
 
-  const btn: Locator = await lib.byIdIn(form, 'login_form__submit');
-  await btn.click();
+  await lib.submit();
 
   await lib.isToastErr();
 });

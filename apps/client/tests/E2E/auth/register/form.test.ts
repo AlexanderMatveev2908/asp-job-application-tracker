@@ -45,15 +45,16 @@ test('trigger errors', async ({ browser }: { browser: Browser }) => {
 
   await lib.errFor(form, swap_1);
 
-  const mainBtn: Locator = await lib.byIdIn(form, 'register_form__submit');
-  await mainBtn.click();
+  await lib.submit();
+
   await lib.timer();
   await lib.isFocused(firstName);
 
   await firstName.fill('John');
   await next.click();
   await lib.timer();
-  await mainBtn.click();
+
+  await lib.submit();
 
   await lib.isFocused(lastName);
 });
