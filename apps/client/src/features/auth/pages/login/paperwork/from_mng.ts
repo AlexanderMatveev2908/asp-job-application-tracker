@@ -1,9 +1,9 @@
 import { UserZod } from '@/core/paperwork/etc/user';
-import { ZodCheck } from '@/core/paperwork/zod_check';
+import { FormZodMng } from '@/core/paperwork/form_zod_mng';
 import { FormControl, FormGroup } from '@angular/forms';
 import z, { ZodObject, ZodString } from 'zod';
 
-export class LoginFormMng extends ZodCheck {
+export class LoginFormMng extends FormZodMng {
   public static readonly schema: ZodObject<{ email: ZodString; password: ZodString }> =
     UserZod.mailSchema.extend(UserZod.pwdSchema.shape);
 

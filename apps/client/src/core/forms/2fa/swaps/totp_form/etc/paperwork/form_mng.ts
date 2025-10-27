@@ -1,11 +1,11 @@
 import { Reg } from '@/core/paperwork/reg';
-import { ZodCheck } from '@/core/paperwork/zod_check';
+import { FormZodMng } from '@/core/paperwork/form_zod_mng';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import z, { ZodArray, ZodObject, ZodString } from 'zod';
 import { TotpFormUiFkt } from '../ui_fkt';
 import { LibShapeCheck } from '@/core/lib/data_structure/shape_check';
 
-export class TotpFormMng extends ZodCheck {
+export class TotpFormMng extends FormZodMng {
   private static isCodePresent(data: TotpFormT): boolean {
     return (
       data.totp.filter((val: string) => LibShapeCheck.isStr(val)).length === TotpFormUiFkt.nFields

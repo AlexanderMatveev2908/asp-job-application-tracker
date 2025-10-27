@@ -36,6 +36,7 @@ export class FormFieldTxt extends UseFormFieldDomDir implements OnInit {
 
   // ? personal props optional
   public readonly onSvgClick: InputSignal<Nullable<() => void>> = input<Nullable<() => void>>(null);
+  public readonly hideLabel: InputSignal<boolean> = input(false);
   // ? additional listeners for custom needs beside normal ng flow
   // ? rarely used
   public readonly onFocus: InputSignal<OptCbT> = input<OptCbT>(null);

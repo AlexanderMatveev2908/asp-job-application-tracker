@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ZodCheck } from '@/core/paperwork/zod_check';
+import { FormZodMng } from '@/core/paperwork/form_zod_mng';
 import { Observable } from 'rxjs';
 import { UseKitNav } from '@/core/services/use_kit_nav';
 import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
@@ -21,7 +21,7 @@ export abstract class UseKitFormHk {
     cb: (data: unknown) => Observable<unknown>
   ): void => {
     if (!this.form.valid) {
-      ZodCheck.onSubmitFailed(this.form);
+      FormZodMng.onSubmitFailed(this.form);
       return;
     }
 

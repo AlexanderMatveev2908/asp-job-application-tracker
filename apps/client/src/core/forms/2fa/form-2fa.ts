@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component } from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { Swapper } from '@/common/components/swap/swapper/swapper';
 import { UseSwapHk } from '@/core/hooks/use_swap/use_swap';
@@ -12,4 +12,10 @@ import { BkpForm } from './swaps/bkp_form/bkp-form';
   styleUrl: './form-2fa.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Form2fa extends UseSwapHk {}
+export class Form2fa extends UseSwapHk implements AfterViewInit {
+  ngAfterViewInit(): void {
+    this.useEffect(() => {
+      this.focusWhen('totp.0', 'bkp');
+    });
+  }
+}
