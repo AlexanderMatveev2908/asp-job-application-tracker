@@ -18,8 +18,8 @@ test('ok', async ({ browser }: { browser: Browser }) => {
   // ? pushed to dedicated 2FA swap form
   await lib.waitPushTo('/auth/login-2fa');
 
-  await lib.setForm2faIDs('login_2fa');
-  const totpForm: Locator = await lib.getTotpForm();
+  await lib.setTotpFormID('login_2fa');
+  const totpForm: Locator = await lib.getForm();
 
   totp.options = {
     encoding: KeyEncodings.HEX,
@@ -36,7 +36,7 @@ test('ok', async ({ browser }: { browser: Browser }) => {
     });
   }
 
-  await lib.submitTotp();
+  await lib.submit();
 
   await lib.waitPushTo('/');
   await lib.isToastOk();
