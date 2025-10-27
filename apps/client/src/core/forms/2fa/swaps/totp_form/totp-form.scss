@@ -2,22 +2,13 @@
 @use 'exports/shapes';
 
 .root {
-  @extend .app__form__flex;
+  @extend .app__form__block;
 
-  .root__content {
-    @apply w-full flex items-center justify-center gap-x-8 gap-y-4 flex-wrap;
+  .root__wrap {
+    @extend .app__form__flex;
 
-    .content__group {
-      @apply w-fit flex justify-center items-center gap-8;
-
-      .group__field {
-        @apply w-[45px] h-[45px];
-
-        .field__box {
-          @apply w-full h-full;
-          @include mix.app__input__sdw(5px 15px);
-        }
-      }
+    .wrap__content {
+      @apply grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 relative;
     }
   }
 }

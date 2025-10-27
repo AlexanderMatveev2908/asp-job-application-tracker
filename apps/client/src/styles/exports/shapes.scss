@@ -32,6 +32,10 @@
   @apply h-fit flex flex-col items-center gap-14;
 }
 
+.app__form__block {
+  @apply w-full flex justify-center items-center mt-10;
+}
+
 .app__form__container {
   @extend .app__form__flex;
   @apply border-3 border-gray-300 rounded-xl p-4 pb-12 pt-10 overflow-hidden;

@@ -10,10 +10,22 @@ import { EMPTY } from 'rxjs';
 import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 import { FocusDOM } from '@/core/lib/dom/focus';
+import { FormFieldErr } from '@/common/components/forms/form_field_err/form-field-err';
+
+import { TotpPart } from './totp_part/totp-part';
+import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
 
 @Component({
   selector: 'app-totp-form',
-  imports: [SwapItem, FormSubmit, UseIDsDir, ReactiveFormsModule],
+  imports: [
+    SwapItem,
+    FormSubmit,
+    UseIDsDir,
+    ReactiveFormsModule,
+    FormFieldErr,
+    TotpPart,
+    UseFormFieldDir,
+  ],
   templateUrl: './totp-form.html',
   styleUrl: './totp-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,11 +39,7 @@ export class TotpForm extends UseKitFormHk implements AfterViewInit {
   public readonly formCtrl: (outerIdx: number, innerIdx: number) => FormControl = (
     outerIdx: number,
     innerIdx: number
-  ) => {
-    const skip: number = outerIdx * (TotpFormUiFkt.nFields / TotpFormUiFkt.parts);
-
-    return this.getCtrl(`totp.${skip + innerIdx}`);
-  };
+  ) => this.getCtrl(`totp.${TotpFormUiFkt.skip(outerIdx) + innerIdx}`);
 
   public readonly onSubmit: () => void = () => {
     this.submitForm((data: unknown) => {

@@ -10,14 +10,20 @@ export interface TotpPartFieldsT {
 export class TotpFormUiFkt extends FormFieldsUiFkt {
   private static readonly _input: TxtFieldT = this.txtFieldOf({ name: 'totp' });
 
-  public static readonly nFields: number = 6;
-  public static readonly parts: number = 2;
+  private static readonly nFields: number = 6;
+  private static readonly parts: number = 2;
+
+  public static skip(outerIdx: number): number {
+    const skip: number = outerIdx * (this.nFields / this.parts);
+
+    return skip;
+  }
 
   private static fieldsForPart(outerIdx: number): TxtFieldT[] {
     const perPart: number = this.nFields / this.parts;
 
     return Array.from({ length: perPart }, (_: undefined, innerIdx: number) =>
-      this.txtFieldOf({ name: 'totp', field: `totp.${outerIdx * perPart + innerIdx}` })
+      this.txtFieldOf({ name: 'totp', field: `totp.${this.skip(outerIdx) + innerIdx}` })
     );
   }
 

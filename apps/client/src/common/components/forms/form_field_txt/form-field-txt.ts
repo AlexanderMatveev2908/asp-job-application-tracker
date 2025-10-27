@@ -16,10 +16,11 @@ import { NgComponentOutlet } from '@angular/common';
 import { LibPrs } from '@/core/lib/data_structure/prs';
 import { UseFormFieldDomDir } from '@/core/directives/forms/form_field/1.use_form_field_dom';
 import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-form-field-txt',
-  imports: [ReactiveFormsModule, FormFieldErr, NgComponentOutlet, UseFormFieldDir],
+  imports: [ReactiveFormsModule, FormFieldErr, NgComponentOutlet, UseFormFieldDir, UseIDsDir],
   templateUrl: './form-field-txt.html',
   styleUrl: './form-field-txt.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

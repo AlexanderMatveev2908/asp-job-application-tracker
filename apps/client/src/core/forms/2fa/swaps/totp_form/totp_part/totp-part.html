@@ -1,0 +1,13 @@
+<div class="root">
+  @for(f of part().fields; track f.id; let innerIdx = $index;){
+  <div class="root__field">
+    <input
+      type="text"
+      class="field__box txt__xl"
+      [formControl]="formCtrl()(outerIdx(), innerIdx)"
+      maxlength="1"
+      [attr.data-field]="f.field"
+    />
+  </div>
+  }
+</div>

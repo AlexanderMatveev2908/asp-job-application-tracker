@@ -27,10 +27,11 @@ import { UseIDsDir } from '@/core/directives/use_ids';
 })
 export class FormFieldErr implements OnInit {
   public readonly useFormFieldDir: UseFormFieldDir = inject(UseFormFieldDir);
+  public readonly useIdsDir: UseIDsDir = inject(UseIDsDir);
 
   // ? personal props
   public readonly ctrl: InputSignal<FormControl> = input.required();
-  public readonly testId: InputSignal<string> = input.required();
+
   // ? derived
   public recErrs: WritableSignal<RecErrsFieldT> = signal({
     prev: null,
@@ -40,7 +41,7 @@ export class FormFieldErr implements OnInit {
 
   // ? props testid tooltip
   public readonly testIdErrMsg: Signal<string> = computed(() =>
-    LibPrs.toSnake(`err__${this.testId()}`)
+    LibPrs.toSnake(`err__${this.useIdsDir.testId()}`)
   );
 
   // ? ng

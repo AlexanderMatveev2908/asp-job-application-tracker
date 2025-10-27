@@ -1,3 +1,5 @@
+@use 'exports/shapes';
+
 .root {
-  @apply w-full flex justify-center items-center;
+  @extend .app__form__block;
 }

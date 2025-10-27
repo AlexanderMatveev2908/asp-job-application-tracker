@@ -19,10 +19,11 @@ import { FormFieldErr } from '../form_field_err/form-field-err';
 import { FormFieldBoxAnimations } from './etc/animations';
 import { LibPrs } from '@/core/lib/data_structure/prs';
 import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-form-field-box-sm',
-  imports: [NgClass, FormFieldErr, UseFormFieldDir],
+  imports: [NgClass, FormFieldErr, UseFormFieldDir, UseIDsDir],
   templateUrl: './form-field-box-sm.html',
   styleUrl: './form-field-box-sm.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

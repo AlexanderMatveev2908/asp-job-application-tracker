@@ -1,25 +1,20 @@
 <app-swap-item [title]="'TOTP'">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="root">
-    <div class="root__content">
-      @for (part of partsFields; track part.id; let outerIdx = $index){
-      <div class="content__group">
-        @for(f of part.fields; track f.id; let innerIdx = $index;){
-
-        <div class="group__field">
-          <input
-            type="text"
-            class="field__box txt__xl"
-            [formControl]="formCtrl(outerIdx, innerIdx)"
-            maxlength="1"
-            [attr.data-field]="f.field"
-          />
-        </div>
+    <div class="root__wrap">
+      <div class="wrap__content">
+        @for (part of partsFields; track part.id; let outerIdx = $index){
+        <app-totp-part [outerIdx]="outerIdx" [part]="part" [formCtrl]="formCtrl" />
         }
+
+        <app-form-field-err
+          appUseIDsDir
+          appUseFormFieldDir
+          [ctrl]="getCtrl('totp')"
+          [testId]="'totp_root'"
+        />
       </div>
 
-      }
+      <app-form-submit appUseIDsDir [isPending]="false" />
     </div>
-
-    <app-form-submit appUseIDsDir [isPending]="false" />
   </form>
 </app-swap-item>
