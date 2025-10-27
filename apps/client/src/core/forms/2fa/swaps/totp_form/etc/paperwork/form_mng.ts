@@ -2,18 +2,37 @@ import { Reg } from '@/core/paperwork/reg';
 import { ZodCheck } from '@/core/paperwork/zod_check';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import z, { ZodArray, ZodObject, ZodString } from 'zod';
+import { TotpFormUiFkt } from '../ui_fkt';
+import { LibShapeCheck } from '@/core/lib/data_structure/shape_check';
 
 export class TotpFormMng extends ZodCheck {
+  private static isCodePresent(data: TotpFormT): boolean {
+    return (
+      data.totp.filter((val: string) => LibShapeCheck.isStr(val)).length === TotpFormUiFkt.nFields
+    );
+  }
+
   public static readonly schema: ZodObject<{
     totp: ZodArray<ZodString>;
   }> = z
     .object({
       totp: z.array(z.string()),
     })
-    .refine((data: TotpFormT) => Reg.isTotpCode(data.totp.join('')), {
-      message: 'TOTP code invalid',
-      path: ['totp'],
-    });
+    .refine(
+      (data: TotpFormT) => this.isCodePresent(data),
+
+      {
+        message: 'TOTP code required',
+        path: ['totp'],
+      }
+    )
+    .refine(
+      (data: TotpFormT) => (!this.isCodePresent(data) ? true : Reg.isTotpCode(data.totp.join(''))),
+      {
+        message: 'TOTP code invalid',
+        path: ['totp'],
+      }
+    );
 
   public static readonly form: () => FormGroup = () =>
     new FormGroup(

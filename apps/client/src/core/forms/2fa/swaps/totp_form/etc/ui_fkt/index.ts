@@ -10,7 +10,7 @@ export interface TotpPartFieldsT {
 export class TotpFormUiFkt extends FormFieldsUiFkt {
   private static readonly _input: TxtFieldT = this.txtFieldOf({ name: 'totp' });
 
-  private static readonly nFields: number = 6;
+  public static readonly nFields: number = 6;
   private static readonly parts: number = 2;
 
   public static skip(outerIdx: number): number {
