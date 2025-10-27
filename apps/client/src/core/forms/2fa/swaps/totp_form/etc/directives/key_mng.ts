@@ -3,6 +3,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { TotpFormUiFkt } from '../ui_fkt';
 import { FocusDOM } from '@/core/lib/dom/focus';
 import { LibTotpFormMeta } from '../lib/metadata';
+import { LibLog } from '@/core/lib/dev/log';
+import { Nullable } from '@/common/types/etc';
+import { finalize, from } from 'rxjs';
+import { Reg } from '@/core/paperwork/reg';
 
 export interface SwitchKeyArgT {
   form: FormGroup;
@@ -35,7 +39,34 @@ export class UseTotpFormKeysHk {
     FocusDOM.byDataField(`totp.${currIdx - 1}`);
   }
 
-  // private handlePaste(): void {}
+  private handlePaste(form: FormGroup, currTotp: string): void {
+    if (!this.comboKey().includes('Control')) {
+      this.resetKeyTrack();
+      return;
+    }
+
+    from(navigator.clipboard.readText())
+      .pipe(finalize(() => this.resetKeyTrack()))
+      .subscribe({
+        next: (txt: Nullable<string>) => {
+          if (!txt) return;
+          const totp: string = txt.slice(0, TotpFormUiFkt.nFields);
+          if (!Reg.isTotpCode(totp)) return;
+
+          form.setValue({
+            totp: Array.from(
+              { length: TotpFormUiFkt.nFields },
+              (_: undefined, i: number) => totp[i]
+            ),
+          });
+
+          FocusDOM.blurByField(currTotp);
+        },
+        error: (_: unknown) => {
+          LibLog.log('err navigator');
+        },
+      });
+  }
 
   public switchKey({ form, key }: SwitchKeyArgT): void {
     const val: string[] = form.value.totp;
@@ -60,6 +91,10 @@ export class UseTotpFormKeysHk {
         if (this.comboKey().includes('Control')) this.selectAll.set(true);
 
         this.comboKey.set([]);
+        break;
+
+      case 'v':
+        this.handlePaste(form, currTotp!);
         break;
 
       default:
