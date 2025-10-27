@@ -4,6 +4,7 @@
     <input
       type="text"
       class="field__box txt__xl"
+      (input)="onChange($event, outerIdx(), innerIdx)"
       [formControl]="formCtrl()(outerIdx(), innerIdx)"
       maxlength="1"
       [attr.data-field]="f.field"
