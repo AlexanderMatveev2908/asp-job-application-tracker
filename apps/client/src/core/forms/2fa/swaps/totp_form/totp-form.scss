@@ -1,9 +1,23 @@
+@use 'exports/mix' as mix;
+@use 'exports/shapes';
+
 .root {
+  @extend .app__form__flex;
+
   .root__content {
     @apply w-full flex items-center justify-center gap-x-8 gap-y-4 flex-wrap;
 
     .content__group {
       @apply w-fit flex justify-center items-center gap-8;
+
+      .group__field {
+        @apply w-[40px] h-[40px];
+
+        .field__box {
+          @apply w-full h-full;
+          @include mix.app__input__sdw(var(--pad));
+        }
+      }
     }
   }
 }

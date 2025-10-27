@@ -1,15 +1,19 @@
 <app-swap-item [title]="'TOTP'">
-  <form class="root tb">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="root">
     <div class="root__content">
       @for (part of partsFields; track part.id){
       <div class="content__group">
         @for(f of part.fields; track f.id){
 
-        <input type="text" class="w-[30px] h-[30px]" />
+        <div class="group__field">
+          <input type="text" class="field__box" />
+        </div>
         }
       </div>
 
       }
     </div>
+
+    <app-form-submit appUseIDsDir [isPending]="false" />
   </form>
 </app-swap-item>

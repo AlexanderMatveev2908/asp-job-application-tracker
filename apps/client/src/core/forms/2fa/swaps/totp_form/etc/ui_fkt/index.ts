@@ -15,9 +15,9 @@ export class TotpFormUiFkt extends FormFieldsUiFkt {
   public static readonly parts: number = 2;
 
   public static readonly partsFields: () => TotpPartFieldsT[] = () =>
-    new Array(this.parts).fill(
-      this.withID({
-        fields: new Array(this.nFields / this.parts).fill(this.withID(this._input)),
+    this.arrWithIDs(
+      new Array(this.parts).fill({
+        fields: this.arrWithIDs(new Array(this.nFields / this.parts).fill(this._input)),
       })
     );
 }
