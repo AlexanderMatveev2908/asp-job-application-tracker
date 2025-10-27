@@ -1,9 +1,16 @@
-import { ChangeDetectionStrategy, Component, computed, Signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+  InputSignal,
+  Signal,
+} from '@angular/core';
 import { SwapItem } from '@/common/components/swap/swap_item/swap-item';
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
 import { UseKitFormPwdHk } from '@/core/forms/pwd/etc/hooks/use_kit_form_pwd';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { BkpFormMng } from './etc/paperwork/form_mng';
+import { BkpFormMng, BkpFormT } from './etc/paperwork/form_mng';
 import { TxtSvgFieldT } from '@/common/types/forms';
 import { PwdFieldsUiFkt } from '@/core/ui_fkt/form_fields/1.pwd';
 import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
@@ -11,7 +18,7 @@ import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 import { FormSubmit } from '@/common/components/forms/form_submit/form-submit';
 import { UseIDsDir } from '@/core/directives/use_ids';
-import { of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-bkp-form',
@@ -22,15 +29,15 @@ import { of } from 'rxjs';
   providers: [UseApiTrackerHk, UseInjCtxHk],
 })
 export class BkpForm extends UseKitFormPwdHk {
+  // ? props
+  public readonly strategy: InputSignal<(totpOrBkp: string) => Observable<unknown>> =
+    input.required();
+
   public readonly form: FormGroup = BkpFormMng.form();
   public readonly bkpField: Signal<TxtSvgFieldT> = computed(() =>
     PwdFieldsUiFkt.fieldByBool('bkp', this.isPwdTypePwd())
   );
 
   public readonly onSubmit: () => void = () =>
-    this.submitForm((data: unknown) => {
-      console.log(data);
-
-      return of(data);
-    });
+    this.submitForm((data: unknown) => this.strategy()((data as BkpFormT).bkp));
 }

@@ -4,6 +4,8 @@ import {
   Component,
   HostListener,
   inject,
+  input,
+  InputSignal,
   OnInit,
   Signal,
 } from '@angular/core';
@@ -14,7 +16,7 @@ import { UseIDsDir } from '@/core/directives/use_ids';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { TotpFormMng, TotpFormT } from './etc/paperwork/form_mng';
 import { UseKitFormHk } from '@/core/hooks/kits/kit_form/0.use_kit_form';
-import { EMPTY } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 import { FocusDOM } from '@/core/lib/dom/focus';
@@ -43,6 +45,10 @@ import { UseTotpFormKeysHk } from './etc/hooks/key_mng';
   providers: [UseApiTrackerHk, UseInjCtxHk, UseTotpFormKeysHk],
 })
 export class TotpForm extends UseKitFormHk implements OnInit, AfterViewInit {
+  // ? props
+  public readonly strategy: InputSignal<(totpOrBkp: string) => Observable<unknown>> =
+    input.required();
+
   // ? directives
   public readonly useTotpKeys: UseTotpFormKeysHk = inject(UseTotpFormKeysHk);
 
@@ -63,11 +69,7 @@ export class TotpForm extends UseKitFormHk implements OnInit, AfterViewInit {
 
   // ? listeners
   public readonly onSubmit: () => void = () => {
-    this.submitForm((data: unknown) => {
-      console.log(data);
-
-      return EMPTY;
-    });
+    this.submitForm((data: unknown) => this.strategy()((data as TotpFormT).totp.join('')));
   };
 
   // ? local state
