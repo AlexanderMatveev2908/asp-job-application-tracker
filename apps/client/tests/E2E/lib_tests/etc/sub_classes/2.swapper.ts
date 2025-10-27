@@ -22,6 +22,10 @@ export abstract class LibSwapperTests extends LibFormTests {
     this.swapperID = id + '__swapper';
   }
 
+  protected getSwapperID(): Nullable<string> {
+    return this.swapperID;
+  }
+
   public async getSwapBtn(where: WhereSwapT): Promise<Locator> {
     const swapper: Locator = await this.getSwapper();
     const id: string = this.extractBtnID(where);

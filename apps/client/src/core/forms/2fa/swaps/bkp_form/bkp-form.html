@@ -1,5 +1,10 @@
 <app-swap-item [title]="'Backup Code'">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="root">
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    class="root"
+    [attr.data-testid]="useForm2faDir.getTestID('bkp')"
+  >
     <div class="root__wrap">
       <div class="wrap__content">
         <app-form-field-txt
@@ -11,7 +16,11 @@
         />
       </div>
 
-      <app-form-submit appUseIDsDir [isPending]="apiTracker.isPending()" />
+      <app-form-submit
+        [isPending]="apiTracker.isPending()"
+        appUseIDsDir
+        [testId]="useForm2faDir.getTestID('bkp')"
+      />
     </div>
   </form>
 </app-swap-item>

@@ -8,10 +8,11 @@ import { UseAuthKitSvc } from '@/features/auth/etc/services/use_auth_kit';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { JwtResT } from '@/features/auth/etc/types';
 import { UseNavSvc } from '@/core/services/use_nav/use_nav';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-login-2fa',
-  imports: [Form2fa],
+  imports: [Form2fa, UseIDsDir],
   templateUrl: './login-2fa.html',
   styleUrl: './login-2fa.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

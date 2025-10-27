@@ -5,13 +5,21 @@
         [swap]="swapState().swap"
         [setSwap]="setSwap"
         [maxSwaps]="2"
-        [prefixTestId]="'form_2fa'"
+        [prefixTestId]="useIDs.testId()!"
       >
         <div #swapDiv class="swapper__swap" [style.--opa]="getOpacity(0)()">
-          <app-totp-form appUseForm2faDir [strategy]="strategy()" />
+          <app-totp-form
+            appUseForm2faDir
+            [strategy]="strategy()"
+            [prefixTestID]="useIDs.testId()!"
+          />
         </div>
         <div #swapDiv class="swapper__swap" [style.--opa]="getOpacity(1)()">
-          <app-bkp-form appUseForm2faDir [strategy]="strategy()" />
+          <app-bkp-form
+            appUseForm2faDir
+            [strategy]="strategy()"
+            [prefixTestID]="useIDs.testId()!"
+          />
         </div>
       </app-swapper>
     </div>

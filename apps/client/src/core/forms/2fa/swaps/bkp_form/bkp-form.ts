@@ -23,7 +23,7 @@ import { UseForm2faDir } from '../../etc/directives/use_form_2fa';
 })
 export class BkpForm extends UseKitFormPwdHk {
   // ? directives
-  private readonly useForm2faDir: UseForm2faDir = inject(UseForm2faDir);
+  public readonly useForm2faDir: UseForm2faDir = inject(UseForm2faDir);
 
   public readonly form: FormGroup = BkpFormMng.form();
   public readonly bkpField: Signal<TxtSvgFieldT> = computed(() =>
