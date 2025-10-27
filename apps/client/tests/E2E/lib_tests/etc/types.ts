@@ -18,6 +18,9 @@ export interface TkResT {
   refreshToken: string;
   cbcHmacToken: string;
   plainPwd: string;
+  // ! only when u ask server for user with 2FA
+  totpSecret?: string;
+  bkpCodes?: string[];
 }
 
 interface BaseResT {
