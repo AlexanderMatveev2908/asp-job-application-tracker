@@ -9,6 +9,7 @@ export interface GetTokensArgT {
   payload?: Omit<RegisterFormT, 'password' | 'confirmPassword' | 'terms'>;
   verify?: boolean;
   tokenT?: TokenT;
+  use2FA?: boolean;
 }
 
 export abstract class LibApiTests extends LibToastTests {
@@ -30,6 +31,7 @@ export abstract class LibApiTests extends LibToastTests {
     let url: string = this.backUrl + `/test/user`;
     url += `?verifyUser=${!!args?.verify}`;
     url += `&tokenT=${args?.tokenT ?? TokenT.CONF_EMAIL}`;
+    url += `&use2FA=${!!args?.use2FA}`;
 
     const res: APIResponse = await this.page.request.post(url, {
       data: {
