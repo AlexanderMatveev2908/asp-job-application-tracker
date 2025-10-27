@@ -6,9 +6,7 @@ import { LibTotpFormMeta } from '../lib/metadata';
 
 export interface SwitchKeyArgT {
   form: FormGroup;
-  getCtrl: (name: string) => FormControl;
   key: string;
-  val: string[];
 }
 
 @Directive()
@@ -37,14 +35,17 @@ export class UseTotpFormKeysHk {
     FocusDOM.byDataField(`totp.${currIdx - 1}`);
   }
 
-  public switchKey({ form, getCtrl, val, key }: SwitchKeyArgT): void {
+  // private handlePaste(): void {}
+
+  public switchKey({ form, key }: SwitchKeyArgT): void {
+    const val: string[] = form.value.totp;
     const { currTotp, currIdx, allIn } = LibTotpFormMeta.main(val);
 
     // ! allIn check all value are:
     // ! number i where expected or truthy for DOM/strings
     if (!allIn) return;
 
-    const ctrl: FormControl = getCtrl(currTotp!);
+    const ctrl: FormControl = form.get(currTotp!) as FormControl;
 
     switch (key) {
       case 'Backspace':

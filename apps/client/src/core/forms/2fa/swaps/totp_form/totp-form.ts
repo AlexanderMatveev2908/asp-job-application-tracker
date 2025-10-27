@@ -92,8 +92,6 @@ export class TotpForm extends UseKitFormHk implements OnInit, AfterViewInit {
     this.useTotpKeys.switchKey({
       key,
       form: this.form,
-      getCtrl: this.getCtrl,
-      val,
     });
   }
 }
