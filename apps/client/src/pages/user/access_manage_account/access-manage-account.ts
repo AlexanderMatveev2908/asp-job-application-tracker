@@ -6,9 +6,10 @@ import { PwdFormT } from '@/core/paperwork/etc/pwd';
 import { UseRouteMngHk } from '@/core/hooks/use_route_mng';
 import { UserApiSvc } from '@/features/user/api';
 import { ResApiT } from '@/core/store/api/etc/types';
-import { CbcHmacMandatoryT } from '@/features/cbcHmac/etc/types';
+import { CbcHmacMandatoryT, TokenT } from '@/features/cbcHmac/etc/types';
 import { CbcHmacSlice } from '@/features/cbcHmac/slice';
 import { UseNavSvc } from '@/core/services/use_nav/use_nav';
+import { LibCbcHmac } from '@/features/cbcHmac/etc/lib';
 
 @Component({
   selector: 'app-access-manage-account',
@@ -31,7 +32,11 @@ export class AccessManageAccount implements OnInit {
           startTmr: true,
         });
 
-        void this.useNav.replace('/user/manage-account', { from: 'ok' });
+        const to: string = LibCbcHmac.isOfType(res.cbcHmacToken, TokenT.MANAGE_ACC_2FA)
+          ? 'access-manage-account-2fa'
+          : 'manage-account';
+
+        void this.useNav.replace(`/user/${to}`, { from: 'ok' });
       })
     );
 
