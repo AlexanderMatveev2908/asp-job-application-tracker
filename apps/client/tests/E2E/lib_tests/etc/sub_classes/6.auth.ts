@@ -1,6 +1,10 @@
 import { Locator } from '@playwright/test';
 import { DataFieldT, TkResT } from '../types';
 import { LibApiTests } from './5.api';
+import { totp } from 'otplib';
+import { HashAlgorithms, KeyEncodings } from 'otplib/core.js';
+import { LibBinary } from '@/core/lib/data_structure/binary';
+import { TotpFormUiFkt } from '@/core/forms/2fa/swaps/totp_form/etc/ui_fkt';
 
 export abstract class LibAuthTests extends LibApiTests {
   public setTotpFormID(id: string): void {
@@ -33,6 +37,28 @@ export abstract class LibAuthTests extends LibApiTests {
     ];
 
     await this.fillFor(form, fields);
+    await this.submit();
+  }
+
+  public async submitTotpForm(id: string, totpSecret: string): Promise<void> {
+    await this.setTotpFormID(id);
+    const totpForm: Locator = await this.getForm();
+
+    totp.options = {
+      encoding: KeyEncodings.HEX,
+      algorithm: HashAlgorithms.SHA1,
+      step: 30,
+      digits: 6,
+    };
+    const totpCode: string = totp.generate(LibBinary.hexFromB32(totpSecret));
+
+    for (let i = 0; i < TotpFormUiFkt.nFields; i++) {
+      await this.fillWith(totpForm, {
+        field: `totp.${i}`,
+        val: totpCode.charAt(i),
+      });
+    }
+
     await this.submit();
   }
 }

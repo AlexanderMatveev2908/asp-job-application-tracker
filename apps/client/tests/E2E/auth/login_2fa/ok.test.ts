@@ -1,10 +1,6 @@
-import test, { Browser, Locator } from '@playwright/test';
+import test, { Browser } from '@playwright/test';
 import { LibTests } from 'tests/E2E/lib_tests';
 import { TkResT } from 'tests/E2E/lib_tests/etc/types';
-import { totp } from 'otplib';
-import { HashAlgorithms, KeyEncodings } from 'otplib/core.js';
-import { TotpFormUiFkt } from '@/core/forms/2fa/swaps/totp_form/etc/ui_fkt';
-import { LibBinary } from '@/core/lib/data_structure/binary';
 
 test('ok', async ({ browser }: { browser: Browser }) => {
   const _lib: LibTests = await LibTests.fromBrowser(browser);
@@ -18,25 +14,7 @@ test('ok', async ({ browser }: { browser: Browser }) => {
   // ? pushed to dedicated 2FA swap form
   await lib.waitPushTo('/auth/login-2fa');
 
-  await lib.setTotpFormID('login_2fa');
-  const totpForm: Locator = await lib.getForm();
-
-  totp.options = {
-    encoding: KeyEncodings.HEX,
-    algorithm: HashAlgorithms.SHA1,
-    step: 30,
-    digits: 6,
-  };
-  const totpCode: string = totp.generate(LibBinary.hexFromB32(res.totpSecret as string));
-
-  for (let i = 0; i < TotpFormUiFkt.nFields; i++) {
-    await lib.fillWith(totpForm, {
-      field: `totp.${i}`,
-      val: totpCode.charAt(i),
-    });
-  }
-
-  await lib.submit();
+  await lib.submitTotpForm('login_2fa', res.totpSecret!);
 
   await lib.waitPushTo('/');
   await lib.isToastOk();
