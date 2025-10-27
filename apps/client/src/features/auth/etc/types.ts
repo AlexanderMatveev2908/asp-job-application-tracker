@@ -12,3 +12,9 @@ export interface JwtOrCbcHmacResT {
 export interface RecoverPwdArgT extends CbcHmacMandatoryT {
   password: string;
 }
+
+export interface Form2faT {
+  totpCode?: string;
+  backupCode?: string;
+  cbcHmacToken: string;
+}

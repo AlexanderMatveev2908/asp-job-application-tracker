@@ -3,6 +3,7 @@ import { TokenT } from '@/features/cbcHmac/etc/types';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { Form2fa } from '@/core/forms/2fa/form-2fa';
 import { EMPTY, Observable } from 'rxjs';
+import { Form2faT } from '@/features/auth/etc/types';
 
 @Component({
   selector: 'app-login-2fa',
@@ -15,8 +16,8 @@ import { EMPTY, Observable } from 'rxjs';
 export class Login2fa implements OnInit {
   private readonly useRouteMng: UseRouteMngHk = inject(UseRouteMngHk);
 
-  public readonly strategy: (totpOrBkp: string) => Observable<unknown> = (totpOrBkp: string) => {
-    console.log(totpOrBkp);
+  public readonly strategy: (data: Form2faT) => Observable<unknown> = (data: Form2faT) => {
+    console.log(data);
 
     return EMPTY;
   };

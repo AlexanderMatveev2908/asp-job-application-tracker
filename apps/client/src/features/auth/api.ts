@@ -1,7 +1,7 @@
 import { UseApiSvc } from '@/core/store/api/use_api';
-import { ObsResT } from '@/core/store/api/etc/types';
+import { ObsResT, StatusT } from '@/core/store/api/etc/types';
 import { inject, Injectable } from '@angular/core';
-import { JwtOrCbcHmacResT, JwtResT, RecoverPwdArgT } from './etc/types';
+import { Form2faT, JwtOrCbcHmacResT, JwtResT, RecoverPwdArgT } from './etc/types';
 import { RegisterFormT } from './pages/register/paperwork/form_mng';
 import { LoginFormT } from './pages/login/paperwork/from_mng';
 import { LibApiArgs } from '@/core/store/api/etc/lib/api_args';
@@ -28,6 +28,15 @@ export class AuthApiSvc {
   public recoverPwd(arg: RecoverPwdArgT): ObsResT<JwtResT> {
     return this.api.patch(
       LibApiArgs.withURL(`${this.base}/recover-pwd`).body(arg).toastOnFulfilled()
+    );
+  }
+
+  public login2FA(data: Form2faT): ObsResT<JwtResT> {
+    return this.api.post(
+      LibApiArgs.withURL(`${this.base}/login-2FA`)
+        .body(data)
+        .pushOnStatus([StatusT.UNAUTHORIZED])
+        .toastOnFulfilled()
     );
   }
 }

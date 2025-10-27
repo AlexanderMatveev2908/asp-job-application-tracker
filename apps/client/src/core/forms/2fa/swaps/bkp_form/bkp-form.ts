@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  input,
-  InputSignal,
-  Signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { SwapItem } from '@/common/components/swap/swap_item/swap-item';
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
 import { UseKitFormPwdHk } from '@/core/forms/pwd/etc/hooks/use_kit_form_pwd';
@@ -18,7 +11,7 @@ import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 import { FormSubmit } from '@/common/components/forms/form_submit/form-submit';
 import { UseIDsDir } from '@/core/directives/use_ids';
-import { Observable } from 'rxjs';
+import { UseForm2faDir } from '../../etc/directives/use_form_2fa';
 
 @Component({
   selector: 'app-bkp-form',
@@ -29,9 +22,8 @@ import { Observable } from 'rxjs';
   providers: [UseApiTrackerHk, UseInjCtxHk],
 })
 export class BkpForm extends UseKitFormPwdHk {
-  // ? props
-  public readonly strategy: InputSignal<(totpOrBkp: string) => Observable<unknown>> =
-    input.required();
+  // ? directives
+  private readonly useForm2faDir: UseForm2faDir = inject(UseForm2faDir);
 
   public readonly form: FormGroup = BkpFormMng.form();
   public readonly bkpField: Signal<TxtSvgFieldT> = computed(() =>
@@ -39,5 +31,10 @@ export class BkpForm extends UseKitFormPwdHk {
   );
 
   public readonly onSubmit: () => void = () =>
-    this.submitForm((data: unknown) => this.strategy()((data as BkpFormT).bkp));
+    this.submitForm((data: unknown) =>
+      this.useForm2faDir.strategy()({
+        cbcHmacToken: this.useForm2faDir.cbcHmacSlice.cbcHmac()!,
+        backupCode: (data as BkpFormT).bkp,
+      })
+    );
 }

@@ -8,10 +8,10 @@
         [prefixTestId]="'form_2fa'"
       >
         <div #swapDiv class="swapper__swap" [style.--opa]="getOpacity(0)()">
-          <app-totp-form [strategy]="strategy()" />
+          <app-totp-form appUseForm2faDir [strategy]="strategy()" />
         </div>
         <div #swapDiv class="swapper__swap" [style.--opa]="getOpacity(1)()">
-          <app-bkp-form [strategy]="strategy()" />
+          <app-bkp-form appUseForm2faDir [strategy]="strategy()" />
         </div>
       </app-swapper>
     </div>
