@@ -1,4 +1,4 @@
-import { Directive, signal, WritableSignal } from '@angular/core';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TotpFormUiFkt } from '../ui_fkt';
 import { FocusDOM } from '@/core/lib/dom/focus';
@@ -13,7 +13,7 @@ export interface SwitchKeyArgT {
   key: string;
 }
 
-@Directive()
+@Injectable()
 export class UseTotpFormKeysHk {
   public readonly comboKey: WritableSignal<string[]> = signal([]);
   public readonly selectAll: WritableSignal<boolean> = signal(false);
@@ -39,7 +39,7 @@ export class UseTotpFormKeysHk {
     FocusDOM.byDataField(`totp.${currIdx - 1}`);
   }
 
-  private handlePaste(form: FormGroup, currTotp: string): void {
+  private _handlePaste(form: FormGroup): void {
     if (!this.comboKey().includes('Control')) {
       this.resetKeyTrack();
       return;
@@ -59,8 +59,6 @@ export class UseTotpFormKeysHk {
               (_: undefined, i: number) => totp[i]
             ),
           });
-
-          FocusDOM.blurByField(currTotp);
         },
         error: (_: unknown) => {
           LibLog.log('err navigator');
@@ -94,7 +92,6 @@ export class UseTotpFormKeysHk {
         break;
 
       case 'v':
-        this.handlePaste(form, currTotp!);
         break;
 
       default:

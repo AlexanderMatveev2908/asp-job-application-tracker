@@ -24,7 +24,7 @@ import { TotpPart } from './totp_part/totp-part';
 import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
 import { Nullable } from '@/common/types/etc';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { UseTotpFormKeysHk } from './etc/directives/key_mng';
+import { UseTotpFormKeysHk } from './etc/hooks/key_mng';
 
 @Component({
   selector: 'app-totp-form',
@@ -51,10 +51,15 @@ export class TotpForm extends UseKitFormHk implements OnInit, AfterViewInit {
   public readonly form: FormGroup = TotpFormMng.form();
 
   // ? helpers
-  public readonly formCtrl: (outerIdx: number, innerIdx: number) => FormControl = (
-    outerIdx: number,
-    innerIdx: number
-  ) => this.getCtrl(`totp.${TotpFormUiFkt.skip(outerIdx) + innerIdx}`);
+  public getSkip(outerIdx: number): number {
+    return TotpFormUiFkt.skip(outerIdx);
+  }
+  public readonly formCtrl: (outerIdx: number) => (innerIdx: number) => FormControl = (
+    outerIdx: number
+  ) => {
+    const skip: number = this.getSkip(outerIdx);
+    return (innerIdx: number) => this.getCtrl(`totp.${skip + innerIdx}`);
+  };
 
   // ? listeners
   public readonly onSubmit: () => void = () => {

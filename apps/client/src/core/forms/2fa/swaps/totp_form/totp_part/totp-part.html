@@ -4,8 +4,9 @@
     <input
       type="text"
       class="field__box txt__xl"
-      (input)="onChange($event, outerIdx(), innerIdx)"
-      [formControl]="formCtrl()(outerIdx(), innerIdx)"
+      (input)="onChange($event, innerIdx)"
+      (paste)="onPaste($event, innerIdx)"
+      [formControl]="formCtrl()(innerIdx)"
       maxlength="1"
       [attr.data-field]="f.field"
       [style.--bg]="bg()"
