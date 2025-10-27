@@ -3,7 +3,12 @@
     <div class="root__wrap">
       <div class="wrap__content">
         @for (part of partsFields; track part.id; let outerIdx = $index){
-        <app-totp-part [outerIdx]="outerIdx" [part]="part" [formCtrl]="formCtrl" />
+        <app-totp-part
+          [outerIdx]="outerIdx"
+          [part]="part"
+          [formCtrl]="formCtrl"
+          [selectAll]="useTotpKeys.selectAll()"
+        />
         }
 
         <app-form-field-err

@@ -8,8 +8,6 @@ export interface TotpPartFieldsT {
 }
 
 export class TotpFormUiFkt extends FormFieldsUiFkt {
-  private static readonly _input: TxtFieldT = this.txtFieldOf({ name: 'totp' });
-
   public static readonly nFields: number = 6;
   private static readonly parts: number = 2;
 
@@ -23,7 +21,7 @@ export class TotpFormUiFkt extends FormFieldsUiFkt {
     const perPart: number = this.nFields / this.parts;
 
     return Array.from({ length: perPart }, (_: undefined, innerIdx: number) =>
-      this.txtFieldOf({ name: 'totp', field: `totp.${this.skip(outerIdx) + innerIdx}` })
+      this.txtFieldOf({ name: `totp.${this.skip(outerIdx) + innerIdx}` })
     );
   }
 

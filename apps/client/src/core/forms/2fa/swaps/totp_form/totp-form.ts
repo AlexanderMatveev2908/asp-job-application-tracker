@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   HostListener,
+  inject,
   OnInit,
   Signal,
 } from '@angular/core';
@@ -23,7 +24,7 @@ import { TotpPart } from './totp_part/totp-part';
 import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
 import { Nullable } from '@/common/types/etc';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { LibTotpFormMeta } from './etc/lib/metadata';
+import { UseTotpFormKeysHk } from './etc/directives/key_mng';
 
 @Component({
   selector: 'app-totp-form',
@@ -39,18 +40,23 @@ import { LibTotpFormMeta } from './etc/lib/metadata';
   templateUrl: './totp-form.html',
   styleUrl: './totp-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UseApiTrackerHk, UseInjCtxHk],
+  providers: [UseApiTrackerHk, UseInjCtxHk, UseTotpFormKeysHk],
 })
 export class TotpForm extends UseKitFormHk implements OnInit, AfterViewInit {
-  public readonly partsFields: TotpPartFieldsT[] = TotpFormUiFkt.partsFields();
+  // ? directives
+  public readonly useTotpKeys: UseTotpFormKeysHk = inject(UseTotpFormKeysHk);
 
+  // ! used function so every form has his own memory allocation
+  public readonly partsFields: TotpPartFieldsT[] = TotpFormUiFkt.partsFields();
   public readonly form: FormGroup = TotpFormMng.form();
 
+  // ? helpers
   public readonly formCtrl: (outerIdx: number, innerIdx: number) => FormControl = (
     outerIdx: number,
     innerIdx: number
   ) => this.getCtrl(`totp.${TotpFormUiFkt.skip(outerIdx) + innerIdx}`);
 
+  // ? listeners
   public readonly onSubmit: () => void = () => {
     this.submitForm((data: unknown) => {
       console.log(data);
@@ -59,6 +65,7 @@ export class TotpForm extends UseKitFormHk implements OnInit, AfterViewInit {
     });
   };
 
+  // ? local state
   private formVal: Nullable<Signal<TotpFormT>> = null;
 
   ngOnInit(): void {
@@ -82,17 +89,11 @@ export class TotpForm extends UseKitFormHk implements OnInit, AfterViewInit {
 
     const key: string = e.key;
 
-    const { currFocus, currTotp, currIdx, allIn } = LibTotpFormMeta.main(val);
-
-    // ! allIn check all value are:
-    // ! number i where expected or truthy for DOM/strings
-    if (!allIn) return;
-
-    const ctrl: FormControl = this.getCtrl(currTotp!);
-
-    if (key === 'Backspace') {
-      ctrl.setValue('');
-      FocusDOM.byDataField(`totp.${currIdx! - 1}`);
-    }
+    this.useTotpKeys.switchKey({
+      key,
+      form: this.form,
+      getCtrl: this.getCtrl,
+      val,
+    });
   }
 }

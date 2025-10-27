@@ -37,15 +37,20 @@
   }
 }
 
-@mixin app__input__sdw($p) {
+@mixin app__input__base($p, $bg) {
   padding: $p;
+  background: $bg;
 
-  @apply transition-all duration-300 outline-none border-2 border-gray-300 rounded-xl bg-neutral-950;
+  @apply transition-all duration-300 outline-none border-2 border-gray-300 rounded-xl;
 
   &:focus {
     box-shadow: 0 0 2.5px var(--white__0), 0 0 5px var(--white__0), 0 0 10px var(--white__0),
       0 0 15px var(--white__0), 0 0 20px var(--white__0);
   }
+}
+
+@mixin app__input__sdw($p) {
+  @include app__input__base($p, var(--neutral__950));
 }
 
 @mixin with_w($w) {
