@@ -11,13 +11,21 @@ export class TotpFormUiFkt extends FormFieldsUiFkt {
   private static readonly _input: TxtFieldT = this.txtFieldOf({ name: 'totp' });
 
   public static readonly nFields: number = 6;
-
   public static readonly parts: number = 2;
 
-  public static readonly partsFields: () => TotpPartFieldsT[] = () =>
-    this.arrWithIDs(
-      new Array(this.parts).fill({
-        fields: this.arrWithIDs(new Array(this.nFields / this.parts).fill(this._input)),
+  private static fieldsForPart(outerIdx: number): TxtFieldT[] {
+    const perPart: number = this.nFields / this.parts;
+
+    return Array.from({ length: perPart }, (_: undefined, innerIdx: number) =>
+      this.txtFieldOf({ name: 'totp', field: `totp.${outerIdx * perPart + innerIdx}` })
+    );
+  }
+
+  public static partsFields(): TotpPartFieldsT[] {
+    return Array.from({ length: this.parts }, (_: undefined, outerIdx: number) =>
+      this.withID({
+        fields: this.fieldsForPart(outerIdx),
       })
     );
+  }
 }

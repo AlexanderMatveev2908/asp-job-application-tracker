@@ -2,7 +2,8 @@ import { ElDomT, Nullable, RefDomT } from '@/common/types/etc';
 
 export class FocusDOM {
   public static byDataField(field: Nullable<string>): void {
-    const elDOM: Nullable<HTMLElement> = document.querySelector(`[data-field=${field}]`);
+    const elDOM: Nullable<HTMLElement> = document.querySelector(`[data-field="${field}"]`);
+
     if (!elDOM) return;
 
     elDOM.focus();

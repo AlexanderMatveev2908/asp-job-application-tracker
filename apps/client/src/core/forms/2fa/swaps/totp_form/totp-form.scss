@@ -11,11 +11,11 @@
       @apply w-fit flex justify-center items-center gap-8;
 
       .group__field {
-        @apply w-[40px] h-[40px];
+        @apply w-[45px] h-[45px];
 
         .field__box {
           @apply w-full h-full;
-          @include mix.app__input__sdw(var(--pad));
+          @include mix.app__input__sdw(5px 15px);
         }
       }
     }
