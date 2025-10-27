@@ -10,5 +10,7 @@ test('ok', async ({ browser }: { browser: Browser }) => {
   const lib: LibTests = await LibTests.fromBrowser(browser);
   await lib.login(res);
 
+  // ? user managed differently with 2FA
+  // ? pushed to dedicated 2FA swap form
   await lib.waitPushTo('/auth/login-2fa');
 });
