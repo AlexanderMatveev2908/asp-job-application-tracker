@@ -12,7 +12,7 @@ import { TotpForm } from './swaps/totp_form/totp-form';
 import { BkpForm } from './swaps/bkp_form/bkp-form';
 import { Observable } from 'rxjs';
 import { UseForm2faDir } from './etc/directives/use_form_2fa';
-import { Form2faT } from '@/features/auth/etc/types';
+import { Form2faT } from '@/common/types/etc';
 
 @Component({
   selector: 'app-form-2fa',

@@ -1,4 +1,4 @@
-import { DeepNonNullable, Nullable } from '@/common/types/etc';
+import { NotNullKeysT, Nullable } from '@/common/types/etc';
 
 export enum TokenT {
   REFRESH = 'REFRESH',
@@ -25,4 +25,4 @@ export interface CbcHmacNullableT {
   cbcHmacToken: Nullable<string>;
 }
 
-export type CbcHmacMandatoryT = DeepNonNullable<CbcHmacNullableT>;
+export type CbcHmacMandatoryT = NotNullKeysT<CbcHmacNullableT>;

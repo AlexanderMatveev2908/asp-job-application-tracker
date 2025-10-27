@@ -2,8 +2,12 @@ import { UseRouteMngHk } from '@/core/hooks/use_route_mng';
 import { TokenT } from '@/features/cbcHmac/etc/types';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { Form2fa } from '@/core/forms/2fa/form-2fa';
-import { EMPTY, Observable } from 'rxjs';
-import { Form2faT } from '@/features/auth/etc/types';
+import { Observable, tap } from 'rxjs';
+import { Form2faT } from '@/common/types/etc';
+import { UseAuthKitSvc } from '@/features/auth/etc/services/use_auth_kit';
+import { ResApiT } from '@/core/store/api/etc/types';
+import { JwtResT } from '@/features/auth/etc/types';
+import { UseNavSvc } from '@/core/services/use_nav/use_nav';
 
 @Component({
   selector: 'app-login-2fa',
@@ -15,12 +19,17 @@ import { Form2faT } from '@/features/auth/etc/types';
 })
 export class Login2fa implements OnInit {
   private readonly useRouteMng: UseRouteMngHk = inject(UseRouteMngHk);
+  private readonly useAuthKit: UseAuthKitSvc = inject(UseAuthKitSvc);
+  private readonly useNav: UseNavSvc = inject(UseNavSvc);
 
-  public readonly strategy: (data: Form2faT) => Observable<unknown> = (data: Form2faT) => {
-    console.log(data);
+  public readonly strategy: (data: Form2faT) => Observable<unknown> = (data: Form2faT) =>
+    this.useAuthKit.authApi.login2FA(data).pipe(
+      tap((res: ResApiT<JwtResT>) => {
+        this.useAuthKit.authSlice.login(res.accessToken, { startTmr: true });
 
-    return EMPTY;
-  };
+        void this.useNav.replace('/');
+      })
+    );
 
   ngOnInit(): void {
     this.useRouteMng.pushOutIfNotTokenType('/auth/login-2fa', TokenT.LOGIN_2FA);

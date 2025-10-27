@@ -1,4 +1,4 @@
-import { Form2faT } from '@/features/auth/etc/types';
+import { Form2faT } from '@/common/types/etc';
 import { CbcHmacSlice } from '@/features/cbcHmac/slice';
 import { Directive, inject, input, InputSignal } from '@angular/core';
 import { Observable } from 'rxjs';

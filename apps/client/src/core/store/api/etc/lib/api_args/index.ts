@@ -80,6 +80,18 @@ export class LibApiArgs<T> {
     return this;
   }
 
+  public pushOnCbcHmacErr(): LibApiArgs<T> {
+    this.ifOptErrEmpty();
+    this._optErr!.pushOnCbcHmacErr = true;
+    return this;
+  }
+
+  public ignoreOnCbcHmacErr(): LibApiArgs<T> {
+    this.ifOptErrEmpty();
+    this._optErr!.pushOnCbcHmacErr = true;
+    return this;
+  }
+
   public freeze(): Readonly<this> {
     return Object.freeze(this);
   }
