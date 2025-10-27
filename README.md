@@ -55,7 +55,7 @@ Together they form a clean, modern **full-stack architecture** 🚀
 - **Playwright** — End-to-end testing for UI flows
 - **Vitest** — Unit testing for the client
 - **JUnit Jupiter** — Unit and integration testing for the backend
-- **Postman** — Manual and automated API testing
+- **Postman** — API testing
 - **Checkstyle, SpotBugs, PMD** — Static analysis and code quality enforcement for Java
 
 ---

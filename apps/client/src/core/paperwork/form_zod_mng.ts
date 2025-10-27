@@ -6,7 +6,7 @@ import { UseSwapHk } from '../hooks/use_swap/use_swap';
 import { FocusDOM } from '../lib/dom/focus';
 import { Nullable } from '@/common/types/etc';
 
-export class ZodCheck {
+export class FormZodMng {
   public static checkZ(schema: ZodType): ValidatorFn {
     return (control: AbstractControl): Nullable<ValidationErrors> => {
       const res: ZodSafeParseResult<unknown> = schema.safeParse(control.value);

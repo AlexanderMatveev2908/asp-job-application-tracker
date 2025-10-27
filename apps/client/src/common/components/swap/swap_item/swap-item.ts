@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
 
 @Component({
-  selector: 'app-user-wrap-swap',
+  selector: 'app-swap-item',
   imports: [],
-  templateUrl: './user-wrap-swap.html',
-  styleUrl: './user-wrap-swap.scss',
+  templateUrl: './swap-item.html',
+  styleUrl: './swap-item.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserWrapSwap {
+export class SwapItem {
   public readonly title: InputSignal<string> = input.required();
 }

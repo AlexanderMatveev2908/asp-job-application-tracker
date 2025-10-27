@@ -1,7 +1,9 @@
 <div class="root">
+  @if(!hideLabel()) {
   <div class="root__label">
     <span class="txt__lg">{{ f().label }}</span>
   </div>
+  }
 
   <div class="root__input">
     <input
@@ -27,6 +29,7 @@
     <app-form-field-err
       appUseFormFieldDir
       [ctrl]="ctrl()"
+      appUseIDsDir
       [testId]="testId()"
       [optionalDep]="optionalDep()"
     />

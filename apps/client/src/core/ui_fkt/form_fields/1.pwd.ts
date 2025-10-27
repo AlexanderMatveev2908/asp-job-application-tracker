@@ -9,7 +9,7 @@ export interface RecMetaPwdT {
   Svg: SvgT;
 }
 
-export type PwdFieldT = 'password' | 'confirmPassword';
+export type PwdFieldT = 'password' | 'confirmPassword' | 'bkp';
 
 export class PwdFieldsUiFkt extends FormFieldsUiFkt {
   private static readonly pwdField: TxtFieldT = this.txtFieldOf({ name: 'password' });

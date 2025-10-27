@@ -16,10 +16,11 @@ import { NgComponentOutlet } from '@angular/common';
 import { LibPrs } from '@/core/lib/data_structure/prs';
 import { UseFormFieldDomDir } from '@/core/directives/forms/form_field/1.use_form_field_dom';
 import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-form-field-txt',
-  imports: [ReactiveFormsModule, FormFieldErr, NgComponentOutlet, UseFormFieldDir],
+  imports: [ReactiveFormsModule, FormFieldErr, NgComponentOutlet, UseFormFieldDir, UseIDsDir],
   templateUrl: './form-field-txt.html',
   styleUrl: './form-field-txt.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,6 +36,7 @@ export class FormFieldTxt extends UseFormFieldDomDir implements OnInit {
 
   // ? personal props optional
   public readonly onSvgClick: InputSignal<Nullable<() => void>> = input<Nullable<() => void>>(null);
+  public readonly hideLabel: InputSignal<boolean> = input(false);
   // ? additional listeners for custom needs beside normal ng flow
   // ? rarely used
   public readonly onFocus: InputSignal<OptCbT> = input<OptCbT>(null);

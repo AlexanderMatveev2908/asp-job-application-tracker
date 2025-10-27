@@ -1,6 +1,6 @@
 import { Nullable } from '@/common/types/etc';
 import { inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
-import { Navigation, NavigationEnd, Params, Router } from '@angular/router';
+import { Navigation, NavigationEnd, NavigationStart, Params, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { LibShapeCheck } from '@/core/lib/data_structure/shape_check';
 
@@ -16,11 +16,13 @@ export abstract class UsePathHk {
   protected readonly router: Router = inject(Router);
 
   private readonly _currPath: WritableSignal<Nullable<string>> = signal(null);
+  private readonly _goingTo: WritableSignal<Nullable<string>> = signal(null);
   private readonly _meta: WritableSignal<Nullable<MetaNavT>> = signal(null);
   private readonly _query: WritableSignal<Nullable<Params>> = signal(null);
 
   public readonly meta: Signal<Nullable<MetaNavT>> = this._meta.asReadonly();
   public readonly currPath: Signal<Nullable<string>> = this._currPath.asReadonly();
+  public readonly goingTo: Signal<Nullable<string>> = this._currPath.asReadonly();
   public readonly query: Signal<Nullable<Params>> = this._query.asReadonly();
 
   private readonly ALLOWED_FROM: Set<NavFromT> = new Set<NavFromT>(['err', 'ok']);
@@ -42,8 +44,12 @@ export abstract class UsePathHk {
 
   constructor() {
     this.router.events
-      .pipe(filter((e: unknown) => e instanceof NavigationEnd))
-      .subscribe((e: NavigationEnd) => {
+      .pipe(filter((e: unknown) => e instanceof NavigationEnd || e instanceof NavigationStart))
+      .subscribe((e: NavigationStart | NavigationEnd) => {
+        if (e instanceof NavigationStart) {
+          this._goingTo.set(e.url);
+          return;
+        }
         this._currPath.set(e.urlAfterRedirects);
 
         const navigation: Nullable<Navigation> = this.router.currentNavigation();

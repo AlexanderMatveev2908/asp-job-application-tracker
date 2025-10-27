@@ -54,13 +54,14 @@ export abstract class UseAppCbcHmacDir extends UseAppAuthDir {
   public delCbcHmacOnNavOut(): void {
     this.usePlatform.onClient(() => {
       const tokenT: Nullable<TokenT> = this.cbcHmacSlice.getTokenT();
-      const path: Nullable<string> = this.useNav.currPath();
+      const goingTo: Nullable<string> = this.useNav.goingTo();
 
-      if (!tokenT || !path || this.cbcHmacSlice.saving()) return;
+      if (!tokenT || !goingTo || this.cbcHmacSlice.saving()) return;
 
       if (
-        (tokenT === TokenT.MANAGE_ACC && !path.startsWith('/user/manage-account')) ||
-        (tokenT === TokenT.RECOVER_PWD && !path.startsWith('/auth/recover-pwd'))
+        (tokenT === TokenT.MANAGE_ACC && !goingTo.startsWith('/user/manage-account')) ||
+        (tokenT === TokenT.RECOVER_PWD && !goingTo.startsWith('/auth/recover-pwd')) ||
+        (tokenT === TokenT.LOGIN_2FA && !goingTo.startsWith('/auth/login-2fa'))
       )
         this.cbcHmacSlice.clearCbcHmac({ startTmr: false });
     });

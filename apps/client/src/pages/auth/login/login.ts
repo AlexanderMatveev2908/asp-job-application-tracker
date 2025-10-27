@@ -8,7 +8,7 @@ import { FormGroup } from '@angular/forms';
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
 import { UseAuthKitSvc } from '@/features/auth/etc/services/use_auth_kit';
 import { from, switchMap, tap } from 'rxjs';
-import { JwtResT } from '@/features/auth/etc/types';
+import { JwtOrCbcHmacResT } from '@/features/auth/etc/types';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { UseKitFormPwdHk } from '@/core/forms/pwd/etc/hooks/use_kit_form_pwd';
 import { PwdFieldsUiFkt } from '@/core/ui_fkt/form_fields/1.pwd';
@@ -17,6 +17,8 @@ import { UseIDsDir } from '@/core/directives/use_ids';
 import { UseFormShapeDir } from '@/core/directives/forms/use_form_shape';
 import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
+import { CbcHmacSlice } from '@/features/cbcHmac/slice';
+import { ErrApp } from '@/core/lib/err';
 
 @Component({
   selector: 'app-login',
@@ -28,6 +30,8 @@ import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 })
 export class Login extends UseKitFormPwdHk {
   private readonly useAuthKit: UseAuthKitSvc = inject(UseAuthKitSvc);
+  private readonly cbcHmacSlice: CbcHmacSlice = inject(CbcHmacSlice);
+
   public readonly form: FormGroup = LoginFormMng.form;
 
   // ? assets
@@ -40,10 +44,16 @@ export class Login extends UseKitFormPwdHk {
   public readonly onSubmit: () => void = () => {
     this.submitForm((data: unknown) =>
       this.useAuthKit.authApi.login(data as LoginFormT).pipe(
-        tap((res: ResApiT<JwtResT>) => {
-          this.useAuthKit.authSlice.login(res.accessToken, { startTmr: true });
+        tap((res: ResApiT<JwtOrCbcHmacResT>) => {
+          if (res?.accessToken)
+            this.useAuthKit.authSlice.login(res.accessToken, { startTmr: true });
+          else if (res.cbcHmacToken)
+            this.cbcHmacSlice.saveCbcHmac(res.cbcHmacToken, { startTmr: false });
+          else throw new ErrApp('did the server sent a potato ? 🥔');
         }),
-        switchMap(() => from(this.useKitNav.useNav.replace('/')))
+        switchMap((res: ResApiT<JwtOrCbcHmacResT>) =>
+          from(this.useKitNav.useNav.replace(`/${res.cbcHmacToken ? 'auth/login-2fa' : ''}`))
+        )
       )
     );
   };

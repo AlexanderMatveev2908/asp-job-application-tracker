@@ -40,7 +40,7 @@ export type OrNone<T> = T | None;
 
 export type Nullable<T> = T | null;
 
-export type DeepNonNullable<T> = {
+export type NotNullKeysT<T> = {
   [K in keyof T]-?: NonNullable<T[K]>;
 };
 
@@ -63,3 +63,18 @@ export interface SqlTableT {
 
   deletedAt: Nullable<number>;
 }
+
+interface BaseCbcHmacData {
+  cbcHmacToken: string;
+}
+export type FormCbcHmacT<T> = T extends void ? BaseCbcHmacData : BaseCbcHmacData & T;
+
+export type DataApiTotpT = FormCbcHmacT<{
+  totpCode: string;
+}>;
+
+export type DataApiBkpT = FormCbcHmacT<{
+  backupCode: string;
+}>;
+
+export type Form2faT = DataApiTotpT | DataApiBkpT;

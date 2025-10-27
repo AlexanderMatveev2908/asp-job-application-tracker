@@ -1,0 +1,17 @@
+<app-swap-item [title]="'Backup Code'">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="root">
+    <div class="root__wrap">
+      <div class="wrap__content">
+        <app-form-field-txt
+          appUseFormFieldDir
+          [f]="bkpField()"
+          [ctrl]="getCtrl('bkp')"
+          [hideLabel]="true"
+          [onSvgClick]="onToggle"
+        />
+      </div>
+
+      <app-form-submit appUseIDsDir [isPending]="apiTracker.isPending()" />
+    </div>
+  </form>
+</app-swap-item>

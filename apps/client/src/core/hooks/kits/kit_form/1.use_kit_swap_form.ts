@@ -3,7 +3,7 @@ import { LibEtc } from '@/core/lib/etc';
 import { LibShapeCheck } from '@/core/lib/data_structure/shape_check';
 import { UseSwapHk } from '@/core/hooks/use_swap/use_swap';
 import { inject, Injectable } from '@angular/core';
-import { ZodCheck } from '@/core/paperwork/zod_check';
+import { FormZodMng } from '@/core/paperwork/form_zod_mng';
 import { Observable } from 'rxjs';
 import { UseKitFormHk } from './0.use_kit_form';
 
@@ -18,7 +18,7 @@ export abstract class UseKitSwapFormHk extends UseKitFormHk {
 
   public readonly submitSwapForm: (arg: SubmitSwapArgT) => void = (arg: SubmitSwapArgT) => {
     if (!this.form.valid) {
-      ZodCheck.onSubmitFailedInSwap(this.form, (first: string) => {
+      FormZodMng.onSubmitFailedInSwap(this.form, (first: string) => {
         const target: Nullable<number> = LibEtc.idxIn(first, arg.fields);
 
         if (!LibShapeCheck.isNone(target)) this.useSwap.setSwapOnErr(target!);

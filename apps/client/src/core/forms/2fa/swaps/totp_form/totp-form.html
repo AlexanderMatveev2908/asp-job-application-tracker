@@ -1,0 +1,26 @@
+<app-swap-item [title]="'TOTP'">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="root">
+    <div class="root__wrap">
+      <div class="wrap__content">
+        @for (part of partsFields; track part.id; let outerIdx = $index){
+        <app-totp-part
+          [part]="part"
+          [formCtrl]="formCtrl(outerIdx)"
+          [selectAll]="useTotpKeys.selectAll()"
+          [skip]="getSkip(outerIdx)"
+          [form]="form"
+        />
+        }
+
+        <app-form-field-err
+          appUseIDsDir
+          appUseFormFieldDir
+          [ctrl]="getCtrl('totp')"
+          [testId]="'totp_root'"
+        />
+      </div>
+
+      <app-form-submit appUseIDsDir [isPending]="apiTracker.isPending()" />
+    </div>
+  </form>
+</app-swap-item>

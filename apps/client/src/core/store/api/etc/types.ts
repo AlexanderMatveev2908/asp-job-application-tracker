@@ -26,6 +26,7 @@ export interface OptToastApiT {
 export interface OptErrApiT {
   pushOnErr: boolean;
   pushOnStatus: number[];
+  pushOnCbcHmacErr: boolean;
 }
 
 export enum StatusT {
