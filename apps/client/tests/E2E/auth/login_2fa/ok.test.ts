@@ -8,14 +8,15 @@ test('ok', async ({ browser }: { browser: Browser }) => {
 
   // ? simple login
   const lib: LibTests = await LibTests.fromBrowser(browser);
-  await lib.login(res);
+  await lib.login({ res, waitPushTo: '/auth/login-2fa' });
 
   // ? user managed differently with 2FA
   // ? pushed to dedicated 2FA swap form
-  await lib.waitPushTo('/auth/login-2fa');
+  await lib.waitPushTo('');
 
-  await lib.submitTotpForm('login_2fa', res.totpSecret!);
-
-  await lib.waitPushTo('/');
-  await lib.isToastOk();
+  await lib.submitTotpForm({
+    id: 'login_2fa',
+    totpSecret: res.totpSecret!,
+    waitPushTo: '/',
+  });
 });
