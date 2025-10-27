@@ -17,8 +17,4 @@ export class UseForm2faDir {
   public getTestID(t: Form2faTestIdT): string {
     return `${this.prefixTestID()}__swapper__${t}_form`;
   }
-
-  public getSubmitID(t: Form2faTestIdT): string {
-    return `${this.getTestID(t)}__submit`;
-  }
 }

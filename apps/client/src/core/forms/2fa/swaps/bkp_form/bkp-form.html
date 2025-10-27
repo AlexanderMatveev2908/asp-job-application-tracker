@@ -16,7 +16,11 @@
         />
       </div>
 
-      <app-form-submit appUseIDsDir [isPending]="apiTracker.isPending()" />
+      <app-form-submit
+        [isPending]="apiTracker.isPending()"
+        appUseIDsDir
+        [testId]="useForm2faDir.getTestID('bkp')"
+      />
     </div>
   </form>
 </app-swap-item>

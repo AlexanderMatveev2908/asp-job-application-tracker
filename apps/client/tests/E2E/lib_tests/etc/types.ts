@@ -31,3 +31,21 @@ interface BaseResT {
 export type PreTestResT<T> = T extends void ? BaseResT : BaseResT & T;
 
 export type PreTestFormResT = PreTestResT<{ form: Locator }>;
+
+export type Submit2faArgT<T> = {
+  id: string;
+  waitPushTo: string;
+} & T;
+
+export type SubmitTotpArgT = Submit2faArgT<{
+  totpSecret: string;
+}>;
+
+export type SubmitBkpArgT = Submit2faArgT<{
+  bkpCode: string;
+}>;
+
+export interface LoginArgT {
+  res: TkResT;
+  waitPushTo: string;
+}

@@ -6,13 +6,8 @@ test('ok', async ({ browser }: { browser: Browser }) => {
   const _lib: LibTests = await LibTests.fromBrowser(browser);
   const res: TkResT = await _lib.getTk({ use2FA: true });
 
-  // ? simple login
   const lib: LibTests = await LibTests.fromBrowser(browser);
   await lib.login({ res, waitPushTo: '/auth/login-2fa' });
-
-  // ? user managed differently with 2FA
-  // ? pushed to dedicated 2FA swap form
-  await lib.waitPushTo('');
 
   await lib.submitTotpForm({
     id: 'login_2fa',

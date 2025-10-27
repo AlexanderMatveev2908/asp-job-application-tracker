@@ -1,33 +1,26 @@
 import { Locator } from '@playwright/test';
-import { DataFieldT, TkResT } from '../types';
+import { DataFieldT, LoginArgT, SubmitBkpArgT, SubmitTotpArgT } from '../types';
 import { LibApiTests } from './5.api';
 import { totp } from 'otplib';
 import { HashAlgorithms, KeyEncodings } from 'otplib/core.js';
 import { LibBinary } from '@/core/lib/data_structure/binary';
 import { TotpFormUiFkt } from '@/core/forms/2fa/swaps/totp_form/etc/ui_fkt';
-
-export interface SubmitTotpArgT {
-  id: string;
-  totpSecret: string;
-  waitPushTo: string;
-}
-
-export interface LoginArgT {
-  res: TkResT;
-  waitPushTo: string;
-}
+import { Form2faTestIdT } from '@/core/forms/2fa/etc/directives/use_form_2fa';
 
 export abstract class LibAuthTests extends LibApiTests {
-  public setTotpFormID(id: string): void {
+  private set2faFormID(id: string, t: Form2faTestIdT): void {
     this.setSwapperID(id);
     const swapperID: string = this.getSwapperID()!;
-    this.setFormID(`${swapperID}__totp_form`);
+
+    this.setFormID(`${swapperID}__${t}_form`);
+  }
+
+  public setTotpFormID(id: string): void {
+    this.set2faFormID(id, 'totp');
   }
 
   public setBkpFormID(id: string): void {
-    this.setSwapperID(id);
-    const swapperID: string = this.getSwapperID()!;
-    this.setFormID(`${swapperID}__totp_form`);
+    this.set2faFormID(id, 'bkp');
   }
 
   public async login({ res, waitPushTo }: LoginArgT): Promise<void> {
@@ -55,7 +48,9 @@ export abstract class LibAuthTests extends LibApiTests {
   }
 
   public async submitTotpForm({ id, totpSecret, waitPushTo }: SubmitTotpArgT): Promise<void> {
-    await this.setTotpFormID(id);
+    await this.timer();
+
+    this.setTotpFormID(id);
     const totpForm: Locator = await this.getForm();
 
     totp.options = {
@@ -72,6 +67,24 @@ export abstract class LibAuthTests extends LibApiTests {
         val: totpCode.charAt(i),
       });
     }
+
+    await this.submit();
+    await this.waitPushTo(waitPushTo);
+    await this.isToastOk();
+  }
+
+  public async submitBkpForm({ id, bkpCode, waitPushTo }: SubmitBkpArgT): Promise<void> {
+    this.setBkpFormID(id);
+
+    await this.timer();
+    await this.nextSwap();
+
+    const bkpForm: Locator = await this.getForm();
+
+    await this.fillWith(bkpForm, {
+      field: 'bkp',
+      val: bkpCode,
+    });
 
     await this.submit();
     await this.waitPushTo(waitPushTo);
