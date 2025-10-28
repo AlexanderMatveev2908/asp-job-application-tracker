@@ -56,7 +56,7 @@ export class UseRouteMngHk extends UseInjCtxHk {
   // ? eventually improving later
   public pushOutIfNotFrom(path: string): void {
     this.useEffect(() => {
-      this.useNav.ifPathStartsWith(path, () => {
+      this.useNav.ifPathEqual(path, () => {
         if (this.useNav.allowedFrom()) return;
 
         void this.useNav.replace('/');
@@ -72,7 +72,7 @@ export class UseRouteMngHk extends UseInjCtxHk {
 
   public pushOutIfNotTokenType(path: string, expected: TokenT, opt?: PushToOptT): void {
     this.useEffect(() => {
-      this.useNav.ifPathStartsWith(path, () => {
+      this.useNav.ifPathEqual(path, () => {
         void this.cbcHmacSlice.cbcHmac();
 
         // ! right after success i delete cbc and to avoid being pushed away i use an internal flag to have a short window to go instead to notice page
@@ -89,7 +89,7 @@ export class UseRouteMngHk extends UseInjCtxHk {
     opt?: PushToOptT & { tolerated?: TokenT }
   ): void {
     this.useEffect(() => {
-      this.useNav.ifPathStartsWith(path, () => {
+      this.useNav.ifPathEqual(path, () => {
         void this.cbcHmacSlice.cbcHmac();
 
         if (this.cbcHmacSlice.isNullOrSaving()) return;
