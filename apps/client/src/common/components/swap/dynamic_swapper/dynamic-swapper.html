@@ -1,8 +1,7 @@
 <div class="root tb">
-  <div class="root__content">
-    @for(f of fields(); track f.id){
-
-    <app-form-field-box-lg [f]="f" />
+  <div class="root__content" [style.--grid_conf]="gridConf()">
+    @for(id of paginationState().swapsIDs; track id; let idx = $index){
+    <app-dynamic-swap-item [fields]="getItems(idx)" />
     }
   </div>
 </div>

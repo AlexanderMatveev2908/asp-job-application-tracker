@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
 import { DynamicSwapper } from '@/common/components/swap/dynamic_swapper/dynamic-swapper';
 import { UseDynamicSwapHk } from '@/core/hooks/swap/use_dynamic_swap';
-import { SwapBoxT } from '@/core/directives/swap/use_dynamic_swap';
 import { v4 } from 'uuid';
+import { CheckBoxFieldT } from '@/common/types/forms';
 
 @Component({
   selector: 'app-application-statuses',
@@ -14,9 +14,15 @@ import { v4 } from 'uuid';
 export class ApplicationStatuses extends UseDynamicSwapHk {
   public readonly label: InputSignal<string> = input.required();
 
-  public readonly data: SwapBoxT[] = Array.from({ length: 30 }, (_: undefined, i: number) => ({
-    label: i + '',
-    val: i + '',
-    id: v4(),
-  }));
+  public readonly data: CheckBoxFieldT[] = Array.from(
+    { length: 30 },
+    (_: undefined, i: number) => ({
+      label: i + '',
+      val: i + '',
+      id: v4(),
+      field: '',
+      name: '',
+      type: 'checkbox',
+    })
+  );
 }

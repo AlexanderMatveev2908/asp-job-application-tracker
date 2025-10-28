@@ -2,12 +2,12 @@ import { CheckBoxFieldT } from '@/common/types/forms';
 import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
 
 @Component({
-  selector: 'app-form-field-box-lg',
+  selector: 'app-dynamic-swap-item',
   imports: [],
-  templateUrl: './form-field-box-lg.html',
-  styleUrl: './form-field-box-lg.scss',
+  templateUrl: './dynamic-swap-item.html',
+  styleUrl: './dynamic-swap-item.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FormFieldBoxLg {
-  public readonly f: InputSignal<CheckBoxFieldT> = input.required();
+export class DynamicSwapItem {
+  public readonly fields: InputSignal<CheckBoxFieldT[]> = input.required();
 }
