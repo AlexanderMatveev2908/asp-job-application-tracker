@@ -8,6 +8,8 @@
     />
 
     <app-form-field-txt appUseFormFieldDir [ctrl]="getCtrl('positionName')" [f]="first2Rows[1]" />
+
+    <app-form-field-txt appUseFormFieldDir [ctrl]="getCtrl('notes')" [f]="first2Rows[2]" />
   </div>
 
   <app-form-submit [isPending]="apiTracker.isPending()" appUseIDsDir />

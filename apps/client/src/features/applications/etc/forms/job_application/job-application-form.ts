@@ -21,5 +21,5 @@ import { UseIDsDir } from '@/core/directives/use_ids';
 })
 export class JobApplicationForm extends UseKitFormHk {
   public readonly form: FormGroup = ApplicationFormMng.form();
-  public first2Rows: TxtFieldT[] = ApplicationFormUiFkt.first2Rows();
+  public first2Rows: TxtFieldT[] = ApplicationFormUiFkt.first3Rows();
 }

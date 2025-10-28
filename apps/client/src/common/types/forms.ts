@@ -1,7 +1,7 @@
 import { ValidationErrors } from '@angular/forms';
 import { Nullable, SvgT } from './etc';
 
-export type TxtInputT = 'text' | 'email' | 'password' | 'url';
+export type TxtInputT = 'text' | 'email' | 'password' | 'url' | 'textarea';
 export type CheckInputT = 'radio' | 'checkbox';
 
 export interface RecErrsFieldT {
