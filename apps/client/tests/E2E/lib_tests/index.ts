@@ -16,11 +16,12 @@ export class LibTests extends LibUserTests {
     opt?: Pick<GetTokensArgT, 'tokenT'>
   ): Promise<PreTestResT<void>> {
     const _lib: LibTests = await this.fromBrowser(brw);
+    const res: TkResT = await _lib.getTk({ use2FA: true, tokenT: opt?.tokenT });
 
     const lib: LibTests = await this.fromBrowser(brw);
 
     return {
-      res: await _lib.getTk({ use2FA: true, tokenT: opt?.tokenT }),
+      res,
       lib,
     };
   }
