@@ -42,6 +42,16 @@ export abstract class UsePathHk {
     cb(path);
   }
 
+  public ifPathEqual(arg: string, cb: (full: string) => void): void {
+    const full: Nullable<string> = this.currPath();
+    if (!full) return;
+
+    const partial: string = full.split('?')[0];
+    if (partial !== arg) return;
+
+    cb(full);
+  }
+
   constructor() {
     this.router.events
       .pipe(filter((e: unknown) => e instanceof NavigationEnd || e instanceof NavigationStart))

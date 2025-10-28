@@ -19,12 +19,16 @@ export class LibCbcHmac {
     }
   }
 
-  public static isOfType(token: Nullable<string>, expected: TokenT): boolean {
-    if (!token || !Reg.isCbcHmac(token)) return false;
+  public static getType(token: Nullable<string>): Nullable<TokenT> {
+    if (!token || !Reg.isCbcHmac(token)) return null;
 
     const aad: Nullable<AadCbcHmacT> = this.aadFrom(token);
-    if (!aad) return false;
+    return aad?.tokenT ?? null;
+  }
 
-    return aad.tokenT === expected;
+  public static isOfType(token: Nullable<string>, expected: TokenT): boolean {
+    const t: Nullable<TokenT> = this.getType(token);
+
+    return t === expected;
   }
 }

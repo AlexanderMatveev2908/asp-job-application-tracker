@@ -12,7 +12,10 @@ import server.models.token.etc.TokenT;
 import server.models.token.svc.TokenCombo;
 import server.models.token.svc.TokenRepo;
 
-@Service @Transactional @RequiredArgsConstructor @SuppressFBWarnings({ "EI2" })
+@Service
+@Transactional
+@RequiredArgsConstructor
+@SuppressFBWarnings({ "EI2" })
 public class AccessManageAccSvc {
 
   private final TokenCombo tkCombo;
@@ -30,6 +33,8 @@ public class AccessManageAccSvc {
     var user = api.getUser();
 
     return tokenRepo.delByUserIdAndTokenT(user.getId(), TokenT.MANAGE_ACC_2FA)
+        .thenMany(
+            tokenRepo.delByUserIdAndTokenT(user.getId(), TokenT.MANAGE_ACC))
         .then(tkCombo.insertCbcHmac(user.getId(), TokenT.MANAGE_ACC).flatMap(clientToken -> {
           return bkpCombo.delMatchIfUsed(api).thenReturn(clientToken);
         }));
