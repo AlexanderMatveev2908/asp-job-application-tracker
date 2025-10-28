@@ -2,7 +2,7 @@ import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angu
 import { ZodSafeParseResult, ZodType } from 'zod';
 import { LibShapeCheck } from '../lib/data_structure/shape_check';
 import { LibLog } from '../lib/dev/log';
-import { UseSwapHk } from '../hooks/use_swap/use_swap';
+import { UseSwapHk } from '../hooks/swap/use_swap/use_swap';
 import { FocusDOM } from '../lib/dom/focus';
 import { Nullable } from '@/common/types/etc';
 

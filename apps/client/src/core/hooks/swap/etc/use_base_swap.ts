@@ -1,12 +1,12 @@
-import { computed, Injectable, Signal, signal, WritableSignal } from '@angular/core';
-import { ConfSwapT, SwapModeT, SwapStateT } from './etc/types';
-import { LibEtc } from '@/core/lib/etc';
-import { FocusDOM } from '@/core/lib/dom/focus';
 import { TimerIdT } from '@/common/types/etc';
-import { UseInjCtxHk } from '../use_inj_ctx';
+import { LibEtc } from '@/core/lib/etc';
+import { computed, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { SwapModeT, SwapStateT } from './types';
+import { UseInjCtxHk } from '../../use_inj_ctx';
+import { UseSwapHk } from '../use_swap/use_swap';
 
 @Injectable()
-export class UseSwapHk extends UseInjCtxHk {
+export abstract class UseBaseSwapHk extends UseInjCtxHk {
   // | added little margin 100ms
   // | normal tim would be 400
   // eslint-disable-next-line no-magic-numbers
@@ -18,10 +18,10 @@ export class UseSwapHk extends UseInjCtxHk {
     swap: 0,
   });
 
-  private timerID: TimerIdT = null;
+  protected timerID: TimerIdT = null;
 
   // ? private helpers
-  private clearTmr(): void {
+  protected clearTmr(): void {
     this.timerID = LibEtc.clearTmrID(this.timerID);
   }
 
@@ -41,31 +41,15 @@ export class UseSwapHk extends UseInjCtxHk {
     }, UseSwapHk.TIME_ANIMATION);
   };
 
-  // ? shared helpers
-  public focusWhen(...kwargs: string[]): void {
-    const { swap, mode } = this.swapState();
-    if (mode === 'swapped') FocusDOM.bySwap(kwargs, swap);
-  }
-
+  // ? listeners
   public getOpacity(idx: number): Signal<number> {
     return computed(() => (idx === this.swapState().swap ? 1 : 0));
   }
 
-  // ? listeners
   public readonly setSwap: (val: number) => void = (val: number) => {
     this._setSwap(val, 'swapped');
   };
   public readonly setSwapOnErr: (val: number) => void = (val: number) => {
     this._setSwap(val, 'idle');
   };
-
-  // ? derived
-  public readonly confSwap: (idx: number) => Signal<ConfSwapT> = (idx: number) =>
-    computed(() => {
-      const state: SwapStateT = this.swapState();
-      return {
-        ...state,
-        isCurr: this.swapState().swap === idx,
-      };
-    });
 }

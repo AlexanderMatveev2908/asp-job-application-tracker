@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { Swapper } from '@/common/components/swap/swapper/swapper';
-import { UseSwapHk } from '@/core/hooks/use_swap/use_swap';
+import { UseSwapHk } from '@/core/hooks/swap/use_swap/use_swap';
 import { ChangeMailForm } from './swap_forms/change_mail_form/change-mail-form';
 import { ChangePwdForm } from './swap_forms/change_pwd_form/change-pwd-form';
 import { Setup2fa } from './swap_forms/setup_2fa/setup-2fa';

@@ -34,3 +34,7 @@ export interface TxtSvgFieldT extends TxtFieldT {
 export interface CheckFieldT extends BaseFieldT {
   type: CheckInputT;
 }
+
+export interface CheckBoxFieldT extends CheckFieldT {
+  val: string;
+}

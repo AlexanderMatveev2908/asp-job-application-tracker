@@ -16,7 +16,7 @@ import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { Setup2faReturnT } from '@/features/user/etc/types';
 import { CpyPaste } from '@/common/components/hoc/cpy_paste/cpy-paste';
-import { ConfSwapT } from '@/core/hooks/use_swap/etc/types';
+import { ConfSwapT } from '@/core/hooks/swap/etc/types';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 import { LibPrs } from '@/core/lib/data_structure/prs';
 import { LinkShadow } from '@/common/components/links/link_shadow/link-shadow';

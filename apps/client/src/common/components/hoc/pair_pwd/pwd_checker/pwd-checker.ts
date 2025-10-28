@@ -1,5 +1,5 @@
 import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
-import { ConfSwapT } from '@/core/hooks/use_swap/etc/types';
+import { ConfSwapT } from '@/core/hooks/swap/etc/types';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,

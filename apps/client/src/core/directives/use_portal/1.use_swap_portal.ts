@@ -1,5 +1,5 @@
 import { computed, Directive, input, InputSignal, Signal } from '@angular/core';
-import { ConfSwapT } from '../../hooks/use_swap/etc/types';
+import { ConfSwapT } from '../../hooks/swap/etc/types';
 import { UsePortalDir } from './0.use_portal';
 import { Nullable } from '@/common/types/etc';
 

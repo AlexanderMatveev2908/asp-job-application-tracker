@@ -3,7 +3,7 @@ import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { UseKitPairPwdFormHk } from '@/core/forms/pair_pwd/etc/hooks/use_kit_pair_pwd';
 import { FormPairPwd } from '@/core/forms/pair_pwd/form-pair-pwd';
 import { Observable, tap } from 'rxjs';
-import { ConfSwapT } from '@/core/hooks/use_swap/etc/types';
+import { ConfSwapT } from '@/core/hooks/swap/etc/types';
 import { UseKitStrategyDir } from '@/core/directives/forms/kits/use_kit_strategy';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { UseKitFormUserSvc } from '@/features/user/etc/services/use_kit_form_user';
