@@ -1,0 +1,14 @@
+<div class="root">
+  <div class="root__content">
+    <app-form-field-txt
+      appUseFormFieldDir
+      [ctrl]="getCtrl('companyName')"
+      [f]="first2Rows[0]"
+      [focusOnMount]="true"
+    />
+
+    <app-form-field-txt appUseFormFieldDir [ctrl]="getCtrl('positionName')" [f]="first2Rows[1]" />
+  </div>
+
+  <app-form-submit [isPending]="apiTracker.isPending()" appUseIDsDir />
+</div>
