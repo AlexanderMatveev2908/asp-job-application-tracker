@@ -40,10 +40,10 @@ export class Tooltip {
   public readonly twdPosition: Signal<string> = computed(() =>
     this.arrowOn() === 'left' ? 'left-0' : 'right-0'
   );
-  public readonly eventMeta: Signal<AppEventMetaT> = computed(() =>
-    MetaEventDOM.byT(this.eventT())
-  );
   public readonly twdArrow: Signal<string> = computed(() =>
     this.arrowOn() === 'left' ? 'left-[12.5%]' : 'right-[12.5%]'
+  );
+  public readonly eventMeta: Signal<AppEventMetaT> = computed(() =>
+    MetaEventDOM.byT(this.eventT())
   );
 }

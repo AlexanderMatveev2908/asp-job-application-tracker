@@ -20,10 +20,13 @@ import { DynamicSwapItem } from './dynamic_swap_item/dynamic-swap-item';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { SwapBtns } from '../swap_btns/swap-btns';
 import { OpacityT } from '@/common/types/css';
+import { FormControl } from '@angular/forms';
+import { FormFieldErr } from '../../forms/form_field_err/form-field-err';
+import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
 
 @Component({
   selector: 'app-dynamic-swapper',
-  imports: [DynamicSwapItem, SwapBtns, UseIDsDir],
+  imports: [DynamicSwapItem, SwapBtns, UseIDsDir, FormFieldErr, UseFormFieldDir],
   templateUrl: './dynamic-swapper.html',
   styleUrl: './dynamic-swapper.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,6 +40,7 @@ export class DynamicSwapper extends UseInjCtxHk implements AfterViewInit {
   public readonly setSwap: InputSignal<(v: number) => void> = input.required();
   public readonly fields: InputSignal<CheckBoxFieldT[]> = input.required();
   public readonly label: InputSignal<string> = input.required();
+  public readonly ctrl: InputSignal<FormControl> = input.required();
 
   // ? local state
   public readonly paginationState: WritableSignal<PaginationSwapStateT> = signal({

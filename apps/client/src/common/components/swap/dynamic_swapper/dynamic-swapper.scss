@@ -6,13 +6,17 @@
   }
 
   .root__content {
-    @apply overflow-hidden w-full;
+    @apply w-full h-full relative;
 
-    .content__swapper {
-      transition: transform 0.4s;
-      transform: var(--trs);
-      grid-template-columns: var(--grid_conf);
-      @apply grid;
+    .content__wrap {
+      @apply w-full overflow-hidden;
+
+      .wrap__swapper {
+        transition: transform 0.4s;
+        transform: var(--trs);
+        grid-template-columns: var(--grid_conf);
+        @apply grid;
+      }
     }
   }
 

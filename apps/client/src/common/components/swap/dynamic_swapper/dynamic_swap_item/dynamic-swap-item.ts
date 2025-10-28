@@ -3,6 +3,7 @@ import { OpacityT } from '@/common/types/css';
 import { CheckBoxFieldT } from '@/common/types/forms';
 import { PaginationSwapStateT } from '@/core/hooks/swap/etc/types';
 import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-dynamic-swap-item',
@@ -17,4 +18,5 @@ export class DynamicSwapItem {
   public readonly paginationState: InputSignal<Omit<PaginationSwapStateT, 'swapIDs'>> =
     input.required();
   public readonly currOpacity: InputSignal<OpacityT> = input<OpacityT>('1');
+  public readonly ctrl: InputSignal<FormControl> = input.required();
 }

@@ -4,6 +4,7 @@ import { UseDynamicSwapHk } from '@/core/hooks/swap/use_dynamic_swap';
 import { v4 } from 'uuid';
 import { CheckBoxFieldT } from '@/common/types/forms';
 import { UseIDsDir } from '@/core/directives/use_ids';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-application-statuses',
@@ -13,7 +14,7 @@ import { UseIDsDir } from '@/core/directives/use_ids';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ApplicationStatuses extends UseDynamicSwapHk {
-  public readonly label: InputSignal<string> = input.required();
+  public readonly ctrl: InputSignal<FormControl> = input.required();
 
   public readonly data: CheckBoxFieldT[] = Array.from(
     { length: 30 },
