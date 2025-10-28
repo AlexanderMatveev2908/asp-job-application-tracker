@@ -1,6 +1,6 @@
 import { TimerIdT } from '@/common/types/etc';
 import { LibEtc } from '@/core/lib/etc';
-import { computed, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 import { SwapModeT, SwapStateT } from './types';
 import { UseInjCtxHk } from '../../use_inj_ctx';
 import { UseSwapHk } from '../use_swap/use_swap';
@@ -42,10 +42,6 @@ export abstract class UseBaseSwapHk extends UseInjCtxHk {
   };
 
   // ? listeners
-  public getOpacity(idx: number): Signal<number> {
-    return computed(() => (idx === this.swapState().swap ? 1 : 0));
-  }
-
   public readonly setSwap: (val: number) => void = (val: number) => {
     this._setSwap(val, 'swapped');
   };

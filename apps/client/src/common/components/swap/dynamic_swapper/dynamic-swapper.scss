@@ -1,8 +1,22 @@
 .root {
-  @apply w-full flex flex-col gap-10;
+  @apply w-full flex flex-col gap-6;
+
+  .root__label {
+    @apply flex justify-start;
+  }
 
   .root__content {
-    grid-template-columns: var(--grid_conf);
-    @apply grid;
+    @apply overflow-hidden w-full;
+
+    .content__swapper {
+      transition: transform 0.4s;
+      transform: var(--trs);
+      grid-template-columns: var(--grid_conf);
+      @apply grid;
+    }
+  }
+
+  .root__btns {
+    @apply w-full mt-4 px-4 sm:px-6;
   }
 }

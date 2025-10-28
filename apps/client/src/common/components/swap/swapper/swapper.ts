@@ -14,10 +14,10 @@ import {
   Signal,
   WritableSignal,
 } from '@angular/core';
-import { SwapBtns } from './swap_btns/swap-btns';
 import { ElDomT, Nullable, Opt, RefDomT } from '@/common/types/etc';
 import { ErrApp } from '@/core/lib/err';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
+import { SwapBtns } from '../swap_btns/swap-btns';
 
 @Component({
   selector: 'app-swapper',

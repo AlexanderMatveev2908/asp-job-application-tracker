@@ -1,7 +1,26 @@
-<div class="root tb">
-  <div class="root__content" [style.--grid_conf]="gridConf()">
-    @for(id of paginationState().swapsIDs; track id; let idx = $index){
-    <app-dynamic-swap-item [fields]="getItems(idx)" [paginationState]="paginationState()" />
-    }
+<div class="root" [attr.data-testid]="useIDsDir.swapperVarID()">
+  <div class="root__label">
+    <span class="txt__lg"> {{ label() }}</span>
+  </div>
+
+  <div class="root__content">
+    <div class="content__swapper" [style.--grid_conf]="gridConf()" [style.--trs]="translate()">
+      @for(id of paginationState().swapsIDs; track id; let idx = $index){
+      <app-dynamic-swap-item
+        [fields]="getItems(idx)"
+        [paginationState]="paginationState()"
+        [currOpacity]="currOpacity(idx)"
+      />
+      }
+    </div>
+  </div>
+
+  <div class="root__btns">
+    <app-swap-btns
+      [prefixTestId]="useIDsDir.swapperVarID() ?? ''"
+      [swap]="swapState().swap"
+      [setSwap]="setSwap()"
+      [maxSwaps]="paginationState().swapsIDs.length"
+    />
   </div>
 </div>

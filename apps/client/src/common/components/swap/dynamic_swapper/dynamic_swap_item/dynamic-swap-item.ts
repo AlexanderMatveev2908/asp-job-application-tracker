@@ -1,4 +1,5 @@
 import { FormFieldBoxLg } from '@/common/components/forms/form_field_box_lg/form-field-box-lg';
+import { OpacityT } from '@/common/types/css';
 import { CheckBoxFieldT } from '@/common/types/forms';
 import { PaginationSwapStateT } from '@/core/hooks/swap/etc/types';
 import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
@@ -15,4 +16,5 @@ export class DynamicSwapItem {
   public readonly fields: InputSignal<CheckBoxFieldT[]> = input.required();
   public readonly paginationState: InputSignal<Omit<PaginationSwapStateT, 'swapIDs'>> =
     input.required();
+  public readonly currOpacity: InputSignal<OpacityT> = input<OpacityT>('1');
 }

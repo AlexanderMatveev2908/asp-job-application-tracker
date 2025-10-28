@@ -11,6 +11,11 @@ export class UseSwapHk extends UseBaseSwapHk {
     if (mode === 'swapped') FocusDOM.bySwap(kwargs, swap);
   }
 
+  // ? helpers
+  public getOpacity(idx: number): Signal<number> {
+    return computed(() => (idx === this.swapState().swap ? 1 : 0));
+  }
+
   // ? derived
   public readonly confSwap: (idx: number) => Signal<ConfSwapT> = (idx: number) =>
     computed(() => {

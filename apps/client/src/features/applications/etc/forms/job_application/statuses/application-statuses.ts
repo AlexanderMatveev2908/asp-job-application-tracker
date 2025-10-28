@@ -3,10 +3,11 @@ import { DynamicSwapper } from '@/common/components/swap/dynamic_swapper/dynamic
 import { UseDynamicSwapHk } from '@/core/hooks/swap/use_dynamic_swap';
 import { v4 } from 'uuid';
 import { CheckBoxFieldT } from '@/common/types/forms';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-application-statuses',
-  imports: [DynamicSwapper],
+  imports: [DynamicSwapper, UseIDsDir],
   templateUrl: './application-statuses.html',
   styleUrl: './application-statuses.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
