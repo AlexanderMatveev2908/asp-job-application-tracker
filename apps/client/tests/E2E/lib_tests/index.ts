@@ -11,6 +11,20 @@ export class LibTests extends LibUserTests {
     return new LibTests(page);
   }
 
+  public static async with2faUser(
+    brw: Browser,
+    opt?: Pick<GetTokensArgT, 'tokenT'>
+  ): Promise<PreTestResT<void>> {
+    const _lib: LibTests = await this.fromBrowser(brw);
+
+    const lib: LibTests = await this.fromBrowser(brw);
+
+    return {
+      res: await _lib.getTk({ use2FA: true, tokenT: opt?.tokenT }),
+      lib,
+    };
+  }
+
   public static async withAccessAccount(
     brw: Browser,
     opt?: Pick<GetTokensArgT, 'tokenT' | 'verify'>
