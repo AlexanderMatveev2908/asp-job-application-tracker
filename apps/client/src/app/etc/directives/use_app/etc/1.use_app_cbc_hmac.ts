@@ -52,11 +52,13 @@ export abstract class UseAppCbcHmacDir extends UseAppAuthDir {
   }
 
   private isOutOfPlace(tokenT: TokenT, goingTo: string): boolean {
+    const partial: string = goingTo.split('?')[0];
+
     return (
-      (tokenT === TokenT.MANAGE_ACC && !goingTo.startsWith('/user/manage-account')) ||
-      (tokenT === TokenT.RECOVER_PWD && !goingTo.startsWith('/auth/recover-pwd')) ||
-      (tokenT === TokenT.LOGIN_2FA && !goingTo.startsWith('/auth/login-2fa')) ||
-      (tokenT === TokenT.MANAGE_ACC_2FA && !goingTo.startsWith('/user/access-manage-account-2fa'))
+      (tokenT === TokenT.MANAGE_ACC && partial !== '/user/manage-account') ||
+      (tokenT === TokenT.RECOVER_PWD && partial !== '/auth/recover-pwd') ||
+      (tokenT === TokenT.LOGIN_2FA && partial !== '/auth/login-2fa') ||
+      (tokenT === TokenT.MANAGE_ACC_2FA && partial !== '/user/access-manage-account-2fa')
     );
   }
 

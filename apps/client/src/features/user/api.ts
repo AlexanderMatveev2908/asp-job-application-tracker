@@ -6,6 +6,7 @@ import { PwdFormT } from '@/core/paperwork/etc/pwd';
 import { CbcHmacMandatoryT } from '../cbcHmac/etc/types';
 import { LibApiArgs } from '@/core/store/api/etc/lib/api_args';
 import { MailFormT } from '@/core/paperwork/etc/mail';
+import { Form2faT } from '@/common/types/etc';
 
 @Injectable({
   providedIn: 'root',
@@ -59,6 +60,15 @@ export class UserApiSvc {
         .body(data)
         .toastOnFulfilled()
         .pushOnStatus([StatusT.UNAUTHORIZED])
+    );
+  }
+
+  public accessManageAcc2fa(data: Form2faT): ObsOnOkT<CbcHmacMandatoryT> {
+    return this.api.post(
+      LibApiArgs.withURL(`${this.base}/manage-account-2FA`)
+        .body(data)
+        .pushOnCbcHmacErr()
+        .toastOnFulfilled()
     );
   }
 }

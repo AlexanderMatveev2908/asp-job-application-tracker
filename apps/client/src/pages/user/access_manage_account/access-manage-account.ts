@@ -36,7 +36,7 @@ export class AccessManageAccount implements OnInit {
           ? 'access-manage-account-2fa'
           : 'manage-account';
 
-        void this.useNav.replace(`/user/${to}`, { from: 'ok' });
+        void this.useNav.replace(`/user/${to}`);
       })
     );
 

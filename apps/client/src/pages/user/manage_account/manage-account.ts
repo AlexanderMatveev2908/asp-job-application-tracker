@@ -48,7 +48,6 @@ export class ManageAccount extends UseSwapHk implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.useRouteMng.pushOutIfNotTokenType('/user/manage-account', TokenT.MANAGE_ACC, {
       pushTo: '/user/access-manage-account',
-      from: 'ok',
     });
   }
 
