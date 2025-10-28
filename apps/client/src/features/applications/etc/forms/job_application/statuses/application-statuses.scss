@@ -1,0 +1,11 @@
+.root {
+  @apply flex flex-col gap-8;
+
+  .root__label {
+    @apply flex justify-start;
+  }
+
+  .root__swapper {
+    @apply w-full;
+  }
+}

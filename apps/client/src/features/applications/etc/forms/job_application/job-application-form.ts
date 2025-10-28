@@ -11,10 +11,18 @@ import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 import { FormSubmit } from '@/common/components/forms/form_submit/form-submit';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { of } from 'rxjs';
+import { ApplicationStatuses } from './statuses/application-statuses';
 
 @Component({
   selector: 'app-job-application-form',
-  imports: [FormFieldTxt, UseFormFieldDir, FormSubmit, UseIDsDir, ReactiveFormsModule],
+  imports: [
+    FormFieldTxt,
+    UseFormFieldDir,
+    FormSubmit,
+    UseIDsDir,
+    ReactiveFormsModule,
+    ApplicationStatuses,
+  ],
   templateUrl: './job-application-form.html',
   styleUrl: './job-application-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
