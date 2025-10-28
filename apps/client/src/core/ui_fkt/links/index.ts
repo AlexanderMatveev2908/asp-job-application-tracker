@@ -9,6 +9,7 @@ import { SvgFillVerify } from '@/common/components/svgs/fill/verify/verify';
 import { Nullable } from '@/common/types/etc';
 import { SpanLinkPropsT } from '@/common/components/els/span/etc/types';
 import { SvgFillSecurity } from '@/common/components/svgs/fill/security/security';
+import { SvgFillApplyJob } from '@/common/components/svgs/fill/apply_job/apply-job';
 
 export class LinksUiFkt extends RootUiFkt {
   private static readonly _allUsers: Omit<SpanLinkPropsT, 'id' | 'eventT'>[] = [
@@ -21,6 +22,11 @@ export class LinksUiFkt extends RootUiFkt {
       label: 'Job Applications',
       path: '/job-applications',
       Svg: SvgFillBriefcase,
+    },
+    {
+      label: 'Add Application',
+      path: '/job-applications/post',
+      Svg: SvgFillApplyJob,
     },
   ];
 
