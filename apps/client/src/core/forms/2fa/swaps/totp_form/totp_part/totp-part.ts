@@ -96,6 +96,10 @@ export class TotpPart {
 
         this.blurOnPaste(realIdx);
 
+        const currDigits: string[] = this.form().value.totp;
+        const currCode: string = currDigits.join('');
+        if (!Reg.isTotpCode(currCode)) return;
+
         const form: Nullable<HTMLFormElement> = document.querySelector(
           `[data-testid="${this.formID()}"]`
         );
