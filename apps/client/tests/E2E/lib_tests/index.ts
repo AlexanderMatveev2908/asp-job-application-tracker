@@ -1,9 +1,9 @@
 import { Browser, BrowserContext, Locator, Page } from '@playwright/test';
 import { GetTokensArgT } from './etc/sub_classes/5.api';
 import { PreTestResT, TkResT } from './etc/types';
-import { LibAuthTests } from './etc/sub_classes/6.auth';
+import { LibUserTests } from './etc/sub_classes/7.user';
 
-export class LibTests extends LibAuthTests {
+export class LibTests extends LibUserTests {
   public static async fromBrowser(browser: Browser): Promise<LibTests> {
     const newCtx: BrowserContext = await browser.newContext();
     const page: Page = await newCtx.newPage();
@@ -23,6 +23,38 @@ export class LibTests extends LibAuthTests {
       lib,
       swapper,
       res,
+    };
+  }
+
+  public static async withAccessAccTotp(brw: Browser): Promise<PreTestResT<{ swapper: Locator }>> {
+    const lib: LibTests = await this.fromBrowser(brw);
+    const res: TkResT = await lib.getTk({ use2FA: true });
+
+    const swapper: Locator = await lib.getAccessAccountTotp({
+      pwd: res.plainPwd,
+      totpSecret: res.totpSecret!,
+    });
+
+    return {
+      lib,
+      res,
+      swapper,
+    };
+  }
+
+  public static async withAccessAccBkp(brw: Browser): Promise<PreTestResT<{ swapper: Locator }>> {
+    const lib: LibTests = await this.fromBrowser(brw);
+    const res: TkResT = await lib.getTk({ use2FA: true });
+
+    const swapper: Locator = await lib.getAccessAccountBkp({
+      pwd: res.plainPwd,
+      bkpCodes: res.bkpCodes!,
+    });
+
+    return {
+      lib,
+      res,
+      swapper,
     };
   }
 }
