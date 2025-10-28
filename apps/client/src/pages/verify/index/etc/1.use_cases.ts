@@ -59,7 +59,7 @@ export abstract class UseCasesVerifyDir extends UseMngVerifyDir {
 
     this.useNavKit.pushNotice({
       eventT: 'OK',
-      msg: res.msg ?? 'email address changes',
+      msg: res.msg ?? 'email address changed',
       status: 200,
     });
   }
