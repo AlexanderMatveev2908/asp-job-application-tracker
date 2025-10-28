@@ -1,19 +1,16 @@
-// @ts-check
-const eslint = require('@eslint/js');
-const tseslint = require('typescript-eslint');
-const angular = require('angular-eslint');
-const path = require('node:path');
+import path from 'path';
+import { fileURLToPath } from 'url';
+import eslint from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import angular from 'angular-eslint';
 
-module.exports = tseslint.config(
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export default tseslint.config(
   {
     files: ['**/*.ts'],
-    ignores: [
-      'vite.config.ts',
-      'vitest.config.ts',
-      'tailwind.config.ts',
-      'playwright.config.ts',
-      'eslint.config.js',
-    ],
+    ignores: ['vite.config.ts', 'vitest.config.ts', 'tailwind.config.ts', 'playwright.config.ts'],
     languageOptions: {
       parserOptions: {
         project: [
