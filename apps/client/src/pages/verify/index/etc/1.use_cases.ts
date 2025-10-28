@@ -44,9 +44,8 @@ export abstract class UseCasesVerifyDir extends UseMngVerifyDir {
           this.cbcHmacSlice.saveCbcHmac(cbcHmac, { startTmr: false });
         }),
         switchMap((res: ResApiT<RecoverPwdResT>) => {
-          const suffix: string = res.strategy2FA ? '-2fa' : '';
-
-          return from(this.useNavKit.useNav.replace(`/auth/recover-pwd${suffix}`, { from: 'ok' }));
+          const path: string = res.strategy2FA ? '/verify/recover-pwd-2fa' : '/auth/recover-pwd';
+          return from(this.useNavKit.useNav.replace(`${path}`));
         })
       )
       .subscribe();
