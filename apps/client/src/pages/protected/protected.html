@@ -1,5 +1,7 @@
 <app-page-wrapper [waitClient]="false" [isPending]="fetchingUser()">
-  <div class="root">
-    <p>Protected generated 🎉</p>
-  </div>
+  <ng-template #contentRef>
+    <div class="root">
+      <p>Protected generated 🎉</p>
+    </div>
+  </ng-template>
 </app-page-wrapper>
