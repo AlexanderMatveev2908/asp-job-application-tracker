@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
+import { DynamicSwapper } from '@/common/components/swap/dynamic_swapper/dynamic-swapper';
 
 @Component({
   selector: 'app-application-statuses',
-  imports: [],
+  imports: [DynamicSwapper],
   templateUrl: './application-statuses.html',
   styleUrl: './application-statuses.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
