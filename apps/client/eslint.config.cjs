@@ -7,6 +7,13 @@ const path = require('node:path');
 module.exports = tseslint.config(
   {
     files: ['**/*.ts'],
+    ignores: [
+      'vite.config.ts',
+      'vitest.config.ts',
+      'tailwind.config.ts',
+      'playwright.config.ts',
+      'eslint.config.js',
+    ],
     languageOptions: {
       parserOptions: {
         project: [

@@ -1,4 +1,3 @@
-/* eslint-disable no-magic-numbers */
 import { defineConfig } from '@playwright/test';
 import 'dotenv/config';
 
