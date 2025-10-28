@@ -1,6 +1,6 @@
 import { Nullable } from '@/common/types/etc';
 import { computed, Directive, input, InputSignal, Signal } from '@angular/core';
-import { LibPrs } from '../lib/data_structure/prs';
+import { Form2faTestIdT } from '../forms/2fa/etc/directives/use_form_2fa';
 
 @Directive({
   selector: '[appUseIDsDir]',
@@ -20,7 +20,9 @@ export class UseIDsDir {
   );
 
   public readonly swapBtnVarID: (idx: number) => Signal<Nullable<string>> = (idx: number) =>
-    computed(() =>
-      this.ifTestID(LibPrs.toSnake(this.testId() + (!idx ? '_prev_swap' : '_next_swap')))
-    );
+    computed(() => this.ifTestID(this.testId() + (!idx ? '_prev_swap' : '_next_swap')));
+
+  public readonly form2faVarID: (t: Form2faTestIdT) => Signal<Nullable<string>> = (
+    t: Form2faTestIdT
+  ) => computed(() => this.ifTestID(`${this.testId()}__swapper__${t}_form`));
 }

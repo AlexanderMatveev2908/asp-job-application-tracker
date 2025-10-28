@@ -12,14 +12,16 @@
           <app-totp-form
             appUseForm2faDir
             [strategy]="strategy()"
-            [prefixTestID]="useIDs.testId()!"
+            appUseIDsDir
+            [testId]="useIDs.testId()!"
           />
         </div>
         <div #swapDiv class="swapper__swap" [style.--opa]="getOpacity(1)()">
           <app-bkp-form
             appUseForm2faDir
             [strategy]="strategy()"
-            [prefixTestID]="useIDs.testId()!"
+            appUseIDsDir
+            [testId]="useIDs.testId()!"
           />
         </div>
       </app-swapper>
