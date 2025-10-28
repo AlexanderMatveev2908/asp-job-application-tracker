@@ -1,5 +1,11 @@
-<div class="root">
-  <span class="txt__lg">
+<button
+  (click)="onClick()"
+  type="button"
+  class="root"
+  [style.--trs]="transform()"
+  [style.--trs_hover]="transformHover()"
+>
+  <span class="txt__lg break-all">
     {{ f().label }}
   </span>
-</div>
+</button>

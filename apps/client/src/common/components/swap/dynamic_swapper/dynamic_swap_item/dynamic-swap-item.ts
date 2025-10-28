@@ -4,10 +4,11 @@ import { CheckBoxFieldT } from '@/common/types/forms';
 import { PaginationSwapStateT } from '@/core/hooks/swap/etc/types';
 import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
 
 @Component({
   selector: 'app-dynamic-swap-item',
-  imports: [FormFieldBoxLg],
+  imports: [FormFieldBoxLg, UseFormFieldDir],
   templateUrl: './dynamic-swap-item.html',
   styleUrl: './dynamic-swap-item.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

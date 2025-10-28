@@ -1,5 +1,5 @@
 .root {
-  @apply w-full flex flex-col gap-6;
+  @apply w-full flex flex-col;
 
   .root__label {
     @apply flex justify-start;
@@ -9,7 +9,7 @@
     @apply w-full h-full relative;
 
     .content__wrap {
-      @apply w-full overflow-hidden;
+      @apply w-full py-6 pb-10 overflow-hidden;
 
       .wrap__swapper {
         transition: transform 0.4s;
@@ -21,6 +21,6 @@
   }
 
   .root__btns {
-    @apply w-full mt-4 px-4 sm:px-6;
+    @apply w-full px-4 sm:px-6;
   }
 }
