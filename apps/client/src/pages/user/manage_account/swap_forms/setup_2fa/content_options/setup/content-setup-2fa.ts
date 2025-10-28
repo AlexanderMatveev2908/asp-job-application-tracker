@@ -67,10 +67,6 @@ export class ContentSetup2fa extends UseInjCtxHk implements OnInit {
 
   ngOnInit(): void {
     this.useEffect(() => {
-      console.log(LibPrs.prettyPrintCols(this.resSetup2FA()?.backupCodes));
-    });
-
-    this.useEffect(() => {
       const timerCalcHeightForParent: number = 500;
 
       if (this.resSetup2FA())
