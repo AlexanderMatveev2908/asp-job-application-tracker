@@ -1,8 +1,9 @@
 import { UseApiSvc } from '@/core/store/api/use_api';
 import { ObsOnOkT } from '@/core/store/api/etc/types';
 import { inject, Injectable } from '@angular/core';
-import { JwtResT } from '../auth/etc/types';
+import { JwtOrCbcHmacResT, JwtResT } from '../auth/etc/types';
 import { LibApiArgs } from '@/core/store/api/etc/lib/api_args';
+import { Form2faT } from '@/common/types/etc';
 
 export interface RecoverPwdResT {
   strategy2FA: boolean;
@@ -37,7 +38,7 @@ export class VerifyApiSvc {
     );
   }
 
-  public confNewMail(cbcHmacToken: string): ObsOnOkT<JwtResT> {
+  public confNewMail(cbcHmacToken: string): ObsOnOkT<JwtOrCbcHmacResT> {
     return this.api.get(
       LibApiArgs.withURL(`${this.base}/new-email`)
         .query({
@@ -45,6 +46,15 @@ export class VerifyApiSvc {
         })
         .toastOnFulfilled()
         .pushOnErr()
+    );
+  }
+
+  public confNewMail2fa(data: Form2faT): ObsOnOkT<JwtResT> {
+    return this.api.patch(
+      LibApiArgs.withURL(`${this.base}/new-email-2FA`)
+        .body(data)
+        .pushOnCbcHmacErr()
+        .toastOnFulfilled()
     );
   }
 }

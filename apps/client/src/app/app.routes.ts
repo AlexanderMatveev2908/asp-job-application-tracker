@@ -18,12 +18,14 @@ import { AuthReqMailConfMail } from '@/pages/auth/req_mail/conf_mail/auth-req-ma
 import { AuthReqMailRecoverPwd } from '@/pages/auth/req_mail/recover_pwd/auth-req-mail-recover-pwd';
 import { LayoutReqMailAuth } from '@/pages/auth/req_mail/layout/layout-req-mail-auth';
 import { Protected } from '@/pages/protected/protected';
-import { Verify } from '@/pages/verify/verify';
+import { Verify } from '@/pages/verify/index/verify';
 import { LayoutUser } from '@/pages/user/layout/layout-user';
 import { ManageAccount } from '@/pages/user/manage_account/manage-account';
 import { AccessManageAccount } from '@/pages/user/access_manage_account/access-manage-account';
 import { UserVerifyMail } from '@/pages/user/verify_mail/user-verify-mail';
 import { AccessManageAccount2fa } from '../pages/user/access_manage_account_2fa/access-manage-account-2fa';
+import { LayoutVerify } from '@/pages/verify/layout/layout-verify';
+import { ChangeEmail2fa } from '@/pages/verify/change_email_2fa/change-email-2fa';
 
 export const routes: Routes = [
   {
@@ -40,7 +42,17 @@ export const routes: Routes = [
   },
   {
     path: 'verify',
-    component: Verify,
+    component: LayoutVerify,
+    children: [
+      {
+        path: '',
+        component: Verify,
+      },
+      {
+        path: 'change-email-2fa',
+        component: ChangeEmail2fa,
+      },
+    ],
   },
   {
     path: 'auth',

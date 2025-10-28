@@ -1,7 +1,7 @@
 <div class="root">
-  @if(((isServer || !isHydrated()) && waitClient() || isPending())){
+  @if((!isHydrated() && waitClient()) || isPending()){
   <app-spin-page-ssr />
   }@else {
-  <ng-content />
+  <ng-container *ngTemplateOutlet="contentRef" />
   }
 </div>

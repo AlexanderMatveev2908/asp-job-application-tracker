@@ -1,32 +1,34 @@
 <app-page-wrapper [waitClient]="true">
-  <div class="root">
-    <div class="root__content" [ngClass]="metaEvent().txtTwd">
-      <div #svgWrap class="content__svg_wrap">
-        <ng-container *ngComponentOutlet="metaEvent().Svg" />
-      </div>
-
-      <div #content class="content__body">
-        <ng-container *ngTemplateOutlet="headerTpl" />
-
-        <div #spanStatus class="body__span">
-          @let dataStatus = props().status|| props().eventT;
-          <span class="text-5xl sm:text-8xl font-extrabold">
-            {{ dataStatus }}
-          </span>
+  <ng-template #contentRef>
+    <div class="root">
+      <div class="root__content" [ngClass]="metaEvent().txtTwd">
+        <div #svgWrap class="content__svg_wrap">
+          <ng-container *ngComponentOutlet="metaEvent().Svg" />
         </div>
 
-        <div #spanMsg class="body__span">
-          <span class="txt__xl">{{ props().msg }}</span>
-        </div>
+        <div #content class="content__body">
+          <ng-container *ngTemplateOutlet="headerTpl" />
 
-        @if(props().tmpt === 'mail'){
-        <ng-container *ngTemplateOutlet="mailTmpt" />
-        }@else {
-        <ng-container *ngTemplateOutlet="footerTpl" />
-        }
+          <div #spanStatus class="body__span">
+            @let dataStatus = props().status|| props().eventT;
+            <span class="text-5xl sm:text-8xl font-extrabold">
+              {{ dataStatus }}
+            </span>
+          </div>
+
+          <div #spanMsg class="body__span">
+            <span class="txt__xl">{{ props().msg }}</span>
+          </div>
+
+          @if(props().tmpt === 'mail'){
+          <ng-container *ngTemplateOutlet="mailTmpt" />
+          }@else {
+          <ng-container *ngTemplateOutlet="footerTpl" />
+          }
+        </div>
       </div>
     </div>
-  </div>
+  </ng-template>
 </app-page-wrapper>
 
 <ng-template #mailTmpt>

@@ -10,7 +10,7 @@ import { UseKitNav } from '@/core/services/use_kit_nav';
 @Directive()
 export abstract class UseMngVerifyDir {
   protected readonly toastSlice: ToastSlice = inject(ToastSlice);
-  protected readonly useKitSideApi: UseKitNav = inject(UseKitNav);
+  protected readonly useNavKit: UseKitNav = inject(UseKitNav);
 
   private readonly verifyTokenT: Set<TokenT> = new Set<TokenT>([
     TokenT.CONF_EMAIL,
@@ -32,7 +32,7 @@ export abstract class UseMngVerifyDir {
 
       this.toastSlice.openToast(payload);
 
-      this.useKitSideApi.pushNotice(payload);
+      this.useNavKit.pushNotice(payload);
 
       return null;
     }
