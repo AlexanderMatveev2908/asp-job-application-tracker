@@ -60,3 +60,5 @@ export class ApplicationFormMng extends FormZodMng {
       { validators: this.checkZ(this.schema) }
     );
 }
+
+export type ApplicationFormT = z.infer<typeof ApplicationFormMng.schema>;

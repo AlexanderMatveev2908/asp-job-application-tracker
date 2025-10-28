@@ -1,16 +1,18 @@
-<div class="root">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="root">
   <div class="root__content">
     <app-form-field-txt
       appUseFormFieldDir
       [ctrl]="getCtrl('companyName')"
-      [f]="first2Rows[0]"
+      [f]="txtInputs[0]"
       [focusOnMount]="true"
     />
 
-    <app-form-field-txt appUseFormFieldDir [ctrl]="getCtrl('positionName')" [f]="first2Rows[1]" />
+    <app-form-field-txt appUseFormFieldDir [ctrl]="getCtrl('positionName')" [f]="txtInputs[1]" />
 
-    <app-form-field-txt appUseFormFieldDir [ctrl]="getCtrl('notes')" [f]="first2Rows[2]" />
+    <app-form-field-txt appUseFormFieldDir [ctrl]="getCtrl('notes')" [f]="txtInputs[2]" />
+
+    <app-form-field-txt appUseFormFieldDir [ctrl]="getCtrl('appliedAt')" [f]="txtInputs[3]" />
   </div>
 
   <app-form-submit [isPending]="apiTracker.isPending()" appUseIDsDir />
-</div>
+</form>
