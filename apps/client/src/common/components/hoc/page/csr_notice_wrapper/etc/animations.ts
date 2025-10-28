@@ -1,23 +1,18 @@
-import { ElDomT, RefDomT } from '@/common/types/etc';
+import { ElDomT } from '@/common/types/etc';
 import { animate, AnimationOptionsWithOverrides } from '@motionone/dom';
 
 export class NoticeAnimations {
   public static main({
-    svgWrap,
-    content,
-    spanMsg,
-    spanStatus,
+    svgDOM,
+    spanMsgDOM,
+    spanStatusDOM,
+    contentDOM,
   }: {
-    svgWrap: RefDomT;
-    spanMsg: RefDomT;
-    spanStatus: RefDomT;
-    content: RefDomT;
+    svgDOM: ElDomT;
+    spanMsgDOM: ElDomT;
+    spanStatusDOM: ElDomT;
+    contentDOM: ElDomT;
   }): void {
-    const svgDOM: ElDomT = svgWrap?.nativeElement;
-    const spanMsgDOM: ElDomT = spanMsg?.nativeElement;
-    const spanStatusDOM: ElDomT = spanStatus?.nativeElement;
-    const contentDOM: ElDomT = content?.nativeElement;
-
     if ([svgDOM, spanMsgDOM, spanStatusDOM, contentDOM].some((el: ElDomT) => !el)) return;
 
     animate(

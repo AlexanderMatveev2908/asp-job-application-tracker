@@ -68,6 +68,7 @@ export abstract class UseAppCbcHmacDir extends UseAppAuthDir {
     [TokenT.LOGIN_2FA, this.notSamePath('/auth/login-2fa')],
     [TokenT.MANAGE_ACC_2FA, this.notSamePath('/user/access-manage-account-2fa')],
     [TokenT.CHANGE_EMAIL_2FA, this.notSamePath('/verify/change-email-2fa')],
+    [TokenT.RECOVER_PWD_2FA, this.notSamePath('/auth/recover-pwd-2fa')],
   ]);
 
   private isOutOfPlace(tokenT: TokenT, goingTo: string): boolean {

@@ -5,7 +5,6 @@ import {
   Component,
   computed,
   ContentChild,
-  inject,
   input,
   InputSignal,
   Signal,
@@ -13,8 +12,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MetaEventDOM } from '@/core/lib/dom/meta_event/meta_event';
-import { UsePlatformSvc } from '@/core/services/use_platform';
-import { RefDomT, RefTemplateT } from '@/common/types/etc';
+import { ElDomT, RefTemplateT } from '@/common/types/etc';
 import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
 import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';
 import { NoticeAnimations } from './etc/animations';
@@ -24,6 +22,7 @@ import { envVars } from '@/environments/environment';
 import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
 import { UseSpanDir } from '@/core/directives/use_span';
 import { UseIDsDir } from '@/core/directives/use_ids';
+import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 
 @Component({
   selector: 'app-csr-notice-wrapper',
@@ -41,9 +40,7 @@ import { UseIDsDir } from '@/core/directives/use_ids';
   styleUrl: './csr-notice-wrapper.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CsrNoticeWrapper implements AfterViewInit {
-  private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
-
+export class CsrNoticeWrapper extends UseInjCtxHk implements AfterViewInit {
   // ? personal props
   public readonly props: InputSignal<NoticeWrapperPropsT> = input.required();
 
@@ -61,11 +58,9 @@ export class CsrNoticeWrapper implements AfterViewInit {
   // ? derived
   public metaEvent: Signal<AppEventMetaT> = computed(() => MetaEventDOM.byT(this.props().eventT));
 
-  // ? children
-  @ViewChild('svgWrap') svgWrap: RefDomT;
-  @ViewChild('spanMsg') spanMsg: RefDomT;
-  @ViewChild('spanStatus') spanStatus: RefDomT;
-  @ViewChild('content') content: RefDomT;
+  // ? tmpl
+  @ViewChild('contentRef', { read: TemplateRef })
+  public contentRef: RefTemplateT;
 
   // ? projected
   @ContentChild('header', { read: TemplateRef }) headerTpl: RefTemplateT;
@@ -75,11 +70,18 @@ export class CsrNoticeWrapper implements AfterViewInit {
   ngAfterViewInit(): void {
     if (!this.usePlatform.isClient) return;
 
-    NoticeAnimations.main({
-      content: this.content,
-      spanMsg: this.spanMsg,
-      spanStatus: this.spanStatus,
-      svgWrap: this.svgWrap,
+    this.useDOM(() => {
+      const svgDOM: ElDomT = document.getElementById('csr_notice__svg_wrap');
+      const contentDOM: ElDomT = document.getElementById('csr_notice__content');
+      const spanStatusDOM: ElDomT = document.getElementById('csr_notice__span_status');
+      const spanMsgDOM: ElDomT = document.getElementById('csr_notice__span_msg');
+
+      NoticeAnimations.main({
+        contentDOM,
+        spanMsgDOM,
+        spanStatusDOM,
+        svgDOM,
+      });
     });
   }
 }

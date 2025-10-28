@@ -1,3 +1,9 @@
-<div class="root">
-  <p>RecoverPwd2fa generated 🎉</p>
-</div>
+<app-csr-with-title [title]="'Recover Password'">
+  <app-form-pair-pwd
+    appUseKitStrategy
+    [strategy]="strategy"
+    [useFullPage]="true"
+    appUseIDsDir
+    [testId]="'recover_pwd_2fa_form'"
+  />
+</app-csr-with-title>
