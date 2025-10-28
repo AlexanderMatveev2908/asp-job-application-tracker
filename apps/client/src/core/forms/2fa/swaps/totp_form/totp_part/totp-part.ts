@@ -27,6 +27,7 @@ export class TotpPart {
   public readonly skip: InputSignal<number> = input.required();
   public readonly formCtrl: InputSignal<(innerIdx: number) => FormControl> = input.required();
   public readonly selectAll: InputSignal<boolean> = input.required();
+  public readonly formID: InputSignal<string> = input.required();
 
   // ? derived
   public readonly bg: Signal<string> = computed(() =>
@@ -94,6 +95,13 @@ export class TotpPart {
         });
 
         this.blurOnPaste(realIdx);
+
+        const form: Nullable<HTMLFormElement> = document.querySelector(
+          `[data-testid="${this.formID()}"]`
+        );
+        if (!form) return;
+
+        form.requestSubmit();
       },
     });
   }
