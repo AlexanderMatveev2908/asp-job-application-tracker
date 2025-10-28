@@ -1,7 +1,7 @@
 import { UseApiSvc } from '@/core/store/api/use_api';
 import { ObsOnOkT } from '@/core/store/api/etc/types';
 import { inject, Injectable } from '@angular/core';
-import { JwtResT } from '../auth/etc/types';
+import { JwtOrCbcHmacResT, JwtResT } from '../auth/etc/types';
 import { LibApiArgs } from '@/core/store/api/etc/lib/api_args';
 
 export interface RecoverPwdResT {
@@ -37,7 +37,7 @@ export class VerifyApiSvc {
     );
   }
 
-  public confNewMail(cbcHmacToken: string): ObsOnOkT<JwtResT> {
+  public confNewMail(cbcHmacToken: string): ObsOnOkT<JwtOrCbcHmacResT> {
     return this.api.get(
       LibApiArgs.withURL(`${this.base}/new-email`)
         .query({
