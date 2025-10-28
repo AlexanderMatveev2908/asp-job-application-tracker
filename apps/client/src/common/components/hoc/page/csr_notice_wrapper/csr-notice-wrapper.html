@@ -2,21 +2,21 @@
   <ng-template #contentRef>
     <div class="root">
       <div class="root__content" [ngClass]="metaEvent().txtTwd">
-        <div #svgWrap class="content__svg_wrap">
+        <div id="csr_notice__svg_wrap" class="content__svg_wrap">
           <ng-container *ngComponentOutlet="metaEvent().Svg" />
         </div>
 
-        <div #content class="content__body">
+        <div id="csr_notice__content" class="content__body">
           <ng-container *ngTemplateOutlet="headerTpl" />
 
-          <div #spanStatus class="body__span">
+          <div id="csr_notice__span_status" class="body__span">
             @let dataStatus = props().status|| props().eventT;
             <span class="text-5xl sm:text-8xl font-extrabold">
               {{ dataStatus }}
             </span>
           </div>
 
-          <div #spanMsg class="body__span">
+          <div id="csr_notice__span_msg" class="body__span">
             <span class="txt__xl">{{ props().msg }}</span>
           </div>
 

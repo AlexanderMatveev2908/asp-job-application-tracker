@@ -26,6 +26,7 @@ import { UserVerifyMail } from '@/pages/user/verify_mail/user-verify-mail';
 import { AccessManageAccount2fa } from '../pages/user/access_manage_account_2fa/access-manage-account-2fa';
 import { LayoutVerify } from '@/pages/verify/layout/layout-verify';
 import { ChangeEmail2fa } from '@/pages/verify/change_email_2fa/change-email-2fa';
+import { VerifyRecoverPwd2fa } from '@/pages/verify/recover_pwd_2fa/verify-recover-pwd-2fa';
 
 export const routes: Routes = [
   {
@@ -51,6 +52,10 @@ export const routes: Routes = [
       {
         path: 'change-email-2fa',
         component: ChangeEmail2fa,
+      },
+      {
+        path: 'recover-pwd-2fa',
+        component: VerifyRecoverPwd2fa,
       },
     ],
   },

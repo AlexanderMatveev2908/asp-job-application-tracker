@@ -6,8 +6,8 @@ import { TokenT } from '@/features/cbcHmac/etc/types';
 import { UseAuthKitSvc } from '@/features/auth/etc/services/use_auth_kit';
 import { Nullable } from '@/common/types/etc';
 import { PairPwdFormT } from '@/core/forms/pair_pwd/etc/paperwork/form_mng';
-import { catchError, EMPTY, Observable, tap, throwError } from 'rxjs';
-import { ErrApiT, ResApiT, StatusT } from '@/core/store/api/etc/types';
+import { Observable, tap } from 'rxjs';
+import { ResApiT } from '@/core/store/api/etc/types';
 import { JwtResT } from '@/features/auth/etc/types';
 import { UseRouteMngHk } from '@/core/hooks/use_route_mng';
 import { LibApiShape } from '@/core/store/api/etc/lib/shape';
@@ -46,18 +46,6 @@ export class RecoverPwd extends UseKitPairPwdFormHk implements OnInit {
               msg: 'Password updated',
               status: 200,
             });
-          }),
-          catchError((err: ErrApiT<void>) => {
-            if (err.status !== StatusT.UNAUTHORIZED) return throwError(() => err);
-
-            this.cbcHmacSlice.clearCbcHmac({ startTmr: true });
-            this.useKitNav.pushNotice({
-              eventT: 'ERR',
-              msg: err.error?.msg ?? 'Token invalid',
-              status: 401,
-            });
-
-            return EMPTY;
           })
         )
     );
