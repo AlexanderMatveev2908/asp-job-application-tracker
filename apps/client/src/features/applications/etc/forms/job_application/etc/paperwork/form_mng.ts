@@ -1,16 +1,17 @@
 /* eslint-disable no-magic-numbers */
-import { Opt } from '@/common/types/etc';
+// import { Opt } from '@/common/types/etc';
+import { LibDate } from '@/core/lib/data_structure/date';
 import { FormZodMng } from '@/core/paperwork/form_zod_mng';
 import { Reg } from '@/core/paperwork/reg';
-import { ApplicationStatusT } from '@/features/applications/etc/types';
+// import { ApplicationStatusT } from '@/features/applications/etc/types';
 import { FormControl, FormGroup } from '@angular/forms';
-import z, { ZodNullable, ZodObject, ZodString, ZodType } from 'zod';
+import z, { ZodNullable, ZodObject, ZodString } from 'zod';
 
 export class ApplicationFormMng extends FormZodMng {
   public static schema: ZodObject<{
     companyName: ZodString;
     positionName: ZodString;
-    status: ZodType<Opt<ApplicationStatusT>>;
+    // status: ZodType<Opt<ApplicationStatusT>>;
     appliedAt: ZodString;
     notes: ZodNullable<ZodString>;
   }> = z.object({
@@ -25,19 +26,19 @@ export class ApplicationFormMng extends FormZodMng {
       .max(100, 'Max length exceeded')
       .regex(Reg.JOB_NAME, 'Position Name invalid'),
 
-    status: z
-      .preprocess(
-        (val: unknown) => (!val ? undefined : val),
-        z
-          .enum(
-            Object.values(ApplicationStatusT) as [ApplicationStatusT, ...ApplicationStatusT[]],
-            {
-              error: 'Invalid application status',
-            }
-          )
-          .optional()
-      )
-      .refine((v: Opt<ApplicationStatusT>) => !!v, { message: 'Application status required' }),
+    // status: z
+    //   .preprocess(
+    //     (val: unknown) => (!val ? undefined : val),
+    //     z
+    //       .enum(
+    //         Object.values(ApplicationStatusT) as [ApplicationStatusT, ...ApplicationStatusT[]],
+    //         {
+    //           error: 'Invalid application status',
+    //         }
+    //       )
+    //       .optional()
+    //   )
+    //   .refine((v: Opt<ApplicationStatusT>) => !!v, { message: 'Application status required' }),
 
     notes: z
       .string()
@@ -54,7 +55,7 @@ export class ApplicationFormMng extends FormZodMng {
         companyName: new FormControl(''),
         positionName: new FormControl(''),
         notes: new FormControl(''),
-        appliedAt: new FormControl(''),
+        appliedAt: new FormControl(LibDate.pickerNow()),
         status: new FormControl(''),
       },
       { validators: this.checkZ(this.schema) }
