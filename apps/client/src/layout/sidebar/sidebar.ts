@@ -76,7 +76,25 @@ export class Sidebar {
   public readonly user: Signal<Nullable<UserT>> = computed(() => this.userSlice.userState().user);
 
   // ? static fields
-  public readonly allUsersLinks: SpanLinkPropsT[] = LinksUiFkt.allUsers;
+  public readonly allUsersLinks: Signal<SpanLinkPropsT[]> = computed(() =>
+    LinksUiFkt.allUsers.map((lk: SpanLinkPropsT): SpanLinkPropsT => {
+      const { path } = lk;
+
+      if (!path.startsWith('/job-application')) return lk;
+
+      return !this.user()
+        ? {
+            ...lk,
+            insteadHere: '/auth/login',
+          }
+        : !this.user()?.isVerified
+        ? {
+            ...lk,
+            insteadHere: '/user/confirm-email',
+          }
+        : lk;
+    })
+  );
   // ? dynamic props
   public readonly linksUser: Signal<SpanLinkPropsT[]> = computed(() =>
     this.user() ? LinksUiFkt.getLoggedByVerifyStatus(this.user()!.isVerified) : LinksUiFkt.notLogged

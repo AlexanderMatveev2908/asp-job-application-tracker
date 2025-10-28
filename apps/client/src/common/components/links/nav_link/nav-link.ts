@@ -29,6 +29,7 @@ export class NavLink {
 
   // ? app-span props
   public readonly path: InputSignal<string> = input.required();
+  public readonly insteadHere: InputSignal<Nullable<string>> = input<Nullable<string>>(null);
   public readonly spanSizesProps: InputSignal<Partial<SpanSizesPropsT>> = input<
     Partial<SpanSizesPropsT>
   >({

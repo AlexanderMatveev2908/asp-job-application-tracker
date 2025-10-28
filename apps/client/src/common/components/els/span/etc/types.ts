@@ -17,4 +17,5 @@ export interface SpanEventPropsT extends SpanPropsT, WithEventT {}
 // ! dynamically in loop so they need an id to track them in DOM
 export interface SpanLinkPropsT extends SpanEventPropsT, WithIdT {
   path: string;
+  insteadHere?: string;
 }
