@@ -1,1 +1,6 @@
-.root{}
+.root {
+  @apply w-full grid gap-x-10 gap-y-6 justify-items-center;
+
+  grid-template-columns: repeat(var(--cols), auto);
+  grid-template-rows: repeat(var(--rows), auto);
+}

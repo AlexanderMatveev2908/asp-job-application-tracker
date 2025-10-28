@@ -6,13 +6,13 @@ export class SwapDOM {
   private static colsForSwap(): number {
     const w: number = window.innerWidth;
 
-    return w > 1200 ? 5 : w > 1000 ? 4 : w > 800 ? 3 : w > 450 ? 2 : 1;
+    return w > 1300 ? 5 : w > 1100 ? 4 : w > 800 ? 3 : w > 500 ? 2 : 1;
   }
 
   private static rowsForCol(): number {
     const w: number = window.innerWidth;
 
-    return w > 800 ? 4 : 3;
+    return w > 1200 ? 5 : w > 800 ? 4 : 3;
   }
 
   private static getTotSwaps({

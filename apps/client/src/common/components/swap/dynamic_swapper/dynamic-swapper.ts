@@ -25,17 +25,23 @@ import { DynamicSwapItem } from './dynamic_swap_item/dynamic-swap-item';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicSwapper extends UseInjCtxHk implements AfterViewInit {
+  // ? props
   public readonly swapState: InputSignal<SwapStateT> = input.required();
   public readonly fields: InputSignal<CheckBoxFieldT[]> = input.required();
+
+  // ? local state
   public readonly paginationState: WritableSignal<PaginationSwapStateT> = signal({
     colsForSwap: 1,
     rowsForCol: 3,
     swapsIDs: [v4()],
   });
 
+  // ? derived
   public readonly gridConf: Signal<string> = computed(
     () => `repeat(${this.paginationState().swapsIDs.length}, 100%)`
   );
+
+  // ? helpers
   public getItems(currSwap: number): CheckBoxFieldT[] {
     const { colsForSwap, rowsForCol } = this.paginationState();
     const itemsForSwap: number = colsForSwap * rowsForCol;
@@ -43,6 +49,7 @@ export class DynamicSwapper extends UseInjCtxHk implements AfterViewInit {
     return SwapDOM.getItemsSwap(this.fields(), currSwap, itemsForSwap);
   }
 
+  // ? lifecycle & listeners
   ngAfterViewInit(): void {
     this.usePlatform.onClient(() => {
       this.paginationState.set(SwapDOM.freshState(this.fields().length));

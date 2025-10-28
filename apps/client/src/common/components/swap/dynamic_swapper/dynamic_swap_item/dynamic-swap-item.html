@@ -1,3 +1,9 @@
-<div class="root">
-  <p>DynamicSwapItem generated 🎉</p>
+<div
+  class="root"
+  [style.--cols]="paginationState().colsForSwap"
+  [style.--rows]="paginationState().rowsForCol"
+>
+  @for(f of fields(); track f.id){
+  <app-form-field-box-lg [f]="f" />
+  }
 </div>
