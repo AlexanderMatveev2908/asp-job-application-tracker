@@ -5,7 +5,8 @@
         [swap]="swapState().swap"
         [setSwap]="setSwap"
         [maxSwaps]="2"
-        [prefixTestId]="useIDs.testId()!"
+        appUseIDsDir
+        [testId]="useIDs.testId()"
       >
         <div #swapDiv class="swapper__swap" [style.--opa]="getOpacity(0)()">
           <app-totp-form

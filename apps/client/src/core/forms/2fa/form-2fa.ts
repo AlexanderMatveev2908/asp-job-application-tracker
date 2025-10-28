@@ -18,7 +18,7 @@ import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-form-2fa',
-  imports: [CsrWithTitle, Swapper, TotpForm, BkpForm, UseForm2faDir],
+  imports: [CsrWithTitle, Swapper, TotpForm, BkpForm, UseForm2faDir, UseIDsDir],
   templateUrl: './form-2fa.html',
   styleUrl: './form-2fa.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

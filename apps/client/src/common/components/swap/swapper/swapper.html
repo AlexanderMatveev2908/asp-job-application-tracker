@@ -1,4 +1,4 @@
-<div class="root" [attr.data-testid]="swapperID()">
+<div class="root" [attr.data-testid]="useIdsDir.swapperVarID()">
   <div
     class="root__swapper"
     [style.--cols]="maxSwaps()"
@@ -13,7 +13,8 @@
       [swap]="swap()"
       [setSwap]="setSwap()"
       [maxSwaps]="maxSwaps()"
-      [prefixTestId]="swapperID()"
+      appUseIDsDir
+      [testId]="useIdsDir.swapperVarID()"
     />
   </div>
 </div>

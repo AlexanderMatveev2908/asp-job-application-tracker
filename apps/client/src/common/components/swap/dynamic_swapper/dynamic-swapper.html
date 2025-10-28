@@ -17,7 +17,8 @@
 
   <div class="root__btns">
     <app-swap-btns
-      [prefixTestId]="useIDsDir.swapperVarID() ?? ''"
+      appUseIDsDir
+      [testId]="useIDsDir.swapperVarID()"
       [swap]="swapState().swap"
       [setSwap]="setSwap()"
       [maxSwaps]="paginationState().swapsIDs.length"

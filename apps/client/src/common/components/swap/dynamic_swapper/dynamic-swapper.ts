@@ -23,7 +23,7 @@ import { OpacityT } from '@/common/types/css';
 
 @Component({
   selector: 'app-dynamic-swapper',
-  imports: [DynamicSwapItem, SwapBtns],
+  imports: [DynamicSwapItem, SwapBtns, UseIDsDir],
   templateUrl: './dynamic-swapper.html',
   styleUrl: './dynamic-swapper.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

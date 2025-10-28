@@ -7,6 +7,7 @@ import {
   effect,
   EffectRef,
   HostListener,
+  inject,
   input,
   InputSignal,
   QueryList,
@@ -18,20 +19,23 @@ import { ElDomT, Nullable, Opt, RefDomT } from '@/common/types/etc';
 import { ErrApp } from '@/core/lib/err';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 import { SwapBtns } from '../swap_btns/swap-btns';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-swapper',
-  imports: [SwapBtns],
+  imports: [SwapBtns, UseIDsDir],
   templateUrl: './swapper.html',
   styleUrl: './swapper.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Swapper extends UseInjCtxHk implements AfterViewInit {
+  // ? directives
+  public readonly useIdsDir: UseIDsDir = inject(UseIDsDir);
+
   // ? personal props
   public readonly swap: InputSignal<number> = input.required();
   public readonly setSwap: InputSignal<(val: number) => void> = input.required();
   public readonly maxSwaps: InputSignal<number> = input.required();
-  public readonly prefixTestId: InputSignal<string> = input.required();
   public readonly optionalDep: InputSignal<Nullable<unknown[]>> = input<Nullable<unknown[]>>(null);
 
   // ? derived by content
@@ -40,7 +44,6 @@ export class Swapper extends UseInjCtxHk implements AfterViewInit {
   // ? derived
   // eslint-disable-next-line no-magic-numbers
   public readonly transform: Signal<string> = computed(() => `-${this.swap() * 100}%`);
-  public readonly swapperID: Signal<string> = computed(() => `${this.prefixTestId()}__swapper`);
 
   // ? projected
   @ContentChildren('swapDiv', { descendants: false })
