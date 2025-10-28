@@ -58,7 +58,8 @@ export abstract class UseAppCbcHmacDir extends UseAppAuthDir {
       (tokenT === TokenT.MANAGE_ACC && partial !== '/user/manage-account') ||
       (tokenT === TokenT.RECOVER_PWD && partial !== '/auth/recover-pwd') ||
       (tokenT === TokenT.LOGIN_2FA && partial !== '/auth/login-2fa') ||
-      (tokenT === TokenT.MANAGE_ACC_2FA && partial !== '/user/access-manage-account-2fa')
+      (tokenT === TokenT.MANAGE_ACC_2FA && partial !== '/user/access-manage-account-2fa') ||
+      (tokenT === TokenT.CHANGE_EMAIL_2FA && partial !== '/verify/change-email-2fa')
     );
   }
 

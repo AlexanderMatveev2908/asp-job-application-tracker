@@ -25,7 +25,7 @@ export class Verify extends UseCasesVerifyDir implements OnInit {
       if (this.useRef.current) return;
       this.useRef.current = true;
 
-      const cbcHmac: Nullable<string> = this.useKitSideApi.useNav.query()?.['cbcHmacToken'];
+      const cbcHmac: Nullable<string> = this.useNavKit.useNav.query()?.['cbcHmacToken'];
 
       // ! extractAad also check cbcHmac is a string and not null
       const aad: Nullable<AadCbcHmacT> = this.extractAad(cbcHmac);

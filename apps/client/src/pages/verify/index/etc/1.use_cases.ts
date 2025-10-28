@@ -26,7 +26,7 @@ export abstract class UseCasesVerifyDir extends UseMngVerifyDir {
 
           this.userSlice.triggerApi();
 
-          this.useKitSideApi.pushNotice({
+          this.useNavKit.pushNotice({
             eventT: 'OK',
             msg: res.msg ?? 'account verified',
             status: 200,
@@ -46,9 +46,7 @@ export abstract class UseCasesVerifyDir extends UseMngVerifyDir {
         switchMap((res: ResApiT<RecoverPwdResT>) => {
           const suffix: string = res.strategy2FA ? '-2fa' : '';
 
-          return from(
-            this.useKitSideApi.useNav.replace(`/auth/recover-pwd${suffix}`, { from: 'ok' })
-          );
+          return from(this.useNavKit.useNav.replace(`/auth/recover-pwd${suffix}`, { from: 'ok' }));
         })
       )
       .subscribe();
@@ -59,7 +57,7 @@ export abstract class UseCasesVerifyDir extends UseMngVerifyDir {
 
     this.userSlice.triggerApi();
 
-    this.useKitSideApi.pushNotice({
+    this.useNavKit.pushNotice({
       eventT: 'OK',
       msg: res.msg ?? 'email address changes',
       status: 200,
@@ -68,6 +66,8 @@ export abstract class UseCasesVerifyDir extends UseMngVerifyDir {
 
   private confNewMail2faFlow(res: ResApiT<CbcHmacMandatoryT>): void {
     this.cbcHmacSlice.saveCbcHmac(res.cbcHmacToken, { startTmr: true });
+
+    void this.useNavKit.useNav.replace('/verify/change-email-2fa');
   }
 
   protected confNewMail(cbcHmac: string): void {
