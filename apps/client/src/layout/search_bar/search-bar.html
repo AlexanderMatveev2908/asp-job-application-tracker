@@ -1,9 +1,5 @@
 <form [formGroup]="form()" class="root" (ngSubmit)="onSubmit()">
-  <div class="root__search">
-    @for(f of formVal?.()?.txtInputs; track f?.id; let idx = $index){
-    <app-form-field-dynamic [ctrl]="getTxtCtrl(idx)" appUseDynamicFieldDir [idx]="idx" />
-    }
-  </div>
+  <app-search-first-row [form]="form()" [formVal]="formVal?.() ?? null" />
 
   <app-form-submit [isPending]="false" appUseIDsDir />
 </form>

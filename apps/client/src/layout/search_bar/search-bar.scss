@@ -4,8 +4,4 @@
 
 .root {
   @apply w-full mx-auto max-w-[1200px] border-3 rounded-xl border-gray-300 p-5 flex flex-col gap-12;
-
-  .root__search {
-    @apply w-full flex flex-col gap-6;
-  }
 }
