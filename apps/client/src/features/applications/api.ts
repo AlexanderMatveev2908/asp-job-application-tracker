@@ -21,4 +21,8 @@ export class ApplicationsApiSvc {
       LibApiArgs.withURL(`${this.base}/${id}`).toastOnErr().pushOnStatus([StatusT.NOT_FOUND])
     );
   }
+
+  public put(id: string, formData: FormData): ObsResT<ApplicationResT> {
+    return this.api.put(LibApiArgs.withURL(`${this.base}/${id}`).body(formData).toastOnFulfilled());
+  }
 }

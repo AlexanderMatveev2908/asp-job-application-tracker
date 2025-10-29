@@ -10,7 +10,7 @@ export class LibDate {
     const d: Date = new Date(arg);
 
     const dd: string = this.padDate(d.getDate());
-    const mm: string = this.padDate(d.getMonth());
+    const mm: string = this.padDate(d.getMonth() + 1);
     const yyyy = d.getFullYear();
 
     return `${yyyy}-${mm}-${dd}`;

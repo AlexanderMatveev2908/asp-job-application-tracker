@@ -10,7 +10,7 @@ import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-wi
 import { JobApplicationForm } from '@/features/applications/etc/forms/job_application/job-application-form';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { ApplicationFormT } from '@/features/applications/etc/forms/job_application/etc/paperwork/form_mng';
-import { Observable, of, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { UseNavSvc } from '@/core/services/use_nav/use_nav';
 import { Nullable } from '@/common/types/etc';
 import { Reg } from '@/core/paperwork/reg';
@@ -19,6 +19,8 @@ import { ApplicationResT, ApplicationT } from '@/features/applications/etc/types
 import { ApplicationsApiSvc } from '@/features/applications/api';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
+import { ErrApp } from '@/core/lib/err';
+import { LibFormPrs } from '@/core/lib/data_structure/form_prs';
 
 @Component({
   selector: 'app-put-job-applications',
@@ -31,6 +33,7 @@ import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 export class PutJobApplications implements OnInit {
   // ? hooks
   private readonly useInjCtx: UseInjCtxHk = inject(UseInjCtxHk);
+
   public readonly useApiTracker: UseApiTrackerHk = inject(UseApiTrackerHk);
 
   // ? svc
@@ -41,12 +44,26 @@ export class PutJobApplications implements OnInit {
   public readonly currApplication: WritableSignal<Nullable<ApplicationT>> = signal(null);
 
   // ? listeners
+
+  private setApplication(applicationID: string): Observable<unknown> {
+    return this.applicationsApi.getByID(applicationID).pipe(
+      tap((res: ResApiT<ApplicationResT>) => {
+        this.currApplication.set(res.jobApplication);
+      })
+    );
+  }
+
   public readonly strategy: (data: ApplicationFormT) => Observable<unknown> = (
     data: ApplicationFormT
   ) => {
-    console.log(data);
+    const applicationID: Nullable<string> = this.useNav.path_variables()?.['applicationID'];
+    if (!applicationID) throw new ErrApp('bug => user supposed to be pushed out');
 
-    return of(data);
+    return this.applicationsApi.put(applicationID, LibFormPrs.genFormData(data)).pipe(
+      tap((_: ResApiT<ApplicationResT>) => {
+        this.setApplication(applicationID);
+      })
+    );
   };
 
   ngOnInit(): void {
@@ -58,15 +75,7 @@ export class PutJobApplications implements OnInit {
         return;
       }
 
-      this.useApiTracker
-        .track(
-          this.applicationsApi.getByID(applicationID!).pipe(
-            tap((res: ResApiT<ApplicationResT>) => {
-              this.currApplication.set(res.jobApplication);
-            })
-          )
-        )
-        .subscribe();
+      this.useApiTracker.track(this.setApplication(applicationID!)).subscribe();
     });
   }
 }
