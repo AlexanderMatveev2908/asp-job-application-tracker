@@ -87,7 +87,5 @@ export class DynamicSwapper extends UseInjCtxHk implements AfterViewInit {
   @HostListener('window:resize')
   public onResize(): void {
     this.paginationState.set(SwapDOM.freshState(this.fields().length));
-
-    console.log(this.paginationState());
   }
 }

@@ -1,6 +1,13 @@
 import { Nullable } from '@/common/types/etc';
 import { inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
-import { Navigation, NavigationEnd, NavigationStart, Params, Router } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Navigation,
+  NavigationEnd,
+  NavigationStart,
+  Params,
+  Router,
+} from '@angular/router';
 import { filter } from 'rxjs';
 import { LibShapeCheck } from '@/core/lib/data_structure/shape_check';
 
@@ -19,11 +26,13 @@ export abstract class UsePathHk {
   private readonly _goingTo: WritableSignal<Nullable<string>> = signal(null);
   private readonly _meta: WritableSignal<Nullable<MetaNavT>> = signal(null);
   private readonly _query: WritableSignal<Nullable<Params>> = signal(null);
+  private readonly _path_variables: WritableSignal<Nullable<Params>> = signal(null);
 
   public readonly meta: Signal<Nullable<MetaNavT>> = this._meta.asReadonly();
   public readonly currPath: Signal<Nullable<string>> = this._currPath.asReadonly();
   public readonly goingTo: Signal<Nullable<string>> = this._currPath.asReadonly();
   public readonly query: Signal<Nullable<Params>> = this._query.asReadonly();
+  public readonly path_variables: Signal<Nullable<Params>> = this._path_variables.asReadonly();
 
   private readonly ALLOWED_FROM: Set<NavFromT> = new Set<NavFromT>(['err', 'ok']);
 
@@ -52,6 +61,13 @@ export abstract class UsePathHk {
     cb(full);
   }
 
+  private findDeepestRoute(snapshot: ActivatedRouteSnapshot): ActivatedRouteSnapshot {
+    let snap: ActivatedRouteSnapshot = snapshot;
+    while (snap.firstChild) snap = snap.firstChild;
+
+    return snap;
+  }
+
   constructor() {
     this.router.events
       .pipe(filter((e: unknown) => e instanceof NavigationEnd || e instanceof NavigationStart))
@@ -65,8 +81,15 @@ export abstract class UsePathHk {
         const navigation: Nullable<Navigation> = this.router.currentNavigation();
         this._meta.set((navigation?.extras.state as MetaNavT) ?? null);
 
-        const queryParams: Params = this.router.routerState.snapshot.root.queryParams;
+        const snapshot: ActivatedRouteSnapshot = this.router.routerState.snapshot.root;
+
+        const queryParams: Params = snapshot.root.queryParams;
         this._query.set(LibShapeCheck.hasObjData(queryParams) ? queryParams : null);
+
+        const deepestSnap: ActivatedRouteSnapshot = this.findDeepestRoute(snapshot);
+        const params: Params = deepestSnap.params;
+
+        this._path_variables.set(LibShapeCheck.hasObjData(params) ? params : null);
       });
   }
 }

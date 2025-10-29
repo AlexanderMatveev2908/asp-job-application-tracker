@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 
-import { GetJobApplication } from '@/pages/job_applications/get/get-job-application';
 import { PostJobApplications } from '@/pages/job_applications/post/post-job-applications';
 import { PutJobApplications } from '@/pages/job_applications/put/put-job-applications';
 import { ReadAllJobApplications } from '@/pages/job_applications/read_all/read-all-job-applications';
@@ -128,10 +127,6 @@ export const routes: Routes = [
       {
         path: 'post',
         component: PostJobApplications,
-      },
-      {
-        path: ':applicationID',
-        component: GetJobApplication,
       },
       {
         path: 'put/:applicationID',
