@@ -26,19 +26,16 @@ export interface TxtFieldT extends BaseFieldT {
   type: TxtInputT;
   place: string;
 }
-
-export interface TxtFieldArrayT extends TxtFieldT {
-  val: string;
-}
-
 export interface TxtSvgFieldT extends TxtFieldT {
   Svg: SvgT;
+}
+export interface TxtFieldArrayT extends TxtFieldT {
+  val: string;
 }
 
 export interface CheckFieldT extends BaseFieldT {
   type: CheckInputT;
 }
-
 export interface CheckBoxFieldT extends CheckFieldT {
   val: string;
 }

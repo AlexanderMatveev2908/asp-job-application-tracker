@@ -1,12 +1,27 @@
-import { FormArrayMng } from '@/core/paperwork/etc/form_array';
+import { FormArrayMng, RulesFieldArrayT } from '@/core/paperwork/etc/form_array';
 import { ApplicationStatusT } from '@/features/applications/etc/types';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import z, { RefinementCtx, ZodArray, ZodEnum, ZodObject, ZodOptional, ZodString } from 'zod';
 import { SearchApplicationsUiFkt } from '../ui_fkt';
 import { BaseSearchBarSchemaT } from '@/core/paperwork/etc/search_bar';
 import { FormZodMng } from '@/core/paperwork/form_mng/form_zod_mng';
+import { Reg } from '@/core/paperwork/reg';
+import { TxtFieldArrayT } from '@/common/types/forms';
+
+export type SearchApplicationsTxtInputKetT = 'companyName' | 'positionName';
 
 export class SearchApplicationsFormMng extends FormZodMng {
+  private static readonly rules: Record<SearchApplicationsTxtInputKetT, RulesFieldArrayT> = {
+    companyName: {
+      maxLength: 100,
+      reg: Reg.JOB_NAME,
+    },
+    positionName: {
+      maxLength: 100,
+      reg: Reg.JOB_NAME,
+    },
+  };
+
   public static readonly schema: ZodObject<{
     status: ZodOptional<ZodArray<ZodEnum>>;
     appliedAtSort: ZodOptional<ZodString>;
@@ -20,12 +35,26 @@ export class SearchApplicationsFormMng extends FormZodMng {
       appliedAtSort: z.string().optional(),
     })
     .superRefine((data: SearchApplicationsFormT, ctx: RefinementCtx) => {
-      if ((data.txtInputs?.[0]?.val?.length ?? 0) < 10) {
-        ctx.addIssue({
-          code: 'custom',
-          path: ['txtInputs.1'],
-          message: 'Invalid',
-        });
+      if (data.txtInputs?.length) {
+        for (let i = 0; i < data.txtInputs.length; i++) {
+          const f: TxtFieldArrayT = data.txtInputs[i];
+          const { name } = f;
+
+          if (f.val.length > this.rules[name as SearchApplicationsTxtInputKetT].maxLength)
+            ctx.addIssue({
+              code: 'custom',
+              message: 'Max length exceeded',
+              path: [`txtInputs.${i}`],
+            });
+
+          const reg: RegExp = this.rules[name as SearchApplicationsTxtInputKetT].reg;
+          if (!reg.test(f.val))
+            ctx.addIssue({
+              code: 'custom',
+              message: `Invalid ${f.label}`,
+              path: [`txtInputs.${i}`],
+            });
+        }
       }
     });
 

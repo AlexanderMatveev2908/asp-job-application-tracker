@@ -13,7 +13,7 @@ export type FormFieldItemSchemaT = ZodObject<{
 
 export type FormArraySchemaT = ZodOptional<ZodArray<FormFieldItemSchemaT>>;
 
-export interface OptFieldArrayT {
+export interface RulesFieldArrayT {
   maxLength: number;
   reg: RegExp;
 }
