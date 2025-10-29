@@ -28,4 +28,14 @@ export class Rand {
 
     return arr.join('');
   }
+
+  public static randInRange(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  public static choice(items: unknown[]): unknown {
+    const l: number = items.length;
+
+    return items[this.randInRange(0, l - 1)];
+  }
 }

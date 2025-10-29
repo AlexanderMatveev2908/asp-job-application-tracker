@@ -1,6 +1,7 @@
 import { Nullable } from '@/common/types/etc';
 import { computed, Directive, input, InputSignal, Signal } from '@angular/core';
 import { Form2faTestIdT } from '../forms/2fa/etc/directives/use_form_2fa';
+import { CheckBoxFieldT } from '@/common/types/forms';
 
 @Directive({
   selector: '[appUseIDsDir]',
@@ -25,4 +26,8 @@ export class UseIDsDir {
   public readonly form2faVarID: (t: Form2faTestIdT) => Signal<Nullable<string>> = (
     t: Form2faTestIdT
   ) => computed(() => this.ifTestID(`${this.testId()}__swapper__${t}_form`));
+
+  public readonly boxChoiceVarID: (f: CheckBoxFieldT) => Signal<Nullable<string>> = (
+    f: CheckBoxFieldT
+  ) => computed(() => `${f.name}__${f.val}`);
 }

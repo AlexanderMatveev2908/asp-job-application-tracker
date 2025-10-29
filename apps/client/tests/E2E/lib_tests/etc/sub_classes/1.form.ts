@@ -85,4 +85,14 @@ export abstract class LibFormTests extends LibRootTests {
     await expect(el).toBeInViewport();
     await expect(el).toBeFocused();
   }
+
+  public async toggleBox(name: string, val: string): Promise<Locator> {
+    const form: Locator = await this.getForm();
+    const id: string = `${name}__${val}`;
+
+    const boxBtn: Locator = await this.byIdIn(form, id);
+
+    await boxBtn.click();
+    return boxBtn;
+  }
 }

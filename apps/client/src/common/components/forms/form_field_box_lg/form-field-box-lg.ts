@@ -1,5 +1,6 @@
 import { CheckBoxFieldT } from '@/common/types/forms';
 import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
+import { UseIDsDir } from '@/core/directives/use_ids';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -24,6 +25,7 @@ import { FormControl } from '@angular/forms';
 export class FormFieldBoxLg implements OnInit {
   // ? directives
   public readonly useFormFieldDir: UseFormFieldDir = inject(UseFormFieldDir);
+  public readonly useIdsDir: UseIDsDir = inject(UseIDsDir);
 
   // ? props
   public readonly f: InputSignal<CheckBoxFieldT> = input.required();
