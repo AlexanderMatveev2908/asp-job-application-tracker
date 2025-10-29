@@ -2,17 +2,15 @@
 import { Nullable, TimerIdT } from '@/common/types/etc';
 import { CbcHmacSlice } from '@/features/cbcHmac/slice';
 import { Directive, inject, Signal } from '@angular/core';
-import { UseAppAuthDir } from './0.use_app_auth';
+import { UseAppAuthDir } from './1.use_app_auth';
 import { LibEtc } from '@/core/lib/etc';
 import { CbcHmacKeyTmrT } from '@/features/cbcHmac/reducer/reducer';
 import { ConstantsApp } from '@/core/constants';
-import { UseNavSvc } from '@/core/services/use_nav/use_nav';
 import { TokenT } from '@/features/cbcHmac/etc/types';
 
 @Directive()
 export abstract class UseAppCbcHmacDir extends UseAppAuthDir {
   private readonly cbcHmacSlice: CbcHmacSlice = inject(CbcHmacSlice);
-  private readonly useNav: UseNavSvc = inject(UseNavSvc);
 
   private timerSavingID: TimerIdT = null;
   private timerDeletingID: TimerIdT = null;
@@ -24,11 +22,15 @@ export abstract class UseAppCbcHmacDir extends UseAppAuthDir {
   }
 
   public resetSavingCbcHmac(): void {
-    this.resetCbcHmacTmr('saving', this.cbcHmacSlice.saving, 'timerSavingID');
+    this.useEffect(() => {
+      this.resetCbcHmacTmr('saving', this.cbcHmacSlice.saving, 'timerSavingID');
+    });
   }
 
   public resetClearingCbcHmac(): void {
-    this.resetCbcHmacTmr('deleting', this.cbcHmacSlice.deleting, 'timerDeletingID');
+    this.useEffect(() => {
+      this.resetCbcHmacTmr('deleting', this.cbcHmacSlice.deleting, 'timerDeletingID');
+    });
   }
 
   private resetCbcHmacTmr(
@@ -78,7 +80,7 @@ export abstract class UseAppCbcHmacDir extends UseAppAuthDir {
   }
 
   public delCbcHmacOnNavOut(): void {
-    this.usePlatform.onClient(() => {
+    this.useEffect(() => {
       const tokenT: Nullable<TokenT> = this.cbcHmacSlice.getTokenT();
       const goingTo: Nullable<string> = this.useNav.goingTo();
 

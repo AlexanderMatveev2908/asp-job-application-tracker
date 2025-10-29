@@ -61,7 +61,7 @@ export class PutJobApplications implements OnInit {
 
     return this.applicationsApi.put(applicationID, LibFormPrs.genFormData(data)).pipe(
       tap((_: ResApiT<ApplicationResT>) => {
-        this.setApplication(applicationID);
+        void this.useNav.replace('/job-applications');
       })
     );
   };
