@@ -44,7 +44,6 @@ export class FormFieldDynamicErr implements OnInit {
       void this.optionalDep();
 
       const errors: ErrsFieldT = c.errors as ErrsFieldT;
-      console.log(errors);
 
       this.recErrs.update((prev: RecErrsFieldT) => ({
         prev: prev.curr,
