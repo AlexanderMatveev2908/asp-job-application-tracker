@@ -11,6 +11,10 @@ export class LibShapeCheck {
     return this.isObj(arg) && !!Object.keys(arg as Record<string, unknown>).length;
   }
 
+  public static hasArrData(arg: unknown): boolean {
+    return Array.isArray(arg) && !!arg.length;
+  }
+
   public static isPrimitive(arg: unknown): boolean {
     return (
       typeof arg === 'string' ||

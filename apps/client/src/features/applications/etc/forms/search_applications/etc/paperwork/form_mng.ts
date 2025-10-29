@@ -4,7 +4,7 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import z, { RefinementCtx, ZodArray, ZodEnum, ZodObject, ZodOptional, ZodString } from 'zod';
 import { SearchApplicationsUiFkt } from '../ui_fkt';
 import { BaseSearchBarSchemaT } from '@/core/paperwork/etc/search_bar';
-import { FormZodMng } from '@/core/paperwork/form_zod_mng';
+import { FormZodMng } from '@/core/paperwork/form_mng/form_zod_mng';
 
 export class SearchApplicationsFormMng extends FormZodMng {
   public static readonly schema: ZodObject<{
