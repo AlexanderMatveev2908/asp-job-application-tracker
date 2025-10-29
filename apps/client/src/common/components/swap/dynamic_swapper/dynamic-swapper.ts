@@ -21,8 +21,8 @@ import { UseIDsDir } from '@/core/directives/use_ids';
 import { SwapBtns } from '../swap_btns/swap-btns';
 import { OpacityT } from '@/common/types/css';
 import { FormControl } from '@angular/forms';
-import { FormFieldErr } from '../../forms/form_field_err/form-field-err';
 import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
+import { FormFieldErr } from '../../forms/base_fields/form_field_err/form-field-err';
 
 @Component({
   selector: 'app-dynamic-swapper',

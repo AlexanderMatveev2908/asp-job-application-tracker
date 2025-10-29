@@ -8,12 +8,12 @@ import {
   signal,
   WritableSignal,
 } from '@angular/core';
-import { Tooltip } from '../../els/tooltip/tooltip';
 import { Nullable } from '@/common/types/etc';
 import { ErrsFieldT, RecErrsFieldT } from '@/common/types/forms';
 import { UseFormFieldDynamicDir } from '@/core/directives/forms/form_field/0.use_form_field_dynamic';
 import { FormControl } from '@angular/forms';
 import { UseIDsDir } from '@/core/directives/use_ids';
+import { Tooltip } from '@/common/components/els/tooltip/tooltip';
 
 @Component({
   selector: 'app-form-field-dynamic-err',

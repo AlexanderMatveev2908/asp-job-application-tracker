@@ -14,7 +14,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormSubmit } from '@/common/components/forms/form_submit/form-submit';
 import { UseIDsDir } from '@/core/directives/use_ids';
-import { FormFieldDynamic } from '@/common/components/forms/form_field_dynamic/form-field-dynamic';
+import { FormFieldDynamic } from '@/common/components/forms/dynamic_fields_array/form_field_dynamic/form-field-dynamic';
 import { UseFormFieldDynamicDir } from '@/core/directives/forms/form_field/0.use_form_field_dynamic';
 import { FormZodMng } from '@/core/paperwork/form_mng/form_zod_mng';
 

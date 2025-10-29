@@ -1,4 +1,4 @@
-import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
+import { FormFieldTxt } from '@/common/components/forms/base_fields/form_field_txt/form-field-txt';
 import { ConfSwapT } from '@/core/hooks/swap/etc/types';
 import {
   AfterViewInit,

@@ -1,4 +1,4 @@
-import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
+import { FormFieldTxt } from '@/common/components/forms/base_fields/form_field_txt/form-field-txt';
 import { TxtFieldT } from '@/common/types/forms';
 import { MailFormMng, MailFormT } from '@/core/paperwork/etc/mail';
 import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
