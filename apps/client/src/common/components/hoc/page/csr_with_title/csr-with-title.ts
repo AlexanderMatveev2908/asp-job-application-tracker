@@ -10,4 +10,5 @@ import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';
 })
 export class CsrWithTitle {
   public readonly title: InputSignal<string> = input.required();
+  public readonly isPending: InputSignal<boolean> = input(false);
 }

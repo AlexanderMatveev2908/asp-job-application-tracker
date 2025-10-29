@@ -1,4 +1,4 @@
-import { ObsResT } from '@/core/store/api/etc/types';
+import { ObsResT, StatusT } from '@/core/store/api/etc/types';
 import { UseApiSvc } from '@/core/store/api/use_api';
 import { inject, Injectable } from '@angular/core';
 import { ApplicationResT } from './etc/types';
@@ -14,5 +14,11 @@ export class ApplicationsApiSvc {
 
   public post(formData: FormData): ObsResT<ApplicationResT> {
     return this.api.post(LibApiArgs.withURL(this.base).body(formData).toastOnFulfilled());
+  }
+
+  public getByID(id: string): ObsResT<ApplicationResT> {
+    return this.api.get(
+      LibApiArgs.withURL(`${this.base}/${id}`).toastOnErr().pushOnStatus([StatusT.NOT_FOUND])
+    );
   }
 }
