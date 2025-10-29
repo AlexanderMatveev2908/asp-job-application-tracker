@@ -11,27 +11,42 @@ import {
   Signal,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormSubmit } from '@/common/components/forms/form_submit/form-submit';
 import { UseIDsDir } from '@/core/directives/use_ids';
+import { FormZodMng } from '@/core/paperwork/form_zod_mng';
 import { FormFieldDynamic } from '@/common/components/forms/form_field_dynamic/form-field-dynamic';
+import { UseFormFieldDynamicDir } from '@/core/directives/forms/form_field/0.use_form_field_dynamic';
 
 @Component({
   selector: 'app-search-bar',
-  imports: [FormSubmit, UseIDsDir, FormFieldDynamic],
+  imports: [FormSubmit, UseIDsDir, ReactiveFormsModule, FormFieldDynamic, UseFormFieldDynamicDir],
   templateUrl: './search-bar.html',
   styleUrl: './search-bar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchBar<T> extends UseInjCtxHk implements OnInit {
+  // ? props
   public readonly form: InputSignal<FormGroup> = input.required();
   public readonly txtInputsAvailable: InputSignal<TxtFieldArrayT[]> = input.required();
 
   // ? helpers
-  public getTxtCtrl(name: string): FormControl {
-    return this.form().get(name) as FormControl;
+  public getTxtCtrl(idx: number): FormControl {
+    return this.form().get(`txtInputs.${idx}`) as FormControl;
   }
 
+  // ? listeners
+  public onSubmit(): void {
+    if (!this.form().valid) {
+      FormZodMng.onSubmitFailed(this.form());
+      return;
+    }
+
+    console.log('success');
+    console.log(this.form().value);
+  }
+
+  // ? local state
   public formVal: Nullable<Signal<BaseSearchBarFormT<T>>> = null;
 
   ngOnInit(): void {

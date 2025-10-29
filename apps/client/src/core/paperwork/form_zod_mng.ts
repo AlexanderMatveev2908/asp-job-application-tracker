@@ -22,6 +22,7 @@ export class FormZodMng {
         errs[path] = issue.message;
 
         const sub: Nullable<AbstractControl> = control.get(path);
+
         if (sub) sub.setErrors({ zod: issue.message });
       }
 

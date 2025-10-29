@@ -31,13 +31,13 @@ export class FormFieldErr implements OnInit {
 
   // ? personal props
   public readonly ctrl: InputSignal<FormControl> = input.required();
+  public readonly optionalDep: InputSignal<Nullable<unknown[]>> = input<Nullable<unknown[]>>(null);
 
   // ? derived
   public recErrs: WritableSignal<RecErrsFieldT> = signal({
     prev: null,
     curr: null,
   });
-  public readonly optionalDep: InputSignal<Nullable<unknown[]>> = input<Nullable<unknown[]>>(null);
 
   // ? props testid tooltip
   public readonly testIdErrMsg: Signal<string> = computed(() =>
