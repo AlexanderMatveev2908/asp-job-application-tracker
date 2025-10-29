@@ -6,16 +6,19 @@ import { FocusDOM } from '@/core/lib/dom/focus';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 
 export abstract class SubmitFailMng {
-  private static ctrlErrMng(ctrl: AbstractControl): string {
+  private static ctrlErrMng(ctrl: AbstractControl): Nullable<string> {
     ctrl.markAsDirty();
     ctrl.markAsTouched();
 
-    if (LibShapeCheck.hasObjData(ctrl.errors)) ctrl.setErrors({ ...ctrl.errors });
+    if (LibShapeCheck.hasObjData(ctrl.errors)) {
+      ctrl.setErrors({ ...ctrl.errors });
+      return '';
+    }
 
-    return '';
+    return null;
   }
 
-  private static findParent(ctrl: AbstractControl): Nullable<string> {
+  private static findArrayFormParent(ctrl: AbstractControl): Nullable<string> {
     const parent: Nullable<FormArray | FormGroup> = ctrl.parent;
 
     let parentKey: Nullable<string> = null;
@@ -37,11 +40,10 @@ export abstract class SubmitFailMng {
   ): [string, AbstractControl][] {
     if (form instanceof FormGroup) return Object.entries(form.controls);
 
-    if (form instanceof FormArray) {
-      const parentKey: Nullable<string> = this.findParent(form);
-
-      return form.controls.map((ctrl: AbstractControl, i: number) => [`${parentKey}.${i}`, ctrl]);
-    }
+    if (form instanceof FormArray)
+      return form.controls.map((ctrl: AbstractControl, i: number) => [i + '', ctrl]);
+    // const parentKey: Nullable<string> = this.findArrayFormParent(form);
+    // return form.controls.map((ctrl: AbstractControl, i: number) => [`${parentKey}.${i}`, ctrl]);
 
     return [];
   }
@@ -59,8 +61,9 @@ export abstract class SubmitFailMng {
       const nestedKey: Nullable<string> = this._onSubmitFailed(ctrl);
 
       if (!first && nestedKey !== null) {
-        first = nestedKey === '' ? keyCtrl : `${keyCtrl}.${nestedKey.replace(`${keyCtrl}.`, '')}`;
+        first = nestedKey === '' ? keyCtrl : `${keyCtrl}.${nestedKey}`;
       }
+      // first = nestedKey === '' ? keyCtrl : `${keyCtrl}.${nestedKey.replace(/^.*\./, '')}`;
 
       const err: Nullable<string> = form.errors?.[keyCtrl];
 
@@ -80,6 +83,7 @@ export abstract class SubmitFailMng {
     const first: Nullable<string> = this._onSubmitFailed(form);
 
     console.log(first);
+
     FocusDOM.byDataField(first);
   }
 

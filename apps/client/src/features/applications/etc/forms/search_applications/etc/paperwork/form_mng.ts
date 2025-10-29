@@ -23,7 +23,7 @@ export class SearchApplicationsFormMng extends FormZodMng {
       if ((data.txtInputs?.[0]?.val?.length ?? 0) < 10) {
         ctx.addIssue({
           code: 'custom',
-          path: ['txtInputs.0'],
+          path: ['txtInputs.1'],
           message: 'Invalid',
         });
       }
@@ -31,7 +31,10 @@ export class SearchApplicationsFormMng extends FormZodMng {
 
   public static readonly form: FormGroup = new FormGroup(
     {
-      txtInputs: new FormArray([new FormControl(SearchApplicationsUiFkt.companyName())]),
+      txtInputs: new FormArray([
+        new FormControl(SearchApplicationsUiFkt.companyName()),
+        new FormControl(SearchApplicationsUiFkt.positionName()),
+      ]),
       status: new FormControl([]),
       createdAtSort: new FormControl(''),
       updatedAtSort: new FormControl(''),
