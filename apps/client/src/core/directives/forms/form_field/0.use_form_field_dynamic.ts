@@ -1,7 +1,7 @@
 import { Nullable } from '@/common/types/etc';
 import { TxtFieldArrayT } from '@/common/types/forms';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
-import { Directive, input, InputSignal, Signal } from '@angular/core';
+import { computed, Directive, input, InputSignal, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl } from '@angular/forms';
 import { map, startWith } from 'rxjs';
@@ -12,6 +12,11 @@ import { map, startWith } from 'rxjs';
 export class UseFormFieldDynamicDir extends UseInjCtxHk {
   // ? props required
   public readonly ctrl: InputSignal<FormControl<TxtFieldArrayT>> = input.required();
+  public readonly idx: InputSignal<number> = input.required();
+
+  public readonly fieldAttr: Signal<string> = computed(
+    () => `${this.field?.()?.field ?? 'bug'}.${this.idx()}`
+  );
 
   // ? listeners
   public onChange(v: string): void {

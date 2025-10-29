@@ -3,8 +3,8 @@ import { FormFieldsUiFkt } from '@/core/ui_fkt/form_fields/0.root';
 
 export class SearchApplicationsUiFkt extends FormFieldsUiFkt {
   public static readonly companyName: () => TxtFieldArrayT = () =>
-    this.fieldArrayOf({ name: 'companyName' });
+    this.fieldArrayOf({ name: 'companyName', field: 'txtInputs' });
 
   public static readonly positionName: () => TxtFieldArrayT = () =>
-    this.fieldArrayOf({ name: 'positionName' });
+    this.fieldArrayOf({ name: 'positionName', field: 'txtInputs' });
 }

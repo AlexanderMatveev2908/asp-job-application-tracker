@@ -8,7 +8,7 @@
   <div class="root__input">
     <input
       #formField
-      [attr.data-field]="useDynamicField.field?.()?.field"
+      [attr.data-field]="useDynamicField.fieldAttr()"
       class="input__field txt__md"
       [value]="useDynamicField.field?.()?.val"
       (input)="useDynamicField.onChange($event.target.value)"
@@ -16,6 +16,10 @@
       [placeholder]="useDynamicField.field?.()?.place"
     />
 
-    <app-form-field-dynamic-err [ctrl]="useDynamicField.ctrl()" appUseDynamicFieldDir />
+    <app-form-field-dynamic-err
+      [ctrl]="useDynamicField.ctrl()"
+      [idx]="useDynamicField.idx()"
+      appUseDynamicFieldDir
+    />
   </div>
 </div>

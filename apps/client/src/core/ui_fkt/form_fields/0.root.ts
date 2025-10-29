@@ -42,7 +42,9 @@ export class FormFieldsUiFkt extends RootUiFkt {
     });
   }
 
-  public static fieldArrayOf(arg: Partial<TxtFieldArrayT> & { name: string }): TxtFieldArrayT {
+  public static fieldArrayOf(
+    arg: Partial<TxtFieldArrayT> & { name: string; field: string }
+  ): TxtFieldArrayT {
     return {
       ...this.txtFieldOf(arg),
       val: '',
