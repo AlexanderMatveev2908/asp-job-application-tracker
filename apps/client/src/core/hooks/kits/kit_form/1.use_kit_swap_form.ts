@@ -1,7 +1,7 @@
 import { Nullable } from '@/common/types/etc';
 import { LibEtc } from '@/core/lib/etc';
 import { LibShapeCheck } from '@/core/lib/data_structure/shape_check';
-import { UseSwapHk } from '@/core/hooks/use_swap/use_swap';
+import { UseSwapHk } from '@/core/hooks/swap/use_swap/use_swap';
 import { inject, Injectable } from '@angular/core';
 import { FormZodMng } from '@/core/paperwork/form_zod_mng';
 import { Observable } from 'rxjs';

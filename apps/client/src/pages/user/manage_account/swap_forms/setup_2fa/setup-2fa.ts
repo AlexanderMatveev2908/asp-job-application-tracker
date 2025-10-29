@@ -18,7 +18,7 @@ import { UseKitFormUserSvc } from '@/features/user/etc/services/use_kit_form_use
 import { UseMetaEventDir } from '@/core/directives/use_meta_event';
 import { Notice2fa } from './content_options/notice/notice-2fa';
 import { ContentSetup2fa } from './content_options/setup/content-setup-2fa';
-import { ConfSwapT } from '@/core/hooks/use_swap/etc/types';
+import { ConfSwapT } from '@/core/hooks/swap/etc/types';
 
 @Component({
   selector: 'app-setup-2fa',

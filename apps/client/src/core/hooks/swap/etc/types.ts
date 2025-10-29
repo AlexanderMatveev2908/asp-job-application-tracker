@@ -8,3 +8,9 @@ export interface SwapStateT {
 export interface ConfSwapT extends SwapStateT {
   isCurr: boolean;
 }
+
+export interface PaginationSwapStateT {
+  rowsForCol: number;
+  colsForSwap: number;
+  swapsIDs: string[];
+}

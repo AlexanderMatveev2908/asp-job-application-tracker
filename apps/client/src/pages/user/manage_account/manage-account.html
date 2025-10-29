@@ -5,7 +5,8 @@
         [swap]="swapState().swap"
         [setSwap]="setSwap"
         [maxSwaps]="4"
-        [prefixTestId]="'manage_account'"
+        appUseIDsDir
+        [testId]="'manage_account'"
         [optionalDep]="optionalDep()"
       >
         <div class="swapper__swap" #swapDiv [style.--opac]="getOpacity(0)()">

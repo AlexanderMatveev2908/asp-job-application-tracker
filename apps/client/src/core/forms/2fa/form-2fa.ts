@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-with-title';
 import { Swapper } from '@/common/components/swap/swapper/swapper';
-import { UseSwapHk } from '@/core/hooks/use_swap/use_swap';
+import { UseSwapHk } from '@/core/hooks/swap/use_swap/use_swap';
 import { TotpForm } from './swaps/totp_form/totp-form';
 import { BkpForm } from './swaps/bkp_form/bkp-form';
 import { Observable } from 'rxjs';
@@ -18,7 +18,7 @@ import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-form-2fa',
-  imports: [CsrWithTitle, Swapper, TotpForm, BkpForm, UseForm2faDir],
+  imports: [CsrWithTitle, Swapper, TotpForm, BkpForm, UseForm2faDir, UseIDsDir],
   templateUrl: './form-2fa.html',
   styleUrl: './form-2fa.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

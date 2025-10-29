@@ -1,4 +1,4 @@
-import { CheckFieldT, TxtFieldT } from '@/common/types/forms';
+import { CheckBoxFieldT, CheckFieldT, TxtFieldT } from '@/common/types/forms';
 import { RootUiFkt } from '../root_ui';
 import { LibPrs } from '../../lib/data_structure/prs';
 
@@ -26,6 +26,18 @@ export class FormFieldsUiFkt extends RootUiFkt {
       ...arg,
       field: arg.field ?? arg.name,
       label,
+      type: arg?.type ?? 'radio',
+    });
+  }
+
+  public static checkBoxFieldOf(
+    arg: Partial<CheckBoxFieldT> & { name: string; label: string; val: string }
+  ): CheckBoxFieldT {
+    return this.withID({
+      name: arg.name,
+      field: arg.field ?? arg.name,
+      val: arg.val,
+      label: arg.label,
       type: arg?.type ?? 'radio',
     });
   }

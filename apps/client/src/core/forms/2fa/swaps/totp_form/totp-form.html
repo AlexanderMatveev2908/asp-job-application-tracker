@@ -3,7 +3,7 @@
     [formGroup]="form"
     (ngSubmit)="onSubmit()"
     class="root"
-    [attr.data-testid]="useForm2faDir.getTestID('totp')"
+    [attr.data-testid]="useIDs.form2faVarID('totp')()"
   >
     <div class="root__wrap">
       <div class="wrap__content">
@@ -14,7 +14,7 @@
           [selectAll]="useTotpKeys.selectAll()"
           [skip]="getSkip(outerIdx)"
           [form]="form"
-          [formID]="useForm2faDir.getTestID('totp')"
+          [formID]="useIDs.form2faVarID('totp')()"
         />
         }
 
@@ -29,7 +29,7 @@
       <app-form-submit
         appUseIDsDir
         [isPending]="apiTracker.isPending()"
-        [testId]="useForm2faDir.getTestID('totp')"
+        [testId]="useIDs.form2faVarID('totp')()"
       />
     </div>
   </form>

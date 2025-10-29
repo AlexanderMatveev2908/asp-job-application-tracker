@@ -40,4 +40,10 @@ export class LibLog {
   public static log(...args: unknown[]): void {
     this._log(null, ...args);
   }
+
+  public static logFormData(form: FormData): void {
+    for (const pair of form.entries()) {
+      console.log(`🔑 ${pair[0]} => 🖍️ ${pair[1]}`);
+    }
+  }
 }

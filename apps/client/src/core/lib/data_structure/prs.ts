@@ -55,6 +55,15 @@ export class LibPrs {
   private static firstUpper(arg: string): string {
     return arg.at(0)!.toUpperCase();
   }
+
+  public static titleCase(arg: string): string {
+    return arg
+      .trim()
+      .split(/\s+/)
+      .map((w: string) => (w.length > 0 ? w[0].toUpperCase() + w.slice(1).toLowerCase() : ''))
+      .join(' ');
+  }
+
   public static initials(user: UserT): string {
     return `${this.firstUpper(user.firstName)}${this.firstUpper(user.lastName)}`;
   }

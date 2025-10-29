@@ -6,7 +6,7 @@ import { FormShape } from '@/common/components/forms/form_shape/form-shape';
 import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { NgClass } from '@angular/common';
 import { Nullable } from '@/common/types/etc';
-import { ConfSwapT } from '@/core/hooks/use_swap/etc/types';
+import { ConfSwapT } from '@/core/hooks/swap/etc/types';
 import { UseKitStrategyDir } from '@/core/directives/forms/kits/use_kit_strategy';
 import { UseKitFormHk } from '@/core/hooks/kits/kit_form/0.use_kit_form';
 import { UseFormShapeDir } from '@/core/directives/forms/use_form_shape';

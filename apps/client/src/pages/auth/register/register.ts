@@ -16,7 +16,7 @@ import { AuthFormShape } from '@/features/auth/components/form_shape/auth-form-s
 import { UseAuthKitSvc } from '@/features/auth/etc/services/use_auth_kit';
 import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { UseKitSwapFormHk } from '@/core/hooks/kits/kit_form/1.use_kit_swap_form';
-import { UseSwapHk } from '@/core/hooks/use_swap/use_swap';
+import { UseSwapHk } from '@/core/hooks/swap/use_swap/use_swap';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { UseFormShapeDir } from '@/core/directives/forms/use_form_shape';
 import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';

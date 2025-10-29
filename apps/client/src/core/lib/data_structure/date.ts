@@ -1,0 +1,20 @@
+export class LibDate {
+  private static padDate(arg: number): string {
+    // eslint-disable-next-line no-magic-numbers
+    return (arg + '').padStart(2, '0');
+  }
+
+  public static fromTmspToPicker(arg: number): string {
+    const d: Date = new Date(arg);
+
+    const dd: string = this.padDate(d.getDate());
+    const mm: string = this.padDate(d.getMonth());
+    const yyyy = d.getFullYear();
+
+    return `${yyyy}-${mm}-${dd}`;
+  }
+
+  public static pickerNow(): string {
+    return this.fromTmspToPicker(Date.now());
+  }
+}

@@ -45,6 +45,7 @@ import { UseForm2faDir } from '../../etc/directives/use_form_2fa';
 export class TotpForm extends UseKitFormHk implements OnInit, AfterViewInit {
   // ? directives
   public readonly useForm2faDir: UseForm2faDir = inject(UseForm2faDir);
+  public readonly useIDs: UseIDsDir = inject(UseIDsDir);
 
   // ? hooks
   public readonly useTotpKeys: UseTotpFormKeysHk = inject(UseTotpFormKeysHk);

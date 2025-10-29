@@ -38,7 +38,4 @@ export class FormSubmit {
     isDisabled: false,
     isPending: this.isPending(),
   }));
-
-  // ? playwright stuff
-  public derivedSubmitId: Signal<string> = computed(() => this.useIDsDir.testId() + '__submit');
 }
