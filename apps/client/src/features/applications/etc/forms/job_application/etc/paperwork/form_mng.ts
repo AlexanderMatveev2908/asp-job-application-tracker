@@ -28,14 +28,11 @@ export class ApplicationFormMng extends FormZodMng {
 
     status: z
       .preprocess(
-        (val: unknown) => (!val ? undefined : val),
+        (val: ApplicationStatusT) => (!val ? undefined : val),
         z
-          .enum(
-            Object.values(ApplicationStatusT) as [ApplicationStatusT, ...ApplicationStatusT[]],
-            {
-              error: 'Invalid application status',
-            }
-          )
+          .enum(Object.values(ApplicationStatusT), {
+            error: 'Invalid application status',
+          })
           .optional()
       )
       .refine((v: Opt<ApplicationStatusT>) => !!v, { message: 'Application status required' }),
