@@ -1,1 +1,10 @@
-<div class="root"></div>
+<div class="root">
+  <div class="root__search">
+    @for(f of formVal?.()?.txtInputs; track f?.id){
+
+    <app-form-field-dynamic [f]="f" />
+    }
+  </div>
+
+  <app-form-submit [isPending]="false" appUseIDsDir />
+</div>

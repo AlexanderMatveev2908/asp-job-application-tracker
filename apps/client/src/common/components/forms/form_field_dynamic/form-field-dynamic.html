@@ -1,0 +1,17 @@
+<div class="root">
+  @if(!hideLabel()) {
+  <div class="root__label">
+    <span class="txt__lg">{{ f().label }}</span>
+  </div>
+  }
+
+  <div class="root__input">
+    <input
+      #formField
+      [attr.data-field]="f().field"
+      class="input__field txt__md"
+      [type]="f().type"
+      [placeholder]="f().place"
+    />
+  </div>
+</div>

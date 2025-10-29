@@ -27,6 +27,10 @@ export interface TxtFieldT extends BaseFieldT {
   place: string;
 }
 
+export interface TxtFieldArrayT extends TxtFieldT {
+  val: string;
+}
+
 export interface TxtSvgFieldT extends TxtFieldT {
   Svg: SvgT;
 }
