@@ -47,7 +47,7 @@ export class FormFieldBoxLg implements OnInit {
     () => `scale(${this.isChosen() ? '1.2' : '1'})`
   );
   public readonly transformHover: Signal<string> = computed(
-    () => `scale(${!this.wasHover() ? '1.2' : this.isChosen() ? '1.2' : '1'})`
+    () => `scale(${this.isChosen() || !this.wasHover() ? '1.2' : '1'})`
   );
   public readonly bg: Signal<string> = computed(
     () => `var(--${this.isChosen() ? 'gray__300' : 'neutral__950'})`
@@ -56,12 +56,10 @@ export class FormFieldBoxLg implements OnInit {
     () => `var(--${this.isChosen() ? 'neutral__950' : 'gray__300'})`
   );
   public readonly bgHover: Signal<string> = computed(
-    () =>
-      `var(--${!this.wasHover() ? 'gray__300' : this.isChosen() ? 'gray__300' : 'neutral__950'})`
+    () => `var(--${this.isChosen() || !this.wasHover() ? 'gray__300' : 'neutral__950'})`
   );
   public readonly clrHover: Signal<string> = computed(
-    () =>
-      `var(--${!this.wasHover() ? 'neutral__950' : this.isChosen() ? 'neutral__950' : 'gray__300'})`
+    () => `var(--${this.isChosen() || !this.wasHover() ? 'neutral__950' : 'gray__300'})`
   );
 
   public onClick(): void {
