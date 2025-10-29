@@ -5,12 +5,11 @@ import { SubmitFailMng } from './sub/0.submit_fail_mng';
 
 export class FormZodMng extends SubmitFailMng {
   public static checkZ(schema: ZodType): ValidatorFn {
-    return (control: AbstractControl): Nullable<ValidationErrors> => {
-      const res: ZodSafeParseResult<unknown> = schema.safeParse(control.value);
+    return (form: AbstractControl): Nullable<ValidationErrors> => {
+      const res: ZodSafeParseResult<unknown> = schema.safeParse(form.value);
       if (res.success) return null;
 
-      for (const ctrl of Object.values((control as FormGroupControls).controls))
-        ctrl.setErrors(null);
+      for (const ctrl of Object.values((form as FormGroupControls).controls)) ctrl.setErrors(null);
 
       const errs: Record<string, string> = {};
 
@@ -18,7 +17,7 @@ export class FormZodMng extends SubmitFailMng {
         const path: string = issue.path.join('.');
         errs[path] = issue.message;
 
-        const sub: Nullable<AbstractControl> = control.get(path);
+        const sub: Nullable<AbstractControl> = form.get(path);
 
         if (sub) sub.setErrors({ zod: issue.message });
       }

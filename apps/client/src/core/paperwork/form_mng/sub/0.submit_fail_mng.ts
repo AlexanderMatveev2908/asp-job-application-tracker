@@ -6,9 +6,13 @@ import { FocusDOM } from '@/core/lib/dom/focus';
 import { AbstractControl, FormArray, FormControl, FormGroup } from '@angular/forms';
 
 export abstract class SubmitFailMng {
-  private static ctrlErrMng(ctrl: AbstractControl): Nullable<string> {
+  private static mark(ctrl: AbstractControl): void {
     ctrl.markAsDirty();
     ctrl.markAsTouched();
+  }
+
+  private static ctrlErrMng(ctrl: AbstractControl): Nullable<string> {
+    this.mark(ctrl);
 
     if (LibShapeCheck.hasObjData(ctrl.errors)) {
       ctrl.setErrors({ ...ctrl.errors });
@@ -57,18 +61,14 @@ export abstract class SubmitFailMng {
     for (const [keyCtrl, ctrl] of entries) {
       const nestedKey: Nullable<string> = this._onSubmitFailed(ctrl);
 
-      if (!first && nestedKey !== null) {
+      if (!first && nestedKey !== null)
         first = nestedKey === '' ? keyCtrl : `${keyCtrl}.${nestedKey}`;
-      }
       // first = nestedKey === '' ? keyCtrl : `${keyCtrl}.${nestedKey.replace(/^.*\./, '')}`;
 
       const err: Nullable<string> = form.errors?.[keyCtrl];
 
       if (LibShapeCheck.isStr(err)) {
-        ctrl.markAsDirty();
-        ctrl.markAsTouched();
-        ctrl.setErrors({ zod: err });
-
+        this.mark(ctrl);
         if (!first) first = keyCtrl;
       }
     }
@@ -88,8 +88,6 @@ export abstract class SubmitFailMng {
 
   public static onSubmitFailed(form: FormGroup): void {
     const first: Nullable<string> = this._onSubmitFailed(form);
-
-    console.log(first);
 
     FocusDOM.byDataField(first);
   }
