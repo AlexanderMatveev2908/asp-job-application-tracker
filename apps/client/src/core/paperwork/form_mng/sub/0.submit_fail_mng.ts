@@ -48,14 +48,11 @@ export abstract class SubmitFailMng {
     return [];
   }
 
-  private static _onSubmitFailed(form: FormGroup | FormArray | AbstractControl): Nullable<string> {
-    if (form instanceof FormGroup) LibLog.logTtl('submit failed', form.errors);
-
+  private static markAndFindFirst(
+    form: FormGroup | FormArray | AbstractControl,
+    entries: [string, AbstractControl][]
+  ): Nullable<string> {
     let first: Nullable<string> = null;
-
-    if (form instanceof FormControl) return this.ctrlErrMng(form);
-
-    const entries: [string, AbstractControl][] = this.entriesFrom(form);
 
     for (const [keyCtrl, ctrl] of entries) {
       const nestedKey: Nullable<string> = this._onSubmitFailed(ctrl);
@@ -77,6 +74,16 @@ export abstract class SubmitFailMng {
     }
 
     return first;
+  }
+
+  private static _onSubmitFailed(form: FormGroup | FormArray | AbstractControl): Nullable<string> {
+    if (form instanceof FormGroup) LibLog.logTtl('submit failed', form.errors);
+
+    if (form instanceof FormControl) return this.ctrlErrMng(form);
+
+    const entries: [string, AbstractControl][] = this.entriesFrom(form);
+
+    return this.markAndFindFirst(form, entries);
   }
 
   public static onSubmitFailed(form: FormGroup): void {
