@@ -7,6 +7,7 @@ import { LibFormPrs } from '@/core/lib/data_structure/form_prs';
 import { UseApplicationsKitSvc } from '@/features/applications/etc/hooks/use_applications_kit';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { ApplicationResT } from '@/features/applications/etc/types';
+import { UseNavSvc } from '@/core/services/use_nav/use_nav';
 
 @Component({
   selector: 'app-post-job-applications',
@@ -17,13 +18,14 @@ import { ApplicationResT } from '@/features/applications/etc/types';
 })
 export class PostJobApplications {
   private readonly useApplicationsKit: UseApplicationsKitSvc = inject(UseApplicationsKitSvc);
+  private readonly useNav: UseNavSvc = inject(UseNavSvc);
 
   public readonly strategy: (data: ApplicationFormT) => Observable<unknown> = (
     data: ApplicationFormT
   ) =>
     this.useApplicationsKit.applicationsApi.post(LibFormPrs.genFormData(data)).pipe(
-      tap((res: ResApiT<ApplicationResT>) => {
-        console.log(res.jobApplication);
+      tap((_: ResApiT<ApplicationResT>) => {
+        void this.useNav.replace('/job-applications');
       })
     );
 }
