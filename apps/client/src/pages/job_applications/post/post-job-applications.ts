@@ -8,10 +8,11 @@ import { UseApplicationsKitSvc } from '@/features/applications/etc/hooks/use_app
 import { ResApiT } from '@/core/store/api/etc/types';
 import { ApplicationResT } from '@/features/applications/etc/types';
 import { UseNavSvc } from '@/core/services/use_nav/use_nav';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-post-job-applications',
-  imports: [CsrWithTitle, JobApplicationForm],
+  imports: [CsrWithTitle, JobApplicationForm, UseIDsDir],
   templateUrl: './post-job-applications.html',
   styleUrl: './post-job-applications.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

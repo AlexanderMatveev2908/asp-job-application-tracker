@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, InputSignal } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ApplicationFormMng, ApplicationFormT } from './etc/paperwork/form_mng';
 import { TxtFieldT } from '@/common/types/forms';
@@ -29,6 +29,8 @@ import { ApplicationStatuses } from './statuses/application-statuses';
   providers: [UseApiTrackerHk, UseInjCtxHk],
 })
 export class JobApplicationForm extends UseKitFormHk {
+  public readonly useIDs: UseIDsDir = inject(UseIDsDir);
+
   public readonly strategy: InputSignal<(data: ApplicationFormT) => Observable<unknown>> =
     input.required();
 

@@ -5,10 +5,11 @@ import { PaginationSwapStateT } from '@/core/hooks/swap/etc/types';
 import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-dynamic-swap-item',
-  imports: [FormFieldBoxLg, UseFormFieldDir],
+  imports: [FormFieldBoxLg, UseFormFieldDir, UseIDsDir],
   templateUrl: './dynamic-swap-item.html',
   styleUrl: './dynamic-swap-item.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,3 +1,5 @@
+import { Rand } from '@/common/components/hoc/pair_pwd/pwd_generator/etc/rand';
+
 export class LibDate {
   private static padDate(arg: number): string {
     // eslint-disable-next-line no-magic-numbers
@@ -16,5 +18,17 @@ export class LibDate {
 
   public static pickerNow(): string {
     return this.fromTmspToPicker(Date.now());
+  }
+
+  public static randomDate(): string {
+    const now: number = Date.now();
+
+    const nextYear: Date = new Date(now);
+    nextYear.setFullYear(nextYear.getFullYear() + 1);
+    const oneYear: number = nextYear.getTime() - now;
+
+    const someDay: number = now + Rand.randInRange(-oneYear, oneYear);
+
+    return this.fromTmspToPicker(someDay);
   }
 }
