@@ -16,3 +16,7 @@ export interface ApplicationT extends SqlTableT {
   status: ApplicationStatusT;
   appliedAt: number;
 }
+
+export interface ApplicationResT {
+  jobApplication: ApplicationT;
+}

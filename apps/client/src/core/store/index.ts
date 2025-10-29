@@ -1,3 +1,4 @@
+import { applicationsReducer, ApplicationsStateT } from '@/features/applications/reducer/reducer';
 import { authReducer, AuthStateT } from '@/features/auth/reducer/reducer';
 import { cbcHmacReducer, CbcHmacStateT } from '@/features/cbcHmac/reducer/reducer';
 import { noticeReducer, NoticeStateT } from '@/features/notice/reducer/reducer';
@@ -15,6 +16,7 @@ export interface StoreStateT {
   auth: AuthStateT;
   user: UserStateT;
   cbcHmac: CbcHmacStateT;
+  applications: ApplicationsStateT;
 }
 
 export const rootReducer: ActionReducerMap<StoreStateT> = {
@@ -25,4 +27,5 @@ export const rootReducer: ActionReducerMap<StoreStateT> = {
   auth: authReducer,
   user: userReducer,
   cbcHmac: cbcHmacReducer,
+  applications: applicationsReducer,
 };
