@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 import {
   ChangeDetectionStrategy,
   Component,
@@ -13,10 +14,11 @@ import { BlackBgPropsT } from '@/layout/black_bg/etc/types';
 import { BlackBg } from '@/layout/black_bg/black-bg';
 import { NgClass } from '@angular/common';
 import { ElDomT, RefDomT } from '@/common/types/etc';
+import { SearchBarFilterBarHeader } from './header/search-bar-filter-bar-header';
 
 @Component({
   selector: 'app-search-bar-filter-bar',
-  imports: [BlackBg, NgClass],
+  imports: [BlackBg, NgClass, SearchBarFilterBarHeader],
   templateUrl: './search-bar-filter-bar.html',
   styleUrl: './search-bar-filter-bar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,8 +28,12 @@ export class SearchBarFilterBar {
 
   // ? derived
   public readonly twd: Signal<string> = computed(() =>
-    this.useBars().isFilterBar() ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
+    this.useBars().isFilterBar() ? '-translate-y-full opacity-100' : 'translate-y-0 opacity-0'
   );
+
+  // ? statics
+  public readonly HEADER_H: string = '60px';
+  public readonly FOOTER_H: string = '60px';
 
   // ? children
   @ViewChild('barRef')

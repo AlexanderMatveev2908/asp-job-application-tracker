@@ -61,9 +61,5 @@ export class SearchBar<T> extends UseInjCtxHk implements OnInit {
         initialValue: this.form().value,
       });
     });
-
-    this.useEffect(() => {
-      console.log(this.formVal?.());
-    });
   }
 }
