@@ -3,12 +3,16 @@
   @apply fixed top-full left-0 w-full h-[60vh] border-t-3 border-blue-600 bg-neutral-950;
 
   .root__body {
-    @apply w-full h-full grid grid-cols-[200px_3px_1fr];
+    @apply w-full h-full grid grid-cols-[75px_3px_1fr];
+
+    @media (min-width: 800px) {
+      @apply grid-cols-[200px_3px_1fr];
+    }
 
     .body__scrollable {
       max-height: calc(100% - var(--less));
       height: calc(100% - var(--less));
-      @apply overflow-y-scroll px-3 py-3 pb-6;
+      @apply w-full overflow-y-scroll px-3 py-3 pb-6;
     }
 
     .body__separator {
