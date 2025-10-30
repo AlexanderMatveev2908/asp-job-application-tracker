@@ -72,7 +72,7 @@ export class SearchApplicationsFormMng extends FormZodMng {
       }
     );
 
-  public static readonly defState: () => FormGroup = () => this.form();
+  public static readonly defState: () => SearchApplicationsFormT = () => this.form().getRawValue();
 }
 
 export type SearchApplicationsFormT = z.infer<typeof SearchApplicationsFormMng.schema>;

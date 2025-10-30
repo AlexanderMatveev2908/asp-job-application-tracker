@@ -11,7 +11,7 @@ import {
   Signal,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormZodMng } from '@/core/paperwork/form_mng/form_zod_mng';
 import { SearchBarTxtFieldsRow } from './etc/fragments/txt_fields_row/search-bar-txt-fields-row';
 import { SearchBarBtnsRow } from './etc/fragments/btns_row/search-bar-btns-row';
@@ -26,7 +26,7 @@ import { LibLog } from '@/core/lib/dev/log';
 })
 export class SearchBar<T> extends UseInjCtxHk implements OnInit {
   // ? props
-  public readonly defState: InputSignal<FormGroup> = input.required();
+  public readonly defState: InputSignal<BaseSearchBarFormT<T>> = input.required();
   public readonly form: InputSignal<FormGroup> = input.required();
   public readonly txtInputsAvailable: InputSignal<TxtFieldArrayT[]> = input.required();
 
@@ -40,7 +40,16 @@ export class SearchBar<T> extends UseInjCtxHk implements OnInit {
     LibLog.logTtl('✅ submit', this.form().value);
   }
 
-  public readonly onErase: () => void = () => this.form().reset(this.defState().getRawValue());
+  public readonly onErase: () => void = () => {
+    const { txtInputs, ...plainCtrlFields }: BaseSearchBarFormT<T> = this.defState();
+
+    this.form().patchValue(plainCtrlFields);
+
+    const txtInputsFormArray: FormArray = this.form().get('txtInputs') as FormArray;
+    txtInputsFormArray.clear();
+
+    for (const f of txtInputs!) txtInputsFormArray.push(new FormControl(f));
+  };
 
   // ? local state
   public formVal: Nullable<Signal<BaseSearchBarFormT<T>>> = null;
