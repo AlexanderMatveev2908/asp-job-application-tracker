@@ -1,7 +1,14 @@
 <button type="button" class="root" [style.--clr]="metaEvent().css">
-  <div class="svg__md">
-    <ng-container *ngComponentOutlet="useSpanDir.spanProps().Svg" />
-  </div>
+  <app-wrap-txt-api
+    [spinSizeT]="'xs'"
+    appUseWrapApiDir
+    [eventT]="useSpanDir.spanProps().eventT"
+    [isPending]="false"
+  >
+    <div class="svg__md">
+      <ng-container *ngComponentOutlet="useSpanDir.spanProps().Svg" />
+    </div>
+  </app-wrap-txt-api>
 
   <span class="txt__lg root__label">
     {{ useSpanDir.spanProps().label }}
