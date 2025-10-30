@@ -21,7 +21,7 @@ import { UseSpanDir } from '@/core/directives/use_span';
 import { SearchBarDropAddField } from './drop_add_field/search-bar-drop-add-field';
 
 @Component({
-  selector: 'app-search-bar-first-row',
+  selector: 'app-search-bar-txt-fields-row',
   imports: [
     FormFieldDynamic,
     UseFormFieldDynamicDir,
@@ -30,12 +30,12 @@ import { SearchBarDropAddField } from './drop_add_field/search-bar-drop-add-fiel
     UseSpanDir,
     SearchBarDropAddField,
   ],
-  templateUrl: './search-bar-first-row.html',
-  styleUrl: './search-bar-first-row.scss',
+  templateUrl: './search-bar-txt-fields-row.html',
+  styleUrl: './search-bar-txt-fields-row.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [UseHoverHk],
 })
-export class SearchBarFirstRow<T> {
+export class SearchBarTxtFieldsRow<T> {
   // ? props
   public readonly form: InputSignal<FormGroup> = input.required();
   public readonly formVal: InputSignal<Nullable<BaseSearchBarFormT<T>>> = input.required();
