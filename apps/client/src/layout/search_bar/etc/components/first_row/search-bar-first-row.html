@@ -10,9 +10,12 @@
         [focusOnMount]="idx === 0"
       />
 
-      <button type="button" class="item__remove_btn svg__lg" (click)="removeItem(idx)">
-        <ng-container *ngComponentOutlet="SvgClose" />
-      </button>
+      <app-btn-tooltip
+        appUseIDsDir
+        appUseSpanDir
+        [spanProps]="spanProps(f)"
+        [onClick]="removeItem.bind(this, idx)"
+      />
     </div>
     }
   </div>

@@ -1,10 +1,10 @@
 @mixin app__shadow($clr) {
-  color: var(--clr);
+  color: $clr;
   box-shadow: 0 0 5px $clr, 0 0 10px $clr, 0 0 15px $clr, 0 0 20px $clr, 0 0 25px $clr;
 }
 
 @mixin el__shw($clr) {
-  border-color: var(--clr);
+  border-color: $clr;
 
   &:hover {
     @include app__shadow($clr);
