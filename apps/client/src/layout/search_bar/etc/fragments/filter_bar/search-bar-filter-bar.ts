@@ -35,8 +35,7 @@ export class SearchBarFilterBar {
   // ? statics
   public readonly HEADER_H: number = 60;
   public readonly FOOTER_H: number = 70;
-  public readonly PADDING: number = 36;
-  public readonly HEIGHT_LESS: string = `${this.HEADER_H + this.FOOTER_H - this.PADDING}px`;
+  public readonly HEIGHT_LESS: string = `${this.HEADER_H + this.FOOTER_H}px`;
 
   // ? children
   @ViewChild('barRef')
