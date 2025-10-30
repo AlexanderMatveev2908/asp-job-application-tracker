@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  InputSignal,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { FormFieldDynamic } from '@/common/components/forms/dynamic_fields_array/form_field_dynamic/form-field-dynamic';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { UseFormFieldDynamicDir } from '@/core/directives/forms/form_field/0.use_form_field_dynamic';
@@ -34,6 +41,9 @@ export class SearchBarFirstRow<T> {
   public readonly formVal: InputSignal<Nullable<BaseSearchBarFormT<T>>> = input.required();
   public readonly txtInputsAvailable: InputSignal<TxtFieldArrayT[]> = input.required();
 
+  // ? optional dep recalculate coords tooltip
+  public readonly optionalDep: WritableSignal<number[]> = signal([0]);
+
   // ? helpers
   public getTxtCtrl(idx: number): FormControl {
     return this.form().get(`txtInputs.${idx}`) as FormControl;
@@ -42,6 +52,10 @@ export class SearchBarFirstRow<T> {
   public readonly removeItem: (idx: number) => void = (idx: number) => {
     const txtInputs: FormArray = this.form().get('txtInputs') as FormArray;
     txtInputs.removeAt(idx);
+
+    setTimeout(() => {
+      this.optionalDep.update((prev: number[]) => [...prev, prev.length]);
+    }, 0);
   };
 
   // ? btn tooltip props
