@@ -60,10 +60,7 @@ export class SearchApplicationsFormMng extends FormZodMng {
 
   public static readonly form: FormGroup = new FormGroup(
     {
-      txtInputs: new FormArray([
-        new FormControl(SearchApplicationsUiFkt.companyName()),
-        new FormControl(SearchApplicationsUiFkt.positionName()),
-      ]),
+      txtInputs: new FormArray([new FormControl(SearchApplicationsUiFkt.companyName())]),
       status: new FormControl([]),
       createdAtSort: new FormControl(''),
       updatedAtSort: new FormControl(''),

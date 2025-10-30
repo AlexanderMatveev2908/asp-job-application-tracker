@@ -1,0 +1,19 @@
+@use 'exports/mix' as mix;
+
+.root {
+  @apply w-full;
+
+  .root__fields {
+    @apply w-full flex flex-col gap-8;
+
+    .fields__item {
+      @apply w-full relative;
+
+      .item__remove_btn {
+        @include mix.app__btn__scl(1.3);
+        @apply text-red-600;
+        @apply absolute -top-5 -right-2 z-50 border-2 p-1 border-red-600 rounded-xl bg-neutral-950;
+      }
+    }
+  }
+}

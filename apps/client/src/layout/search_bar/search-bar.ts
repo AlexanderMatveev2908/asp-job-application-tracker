@@ -15,11 +15,11 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormSubmit } from '@/common/components/forms/form_submit/form-submit';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { FormZodMng } from '@/core/paperwork/form_mng/form_zod_mng';
-import { SearchFirstRow } from './etc/components/first_row/search-first-row';
+import { SearchBarFirstRow } from './etc/components/first_row/search-bar-first-row';
 
 @Component({
   selector: 'app-search-bar',
-  imports: [FormSubmit, UseIDsDir, ReactiveFormsModule, SearchFirstRow],
+  imports: [FormSubmit, UseIDsDir, ReactiveFormsModule, SearchBarFirstRow],
   templateUrl: './search-bar.html',
   styleUrl: './search-bar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
