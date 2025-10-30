@@ -1,4 +1,3 @@
-import { SvgFillApplyJob } from '@/common/components/svgs/fill/apply_job/apply-job';
 import { SvgFillStatus } from '@/common/components/svgs/fill/status/status';
 import { CheckBoxFieldT, TxtFieldArrayT } from '@/common/types/forms';
 import { LibPrs } from '@/core/lib/data_structure/prs';
@@ -17,16 +16,6 @@ export class SearchApplicationsUiFkt extends FormFieldsUiFkt {
     this.companyName(),
     this.positionName(),
   ];
-
-  public static readonly other: () => SearchBarFilterT = () =>
-    this.withID({
-      field: 'other',
-      label: 'Other',
-      Svg: SvgFillApplyJob,
-      fields: Array.from({ length: 25 }, (_: undefined, i: number) =>
-        this.checkBoxFieldOf({ name: 'other', label: 'Other', val: i + '' })
-      ),
-    });
 
   private static getStatuses(): CheckBoxFieldT[] {
     return Object.values(ApplicationStatusT).map(
@@ -47,5 +36,5 @@ export class SearchApplicationsUiFkt extends FormFieldsUiFkt {
       fields: this.getStatuses(),
     });
 
-  public static readonly filters: () => SearchBarFilterT[] = () => [this.status(), this.other()];
+  public static readonly filters: () => SearchBarFilterT[] = () => [this.status()];
 }

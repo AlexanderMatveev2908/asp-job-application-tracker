@@ -20,6 +20,8 @@ import { SearchBarFilterBarFooter } from './footer/search-bar-filter-bar-footer'
 import { UseFiltersHk } from '../../hooks/use_filters';
 import { SearchBarFilterT } from '../../ui_fkt';
 import { SearchBarFilterBarLabels } from './labels/search-bar-filter-bar-labels';
+import { SearchBarFilterBarVals } from './vals/search-bar-filter-bar-vals';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-search-bar-filter-bar',
@@ -29,6 +31,7 @@ import { SearchBarFilterBarLabels } from './labels/search-bar-filter-bar-labels'
     SearchBarFilterBarHeader,
     SearchBarFilterBarFooter,
     SearchBarFilterBarLabels,
+    SearchBarFilterBarVals,
   ],
   templateUrl: './search-bar-filter-bar.html',
   styleUrl: './search-bar-filter-bar.scss',
@@ -39,6 +42,7 @@ export class SearchBarFilterBar implements OnInit {
   public readonly useBars: InputSignal<UseBarsHk> = input.required();
   public readonly useFilters: InputSignal<UseFiltersHk> = input.required();
   public readonly filtersAvailable: InputSignal<() => SearchBarFilterT[]> = input.required();
+  public readonly form: InputSignal<FormGroup> = input.required();
 
   // ? derived
   public readonly twd: Signal<string> = computed(() =>

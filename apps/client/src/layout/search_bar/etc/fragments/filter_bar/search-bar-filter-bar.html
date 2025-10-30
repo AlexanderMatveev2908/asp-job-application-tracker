@@ -11,7 +11,13 @@
       />
     </div>
     <div class="body__separator"></div>
-    <div class="body__vals body__scrollable app__scroll px-3 py-3 pb-6"></div>
+    <div class="body__vals body__scrollable app__scroll">
+      <app-search-bar-filter-bar-vals
+        [useFilters]="useFilters()"
+        [filtersAvailable]="filtersAvailable()"
+        [form]="form()"
+      />
+    </div>
   </div>
 
   <app-search-bar-filter-bar-footer />

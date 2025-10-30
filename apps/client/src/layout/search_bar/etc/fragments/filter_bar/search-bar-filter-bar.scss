@@ -14,6 +14,10 @@
       @apply w-full h-full overflow-y-scroll;
     }
 
+    .body__vals {
+      @apply px-3 py-3 pb-6;
+    }
+
     .body__separator {
       @apply min-h-full h-full w-[3px] bg-blue-600;
     }
