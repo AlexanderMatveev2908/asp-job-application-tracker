@@ -12,14 +12,13 @@ import {
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FormSubmit } from '@/common/components/forms/form_submit/form-submit';
-import { UseIDsDir } from '@/core/directives/use_ids';
 import { FormZodMng } from '@/core/paperwork/form_mng/form_zod_mng';
 import { SearchBarTxtFieldsRow } from './etc/fragments/txt_fields_row/search-bar-txt-fields-row';
+import { SearchBarBtnsRow } from './etc/fragments/btns_row/search-bar-btns-row';
 
 @Component({
   selector: 'app-search-bar',
-  imports: [FormSubmit, UseIDsDir, ReactiveFormsModule, SearchBarTxtFieldsRow],
+  imports: [ReactiveFormsModule, SearchBarTxtFieldsRow, SearchBarBtnsRow],
   templateUrl: './search-bar.html',
   styleUrl: './search-bar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,1 +1,12 @@
-.root{}
+@use 'exports/mix' as mix;
+
+.root {
+  @include mix.app__btn__scl(1.25);
+
+  border-color: var(--clr);
+  @apply w-fit border-2 rounded-xl py-2 px-4 flex items-center justify-center;
+
+  &:enabled:hover {
+    @include mix.app__shadow(var(--clr));
+  }
+}
