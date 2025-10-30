@@ -1,4 +1,5 @@
 <div class="root">
+  @if(formVal()?.txtInputs?.length){
   <div class="root__fields">
     @for(f of formVal()?.txtInputs; track f?.id; let idx = $index){
     <div class="fields__item">
@@ -19,6 +20,7 @@
     </div>
     }
   </div>
+  }
 
   <app-search-bar-drop-add-field
     [form]="form()"

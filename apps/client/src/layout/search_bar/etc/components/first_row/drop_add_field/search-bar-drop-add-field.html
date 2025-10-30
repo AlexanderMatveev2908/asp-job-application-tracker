@@ -1,9 +1,19 @@
+@if(txtFieldsLessPresent().length){
 <div class="root">
   <div class="root__drop">
-    <button type="button" class="drop__btn">
+    <button #dropBtnRef type="button" class="drop__btn" (click)="toggle()">
       <div class="svg__md">
         <ng-container *ngComponentOutlet="SvgDrop" />
       </div>
     </button>
+
+    <div #dropRef class="drop__content" [ngClass]="twd()">
+      @for(f of txtFieldsLessPresent(); track f.id){
+      <div tabindex="0" (click)="addField(f)" (keydown.enter)="addField(f)" class="content__item">
+        <span class="txt__md">{{ f.label }}</span>
+      </div>
+      }
+    </div>
   </div>
 </div>
+}
