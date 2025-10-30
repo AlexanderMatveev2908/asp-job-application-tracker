@@ -15,6 +15,7 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormZodMng } from '@/core/paperwork/form_mng/form_zod_mng';
 import { SearchBarTxtFieldsRow } from './etc/fragments/txt_fields_row/search-bar-txt-fields-row';
 import { SearchBarBtnsRow } from './etc/fragments/btns_row/search-bar-btns-row';
+import { LibLog } from '@/core/lib/dev/log';
 
 @Component({
   selector: 'app-search-bar',
@@ -25,6 +26,7 @@ import { SearchBarBtnsRow } from './etc/fragments/btns_row/search-bar-btns-row';
 })
 export class SearchBar<T> extends UseInjCtxHk implements OnInit {
   // ? props
+  public readonly defState: InputSignal<FormGroup> = input.required();
   public readonly form: InputSignal<FormGroup> = input.required();
   public readonly txtInputsAvailable: InputSignal<TxtFieldArrayT[]> = input.required();
 
@@ -35,9 +37,10 @@ export class SearchBar<T> extends UseInjCtxHk implements OnInit {
       return;
     }
 
-    console.log('success');
-    console.log(this.form().value);
+    LibLog.logTtl('✅ submit', this.form().value);
   }
+
+  public readonly onErase: () => void = () => this.form().reset(this.defState().getRawValue());
 
   // ? local state
   public formVal: Nullable<Signal<BaseSearchBarFormT<T>>> = null;
@@ -47,6 +50,10 @@ export class SearchBar<T> extends UseInjCtxHk implements OnInit {
       this.formVal = toSignal(this.form().valueChanges, {
         initialValue: this.form().value,
       });
+    });
+
+    this.useEffect(() => {
+      console.log(this.formVal?.());
     });
   }
 }

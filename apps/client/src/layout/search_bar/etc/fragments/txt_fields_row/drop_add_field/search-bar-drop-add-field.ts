@@ -18,6 +18,7 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { SvgStrokeSearchPlus } from '@/common/components/svgs/stroke/search_plus/search-plus';
 import { NgClass, NgComponentOutlet } from '@angular/common';
 import { v4 } from 'uuid';
+import { LibShapeCheck } from '@/core/lib/data_structure/shape_check';
 
 @Component({
   selector: 'app-search-bar-drop-add-field',
@@ -34,9 +35,12 @@ export class SearchBarDropAddField<T> {
 
   // ? derived
   public readonly txtFieldsLessPresent: Signal<TxtFieldArrayT[]> = computed(() => {
-    const namesIn: Set<string> = new Set<string>(
-      this.formVal()?.txtInputs?.map((f: TxtFieldArrayT) => f.name)
+    const existing: TxtFieldArrayT[] = (this.formVal()?.txtInputs ?? []).filter(
+      (f: TxtFieldArrayT) => LibShapeCheck.hasObjData(f)
     );
+
+    const namesIn: Set<string> = new Set<string>(existing.map((f: TxtFieldArrayT) => f.name));
+
     return this.txtInputsAvailable().filter((f: TxtFieldArrayT) => !namesIn.has(f.name));
   });
 

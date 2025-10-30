@@ -5,7 +5,7 @@
   </div>
 
   <div class="root__group">
-    <app-search-bar-btn-shape appUseSpanDir [spanProps]="searchBtn" />
-    <app-search-bar-btn-shape appUseSpanDir [spanProps]="eraseBtn" />
+    <app-search-bar-btn-shape appUseSpanDir [spanProps]="searchBtn" [btnType]="'submit'" />
+    <app-search-bar-btn-shape appUseSpanDir [spanProps]="eraseBtn" [onClick]="onErase()" />
   </div>
 </div>

@@ -19,5 +19,6 @@ export class ReadAllJobApplications {
     SearchApplicationsUiFkt.positionName(),
   ];
 
-  public readonly form: FormGroup = SearchApplicationsFormMng.form;
+  public readonly form: FormGroup = SearchApplicationsFormMng.form();
+  public readonly defState: FormGroup = SearchApplicationsFormMng.form();
 }

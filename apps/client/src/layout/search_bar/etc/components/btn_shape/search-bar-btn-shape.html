@@ -1,4 +1,4 @@
-<button type="button" class="root" [style.--clr]="metaEvent().css">
+<button [type]="btnType()" class="root" [style.--clr]="metaEvent().css" (click)="onClick()?.()">
   <app-wrap-txt-api
     [spinSizeT]="'xs'"
     appUseWrapApiDir

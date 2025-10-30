@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 import { WrapTxtApi } from '@/common/components/hoc/txt/wrap_txt_api/wrap-txt-api';
 import { UseWrapApiDir } from '@/core/directives/use_wrap_api';
+import { BtnT, Nullable } from '@/common/types/etc';
 
 @Component({
   selector: 'app-search-bar-btn-shape',
@@ -27,6 +28,8 @@ export class SearchBarBtnShape {
 
   // ? props
   public readonly isPending: InputSignal<boolean> = input(false);
+  public readonly btnType: InputSignal<BtnT> = input<BtnT>('button');
+  public readonly onClick: InputSignal<Nullable<() => void>> = input<Nullable<() => void>>(null);
 
   // ? derived
   public readonly metaEvent: Signal<AppEventMetaT> = computed(() =>

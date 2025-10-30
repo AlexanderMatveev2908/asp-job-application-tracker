@@ -59,11 +59,11 @@ export class SearchBarTxtFieldsRow<T> {
   };
 
   // ? btn tooltip props
-  public readonly spanProps: (f: TxtFieldArrayT) => SpanEventPropsT = (
-    f: TxtFieldArrayT
+  public readonly spanProps: (f: Nullable<TxtFieldArrayT>) => SpanEventPropsT = (
+    f: Nullable<TxtFieldArrayT>
   ): SpanEventPropsT => ({
     Svg: SvgFillClose,
     eventT: 'ERR',
-    label: `Remove ${f.label}`,
+    label: `Remove ${f?.label}`,
   });
 }

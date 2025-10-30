@@ -1,7 +1,7 @@
 <div class="root">
   @if(formVal()?.txtInputs?.length){
   <div class="root__fields">
-    @for(f of formVal()?.txtInputs; track f?.id; let idx = $index){
+    @for(f of formVal()?.txtInputs; track f?.id; let idx = $index){ @if(f){
     <div class="fields__item">
       <app-form-field-dynamic
         [ctrl]="getTxtCtrl(idx)"
@@ -19,7 +19,7 @@
         [optionalDep]="optionalDep()"
       />
     </div>
-    }
+    } }
   </div>
   }
 

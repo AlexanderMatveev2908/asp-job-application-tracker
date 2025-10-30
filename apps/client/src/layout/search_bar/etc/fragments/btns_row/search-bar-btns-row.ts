@@ -1,6 +1,6 @@
 import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
 import { SvgFillSort } from '@/common/components/svgs/fill/sort/sort';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
 import { SearchBarBtnShape } from '../../components/btn_shape/search-bar-btn-shape';
 import { UseSpanDir } from '@/core/directives/use_span';
 import { SvgStrokeFilter } from '@/common/components/svgs/stroke/filter/filter';
@@ -15,6 +15,9 @@ import { SvgFillErase } from '@/common/components/svgs/fill/erase/erase';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchBarBtnsRow {
+  // ? personal props
+  public readonly onErase: InputSignal<() => void> = input.required();
+
   // ? props btns
   public readonly sortBtn: SpanEventPropsT = {
     eventT: 'INFO',

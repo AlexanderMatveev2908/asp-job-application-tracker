@@ -58,18 +58,21 @@ export class SearchApplicationsFormMng extends FormZodMng {
       }
     });
 
-  public static readonly form: FormGroup = new FormGroup(
-    {
-      txtInputs: new FormArray([new FormControl(SearchApplicationsUiFkt.companyName())]),
-      status: new FormControl([]),
-      createdAtSort: new FormControl(''),
-      updatedAtSort: new FormControl(''),
-      appliedAtSort: new FormControl(''),
-    },
-    {
-      validators: this.checkZ(this.schema),
-    }
-  );
+  public static readonly form: () => FormGroup = () =>
+    new FormGroup(
+      {
+        txtInputs: new FormArray([new FormControl(SearchApplicationsUiFkt.companyName())]),
+        status: new FormControl([]),
+        createdAtSort: new FormControl(''),
+        updatedAtSort: new FormControl(''),
+        appliedAtSort: new FormControl(''),
+      },
+      {
+        validators: this.checkZ(this.schema),
+      }
+    );
+
+  public static readonly defState: () => FormGroup = () => this.form();
 }
 
 export type SearchApplicationsFormT = z.infer<typeof SearchApplicationsFormMng.schema>;
