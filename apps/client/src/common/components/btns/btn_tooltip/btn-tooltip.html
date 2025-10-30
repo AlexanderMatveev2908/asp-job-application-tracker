@@ -14,17 +14,16 @@
 <app-portal
   [coords]="{
     top: coords()?.top,
-    left: coords()?.left
+    left: left()
   }"
 >
   <ng-template #tpl>
-    <div class="absolute translate-x-[75px] translate-y-[-10px]">
+    <div class="absolute translate-x-5 translate-y-[-10px]">
       <app-tooltip
         [isHover]="useHover.isHover()"
         [eventT]="useSpanDir.spanProps().eventT"
         [msg]="useSpanDir.spanProps().label"
         appUseIDsDir
-        [minW]="'250px'"
       />
     </div>
   </ng-template>
