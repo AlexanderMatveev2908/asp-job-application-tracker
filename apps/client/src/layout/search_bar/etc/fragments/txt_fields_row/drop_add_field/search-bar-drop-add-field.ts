@@ -31,7 +31,7 @@ export class SearchBarDropAddField<T> {
   // ? props
   public readonly form: InputSignal<FormGroup> = input.required();
   public readonly formVal: InputSignal<Nullable<BaseSearchBarFormT<T>>> = input.required();
-  public readonly txtInputsAvailable: InputSignal<TxtFieldArrayT[]> = input.required();
+  public readonly txtInputsAvailable: InputSignal<() => TxtFieldArrayT[]> = input.required();
 
   // ? derived
   public readonly txtFieldsLessPresent: Signal<TxtFieldArrayT[]> = computed(() => {
@@ -41,7 +41,7 @@ export class SearchBarDropAddField<T> {
 
     const namesIn: Set<string> = new Set<string>(existing.map((f: TxtFieldArrayT) => f.name));
 
-    return this.txtInputsAvailable().filter((f: TxtFieldArrayT) => !namesIn.has(f.name));
+    return this.txtInputsAvailable()().filter((f: TxtFieldArrayT) => !namesIn.has(f.name));
   });
 
   // ? local state

@@ -21,6 +21,7 @@ import { SearchBarFilterBar } from './etc/fragments/filter_bar/search-bar-filter
 import { UseBarsHk } from './etc/hooks/use_bars';
 import { SearchBarFilterT } from './etc/ui_fkt';
 import { UseFiltersHk } from './etc/hooks/use_filters';
+import { v4 } from 'uuid';
 
 @Component({
   selector: 'app-search-bar',
@@ -34,7 +35,7 @@ export class SearchBar<T> extends UseInjCtxHk implements OnInit {
   // ? props
   public readonly defState: InputSignal<BaseSearchBarFormT<T>> = input.required();
   public readonly form: InputSignal<FormGroup> = input.required();
-  public readonly txtInputsAvailable: InputSignal<TxtFieldArrayT[]> = input.required();
+  public readonly txtInputsAvailable: InputSignal<() => TxtFieldArrayT[]> = input.required();
   public readonly filtersAvailable: InputSignal<() => SearchBarFilterT[]> = input.required();
 
   // ? listeners
@@ -51,7 +52,8 @@ export class SearchBar<T> extends UseInjCtxHk implements OnInit {
     this.form().patchValue(plainCtrlFields);
     const txtInputsFormArray: FormArray = this.form().get('txtInputs') as FormArray;
     txtInputsFormArray.clear();
-    for (const f of txtInputs!) txtInputsFormArray.push(new FormControl(f));
+
+    for (const f of txtInputs!) txtInputsFormArray.push(new FormControl({ ...f, id: v4() }));
   };
 
   // ? local state

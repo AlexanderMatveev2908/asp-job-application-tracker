@@ -39,7 +39,7 @@ export class SearchBarTxtFieldsRow<T> {
   // ? props
   public readonly form: InputSignal<FormGroup> = input.required();
   public readonly formVal: InputSignal<Nullable<BaseSearchBarFormT<T>>> = input.required();
-  public readonly txtInputsAvailable: InputSignal<TxtFieldArrayT[]> = input.required();
+  public readonly txtInputsAvailable: InputSignal<() => TxtFieldArrayT[]> = input.required();
 
   // ? optional dep recalculate coords tooltip
   public readonly optionalDep: WritableSignal<number[]> = signal([0]);

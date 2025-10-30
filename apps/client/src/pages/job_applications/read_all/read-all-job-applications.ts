@@ -21,6 +21,6 @@ export class ReadAllJobApplications {
   public readonly form: FormGroup = SearchApplicationsFormMng.form();
   public readonly defState: SearchApplicationsFormT = SearchApplicationsFormMng.defState();
 
-  public readonly txtInputsAvailable: TxtFieldArrayT[] = SearchApplicationsUiFkt.txtInputs();
+  public readonly txtInputsAvailable: () => TxtFieldArrayT[] = SearchApplicationsUiFkt.txtInputs;
   public readonly filters: () => SearchBarFilterT[] = SearchApplicationsUiFkt.filters;
 }
