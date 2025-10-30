@@ -15,10 +15,11 @@ import { BlackBg } from '@/layout/black_bg/black-bg';
 import { NgClass } from '@angular/common';
 import { ElDomT, RefDomT } from '@/common/types/etc';
 import { SearchBarFilterBarHeader } from './header/search-bar-filter-bar-header';
+import { SearchBarFilterBarFooter } from './footer/search-bar-filter-bar-footer';
 
 @Component({
   selector: 'app-search-bar-filter-bar',
-  imports: [BlackBg, NgClass, SearchBarFilterBarHeader],
+  imports: [BlackBg, NgClass, SearchBarFilterBarHeader, SearchBarFilterBarFooter],
   templateUrl: './search-bar-filter-bar.html',
   styleUrl: './search-bar-filter-bar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,8 +33,10 @@ export class SearchBarFilterBar {
   );
 
   // ? statics
-  public readonly HEADER_H: string = '60px';
-  public readonly FOOTER_H: string = '60px';
+  public readonly HEADER_H: number = 60;
+  public readonly FOOTER_H: number = 70;
+  public readonly PADDING: number = 36;
+  public readonly HEIGHT_LESS: string = `${this.HEADER_H + this.FOOTER_H - this.PADDING}px`;
 
   // ? children
   @ViewChild('barRef')
