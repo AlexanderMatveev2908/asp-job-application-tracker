@@ -1,6 +1,6 @@
 import { ElDomT, Nullable, RefDomT } from '@/common/types/etc';
 import { TxtFieldArrayT } from '@/common/types/forms';
-import { BaseSearchBarFormT } from '@/core/paperwork/etc/search_bar';
+import { BaseSearchBarFormT } from '@/layout/search_bar/etc/paperwork';
 import {
   ChangeDetectionStrategy,
   Component,

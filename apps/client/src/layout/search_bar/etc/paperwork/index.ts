@@ -1,5 +1,5 @@
 import z, { ZodObject, ZodOptional, ZodString } from 'zod';
-import { FormArraySchemaT } from '../form_array';
+import { FormArraySchemaT } from '../../../../core/paperwork/etc/form_array';
 
 export type SearchOrderT = 'ASC' | 'DESC';
 

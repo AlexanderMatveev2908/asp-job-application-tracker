@@ -6,6 +6,7 @@ import {
   HostListener,
   input,
   InputSignal,
+  OnInit,
   Signal,
   ViewChild,
 } from '@angular/core';
@@ -16,16 +17,28 @@ import { NgClass } from '@angular/common';
 import { ElDomT, RefDomT } from '@/common/types/etc';
 import { SearchBarFilterBarHeader } from './header/search-bar-filter-bar-header';
 import { SearchBarFilterBarFooter } from './footer/search-bar-filter-bar-footer';
+import { UseFiltersHk } from '../../hooks/use_filters';
+import { SearchBarFilterT } from '../../ui_fkt';
+import { SearchBarFilterBarLabels } from './labels/search-bar-filter-bar-labels';
 
 @Component({
   selector: 'app-search-bar-filter-bar',
-  imports: [BlackBg, NgClass, SearchBarFilterBarHeader, SearchBarFilterBarFooter],
+  imports: [
+    BlackBg,
+    NgClass,
+    SearchBarFilterBarHeader,
+    SearchBarFilterBarFooter,
+    SearchBarFilterBarLabels,
+  ],
   templateUrl: './search-bar-filter-bar.html',
   styleUrl: './search-bar-filter-bar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchBarFilterBar {
+export class SearchBarFilterBar implements OnInit {
+  // ? props
   public readonly useBars: InputSignal<UseBarsHk> = input.required();
+  public readonly useFilters: InputSignal<UseFiltersHk> = input.required();
+  public readonly filtersAvailable: InputSignal<() => SearchBarFilterT[]> = input.required();
 
   // ? derived
   public readonly twd: Signal<string> = computed(() =>
@@ -59,5 +72,9 @@ export class SearchBarFilterBar {
 
     if (this.useBars().isFilterBar() && !bar!.contains(target))
       this.useBars().isFilterBar.set(false);
+  }
+
+  ngOnInit(): void {
+    this.useFilters().currFilter.set(this.filtersAvailable()()[0].field);
   }
 }

@@ -1,7 +1,7 @@
 import { Nullable } from '@/common/types/etc';
 import { TxtFieldArrayT } from '@/common/types/forms';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
-import { BaseSearchBarFormT } from '@/core/paperwork/etc/search_bar';
+import { BaseSearchBarFormT } from '@/layout/search_bar/etc/paperwork';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -19,6 +19,8 @@ import { SearchBarBtnsRow } from './etc/fragments/btns_row/search-bar-btns-row';
 import { LibLog } from '@/core/lib/dev/log';
 import { SearchBarFilterBar } from './etc/fragments/filter_bar/search-bar-filter-bar';
 import { UseBarsHk } from './etc/hooks/use_bars';
+import { SearchBarFilterT } from './etc/ui_fkt';
+import { UseFiltersHk } from './etc/hooks/use_filters';
 
 @Component({
   selector: 'app-search-bar',
@@ -26,13 +28,14 @@ import { UseBarsHk } from './etc/hooks/use_bars';
   templateUrl: './search-bar.html',
   styleUrl: './search-bar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UseBarsHk],
+  providers: [UseBarsHk, UseFiltersHk],
 })
 export class SearchBar<T> extends UseInjCtxHk implements OnInit {
   // ? props
   public readonly defState: InputSignal<BaseSearchBarFormT<T>> = input.required();
   public readonly form: InputSignal<FormGroup> = input.required();
   public readonly txtInputsAvailable: InputSignal<TxtFieldArrayT[]> = input.required();
+  public readonly filtersAvailable: InputSignal<() => SearchBarFilterT[]> = input.required();
 
   // ? listeners
   public onSubmit(): void {
@@ -54,6 +57,7 @@ export class SearchBar<T> extends UseInjCtxHk implements OnInit {
   // ? local state
   public formVal: Nullable<Signal<BaseSearchBarFormT<T>>> = null;
   public readonly useBars: UseBarsHk = inject(UseBarsHk);
+  public readonly useFilters: UseFiltersHk = inject(UseFiltersHk);
 
   ngOnInit(): void {
     this.inCtx(() => {

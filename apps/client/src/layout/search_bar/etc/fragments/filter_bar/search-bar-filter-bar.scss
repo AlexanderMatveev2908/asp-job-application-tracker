@@ -4,14 +4,14 @@
 
   .root__body {
     max-height: calc(100% - var(--less));
-    @apply w-full h-full grid grid-cols-[75px_3px_1fr];
+    @apply w-full h-full grid grid-cols-[80px_3px_1fr];
 
     @media (min-width: 1000px) {
       @apply grid-cols-[200px_3px_1fr];
     }
 
     .body__scrollable {
-      @apply w-full h-full overflow-y-scroll px-3 py-3 pb-6;
+      @apply w-full h-full overflow-y-scroll;
     }
 
     .body__separator {

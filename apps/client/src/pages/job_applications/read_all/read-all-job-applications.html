@@ -1,5 +1,10 @@
 <app-page-wrapper [waitClient]="false">
   <ng-template #contentRef>
-    <app-search-bar [txtInputsAvailable]="txtInputsAvailable" [form]="form" [defState]="defState" />
+    <app-search-bar
+      [txtInputsAvailable]="txtInputsAvailable"
+      [form]="form"
+      [defState]="defState"
+      [filtersAvailable]="filters"
+    />
   </ng-template>
 </app-page-wrapper>

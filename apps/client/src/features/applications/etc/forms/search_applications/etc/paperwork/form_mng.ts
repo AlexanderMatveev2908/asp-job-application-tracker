@@ -3,7 +3,7 @@ import { ApplicationStatusT } from '@/features/applications/etc/types';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import z, { RefinementCtx, ZodArray, ZodEnum, ZodObject, ZodOptional, ZodString } from 'zod';
 import { SearchApplicationsUiFkt } from '../ui_fkt';
-import { BaseSearchBarSchemaT } from '@/core/paperwork/etc/search_bar';
+import { BaseSearchBarSchemaT } from '@/layout/search_bar/etc/paperwork';
 import { FormZodMng } from '@/core/paperwork/form_mng/form_zod_mng';
 import { Reg } from '@/core/paperwork/reg';
 import { TxtFieldArrayT } from '@/common/types/forms';

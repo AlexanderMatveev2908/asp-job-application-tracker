@@ -7,5 +7,9 @@
 
   <app-search-bar-btns-row [onErase]="onErase" [useBars]="useBars" />
 
-  <app-search-bar-filter-bar [useBars]="useBars" />
+  <app-search-bar-filter-bar
+    [useBars]="useBars"
+    [useFilters]="useFilters"
+    [filtersAvailable]="filtersAvailable()"
+  />
 </form>

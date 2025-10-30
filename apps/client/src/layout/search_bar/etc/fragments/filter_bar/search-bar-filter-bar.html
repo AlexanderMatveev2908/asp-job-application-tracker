@@ -4,9 +4,14 @@
   <app-search-bar-filter-bar-header [useBars]="useBars()" />
 
   <div class="root__body" [style.--less]="HEIGHT_LESS">
-    <div class="body__labels body__scrollable app__scroll"></div>
+    <div class="body__labels body__scrollable app__scroll">
+      <app-search-bar-filter-bar-labels
+        [useFilters]="useFilters()"
+        [filtersAvailable]="filtersAvailable()"
+      />
+    </div>
     <div class="body__separator"></div>
-    <div class="body__vals body__scrollable app__scroll"></div>
+    <div class="body__vals body__scrollable app__scroll px-3 py-3 pb-6"></div>
   </div>
 
   <app-search-bar-filter-bar-footer />

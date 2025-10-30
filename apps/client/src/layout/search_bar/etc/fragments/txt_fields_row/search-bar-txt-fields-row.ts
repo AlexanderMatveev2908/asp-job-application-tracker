@@ -9,7 +9,7 @@ import {
 import { FormFieldDynamic } from '@/common/components/forms/dynamic_fields_array/form_field_dynamic/form-field-dynamic';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { UseFormFieldDynamicDir } from '@/core/directives/forms/form_field/0.use_form_field_dynamic';
-import { BaseSearchBarFormT } from '@/core/paperwork/etc/search_bar';
+import { BaseSearchBarFormT } from '@/layout/search_bar/etc/paperwork';
 import { Nullable } from '@/common/types/etc';
 import { SvgFillClose } from '@/common/components/svgs/fill/close/close';
 import { UseHoverHk } from '@/core/hooks/listeners/use_hover';

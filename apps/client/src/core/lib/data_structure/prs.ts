@@ -52,6 +52,10 @@ export class LibPrs {
     return replaced.toLowerCase();
   }
 
+  public static snakeToTxt(arg: string): string {
+    return this.titleCase(arg.toLowerCase().split('_').join(' '));
+  }
+
   private static firstUpper(arg: string): string {
     return arg.at(0)!.toUpperCase();
   }
