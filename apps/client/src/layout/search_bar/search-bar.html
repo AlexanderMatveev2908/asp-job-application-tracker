@@ -1,5 +1,9 @@
 <form [formGroup]="form()" class="root" (ngSubmit)="onSubmit()">
-  <app-search-bar-first-row [form]="form()" [formVal]="formVal?.() ?? null" />
+  <app-search-bar-first-row
+    [form]="form()"
+    [formVal]="formVal?.() ?? null"
+    [txtInputsAvailable]="txtInputsAvailable()"
+  />
 
   <app-form-submit [isPending]="false" appUseIDsDir />
 </form>

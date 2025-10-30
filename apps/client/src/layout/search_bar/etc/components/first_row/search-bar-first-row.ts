@@ -11,10 +11,18 @@ import { BtnTooltip } from '@/common/components/btns/btn_tooltip/btn-tooltip';
 import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
 import { TxtFieldArrayT } from '@/common/types/forms';
 import { UseSpanDir } from '@/core/directives/use_span';
+import { SearchBarDropAddField } from './drop_add_field/search-bar-drop-add-field';
 
 @Component({
   selector: 'app-search-bar-first-row',
-  imports: [FormFieldDynamic, UseFormFieldDynamicDir, BtnTooltip, UseIDsDir, UseSpanDir],
+  imports: [
+    FormFieldDynamic,
+    UseFormFieldDynamicDir,
+    BtnTooltip,
+    UseIDsDir,
+    UseSpanDir,
+    SearchBarDropAddField,
+  ],
   templateUrl: './search-bar-first-row.html',
   styleUrl: './search-bar-first-row.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,6 +32,7 @@ export class SearchBarFirstRow<T> {
   // ? props
   public readonly form: InputSignal<FormGroup> = input.required();
   public readonly formVal: InputSignal<Nullable<BaseSearchBarFormT<T>>> = input.required();
+  public readonly txtInputsAvailable: InputSignal<TxtFieldArrayT[]> = input.required();
 
   // ? helpers
   public getTxtCtrl(idx: number): FormControl {

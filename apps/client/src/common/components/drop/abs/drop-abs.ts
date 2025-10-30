@@ -26,7 +26,12 @@ export class DropAbs extends UseDropDir {
 
   // ? app-span props
   public readonly spanProps: InputSignal<SpanPropsT> = input.required();
-  public readonly spanSizesProps: InputSignal<Partial<SpanSizesPropsT>> = input.required();
+  public readonly spanSizesProps: InputSignal<Partial<SpanSizesPropsT>> = input<
+    Partial<SpanSizesPropsT>
+  >({
+    svg: 'sm',
+    txt: 'lg',
+  });
 
   // ? derived data
   public readonly translation: Signal<string> = computed(() =>

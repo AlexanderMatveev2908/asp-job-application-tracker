@@ -1,7 +1,7 @@
 @use 'exports/mix' as mix;
 
 .root {
-  @apply w-full;
+  @apply w-full flex flex-col gap-6;
 
   .root__fields {
     @apply w-full flex flex-col gap-8;
