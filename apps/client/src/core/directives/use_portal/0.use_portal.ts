@@ -14,7 +14,9 @@ export abstract class UsePortalDir extends UseInjCtxHk {
 
   // ? listeners
   protected readonly setCoords: () => void = () => {
-    this.coords.set(PortalDOM.coordsOfRef(this.tooltipRef));
+    this.usePlatform.onClient(() => {
+      this.coords.set(PortalDOM.coordsOfRef(this.tooltipRef));
+    });
   };
 
   @HostListener('window:scroll')

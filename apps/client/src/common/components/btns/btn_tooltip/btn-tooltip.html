@@ -1,18 +1,31 @@
 <button
+  #tooltipRef
   type="button"
-  class="root svg__lg z__tooltip_near_header"
+  class="root svg__lg"
   (click)="onClick()()"
   (mouseover)="useHover.onHover()"
   (focus)="useHover.onHover()"
   (mouseleave)="useHover.onLeave()"
   (blur)="useHover.onLeave()"
 >
-  <app-tooltip
-    [isHover]="useHover.isHover()"
-    [eventT]="useSpanDir.spanProps().eventT"
-    [msg]="useSpanDir.spanProps().label"
-    appUseIDsDir
-    [minW]="'250px'"
-  />
   <ng-container *ngComponentOutlet="useSpanDir.spanProps().Svg" />
 </button>
+
+<app-portal
+  [coords]="{
+    top: coords()?.top,
+    left: coords()?.left
+  }"
+>
+  <ng-template #tpl>
+    <div class="absolute translate-x-[75px] translate-y-[-10px]">
+      <app-tooltip
+        [isHover]="useHover.isHover()"
+        [eventT]="useSpanDir.spanProps().eventT"
+        [msg]="useSpanDir.spanProps().label"
+        appUseIDsDir
+        [minW]="'250px'"
+      />
+    </div>
+  </ng-template>
+</app-portal>

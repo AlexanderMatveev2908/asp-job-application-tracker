@@ -3,8 +3,6 @@
 .root {
   @apply transition-all duration-300 absolute -top-5 -right-2 border-2 p-1 text-red-600 border-red-600 rounded-xl bg-neutral-950;
 
-  z-index: 9999;
-
   &:hover {
     @include mix.app__shadow(var(--red__600));
   }

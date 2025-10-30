@@ -1,8 +1,9 @@
 .root {
   border-color: var(--clr);
-  @apply max-w-full absolute bottom-full border-2 z-50 bg-neutral-950 py-2 px-4 rounded-xl transition-all duration-300 pointer-events-none;
+  @apply max-w-full absolute bottom-full border-2 z-50 bg-neutral-950 py-2 px-4 rounded-xl transition-all duration-300 pointer-events-none flex justify-center;
 
   .root__msg {
+    @apply text-center;
     color: var(--clr);
   }
 

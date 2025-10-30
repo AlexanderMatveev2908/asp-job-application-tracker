@@ -1,7 +1,3 @@
-.z__portal {
-  z-index: 100;
-}
-
 .z__sidebar__bg {
   z-index: 200;
 }
@@ -35,4 +31,8 @@
 
 .z__toast {
   z-index: 1000;
+}
+
+.z__portal {
+  z-index: 2000;
 }

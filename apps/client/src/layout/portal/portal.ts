@@ -43,11 +43,12 @@ export class Portal extends UseInjCtxHk implements AfterViewInit, OnDestroy {
   private contentEl: Nullable<HTMLElement> = null;
   private readonly id: string = v4();
 
-  ngAfterViewInit(): void {
-    // ? root & template projection must exists
-    const rootPortal: ElDomT = document.getElementById('root-portal');
-    if (!rootPortal || !this.tpl || this.attached) return;
+  public get portalId(): string {
+    return this.id;
+  }
 
+  // ? helpers
+  private createHost(): HTMLElement {
     // ? simple absolute div
     // ! it must not have pointer events
     // ! or will cover other DOM important elements
@@ -60,22 +61,33 @@ export class Portal extends UseInjCtxHk implements AfterViewInit, OnDestroy {
     host.style.minWidth = '100%';
     host.style.minHeight = '100%';
 
-    rootPortal.appendChild(host);
+    return host;
+  }
 
-    // ! each portal can have at most 1 host
-    this.outlet = new DomPortalOutlet(host, this.appRef, this.inj);
+  ngAfterViewInit(): void {
+    this.usePlatform.onClient(() => {
+      // ? root & template projection must exists
+      const rootPortal: ElDomT = document.getElementById('root-portal');
+      if (!rootPortal || !this.tpl || this.attached) return;
 
-    const portal: TemplatePortal<unknown> = new TemplatePortal<unknown>(this.tpl, this.vcr);
-    // ! each outlet can have at most 1 portal
-    this.outlet.attach(portal);
-    this.attached = true;
+      const host: HTMLElement = this.createHost();
+      rootPortal.appendChild(host);
 
-    queueMicrotask((): void => {
-      this.contentEl = host.firstElementChild as Nullable<HTMLElement>;
-      if (!this.contentEl) return;
+      // ! each portal can have at most 1 host
+      this.outlet = new DomPortalOutlet(host, this.appRef, this.inj);
 
-      this.useEffect((): void => {
-        this.applyCoords(this.coords());
+      const portal: TemplatePortal<unknown> = new TemplatePortal<unknown>(this.tpl, this.vcr);
+      // ! each outlet can have at most 1 portal
+      this.outlet.attach(portal);
+      this.attached = true;
+
+      queueMicrotask((): void => {
+        this.contentEl = host.firstElementChild as Nullable<HTMLElement>;
+        if (!this.contentEl) return;
+
+        this.useEffect((): void => {
+          this.applyCoords(this.coords());
+        });
       });
     });
   }
@@ -93,21 +105,19 @@ export class Portal extends UseInjCtxHk implements AfterViewInit, OnDestroy {
     style.right = right ?? '';
   }
 
-  public get portalId(): string {
-    return this.id;
-  }
-
   ngOnDestroy(): void {
-    if (this.outlet) {
-      this.outlet.detach();
-      this.outlet.dispose();
-      this.outlet = null;
-    }
+    this.usePlatform.onClient(() => {
+      if (this.outlet) {
+        this.outlet.detach();
+        this.outlet.dispose();
+        this.outlet = null;
+      }
 
-    const host = document.querySelector(`[data-portal-id="${this.id}"]`);
-    if (host && host.parentElement) host.parentElement.removeChild(host);
+      const host = document.querySelector(`[data-portal-id="${this.id}"]`);
+      if (host && host.parentElement) host.parentElement.removeChild(host);
 
-    this.attached = false;
-    this.contentEl = null;
+      this.attached = false;
+      this.contentEl = null;
+    });
   }
 }
