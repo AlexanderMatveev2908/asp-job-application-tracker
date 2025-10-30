@@ -19,6 +19,7 @@ import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
 import { TxtFieldArrayT } from '@/common/types/forms';
 import { UseSpanDir } from '@/core/directives/use_span';
 import { SearchBarDropAddField } from './drop_add_field/search-bar-drop-add-field';
+import { FocusDOM } from '@/core/lib/dom/focus';
 
 @Component({
   selector: 'app-search-bar-txt-fields-row',
@@ -55,6 +56,7 @@ export class SearchBarTxtFieldsRow<T> {
 
     setTimeout(() => {
       this.optionalDep.update((prev: number[]) => [...prev, prev.length]);
+      FocusDOM.byDataField(`txtInputs.${txtInputs.length - 1}`);
     }, 0);
   };
 

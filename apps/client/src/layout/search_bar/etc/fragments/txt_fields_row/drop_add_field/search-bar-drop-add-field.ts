@@ -19,6 +19,7 @@ import { SvgStrokeSearchPlus } from '@/common/components/svgs/stroke/search_plus
 import { NgClass, NgComponentOutlet } from '@angular/common';
 import { v4 } from 'uuid';
 import { LibShapeCheck } from '@/core/lib/data_structure/shape_check';
+import { FocusDOM } from '@/core/lib/dom/focus';
 
 @Component({
   selector: 'app-search-bar-drop-add-field',
@@ -80,6 +81,10 @@ export class SearchBarDropAddField<T> {
     );
 
     this.setIsOpen(false);
+
+    setTimeout(() => {
+      FocusDOM.byDataField(`txtInputs.${txtInputs.length - 1}`);
+    }, 0);
   }
 
   @HostListener('document:mousedown', ['$event'])
