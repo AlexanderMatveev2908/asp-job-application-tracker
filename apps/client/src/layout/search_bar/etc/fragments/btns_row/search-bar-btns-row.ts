@@ -6,6 +6,7 @@ import { UseSpanDir } from '@/core/directives/use_span';
 import { SvgStrokeFilter } from '@/common/components/svgs/stroke/filter/filter';
 import { SvgStrokeSearch } from '@/common/components/svgs/stroke/search/search';
 import { SvgFillErase } from '@/common/components/svgs/fill/erase/erase';
+import { UseBarsHk } from '../../hooks/use_bars';
 
 @Component({
   selector: 'app-search-bar-btns-row',
@@ -17,6 +18,11 @@ import { SvgFillErase } from '@/common/components/svgs/fill/erase/erase';
 export class SearchBarBtnsRow {
   // ? personal props
   public readonly onErase: InputSignal<() => void> = input.required();
+  public readonly useBars: InputSignal<UseBarsHk> = input.required();
+
+  public openFilterBar: () => void = () => {
+    this.useBars().isFilterBar.set(true);
+  };
 
   // ? props btns
   public readonly sortBtn: SpanEventPropsT = {

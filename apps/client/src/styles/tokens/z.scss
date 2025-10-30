@@ -1,38 +1,42 @@
-.z__sidebar__bg {
+._z__search_bar__bg {
+  z-index: 100;
+}
+._z__search_bar {
   z-index: 200;
 }
 
-.z__sidebar {
+.z__sidebar__bg {
   z-index: 300;
 }
-
-.z__header {
+.z__sidebar {
   z-index: 400;
 }
 
-.z__tooltip_near_header {
+.z__header {
   z-index: 500;
+}
+.z__tooltip_near_header {
+  z-index: 600;
 }
 
 .z__del_acc__bg {
-  z-index: 600;
-}
-.z__del_acc {
   z-index: 700;
 }
-
-.z__wake_up__bg {
+.z__del_acc {
   z-index: 800;
 }
 
-.z__wake_up {
-  z-index: 900;
-}
-
-.z__toast {
+.z__portal {
   z-index: 1000;
 }
 
-.z__portal {
-  z-index: 2000;
+// ! most important
+.z__wake_up__bg {
+  z-index: 3000;
+}
+.z__wake_up {
+  z-index: 4000;
+}
+.z__toast {
+  z-index: 9999;
 }
