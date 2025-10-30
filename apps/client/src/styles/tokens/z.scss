@@ -15,10 +15,12 @@
 .z__header {
   z-index: 500;
 }
+
 .z__tooltip_near_header {
   z-index: 600;
 }
 
+// | to rename and reuse for general delete popups
 .z__del_acc__bg {
   z-index: 700;
 }
