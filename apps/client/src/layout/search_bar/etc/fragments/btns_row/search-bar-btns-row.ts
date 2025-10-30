@@ -4,6 +4,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SearchBarBtnShape } from '../../components/btn_shape/search-bar-btn-shape';
 import { UseSpanDir } from '@/core/directives/use_span';
 import { SvgStrokeFilter } from '@/common/components/svgs/stroke/filter/filter';
+import { SvgStrokeSearch } from '@/common/components/svgs/stroke/search/search';
+import { SvgFillErase } from '@/common/components/svgs/fill/erase/erase';
 
 @Component({
   selector: 'app-search-bar-btns-row',
@@ -23,5 +25,15 @@ export class SearchBarBtnsRow {
     eventT: 'INFO',
     label: 'Filter',
     Svg: SvgStrokeFilter,
+  };
+  public readonly searchBtn: SpanEventPropsT = {
+    eventT: 'OK',
+    label: 'Search',
+    Svg: SvgStrokeSearch,
+  };
+  public readonly eraseBtn: SpanEventPropsT = {
+    eventT: 'ERR',
+    label: 'Erase',
+    Svg: SvgFillErase,
   };
 }
