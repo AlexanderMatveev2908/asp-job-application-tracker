@@ -43,6 +43,7 @@ export class SearchBarFilterBar implements OnInit {
   public readonly useFilters: InputSignal<UseFiltersHk> = input.required();
   public readonly filtersAvailable: InputSignal<() => SearchBarFilterT[]> = input.required();
   public readonly form: InputSignal<FormGroup> = input.required();
+  public readonly onErase: InputSignal<() => void> = input.required();
 
   // ? derived
   public readonly twd: Signal<string> = computed(() =>
@@ -51,7 +52,7 @@ export class SearchBarFilterBar implements OnInit {
 
   // ? statics
   public readonly HEADER_H: number = 60;
-  public readonly FOOTER_H: number = 70;
+  public readonly FOOTER_H: number = 80;
   public readonly HEIGHT_LESS: string = `${this.HEADER_H + this.FOOTER_H}px`;
 
   // ? children
