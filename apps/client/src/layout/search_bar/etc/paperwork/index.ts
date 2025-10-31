@@ -8,22 +8,14 @@ export enum SortValT {
   DESC = 'DESC',
 }
 
-export const SortValsList: SortValT[] = Object.values(SortValT);
-
-export type BaseSearchBarSchemaT = ZodObject<{
-  txtInputs: FormArraySchemaT;
-  createdAtSort: SortSchemaT;
-  updatedAtSort: SortSchemaT;
-}>;
-
-export type BaseSearchBarFormT<T> = z.infer<BaseSearchBarSchemaT> & T;
-
 export class SearchBarFormMng {
+  public static readonly SortValsList: SortValT[] = Object.values(SortValT);
+
   // eslint-disable-next-line @typescript-eslint/typedef, @typescript-eslint/explicit-function-return-type
   public static readonly sortSchema = () =>
     z.preprocess(
-      (v: Nullable<SortValT>) => (SortValsList.includes(v as SortValT) ? v : null),
-      z.enum(SortValsList).nullable()
+      (v: Nullable<SortValT>) => (this.SortValsList.includes(v as SortValT) ? v : null),
+      z.enum(this.SortValsList).nullable()
     );
 
   public static readonly baseSchema: ZodObject<{
@@ -34,5 +26,13 @@ export class SearchBarFormMng {
     updatedAtSort: this.sortSchema(),
   });
 }
+
+export type BaseSearchBarSchemaT = ZodObject<{
+  txtInputs: FormArraySchemaT;
+  createdAtSort: SortSchemaT;
+  updatedAtSort: SortSchemaT;
+}>;
+
+export type BaseSearchBarFormT<T> = z.infer<BaseSearchBarSchemaT> & T;
 
 export type SortSchemaT = ReturnType<typeof SearchBarFormMng.sortSchema>;

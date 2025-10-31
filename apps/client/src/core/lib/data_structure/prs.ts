@@ -63,6 +63,7 @@ export class LibPrs {
   public static titleCase(arg: string): string {
     return arg
       .trim()
+      .toLowerCase()
       .split(/\s+/)
       .map((w: string) => (w.length > 0 ? w[0].toUpperCase() + w.slice(1).toLowerCase() : ''))
       .join(' ');
