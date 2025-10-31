@@ -13,6 +13,7 @@ import { v4 } from 'uuid';
 import { SearchBarSortBar } from './etc/fragments/sort_bar/search-bar-sort-bar';
 import { UseSearchbarPropsDir } from './etc/directives/use_search_bar_props';
 import { BaseSearchBarFormT } from './etc/paperwork';
+import { UseDebounceHk } from './etc/hooks/use_debounce';
 
 @Component({
   selector: 'app-search-bar',
@@ -26,9 +27,14 @@ import { BaseSearchBarFormT } from './etc/paperwork';
   templateUrl: './search-bar.html',
   styleUrl: './search-bar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UseBarsHk, UseFiltersHk],
+  providers: [UseBarsHk, UseFiltersHk, UseDebounceHk],
 })
 export class SearchBar<T> extends UseSearchbarPropsDir<T> implements OnInit {
+  // ? hooks
+  public readonly useBars: UseBarsHk = inject(UseBarsHk);
+  public readonly useFilters: UseFiltersHk = inject(UseFiltersHk);
+  public readonly useDebounce: UseDebounceHk<T> = inject(UseDebounceHk);
+
   // ? listeners
   public onSubmit(): void {
     if (!this.form().valid) {
@@ -49,8 +55,6 @@ export class SearchBar<T> extends UseSearchbarPropsDir<T> implements OnInit {
 
   // ? local state
   public formVal: Nullable<Signal<BaseSearchBarFormT<T>>> = null;
-  public readonly useBars: UseBarsHk = inject(UseBarsHk);
-  public readonly useFilters: UseFiltersHk = inject(UseFiltersHk);
 
   ngOnInit(): void {
     this.inCtx(() => {
@@ -58,5 +62,7 @@ export class SearchBar<T> extends UseSearchbarPropsDir<T> implements OnInit {
         initialValue: this.form().value,
       });
     });
+
+    this.useDebounce.main({ form: this.form(), formVal: this.formVal });
   }
 }
