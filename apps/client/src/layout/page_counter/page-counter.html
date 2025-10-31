@@ -1,6 +1,12 @@
 <div class="root">
   <div class="root__btn_block_wrap">
-    <app-btn-shadow appUseIDsDir appUseSpanDir [spanProps]="btnsBlockChange.prev" />
+    <app-btn-shadow
+      appUseIDsDir
+      appUseSpanDir
+      [spanProps]="btnsBlockChange.prev"
+      [listenersProps]="listenersPrev"
+      [btnStateProps]="prevState()"
+    />
   </div>
   <div class="root__pages">
     @for(p of pages(); track p.id){
@@ -14,6 +20,12 @@
     }
   </div>
   <div class="root__btn_block_wrap">
-    <app-btn-shadow appUseIDsDir appUseSpanDir [spanProps]="btnsBlockChange.next" />
+    <app-btn-shadow
+      appUseIDsDir
+      appUseSpanDir
+      [spanProps]="btnsBlockChange.next"
+      [listenersProps]="listenersNext"
+      [btnStateProps]="nextState()"
+    />
   </div>
 </div>

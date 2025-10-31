@@ -14,7 +14,7 @@ import {
 import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { UseSpanDir } from '@/core/directives/use_span';
-import { Nullable } from '@/common/types/etc';
+import { BtnListenersT, BtnStatePropsT, Nullable } from '@/common/types/etc';
 import { UsePaginationHk } from '@/core/hooks/use_pagination';
 import { PageT } from './etc/types';
 import { RootUiFkt } from '@/core/ui_fkt/root_ui';
@@ -22,6 +22,8 @@ import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 import { PageCounterBlockChangeKeyT, PageCounterUiFkt } from './etc/ui_fkt';
 import { LibPageCounter } from './etc/lib';
 import { NgClass } from '@angular/common';
+
+export type ChangeBlockMarkT = '+' | '-';
 
 @Component({
   selector: 'app-page-counter',
@@ -44,34 +46,66 @@ export class PageCounter extends UseInjCtxHk implements OnInit {
 
   // ? derived
   public readonly pages: Signal<PageT[]> = computed(() => {
-    const len: number = (this.usePagination().block() || 1) * this.pagesPerBlock();
-    const start: number = this.usePagination().page() * this.usePagination().limit();
+    const len: number = this.pagesPerBlock();
+    const start: number = len * this.usePagination().block();
 
     return Array.from({ length: len }, (_: undefined, i: number) =>
       RootUiFkt.withID({
         label: start + 1 + i + '',
         val: start + i,
       })
-    );
+    ).filter((p: PageT) => p.val < (this.totPages() ?? 0));
   });
+
+  public readonly maxBlocksAvailable: Signal<number> = computed(() =>
+    Math.ceil((this.totPages() ?? 0) / this.pagesPerBlock())
+  );
 
   // ? helpers
   public twdPage(p: PageT): string {
     return p.val === this.usePagination().page() ? 'bg-gray-300 text-neutral-950 scale-[1.25]' : '';
   }
 
+  private readonly changeBlock: (v: ChangeBlockMarkT) => void = (v: ChangeBlockMarkT) => {
+    const blockSig: WritableSignal<number> = this.usePagination().block;
+    blockSig.set(blockSig() + (v === '+' ? 1 : -1));
+  };
+
   // ? listeners
   private refreshVals(): void {
     this.usePlatform.onClient(() => {
-      this.pagesPerBlock.set(LibPageCounter.paginationVals.get('pagePerBlock')!());
+      const newVal: number = LibPageCounter.paginationVals.get('pagePerBlock')!();
+      this.pagesPerBlock.set(newVal);
     });
   }
 
+  // ? props btns
+  public readonly listenersPrev: BtnListenersT = {
+    onClick: this.changeBlock.bind(this, '-'),
+  };
+  public readonly prevState: Signal<BtnStatePropsT> = computed(() => ({
+    isPending: false,
+    isDisabled: this.usePagination().block() <= 0,
+  }));
+  public readonly listenersNext: BtnListenersT = {
+    onClick: this.changeBlock.bind(this, '+'),
+  };
+  public readonly nextState: Signal<BtnStatePropsT> = computed(() => ({
+    isPending: false,
+    isDisabled: this.usePagination().block() >= this.maxBlocksAvailable() - 1,
+  }));
+
   ngOnInit(): void {
-    this.refreshVals();
+    this.useEffect(() => {
+      void this.totPages();
+      this.refreshVals();
+    });
 
     this.useEffect(() => {
-      console.log(this.pages());
+      const currBlockSig: WritableSignal<number> = this.usePagination().block;
+      const maxAvailable: number = this.maxBlocksAvailable();
+
+      if (currBlockSig() > maxAvailable) currBlockSig.set(this.maxBlocksAvailable() - 1);
     });
   }
 
