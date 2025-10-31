@@ -1,13 +1,9 @@
-<app-page-wrapper [waitClient]="false">
-  <ng-template #contentRef>
-    <app-search-bar
-      [txtInputsAvailable]="txtInputsAvailable"
-      [form]="form"
-      [defState]="defState"
-      [filtersAvailable]="filtersAvailable"
-      [sortersAvailable]="sortersAvailable"
-    />
-  </ng-template>
-</app-page-wrapper>
-
-<app-page-counter [totPages]="50" [usePagination]="usePagination" />
+<app-search-layout
+  [form]="form"
+  [defState]="defState"
+  [txtInputsAvailable]="txtInputsAvailable"
+  [filtersAvailable]="filtersAvailable"
+  [sortersAvailable]="sortersAvailable"
+  [totPages]="50"
+  [usePagination]="usePagination"
+/>

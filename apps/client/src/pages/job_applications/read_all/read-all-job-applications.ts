@@ -1,6 +1,4 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { PageWrapper } from '@/layout/page_wrapper/page-wrapper';
-import { SearchBar } from '@/layout/search_bar/search-bar';
 import { TxtFieldArrayT } from '@/common/types/forms';
 import { SearchApplicationsUiFkt } from '@/features/applications/etc/forms/search_applications/etc/ui_fkt';
 import { FormGroup } from '@angular/forms';
@@ -9,12 +7,12 @@ import {
   SearchApplicationsFormT,
 } from '@/features/applications/etc/forms/search_applications/etc/paperwork/form_mng';
 import { SearchBarFilterT, SearchBarSorterT } from '@/layout/search_bar/etc/ui_fkt';
-import { PageCounter } from '@/layout/page_counter/page-counter';
 import { UsePaginationHk } from '@/core/hooks/use_pagination';
+import { SearchLayout } from '@/layout/search_layout/search-layout';
 
 @Component({
   selector: 'app-read-all-job-applications',
-  imports: [PageWrapper, SearchBar, PageCounter],
+  imports: [SearchLayout],
   templateUrl: './read-all-job-applications.html',
   styleUrl: './read-all-job-applications.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
