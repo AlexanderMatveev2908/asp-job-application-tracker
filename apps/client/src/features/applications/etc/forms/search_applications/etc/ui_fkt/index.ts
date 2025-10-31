@@ -3,7 +3,11 @@ import { SvgFillStatus } from '@/common/components/svgs/fill/status/status';
 import { CheckBoxFieldT, TxtFieldArrayT } from '@/common/types/forms';
 import { LibPrs } from '@/core/lib/data_structure/prs';
 import { ApplicationStatusT } from '@/features/applications/etc/types';
-import { SearchBarFilterT, SearchBarSorterT, SearchBarUiFkt } from '@/layout/search_bar/etc/ui_fkt';
+import {
+  SearchBarFilterT,
+  SearchBarSorterT,
+  SearchBarUiFkt,
+} from '@/layout/search_layout/search_bar/etc/ui_fkt';
 
 export class SearchApplicationsUiFkt extends SearchBarUiFkt {
   public static readonly companyName: () => TxtFieldArrayT = () =>

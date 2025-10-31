@@ -1,28 +1,18 @@
 import { Nullable } from '@/common/types/etc';
-import { TxtFieldArrayT } from '@/common/types/forms';
-import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
-import { BaseSearchBarFormT } from '@/layout/search_bar/etc/paperwork';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  input,
-  InputSignal,
-  OnInit,
-  Signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FormZodMng } from '@/core/paperwork/form_mng/form_zod_mng';
 import { SearchBarTxtFieldsRow } from './etc/fragments/txt_fields_row/search-bar-txt-fields-row';
 import { SearchBarBtnsRow } from './etc/fragments/btns_row/search-bar-btns-row';
 import { LibLog } from '@/core/lib/dev/log';
 import { SearchBarFilterBar } from './etc/fragments/filter_bar/search-bar-filter-bar';
 import { UseBarsHk } from './etc/hooks/use_bars';
-import { SearchBarFilterT, SearchBarSorterT } from './etc/ui_fkt';
 import { UseFiltersHk } from './etc/hooks/use_filters';
 import { v4 } from 'uuid';
 import { SearchBarSortBar } from './etc/fragments/sort_bar/search-bar-sort-bar';
+import { UseSearchbarPropsDir } from './etc/directives/use_search_bar_props';
+import { BaseSearchBarFormT } from './etc/paperwork';
 
 @Component({
   selector: 'app-search-bar',
@@ -38,14 +28,7 @@ import { SearchBarSortBar } from './etc/fragments/sort_bar/search-bar-sort-bar';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [UseBarsHk, UseFiltersHk],
 })
-export class SearchBar<T> extends UseInjCtxHk implements OnInit {
-  // ? props
-  public readonly defState: InputSignal<BaseSearchBarFormT<T>> = input.required();
-  public readonly form: InputSignal<FormGroup> = input.required();
-  public readonly txtInputsAvailable: InputSignal<() => TxtFieldArrayT[]> = input.required();
-  public readonly filtersAvailable: InputSignal<() => SearchBarFilterT[]> = input.required();
-  public readonly sortersAvailable: InputSignal<() => SearchBarSorterT[]> = input.required();
-
+export class SearchBar<T> extends UseSearchbarPropsDir<T> implements OnInit {
   // ? listeners
   public onSubmit(): void {
     if (!this.form().valid) {

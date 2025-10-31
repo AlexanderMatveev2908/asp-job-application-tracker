@@ -3,14 +3,14 @@ import { ApplicationStatusT } from '@/features/applications/etc/types';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import z, { RefinementCtx, ZodArray, ZodEnum, ZodObject, ZodOptional } from 'zod';
 import { SearchApplicationsUiFkt } from '../ui_fkt';
+import { FormZodMng } from '@/core/paperwork/form_mng/form_zod_mng';
+import { Reg } from '@/core/paperwork/reg';
+import { TxtFieldArrayT } from '@/common/types/forms';
 import {
   BaseSearchBarSchemaT,
   SearchBarFormMng,
   SortSchemaT,
-} from '@/layout/search_bar/etc/paperwork';
-import { FormZodMng } from '@/core/paperwork/form_mng/form_zod_mng';
-import { Reg } from '@/core/paperwork/reg';
-import { TxtFieldArrayT } from '@/common/types/forms';
+} from '@/layout/search_layout/search_bar/etc/paperwork';
 
 export type SearchApplicationsTxtInputKetT = 'companyName' | 'positionName';
 

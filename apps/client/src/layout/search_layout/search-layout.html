@@ -1,0 +1,18 @@
+<app-page-wrapper [waitClient]="false">
+  <ng-template #contentRef>
+    <div class="root">
+      <app-search-bar
+        [txtInputsAvailable]="txtInputsAvailable()"
+        [form]="form()"
+        [defState]="defState()"
+        [filtersAvailable]="filtersAvailable()"
+        [sortersAvailable]="sortersAvailable()"
+        [usePagination]="usePagination()"
+      />
+
+      <app-hits-counter [nHits]="nHits()" />
+    </div>
+  </ng-template>
+</app-page-wrapper>
+
+<app-page-counter [totPages]="totPages()" [usePagination]="usePagination()" />

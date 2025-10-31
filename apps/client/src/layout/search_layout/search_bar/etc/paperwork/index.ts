@@ -1,7 +1,7 @@
 import z, { ZodObject } from 'zod';
 
-import { FormArraySchemaT } from '../../../../core/paperwork/etc/form_array';
 import { Nullable } from '@/common/types/etc';
+import { FormArraySchemaT } from '@/core/paperwork/etc/form_array';
 
 export enum SortValT {
   ASC = 'ASC',

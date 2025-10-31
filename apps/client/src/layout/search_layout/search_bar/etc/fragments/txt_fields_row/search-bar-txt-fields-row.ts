@@ -9,7 +9,6 @@ import {
 import { FormFieldDynamic } from '@/common/components/forms/dynamic_fields_array/form_field_dynamic/form-field-dynamic';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { UseFormFieldDynamicDir } from '@/core/directives/forms/form_field/0.use_form_field_dynamic';
-import { BaseSearchBarFormT } from '@/layout/search_bar/etc/paperwork';
 import { Nullable } from '@/common/types/etc';
 import { SvgFillClose } from '@/common/components/svgs/fill/close/close';
 import { UseHoverHk } from '@/core/hooks/listeners/use_hover';
@@ -20,6 +19,7 @@ import { TxtFieldArrayT } from '@/common/types/forms';
 import { UseSpanDir } from '@/core/directives/use_span';
 import { SearchBarDropAddField } from './drop_add_field/search-bar-drop-add-field';
 import { FocusDOM } from '@/core/lib/dom/focus';
+import { BaseSearchBarFormT } from '../../paperwork';
 
 @Component({
   selector: 'app-search-bar-txt-fields-row',
