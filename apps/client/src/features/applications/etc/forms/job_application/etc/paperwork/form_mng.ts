@@ -1,7 +1,7 @@
 /* eslint-disable no-magic-numbers */
 import { Opt } from '@/common/types/etc';
 import { LibDate } from '@/core/lib/data_structure/date';
-import { FormZodMng } from '@/core/paperwork/form_zod_mng';
+import { FormZodMng } from '@/core/paperwork/form_mng/form_zod_mng';
 import { Reg } from '@/core/paperwork/reg';
 import { ApplicationStatusT } from '@/features/applications/etc/types';
 import { FormControl, FormGroup } from '@angular/forms';

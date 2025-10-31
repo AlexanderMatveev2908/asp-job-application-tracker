@@ -10,13 +10,13 @@ import {
   signal,
   WritableSignal,
 } from '@angular/core';
-import { Tooltip } from '../../els/tooltip/tooltip';
 import { FormControl } from '@angular/forms';
 import { ErrsFieldT, RecErrsFieldT } from '@/common/types/forms';
 import { LibPrs } from '@/core/lib/data_structure/prs';
 import { Nullable } from '@/common/types/etc';
 import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
 import { UseIDsDir } from '@/core/directives/use_ids';
+import { Tooltip } from '@/common/components/els/tooltip/tooltip';
 
 @Component({
   selector: 'app-form-field-err',
@@ -31,13 +31,13 @@ export class FormFieldErr implements OnInit {
 
   // ? personal props
   public readonly ctrl: InputSignal<FormControl> = input.required();
+  public readonly optionalDep: InputSignal<Nullable<unknown[]>> = input<Nullable<unknown[]>>(null);
 
   // ? derived
   public recErrs: WritableSignal<RecErrsFieldT> = signal({
     prev: null,
     curr: null,
   });
-  public readonly optionalDep: InputSignal<Nullable<unknown[]>> = input<Nullable<unknown[]>>(null);
 
   // ? props testid tooltip
   public readonly testIdErrMsg: Signal<string> = computed(() =>

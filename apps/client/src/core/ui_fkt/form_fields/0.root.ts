@@ -1,4 +1,4 @@
-import { CheckBoxFieldT, CheckFieldT, TxtFieldT } from '@/common/types/forms';
+import { CheckBoxFieldT, CheckFieldT, TxtFieldArrayT, TxtFieldT } from '@/common/types/forms';
 import { RootUiFkt } from '../root_ui';
 import { LibPrs } from '../../lib/data_structure/prs';
 
@@ -40,5 +40,14 @@ export class FormFieldsUiFkt extends RootUiFkt {
       label: arg.label,
       type: arg?.type ?? 'radio',
     });
+  }
+
+  public static fieldArrayOf(
+    arg: Partial<TxtFieldArrayT> & { name: string; field: string }
+  ): TxtFieldArrayT {
+    return {
+      ...this.txtFieldOf(arg),
+      val: '',
+    };
   }
 }

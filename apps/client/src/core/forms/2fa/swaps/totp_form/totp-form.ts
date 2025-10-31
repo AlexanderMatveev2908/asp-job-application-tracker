@@ -17,7 +17,6 @@ import { UseKitFormHk } from '@/core/hooks/kits/kit_form/0.use_kit_form';
 import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 import { FocusDOM } from '@/core/lib/dom/focus';
-import { FormFieldErr } from '@/common/components/forms/form_field_err/form-field-err';
 
 import { TotpPart } from './totp_part/totp-part';
 import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
@@ -25,6 +24,7 @@ import { Nullable } from '@/common/types/etc';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { UseTotpFormKeysHk } from './etc/hooks/key_mng';
 import { UseForm2faDir } from '../../etc/directives/use_form_2fa';
+import { FormFieldErr } from '@/common/components/forms/base_fields/form_field_err/form-field-err';
 
 @Component({
   selector: 'app-totp-form',

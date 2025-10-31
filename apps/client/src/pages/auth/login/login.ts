@@ -5,7 +5,7 @@ import { LoginFormMng, LoginFormT } from '@/features/auth/pages/login/paperwork/
 import { LoginFormUiFkt } from '@/features/auth/pages/login/ui_fkt';
 import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
+import { FormFieldTxt } from '@/common/components/forms/base_fields/form_field_txt/form-field-txt';
 import { UseAuthKitSvc } from '@/features/auth/etc/services/use_auth_kit';
 import { from, switchMap, tap } from 'rxjs';
 import { JwtOrCbcHmacResT } from '@/features/auth/etc/types';

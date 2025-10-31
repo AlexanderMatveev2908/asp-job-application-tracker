@@ -2,7 +2,7 @@ import { Directive, Signal } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map, Observable, startWith } from 'rxjs';
-import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
+import { FormFieldTxt } from '@/common/components/forms/base_fields/form_field_txt/form-field-txt';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 import { Nullable } from '@/common/types/etc';
 

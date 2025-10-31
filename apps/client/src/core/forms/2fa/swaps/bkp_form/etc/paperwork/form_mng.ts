@@ -1,5 +1,5 @@
 import { Reg } from '@/core/paperwork/reg';
-import { FormZodMng } from '@/core/paperwork/form_zod_mng';
+import { FormZodMng } from '@/core/paperwork/form_mng/form_zod_mng';
 import { FormControl, FormGroup } from '@angular/forms';
 import z, { ZodObject, ZodString } from 'zod';
 

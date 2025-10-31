@@ -10,7 +10,7 @@ import {
   Signal,
   WritableSignal,
 } from '@angular/core';
-import { FormFieldTxt } from '../../forms/form_field_txt/form-field-txt';
+import { FormFieldTxt } from '../../forms/base_fields/form_field_txt/form-field-txt';
 import { PairPwdStateT, TxtSvgFieldT } from '@/common/types/forms';
 import { FormControl } from '@angular/forms';
 import { PwdGenerator } from './pwd_generator/pwd-generator';

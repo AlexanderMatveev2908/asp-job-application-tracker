@@ -10,7 +10,7 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ApplicationFormMng, ApplicationFormT } from './etc/paperwork/form_mng';
 import { TxtFieldT } from '@/common/types/forms';
 import { ApplicationFormUiFkt } from './etc/ui_fkt';
-import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
+import { FormFieldTxt } from '@/common/components/forms/base_fields/form_field_txt/form-field-txt';
 import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
 import { UseKitFormHk } from '@/core/hooks/kits/kit_form/0.use_kit_form';
 import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';

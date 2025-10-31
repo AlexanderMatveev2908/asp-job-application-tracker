@@ -1,4 +1,4 @@
-import { FormFieldBoxLg } from '@/common/components/forms/form_field_box_lg/form-field-box-lg';
+import { FormFieldBoxLg } from '@/common/components/forms/boxes/form_field_box_lg/form-field-box-lg';
 import { OpacityT } from '@/common/types/css';
 import { CheckBoxFieldT } from '@/common/types/forms';
 import { PaginationSwapStateT } from '@/core/hooks/swap/etc/types';

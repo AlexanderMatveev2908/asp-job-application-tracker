@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { SwapItem } from '@/common/components/swap/swap_item/swap-item';
-import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
+import { FormFieldTxt } from '@/common/components/forms/base_fields/form_field_txt/form-field-txt';
 import { UseKitFormPwdHk } from '@/core/forms/pwd/etc/hooks/use_kit_form_pwd';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { BkpFormMng, BkpFormT } from './etc/paperwork/form_mng';

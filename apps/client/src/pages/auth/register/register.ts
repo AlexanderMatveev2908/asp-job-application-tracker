@@ -3,12 +3,11 @@ import { CsrWithTitle } from '@/common/components/hoc/page/csr_with_title/csr-wi
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CheckFieldT, TxtFieldT } from '@/common/types/forms';
 import { RegisterFormUiFkt } from '@/features/auth/pages/register/ui_fkt';
-import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
+import { FormFieldTxt } from '@/common/components/forms/base_fields/form_field_txt/form-field-txt';
 import { Swapper } from '@/common/components/swap/swapper/swapper';
 import { PairPwd } from '@/common/components/hoc/pair_pwd/pair-pwd';
 import { RegisterFormMng, RegisterFormT } from '@/features/auth/pages/register/paperwork/form_mng';
 import { PortalModule } from '@angular/cdk/portal';
-import { FormFieldBoxSm } from '@/common/components/forms/form_field_box_sm/form-field-box-sm';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { JwtResT } from '@/features/auth/etc/types';
 import { tap } from 'rxjs';
@@ -21,6 +20,7 @@ import { UseIDsDir } from '@/core/directives/use_ids';
 import { UseFormShapeDir } from '@/core/directives/forms/use_form_shape';
 import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
+import { FormFieldBoxSm } from '@/common/components/forms/boxes/form_field_box_sm/form-field-box-sm';
 
 @Component({
   selector: 'app-register',

@@ -11,15 +11,15 @@ import {
   Signal,
   ViewChild,
 } from '@angular/core';
-import { SvgFillBoxChecked } from '../../svgs/fill/box_checked/box-checked';
 import { NgClass } from '@angular/common';
 import { Nullable, RefDomT, SvgT } from '@/common/types/etc';
 import { FormControl } from '@angular/forms';
-import { FormFieldErr } from '../form_field_err/form-field-err';
 import { FormFieldBoxAnimations } from './etc/animations';
 import { LibPrs } from '@/core/lib/data_structure/prs';
 import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
 import { UseIDsDir } from '@/core/directives/use_ids';
+import { SvgFillBoxChecked } from '@/common/components/svgs/fill/box_checked/box-checked';
+import { FormFieldErr } from '../../base_fields/form_field_err/form-field-err';
 
 @Component({
   selector: 'app-form-field-box-sm',

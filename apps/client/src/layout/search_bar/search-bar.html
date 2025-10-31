@@ -1,0 +1,23 @@
+<form [formGroup]="form()" class="root" (ngSubmit)="onSubmit()">
+  <app-search-bar-txt-fields-row
+    [form]="form()"
+    [formVal]="formVal?.() ?? null"
+    [txtInputsAvailable]="txtInputsAvailable()"
+  />
+
+  <app-search-bar-btns-row [onErase]="onErase" [useBars]="useBars" />
+
+  <app-search-bar-filter-bar
+    [useBars]="useBars"
+    [useFilters]="useFilters"
+    [filtersAvailable]="filtersAvailable()"
+    [form]="form()"
+    [onErase]="onErase"
+  />
+
+  <app-search-bar-sort-bar
+    [useBars]="useBars"
+    [sortersAvailable]="sortersAvailable()"
+    [form]="form()"
+  />
+</form>

@@ -1,1 +1,11 @@
-<p>read-all-job-applications works!</p>
+<app-page-wrapper [waitClient]="false">
+  <ng-template #contentRef>
+    <app-search-bar
+      [txtInputsAvailable]="txtInputsAvailable"
+      [form]="form"
+      [defState]="defState"
+      [filtersAvailable]="filtersAvailable"
+      [sortersAvailable]="sortersAvailable"
+    />
+  </ng-template>
+</app-page-wrapper>

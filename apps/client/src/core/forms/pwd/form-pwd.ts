@@ -6,7 +6,7 @@ import {
   InputSignal,
   Signal,
 } from '@angular/core';
-import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
+import { FormFieldTxt } from '@/common/components/forms/base_fields/form_field_txt/form-field-txt';
 import { FormShape } from '@/common/components/forms/form_shape/form-shape';
 import { Observable } from 'rxjs';
 import { PwdFormMng, PwdFormT } from '../../paperwork/etc/pwd';

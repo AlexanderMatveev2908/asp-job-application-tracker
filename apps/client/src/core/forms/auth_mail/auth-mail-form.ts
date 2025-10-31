@@ -5,7 +5,7 @@ import { MailFormMng, MailFormT } from '../../paperwork/etc/mail';
 import { MailFormUiFkt } from '../../ui_fkt/form_fields/1.mail';
 import { TxtFieldT } from '@/common/types/forms';
 import { UseKitFormHk } from '@/core/hooks/kits/kit_form/0.use_kit_form';
-import { FormFieldTxt } from '@/common/components/forms/form_field_txt/form-field-txt';
+import { FormFieldTxt } from '@/common/components/forms/base_fields/form_field_txt/form-field-txt';
 import { Observable } from 'rxjs';
 import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { UseFormShapeDir } from '@/core/directives/forms/use_form_shape';
