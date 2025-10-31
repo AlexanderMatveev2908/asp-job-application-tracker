@@ -5,7 +5,6 @@ import { FormArray, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FormZodMng } from '@/core/paperwork/form_mng/form_zod_mng';
 import { SearchBarTxtFieldsRow } from './etc/fragments/txt_fields_row/search-bar-txt-fields-row';
 import { SearchBarBtnsRow } from './etc/fragments/btns_row/search-bar-btns-row';
-import { LibLog } from '@/core/lib/dev/log';
 import { SearchBarFilterBar } from './etc/fragments/filter_bar/search-bar-filter-bar';
 import { UseBarsHk } from './etc/hooks/use_bars';
 import { UseFiltersHk } from './etc/hooks/use_filters';
@@ -41,16 +40,19 @@ export class SearchBar<T> extends UseSearchbarPropsDir<T> implements OnInit {
       FormZodMng.onSubmitFailed(this.form());
       return;
     }
-    LibLog.logTtl('✅ submit', this.form().value);
+
+    this.strategy()(this.form().value);
   }
 
   public readonly onErase: () => void = () => {
     const { txtInputs, ...plainCtrlFields }: BaseSearchBarFormT<T> = this.defState();
+
     this.form().patchValue(plainCtrlFields);
     const txtInputsFormArray: FormArray = this.form().get('txtInputs') as FormArray;
     txtInputsFormArray.clear();
-
     for (const f of txtInputs!) txtInputsFormArray.push(new FormControl({ ...f, id: v4() }));
+
+    this.usePagination().reset();
   };
 
   // ? local state
