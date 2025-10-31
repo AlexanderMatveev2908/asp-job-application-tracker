@@ -1,6 +1,5 @@
 import { ElDomT, Nullable, RefDomT } from '@/common/types/etc';
 import { TxtFieldArrayT } from '@/common/types/forms';
-import { BaseSearchBarFormT } from '@/layout/search_bar/etc/paperwork';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -20,6 +19,7 @@ import { NgClass, NgComponentOutlet } from '@angular/common';
 import { v4 } from 'uuid';
 import { LibShapeCheck } from '@/core/lib/data_structure/shape_check';
 import { FocusDOM } from '@/core/lib/dom/focus';
+import { BaseSearchBarFormT } from '../../../paperwork';
 
 @Component({
   selector: 'app-search-bar-drop-add-field',

@@ -1,5 +1,4 @@
 import { Nullable } from '@/common/types/etc';
-import { BaseSearchBarFormT } from '@/layout/search_bar/etc/paperwork';
 import { ChangeDetectionStrategy, Component, inject, OnInit, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormArray, FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -13,6 +12,7 @@ import { UseFiltersHk } from './etc/hooks/use_filters';
 import { v4 } from 'uuid';
 import { SearchBarSortBar } from './etc/fragments/sort_bar/search-bar-sort-bar';
 import { UseSearchbarPropsDir } from './etc/directives/use_search_bar_props';
+import { BaseSearchBarFormT } from './etc/paperwork';
 
 @Component({
   selector: 'app-search-bar',

@@ -6,9 +6,9 @@ import {
   SearchApplicationsFormMng,
   SearchApplicationsFormT,
 } from '@/features/applications/etc/forms/search_applications/etc/paperwork/form_mng';
-import { SearchBarFilterT, SearchBarSorterT } from '@/layout/search_bar/etc/ui_fkt';
 import { UsePaginationHk } from '@/core/hooks/use_pagination';
 import { SearchLayout } from '@/layout/search_layout/search-layout';
+import { SearchBarFilterT, SearchBarSorterT } from '@/layout/search_layout/search_bar/etc/ui_fkt';
 
 @Component({
   selector: 'app-read-all-job-applications',
