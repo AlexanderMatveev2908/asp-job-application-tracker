@@ -1,9 +1,13 @@
 import { FormArrayMng, RulesFieldArrayT } from '@/core/paperwork/etc/form_array';
 import { ApplicationStatusT } from '@/features/applications/etc/types';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import z, { RefinementCtx, ZodArray, ZodEnum, ZodObject, ZodOptional, ZodString } from 'zod';
+import z, { RefinementCtx, ZodArray, ZodEnum, ZodObject, ZodOptional } from 'zod';
 import { SearchApplicationsUiFkt } from '../ui_fkt';
-import { BaseSearchBarSchemaT } from '@/layout/search_bar/etc/paperwork';
+import {
+  BaseSearchBarSchemaT,
+  SearchBarFormMng,
+  SortSchemaT,
+} from '@/layout/search_bar/etc/paperwork';
 import { FormZodMng } from '@/core/paperwork/form_mng/form_zod_mng';
 import { Reg } from '@/core/paperwork/reg';
 import { TxtFieldArrayT } from '@/common/types/forms';
@@ -24,15 +28,13 @@ export class SearchApplicationsFormMng extends FormZodMng {
 
   public static readonly schema: ZodObject<{
     status: ZodOptional<ZodArray<ZodEnum>>;
-    appliedAtSort: ZodOptional<ZodString>;
+    appliedAtSort: SortSchemaT;
   }> &
-    BaseSearchBarSchemaT = z
-    .object({
+    BaseSearchBarSchemaT = SearchBarFormMng.baseSchema
+    .extend({
       txtInputs: z.array(FormArrayMng.formFieldItemSchema).optional(),
       status: z.array(z.enum(Object.values(ApplicationStatusT))).optional(),
-      createdAtSort: z.string().optional(),
-      updatedAtSort: z.string().optional(),
-      appliedAtSort: z.string().optional(),
+      appliedAtSort: SearchBarFormMng.sortSchema(),
     })
     .superRefine((data: SearchApplicationsFormT, ctx: RefinementCtx) => {
       if (data.txtInputs?.length) {

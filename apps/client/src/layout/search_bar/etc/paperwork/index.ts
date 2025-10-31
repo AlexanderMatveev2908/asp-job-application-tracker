@@ -1,12 +1,38 @@
-import z, { ZodObject, ZodOptional, ZodString } from 'zod';
-import { FormArraySchemaT } from '../../../../core/paperwork/etc/form_array';
+import z, { ZodObject } from 'zod';
 
-export type SearchOrderT = 'ASC' | 'DESC';
+import { FormArraySchemaT } from '../../../../core/paperwork/etc/form_array';
+import { Nullable } from '@/common/types/etc';
+
+export enum SortValT {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}
+
+export const SortValsList: SortValT[] = Object.values(SortValT);
 
 export type BaseSearchBarSchemaT = ZodObject<{
   txtInputs: FormArraySchemaT;
-  createdAtSort: ZodOptional<ZodString>;
-  updatedAtSort: ZodOptional<ZodString>;
+  createdAtSort: SortSchemaT;
+  updatedAtSort: SortSchemaT;
 }>;
 
 export type BaseSearchBarFormT<T> = z.infer<BaseSearchBarSchemaT> & T;
+
+export class SearchBarFormMng {
+  // eslint-disable-next-line @typescript-eslint/typedef, @typescript-eslint/explicit-function-return-type
+  public static readonly sortSchema = () =>
+    z.preprocess(
+      (v: Nullable<SortValT>) => (SortValsList.includes(v as SortValT) ? v : null),
+      z.enum(SortValsList).nullable()
+    );
+
+  public static readonly baseSchema: ZodObject<{
+    createdAtSort: SortSchemaT;
+    updatedAtSort: SortSchemaT;
+  }> = z.object({
+    createdAtSort: this.sortSchema(),
+    updatedAtSort: this.sortSchema(),
+  });
+}
+
+export type SortSchemaT = ReturnType<typeof SearchBarFormMng.sortSchema>;
