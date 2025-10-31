@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+  InputSignal,
+  Signal,
+} from '@angular/core';
 import { UseFiltersHk } from '../../../hooks/use_filters';
 import { SearchBarFilterT } from '../../../ui_fkt';
 import { WithEventT } from '@/common/types/etc';
@@ -14,6 +21,9 @@ import { NgClass, NgComponentOutlet } from '@angular/common';
 export class SearchBarFilterBarLabels {
   public readonly useFilters: InputSignal<UseFiltersHk> = input.required();
   public readonly filtersAvailable: InputSignal<() => SearchBarFilterT[]> = input.required();
+
+  // ? derived
+  public readonly filters: Signal<SearchBarFilterT[]> = computed(() => this.filtersAvailable()());
 
   // ? helpers
   public withEvent(f: SearchBarFilterT): SearchBarFilterT & WithEventT {
