@@ -23,7 +23,7 @@ export class UseDebounceHk<T> extends UseInjCtxHk {
 
   private readonly MARGIN_DEBOUNCE: number = 1000;
 
-  private isSameData<T>(dataNow: Nullable<BaseSearchBarFormT<T>>): boolean {
+  private isSameData<T>(dataNow: BaseSearchBarFormT<T>): boolean {
     // ! 1. flattening data to compare allow to avoid triggering just
     // ! because internal IDs change while leaving data intact
     // ! 2. then `txtInputs` fields beng dynamic can be added and removed

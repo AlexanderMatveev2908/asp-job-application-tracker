@@ -7,6 +7,7 @@ import { LibShapeCheck } from '@/core/lib/data_structure/shape_check';
 export class LibSearchBar {
   public static flatSearchForm<T>(arg: Nullable<Partial<BaseSearchBarFormT<T>>>): SearchQueryArgT {
     const flatten: SearchQueryArgT = {} as SearchQueryArgT;
+
     for (const k in arg) {
       if (k === 'txtInputs') continue;
       flatten[k] = arg[k as keyof typeof arg];
