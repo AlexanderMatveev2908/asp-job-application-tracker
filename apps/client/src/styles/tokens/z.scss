@@ -1,30 +1,29 @@
-._z__search_bar__bg {
+.z__sidebar__bg {
   z-index: 100;
 }
-._z__search_bar {
+.z__sidebar {
   z-index: 200;
 }
 
-.z__sidebar__bg {
-  z-index: 300;
-}
-.z__sidebar {
-  z-index: 400;
-}
-
 .z__header {
-  z-index: 500;
+  z-index: 300;
 }
 
 .z__tooltip_near_header {
-  z-index: 600;
+  z-index: 400;
 }
 
-// | to rename and reuse for general delete popups
-.z__del_acc__bg {
+// ? search bar fixed elements & generics
+.z__filter_bar__bg {
+  z-index: 500;
+}
+.z__filter_bar {
+  z-index: 600;
+}
+.z__generic_popup__bg {
   z-index: 700;
 }
-.z__del_acc {
+.z__generic_popup {
   z-index: 800;
 }
 

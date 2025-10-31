@@ -63,7 +63,7 @@ export class SearchBarFilterBar implements OnInit {
   public readonly blackBgProps: Signal<BlackBgPropsT> = computed(
     (): BlackBgPropsT => ({
       isDark: this.useBars().isFilterBar(),
-      zBg: 'z__search_bar__bg',
+      zBg: 'z__filter_bar__bg',
     })
   );
 

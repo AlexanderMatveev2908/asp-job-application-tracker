@@ -17,9 +17,11 @@ export class SearchBarBtnsRow {
   public readonly onErase: InputSignal<() => void> = input.required();
   public readonly useBars: InputSignal<UseBarsHk> = input.required();
 
-  public openFilterBar: () => void = () => {
+  public readonly openFilterBar: () => void = () => {
     this.useBars().isFilterBar.set(true);
   };
+
+  public readonly openSortBar: () => void = () => this.useBars().isSortBar.set(true);
 
   // ? props btns
   public readonly btns: Record<SearchBarBtnKeyT, SpanEventPropsT> = SearchBarUiFkt.btns;

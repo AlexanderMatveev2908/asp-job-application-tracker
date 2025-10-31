@@ -62,7 +62,7 @@ export class DeleteAccount extends UsePortalDir {
 
   // ? popup props
   public readonly popupStaticProps: PopupStaticPropsT = {
-    cls: 'del_acc',
+    cls: 'generic_popup',
     closeOnMouseOut: true,
     eventT: 'ERR',
     closePop: this.useKitPop.closePop,

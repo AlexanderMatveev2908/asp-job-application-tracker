@@ -22,10 +22,17 @@ import { UseBarsHk } from './etc/hooks/use_bars';
 import { SearchBarFilterT } from './etc/ui_fkt';
 import { UseFiltersHk } from './etc/hooks/use_filters';
 import { v4 } from 'uuid';
+import { SearchBarSortBar } from './etc/fragments/sort_bar/search-bar-sort-bar';
 
 @Component({
   selector: 'app-search-bar',
-  imports: [ReactiveFormsModule, SearchBarTxtFieldsRow, SearchBarBtnsRow, SearchBarFilterBar],
+  imports: [
+    ReactiveFormsModule,
+    SearchBarTxtFieldsRow,
+    SearchBarBtnsRow,
+    SearchBarFilterBar,
+    SearchBarSortBar,
+  ],
   templateUrl: './search-bar.html',
   styleUrl: './search-bar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
