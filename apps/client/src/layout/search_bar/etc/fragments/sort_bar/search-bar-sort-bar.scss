@@ -15,8 +15,12 @@
     .body__sorter {
       @apply w-full flex flex-col gap-6 items-center;
 
+      .sorter__span {
+        @apply w-full;
+      }
+
       .sorter__content {
-        @apply w-full flex items-center justify-around gap-8;
+        @apply w-full flex flex-col gap-4 items-center md:flex-row md:justify-around;
       }
     }
   }

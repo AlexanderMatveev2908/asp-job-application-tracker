@@ -15,10 +15,12 @@ import { FormFieldBoxLg } from '@/common/components/forms/boxes/form_field_box_l
 import { FormControl, FormGroup } from '@angular/forms';
 import { CheckBoxFieldT } from '@/common/types/forms';
 import { UseFormFieldDir } from '@/core/directives/forms/form_field/0.use_form_field';
+import { Span } from '@/common/components/els/span/span';
+import { SpanPropsT } from '@/common/components/els/span/etc/types';
 
 @Component({
   selector: 'app-search-bar-sort-bar',
-  imports: [Popup, UseIDsDir, FormFieldBoxLg, UseFormFieldDir],
+  imports: [Popup, UseIDsDir, FormFieldBoxLg, UseFormFieldDir, Span],
   templateUrl: './search-bar-sort-bar.html',
   styleUrl: './search-bar-sort-bar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -31,6 +33,13 @@ export class SearchBarSortBar {
   // ? helpers
   public getCtrl(f: CheckBoxFieldT): FormControl {
     return this.form().get(f.name) as FormControl;
+  }
+
+  public spanPropsOf(s: SearchBarSorterT): SpanPropsT {
+    return {
+      Svg: s.Svg,
+      label: s.label,
+    };
   }
 
   // ? app-popup props

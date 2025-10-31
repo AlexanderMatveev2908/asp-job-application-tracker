@@ -8,9 +8,7 @@
       <div class="root__body">
         @for(s of sorters(); track s.id){
         <div class="body__sorter">
-          <span class="txt__lg">
-            {{ s.label }}
-          </span>
+          <app-span [spanProps]="spanPropsOf(s)" />
 
           <div class="sorter__content">
             @for(f of s.fields; track f.id){
