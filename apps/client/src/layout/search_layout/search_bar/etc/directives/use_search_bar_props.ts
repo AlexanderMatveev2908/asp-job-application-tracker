@@ -16,7 +16,12 @@ export abstract class UseSearchbarPropsDir<T> extends UseInjCtxHk {
   public readonly filtersAvailable: InputSignal<() => SearchBarFilterT[]> = input.required();
   public readonly sortersAvailable: InputSignal<() => SearchBarSorterT[]> = input.required();
 
+  public readonly usePagination: InputSignal<UsePaginationHk> = input.required();
+}
+
+@Directive()
+export abstract class UseSearchBarPropsWithPaginationDir<T> extends UseSearchbarPropsDir<T> {
   // ? page related
   public readonly totPages: InputSignal<Nullable<number>> = input.required();
-  public readonly usePagination: InputSignal<UsePaginationHk> = input.required();
+  public readonly nHits: InputSignal<Nullable<number>> = input.required();
 }

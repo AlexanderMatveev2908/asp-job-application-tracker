@@ -7,9 +7,10 @@
         [defState]="defState()"
         [filtersAvailable]="filtersAvailable()"
         [sortersAvailable]="sortersAvailable()"
-        [totPages]="totPages()"
         [usePagination]="usePagination()"
       />
+
+      <app-hits-counter [nHits]="nHits()" />
     </div>
   </ng-template>
 </app-page-wrapper>
