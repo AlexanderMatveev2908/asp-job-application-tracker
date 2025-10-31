@@ -11,7 +11,7 @@
   <div class="root__pages">
     @for(p of pages(); track p.id){
 
-    <button type="button" class="pages__item" [ngClass]="twdPage(p)">
+    <button type="button" class="pages__item" [ngClass]="twdPage(p)" (click)="changePage(p)">
       <span class="txt__xl">
         {{ p.label }}
       </span>

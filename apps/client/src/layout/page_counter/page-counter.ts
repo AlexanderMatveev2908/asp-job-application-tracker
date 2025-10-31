@@ -72,11 +72,18 @@ export class PageCounter extends UseInjCtxHk implements OnInit {
   };
 
   // ? listeners
-  private refreshVals(): void {
+  private refreshPaginationUi(): void {
     this.usePlatform.onClient(() => {
-      const newVal: number = LibPageCounter.paginationVals.get('pagePerBlock')!();
-      this.pagesPerBlock.set(newVal);
+      const newPagesPerBlock: number = LibPageCounter.paginationVals.get('pagePerBlock')!();
+      this.pagesPerBlock.set(newPagesPerBlock);
+
+      const newLimitItemsPerPage: number = LibPageCounter.paginationVals.get('limit')!();
+      this.usePagination().limit.set(newLimitItemsPerPage);
     });
+  }
+
+  public changePage(p: PageT): void {
+    this.usePagination().page.set(p.val);
   }
 
   // ? props btns
@@ -95,22 +102,38 @@ export class PageCounter extends UseInjCtxHk implements OnInit {
     isDisabled: this.usePagination().block() >= this.maxBlocksAvailable() - 1,
   }));
 
-  ngOnInit(): void {
+  // ? edge cases
+  private ifPageBiggerThanAvailable(): void {
     this.useEffect(() => {
-      void this.totPages();
-      this.refreshVals();
-    });
+      const pageSig: WritableSignal<number> = this.usePagination().page;
+      const maxAvailable: number = this.totPages() ?? 0;
 
+      if (pageSig() <= maxAvailable - 1) return;
+
+      pageSig.set(maxAvailable - 1);
+    });
+  }
+
+  private ifBlockBiggerThanAvailable(): void {
     this.useEffect(() => {
-      const currBlockSig: WritableSignal<number> = this.usePagination().block;
+      const blockSig: WritableSignal<number> = this.usePagination().block;
       const maxAvailable: number = this.maxBlocksAvailable();
 
-      if (currBlockSig() > maxAvailable) currBlockSig.set(this.maxBlocksAvailable() - 1);
+      if (blockSig() <= maxAvailable - 1) return;
+
+      blockSig.set(this.maxBlocksAvailable() - 1);
     });
+  }
+
+  ngOnInit(): void {
+    this.refreshPaginationUi();
+
+    this.ifPageBiggerThanAvailable();
+    this.ifBlockBiggerThanAvailable();
   }
 
   @HostListener('window:resize')
   public onResize(): void {
-    this.refreshVals();
+    this.refreshPaginationUi();
   }
 }
