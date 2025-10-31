@@ -3,6 +3,7 @@ import { Popup } from '@/layout/popup/popup';
 import { PopupStaticPropsT } from '@/layout/popup/etc/types';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { UseBarsHk } from '../../hooks/use_bars';
+import { SearchBarSorterT } from '../../ui_fkt';
 
 @Component({
   selector: 'app-search-bar-sort-bar',
@@ -13,9 +14,9 @@ import { UseBarsHk } from '../../hooks/use_bars';
 })
 export class SearchBarSortBar {
   public readonly useBars: InputSignal<UseBarsHk> = input.required();
+  public readonly sortersAvailable: InputSignal<() => SearchBarSorterT[]> = input.required();
 
   // ? app-popup props
-
   public readonly staticProps: PopupStaticPropsT = {
     closeOnMouseOut: true,
     cls: 'generic_popup',

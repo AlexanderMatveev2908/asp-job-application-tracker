@@ -1,9 +1,10 @@
+import { SvgFillSandglass } from '@/common/components/svgs/fill/sandglass/sandglass';
 import { SvgFillStatus } from '@/common/components/svgs/fill/status/status';
 import { CheckBoxFieldT, TxtFieldArrayT } from '@/common/types/forms';
 import { LibPrs } from '@/core/lib/data_structure/prs';
 import { FormFieldsUiFkt } from '@/core/ui_fkt/form_fields/0.root';
 import { ApplicationStatusT } from '@/features/applications/etc/types';
-import { SearchBarFilterT } from '@/layout/search_bar/etc/ui_fkt';
+import { SearchBarFilterT, SearchBarSorterT } from '@/layout/search_bar/etc/ui_fkt';
 
 export class SearchApplicationsUiFkt extends FormFieldsUiFkt {
   public static readonly companyName: () => TxtFieldArrayT = () =>
@@ -37,4 +38,23 @@ export class SearchApplicationsUiFkt extends FormFieldsUiFkt {
     });
 
   public static readonly filters: () => SearchBarFilterT[] = () => [this.status()];
+
+  public static readonly sorters: () => SearchBarSorterT[] = () =>
+    this.arrWithIDs([
+      {
+        field: 'createdAt',
+        label: 'Created At',
+        Svg: SvgFillSandglass,
+      },
+      {
+        field: 'updatedAt',
+        label: 'Updated At',
+        Svg: SvgFillSandglass,
+      },
+      {
+        field: 'appliedAt',
+        label: 'Applied At',
+        Svg: SvgFillSandglass,
+      },
+    ]);
 }

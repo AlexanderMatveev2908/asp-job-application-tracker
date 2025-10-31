@@ -14,6 +14,13 @@ export interface SearchBarFilterT {
   fields: CheckBoxFieldT[];
 }
 
+export interface SearchBarSorterT {
+  id: string;
+  field: string;
+  label: string;
+  Svg: Type<unknown>;
+}
+
 export type SearchBarBtnKeyT = 'sortBtn' | 'filterBtn' | 'searchBtn' | 'eraseBtn';
 
 export class SearchBarUiFkt {

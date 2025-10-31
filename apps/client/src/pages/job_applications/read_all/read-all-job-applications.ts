@@ -8,7 +8,7 @@ import {
   SearchApplicationsFormMng,
   SearchApplicationsFormT,
 } from '@/features/applications/etc/forms/search_applications/etc/paperwork/form_mng';
-import { SearchBarFilterT } from '@/layout/search_bar/etc/ui_fkt';
+import { SearchBarFilterT, SearchBarSorterT } from '@/layout/search_bar/etc/ui_fkt';
 
 @Component({
   selector: 'app-read-all-job-applications',
@@ -22,5 +22,6 @@ export class ReadAllJobApplications {
   public readonly defState: SearchApplicationsFormT = SearchApplicationsFormMng.defState();
 
   public readonly txtInputsAvailable: () => TxtFieldArrayT[] = SearchApplicationsUiFkt.txtInputs;
-  public readonly filters: () => SearchBarFilterT[] = SearchApplicationsUiFkt.filters;
+  public readonly filtersAvailable: () => SearchBarFilterT[] = SearchApplicationsUiFkt.filters;
+  public readonly sortersAvailable: () => SearchBarSorterT[] = SearchApplicationsUiFkt.sorters;
 }

@@ -19,7 +19,7 @@ import { SearchBarBtnsRow } from './etc/fragments/btns_row/search-bar-btns-row';
 import { LibLog } from '@/core/lib/dev/log';
 import { SearchBarFilterBar } from './etc/fragments/filter_bar/search-bar-filter-bar';
 import { UseBarsHk } from './etc/hooks/use_bars';
-import { SearchBarFilterT } from './etc/ui_fkt';
+import { SearchBarFilterT, SearchBarSorterT } from './etc/ui_fkt';
 import { UseFiltersHk } from './etc/hooks/use_filters';
 import { v4 } from 'uuid';
 import { SearchBarSortBar } from './etc/fragments/sort_bar/search-bar-sort-bar';
@@ -44,6 +44,7 @@ export class SearchBar<T> extends UseInjCtxHk implements OnInit {
   public readonly form: InputSignal<FormGroup> = input.required();
   public readonly txtInputsAvailable: InputSignal<() => TxtFieldArrayT[]> = input.required();
   public readonly filtersAvailable: InputSignal<() => SearchBarFilterT[]> = input.required();
+  public readonly sortersAvailable: InputSignal<() => SearchBarSorterT[]> = input.required();
 
   // ? listeners
   public onSubmit(): void {
