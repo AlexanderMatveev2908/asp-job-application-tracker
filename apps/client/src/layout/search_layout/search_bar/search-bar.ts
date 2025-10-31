@@ -13,6 +13,7 @@ import { SearchBarSortBar } from './etc/fragments/sort_bar/search-bar-sort-bar';
 import { UseSearchbarPropsDir } from './etc/directives/use_search_bar_props';
 import { BaseSearchBarFormT } from './etc/paperwork';
 import { UseDebounceHk } from './etc/hooks/use_debounce';
+import { LibSearchBar } from './etc/lib';
 
 @Component({
   selector: 'app-search-bar',
@@ -34,6 +35,19 @@ export class SearchBar<T> extends UseSearchbarPropsDir<T> implements OnInit {
   public readonly useFilters: UseFiltersHk = inject(UseFiltersHk);
   public readonly useDebounce: UseDebounceHk<T> = inject(UseDebounceHk);
 
+  private readonly triggerStrategyDebounce: (data: BaseSearchBarFormT<T>) => void = (
+    data: BaseSearchBarFormT<T>
+  ) => {
+    this.strategy()(LibSearchBar.searchDataOf(data));
+  };
+
+  private readonly triggerStrategyNoDebounce: () => void = () => {
+    const dataNow: BaseSearchBarFormT<T> = this.form().value;
+    this.useDebounce.forceSetPrevForm(dataNow);
+
+    this.triggerStrategyDebounce(dataNow);
+  };
+
   // ? listeners
   public onSubmit(): void {
     if (!this.form().valid) {
@@ -41,7 +55,7 @@ export class SearchBar<T> extends UseSearchbarPropsDir<T> implements OnInit {
       return;
     }
 
-    this.strategy()(this.form().value);
+    this.triggerStrategyNoDebounce();
   }
 
   public readonly onErase: () => void = () => {
@@ -53,6 +67,7 @@ export class SearchBar<T> extends UseSearchbarPropsDir<T> implements OnInit {
     for (const f of txtInputs!) txtInputsFormArray.push(new FormControl({ ...f, id: v4() }));
 
     this.usePagination().reset();
+    this.triggerStrategyNoDebounce();
   };
 
   // ? local state
@@ -65,6 +80,10 @@ export class SearchBar<T> extends UseSearchbarPropsDir<T> implements OnInit {
       });
     });
 
-    this.useDebounce.main({ form: this.form(), formVal: this.formVal });
+    this.useDebounce.main({
+      form: this.form(),
+      formVal: this.formVal,
+      triggerStrategyDebounce: this.triggerStrategyDebounce,
+    });
   }
 }

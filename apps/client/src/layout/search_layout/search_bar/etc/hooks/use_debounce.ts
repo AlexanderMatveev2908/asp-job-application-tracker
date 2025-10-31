@@ -7,22 +7,44 @@ import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 import { LibEtc } from '@/core/lib/etc';
 import { LibMemoryMng } from '@/core/lib/data_structure/memory_mng';
 import { LibLog } from '@/core/lib/dev/log';
+import { LibSearchBar } from '../lib';
+import { SearchQueryArgT } from '../types';
 
 export interface UseDebounceMainArgT<T> {
   form: FormGroup;
   formVal: Nullable<Signal<BaseSearchBarFormT<T>>>;
+  triggerStrategyDebounce: (data: BaseSearchBarFormT<T>) => void;
 }
 
 @Injectable()
 export class UseDebounceHk<T> extends UseInjCtxHk {
   public timerID: TimerIdT = null;
-  public prevForm: Nullable<BaseSearchBarFormT<T>> = null;
+  private prevForm: Nullable<BaseSearchBarFormT<T>> = null;
 
   private readonly MARGIN_DEBOUNCE: number = 1000;
 
+  private isSameData<T>(dataNow: Nullable<BaseSearchBarFormT<T>>): boolean {
+    // ! 1. flattening data to compare allow to avoid triggering just
+    // ! because internal IDs change while leaving data intact
+    // ! 2. then `txtInputs` fields beng dynamic can be added and removed
+    // ! and to avoid triggering a request for every push/removeAt even if
+    // ! data does not really changed the `flatSearchForm` skip empty strings for `txtInputs`
+    const currFlatten: SearchQueryArgT = LibSearchBar.flatSearchForm(dataNow);
+    const prevFlatten: SearchQueryArgT = LibSearchBar.flatSearchForm(this.prevForm);
+
+    return LibMemoryMng.isSame(currFlatten, prevFlatten);
+  }
+
+  public readonly forceSetPrevForm: (data: BaseSearchBarFormT<T>) => void = (
+    data: BaseSearchBarFormT<T>
+  ) => {
+    this.prevForm = data;
+  };
+
   public readonly main: (arg: UseDebounceMainArgT<T>) => void = ({
-    form: _,
+    form,
     formVal,
+    triggerStrategyDebounce,
   }: UseDebounceMainArgT<T>) => {
     this.useEffect(() => {
       void formVal?.();
@@ -30,13 +52,18 @@ export class UseDebounceHk<T> extends UseInjCtxHk {
       if (this.timerID) this.timerID = LibEtc.clearTmrID(this.timerID);
 
       this.timerID = setTimeout(() => {
-        const formValNow: Nullable<BaseSearchBarFormT<T>> = formVal?.() ?? null;
+        const dataNow: Nullable<BaseSearchBarFormT<T>> = formVal?.() ?? null;
 
-        if (LibMemoryMng.isSame(formValNow, this.prevForm)) {
-          LibLog.logTtl('same form');
+        if (!dataNow || !form.valid) {
+          this.timerID = LibEtc.clearTmrID(this.timerID);
+          return;
+        }
+
+        if (this.isSameData(dataNow)) {
+          LibLog.logTtl('skip same data');
         } else {
-          this.prevForm = formValNow;
-          LibLog.logTtl('different form', this.prevForm);
+          this.prevForm = dataNow;
+          triggerStrategyDebounce(dataNow);
         }
 
         this.timerID = LibEtc.clearTmrID(this.timerID);

@@ -1,7 +1,9 @@
-export type SearchQueryArgT = {
+export interface PaginationArgT {
   page: number;
   limit: number;
-} & Record<string, unknown>;
+}
+
+export type SearchQueryArgT = PaginationArgT & Record<string, unknown>;
 
 export type SearchQueryResT<T> = {
   nHits: number;
