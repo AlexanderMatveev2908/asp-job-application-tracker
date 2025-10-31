@@ -1,0 +1,24 @@
+/* eslint-disable no-magic-numbers */
+export type PaginationKeyT = 'limit' | 'pagePerBlock';
+
+export class LibPageCounter {
+  public static readonly paginationVals: Map<PaginationKeyT, () => number> = new Map<
+    PaginationKeyT,
+    () => number
+  >([
+    [
+      'limit',
+      () => {
+        const w: number = window.innerWidth;
+        return w > 1200 ? 6 : w > 800 ? 4 : w > 600 ? 2 : 1;
+      },
+    ],
+    [
+      'pagePerBlock',
+      () => {
+        const w: number = window.innerWidth;
+        return w > 1300 ? 8 : w > 1000 ? 6 : w > 800 ? 4 : w > 600 ? 2 : 1;
+      },
+    ],
+  ]);
+}

@@ -1,0 +1,19 @@
+<div class="root">
+  <div class="root__btn_block_wrap">
+    <app-btn-shadow appUseIDsDir appUseSpanDir [spanProps]="btnsBlockChange.prev" />
+  </div>
+  <div class="root__pages">
+    @for(p of pages(); track p.id){
+
+    <button type="button" class="pages__item" [ngClass]="twdPage(p)">
+      <span class="txt__xl">
+        {{ p.label }}
+      </span>
+    </button>
+
+    }
+  </div>
+  <div class="root__btn_block_wrap">
+    <app-btn-shadow appUseIDsDir appUseSpanDir [spanProps]="btnsBlockChange.next" />
+  </div>
+</div>
