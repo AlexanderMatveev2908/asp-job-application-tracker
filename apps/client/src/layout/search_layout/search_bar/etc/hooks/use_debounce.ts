@@ -36,7 +36,7 @@ export class UseDebounceHk<T> extends UseInjCtxHk {
           LibLog.logTtl('same form');
         } else {
           this.prevForm = formValNow;
-          console.log(this.prevForm);
+          LibLog.logTtl('different', this.prevForm);
         }
 
         this.timerID = LibEtc.clearTmrID(this.timerID);
