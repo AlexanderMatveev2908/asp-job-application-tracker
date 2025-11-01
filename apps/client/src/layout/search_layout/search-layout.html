@@ -1,19 +1,19 @@
-<app-page-wrapper [waitClient]="true">
-  <ng-template #contentRef>
-    <div class="root">
-      <app-search-bar
-        [txtInputsAvailable]="txtInputsAvailable()"
-        [form]="form()"
-        [defState]="defState()"
-        [filtersAvailable]="filtersAvailable()"
-        [sortersAvailable]="sortersAvailable()"
-        [usePagination]="usePagination()"
-        [strategy]="strategy()"
-      />
+<div class="root">
+  <app-search-bar
+    [txtInputsAvailable]="txtInputsAvailable()"
+    [form]="form()"
+    [defState]="defState()"
+    [filtersAvailable]="filtersAvailable()"
+    [sortersAvailable]="sortersAvailable()"
+    [usePagination]="usePagination()"
+    [strategy]="strategy()"
+    [isPending]="isPending()"
+  />
 
-      <app-hits-counter [nHits]="nHits()" />
-    </div>
-  </ng-template>
+  <app-hits-counter [nHits]="nHits()" />
+</div>
+<app-page-wrapper [waitClient]="true" [isPending]="isPending()" [minH]="'min-h-[80vh]'">
+  <ng-template #contentRef> </ng-template>
 </app-page-wrapper>
 
 <app-page-counter [totPages]="totPages()" [usePagination]="usePagination()" />

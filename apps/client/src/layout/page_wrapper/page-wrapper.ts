@@ -28,6 +28,7 @@ export class PageWrapper extends UseInjCtxHk implements AfterViewInit {
   // ? personal props
   public readonly waitClient: InputSignal<boolean> = input.required();
   public readonly isPending: InputSignal<boolean> = input(false);
+  public readonly minH: InputSignal<string> = input('min-h-screen');
 
   // ? children
   @ContentChild('contentRef', { read: TemplateRef })

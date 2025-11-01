@@ -22,6 +22,7 @@ export abstract class UseSearchbarPropsDir<T> extends UseInjCtxHk {
 
   public readonly strategy: InputSignal<(data: SearchQueryArgT) => Observable<unknown>> =
     input.required();
+  public readonly isPending: InputSignal<boolean> = input.required();
 }
 
 @Directive()

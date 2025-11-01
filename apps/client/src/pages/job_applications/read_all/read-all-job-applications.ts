@@ -12,6 +12,7 @@ import { SearchBarFilterT, SearchBarSorterT } from '@/layout/search_layout/searc
 import { Observable } from 'rxjs';
 import { SearchQueryArgT } from '@/layout/search_layout/search_bar/etc/types';
 import { ApplicationsApiSvc } from '@/features/applications/api';
+import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 
 @Component({
   selector: 'app-read-all-job-applications',
@@ -19,7 +20,7 @@ import { ApplicationsApiSvc } from '@/features/applications/api';
   templateUrl: './read-all-job-applications.html',
   styleUrl: './read-all-job-applications.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UsePaginationHk],
+  providers: [UsePaginationHk, UseApiTrackerHk],
 })
 export class ReadAllJobApplications {
   // ? svc
@@ -27,6 +28,7 @@ export class ReadAllJobApplications {
 
   // ? hooks
   public readonly usePagination: UsePaginationHk = inject(UsePaginationHk);
+  public readonly useApiTracker: UseApiTrackerHk = inject(UseApiTrackerHk);
 
   // ? static
   public readonly form: FormGroup = SearchApplicationsFormMng.form();
@@ -39,5 +41,5 @@ export class ReadAllJobApplications {
 
   public readonly strategy: (data: SearchQueryArgT) => Observable<unknown> = (
     data: SearchQueryArgT
-  ) => this.applicationsApi.get(data);
+  ) => this.useApiTracker.track(this.applicationsApi.get(data));
 }
