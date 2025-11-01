@@ -24,6 +24,9 @@ export class DropAbs extends UseDropDir {
   // ? directives
   public readonly useIDsDir: UseIDsDir = inject(UseIDsDir);
 
+  // ? personal props
+  public readonly additionalTwd: InputSignal<string> = input('');
+
   // ? app-span props
   public readonly spanProps: InputSignal<SpanPropsT> = input.required();
   public readonly spanSizesProps: InputSignal<Partial<SpanSizesPropsT>> = input<

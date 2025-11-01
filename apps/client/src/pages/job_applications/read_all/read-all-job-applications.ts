@@ -18,10 +18,11 @@ import {
   UseSearchBarPropsDir,
   UseSearchBarPaginationPropsDir,
 } from '@/layout/search_layout/search_bar/etc/directives/use_search_bar_props';
+import { ApplicationItem } from './application_item/application-item';
 
 @Component({
   selector: 'app-read-all-job-applications',
-  imports: [SearchLayout, UseSearchBarPropsDir, UseSearchBarPaginationPropsDir],
+  imports: [SearchLayout, UseSearchBarPropsDir, UseSearchBarPaginationPropsDir, ApplicationItem],
   templateUrl: './read-all-job-applications.html',
   styleUrl: './read-all-job-applications.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

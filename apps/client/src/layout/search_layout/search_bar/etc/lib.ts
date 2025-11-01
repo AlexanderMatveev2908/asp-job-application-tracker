@@ -6,7 +6,7 @@ import { LibShapeCheck } from '@/core/lib/data_structure/shape_check';
 
 export class LibSearchBar {
   private static skipEmptyStuff(v: unknown): boolean {
-    return !LibShapeCheck.isStr(v) && typeof v !== 'number';
+    return !LibShapeCheck.isStr(v) && typeof v !== 'number' && !LibShapeCheck.hasArrData(v);
   }
 
   public static flatSearchForm<T>(arg: Nullable<Partial<BaseSearchBarFormT<T>>>): SearchQueryArgT {

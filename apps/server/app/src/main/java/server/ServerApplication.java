@@ -12,7 +12,9 @@ import server.decorators.LifeSpawn;
 import server.lib.dev.Dev;
 import server.lib.dev.MyLog;
 
-@SpringBootApplication @ConfigurationPropertiesScan @RequiredArgsConstructor
+@SpringBootApplication
+@ConfigurationPropertiesScan
+@RequiredArgsConstructor
 public class ServerApplication {
 
     private final LifeSpawn lifeSpawn;
@@ -34,7 +36,7 @@ public class ServerApplication {
 
             try {
                 lifeSpawn.lifeCheck(e);
-                dev.mng();
+                // dev.mng();
             } catch (Exception err) {
                 MyLog.logErr(err);
             }

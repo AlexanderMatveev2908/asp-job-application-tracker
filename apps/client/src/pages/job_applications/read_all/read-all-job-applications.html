@@ -11,4 +11,8 @@
   appUseSearchBarPaginationPropsDir
   [nHits]="useApplicationsKit.applicationsSlice.nHits()"
   [pages]="useApplicationsKit.applicationsSlice.pages()"
-/>
+>
+  @for(j of useApplicationsKit.applicationsSlice.applications(); track j.id ){
+  <app-application-item [application]="j" />
+  }
+</app-search-layout>

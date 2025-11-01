@@ -28,6 +28,6 @@ export class ApplicationsApiSvc {
   }
 
   public get(data: SearchQueryArgT): ObsResT<SearchQueryResT<{ jobApplications: ApplicationT[] }>> {
-    return this.api.get(LibApiArgs.withURL(this.base).query(data).toastOnFulfilled());
+    return this.api.get(LibApiArgs.withURL(this.base).query(data).toastOnErr());
   }
 }

@@ -1,0 +1,19 @@
+<div class="root" [style.--clr]="cssTheme()">
+  <div class="root__content">
+    @for(s of pairsLabelSvg(); track s.id){
+    <app-span [spanProps]="s" />
+    }
+
+    <app-application-status-row [application]="application()" [cssTheme]="cssTheme()" />
+
+    <div class="content__btns">
+      <div class="btns__item">
+        <app-link-shadow appUseSpanDir [spanProps]="spanLink()" [path]="pathLink()" appUseIDsDir />
+      </div>
+
+      <div class="btns__item">
+        <app-btn-shadow appUseSpanDir [spanProps]="deleteSpan()" appUseIDsDir />
+      </div>
+    </div>
+  </div>
+</div>

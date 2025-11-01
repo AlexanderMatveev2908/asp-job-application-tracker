@@ -10,7 +10,7 @@ export class LibPageCounter {
       'limit',
       () => {
         const w: number = window.innerWidth;
-        return w > 1200 ? 6 : w > 800 ? 4 : w > 600 ? 2 : 1;
+        return w > 1300 ? 6 : w > 1000 ? 4 : w > 800 ? 3 : w > 600 ? 2 : 1;
       },
     ],
     [
