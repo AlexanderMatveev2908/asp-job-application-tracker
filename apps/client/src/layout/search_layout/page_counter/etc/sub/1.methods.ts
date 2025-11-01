@@ -88,7 +88,7 @@ export abstract class UsePageCounterMethodsDir<T> extends UsePageCounterCollecto
       LibLog.logTtl('max', maxAvailable);
       if (blockSig() <= maxAvailable) return;
 
-      blockSig.set(maxAvailable);
+      // blockSig.set(maxAvailable);
     });
   }
 }
