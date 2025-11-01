@@ -3,6 +3,7 @@ import { UsePageCounterCollectorDir } from './0.collector';
 import { LibPageCounter } from '../lib';
 import { ElDomT } from '@/common/types/etc';
 import { PageT } from '../types';
+import { LibLog } from '@/core/lib/dev/log';
 
 export interface RefreshPaginationReturnT {
   newLimitItemsPerPage: number;
@@ -42,11 +43,11 @@ export abstract class UsePageCounterMethodsDir<T> extends UsePageCounterCollecto
   protected refreshItemsPerPage(): RefreshPaginationReturnT {
     const newLimitItemsPerPage: number = LibPageCounter.paginationVals.get('limit')!();
     if (newLimitItemsPerPage === this.usePagination().limit())
-      return { newLimitItemsPerPage, wasDifferent: true };
+      return { newLimitItemsPerPage, wasDifferent: false };
 
     this.usePagination().limit.set(newLimitItemsPerPage);
 
-    return { newLimitItemsPerPage, wasDifferent: false };
+    return { newLimitItemsPerPage, wasDifferent: true };
   }
 
   public changePage(p: PageT): void {
@@ -83,6 +84,8 @@ export abstract class UsePageCounterMethodsDir<T> extends UsePageCounterCollecto
         this.pagesPerBlock()
       );
 
+      LibLog.logTtl('curr', blockSig());
+      LibLog.logTtl('max', maxAvailable);
       if (blockSig() <= maxAvailable) return;
 
       blockSig.set(maxAvailable);
