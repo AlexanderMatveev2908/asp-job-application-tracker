@@ -33,7 +33,7 @@ export abstract class UsePageCounterPropsChildrenDir<T> extends UsePageCounterMe
     PageCounterUiFkt.btns;
 
   public readonly listenersPrev: BtnListenersT = {
-    onClick: this.changeBlock.bind(this, '-'),
+    onClick: () => this.changeBlock('-'),
   };
   public readonly prevState: Signal<BtnStatePropsT> = computed(() => ({
     isPending: false,
@@ -41,7 +41,7 @@ export abstract class UsePageCounterPropsChildrenDir<T> extends UsePageCounterMe
   }));
 
   public readonly listenersNext: BtnListenersT = {
-    onClick: this.changeBlock.bind(this, '+'),
+    onClick: () => this.changeBlock('+'),
   };
   public readonly nextState: Signal<BtnStatePropsT> = computed(() => ({
     isPending: false,
