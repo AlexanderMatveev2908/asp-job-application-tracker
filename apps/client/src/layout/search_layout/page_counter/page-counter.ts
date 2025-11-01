@@ -4,6 +4,7 @@ import {
   Component,
   computed,
   HostListener,
+  inject,
   input,
   InputSignal,
   OnInit,
@@ -22,6 +23,7 @@ import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 import { PageCounterBlockChangeKeyT, PageCounterUiFkt } from './etc/ui_fkt';
 import { LibPageCounter } from './etc/lib';
 import { NgClass } from '@angular/common';
+import { UseSearchBarStrategyPropsDir } from '../search_bar/etc/directives/use_search_bar_props';
 
 export type ChangeBlockMarkT = '+' | '-';
 
@@ -32,7 +34,12 @@ export type ChangeBlockMarkT = '+' | '-';
   styleUrl: './page-counter.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PageCounter extends UseInjCtxHk implements OnInit {
+export class PageCounter<T> extends UseInjCtxHk implements OnInit {
+  // ? directives
+  public readonly useSearchBarStrategyProps: UseSearchBarStrategyPropsDir<T> = inject(
+    UseSearchBarStrategyPropsDir
+  );
+
   // ? personal props
   public readonly totPages: InputSignal<Nullable<number>> = input.required();
   public readonly usePagination: InputSignal<UsePaginationHk> = input.required();

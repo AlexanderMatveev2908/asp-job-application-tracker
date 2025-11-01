@@ -1,16 +1,18 @@
 <div class="root">
   <app-search-bar
-    [txtInputsAvailable]="txtInputsAvailable()"
-    [form]="form()"
-    [defState]="defState()"
-    [filtersAvailable]="filtersAvailable()"
-    [sortersAvailable]="sortersAvailable()"
-    [usePagination]="usePagination()"
-    [strategy]="strategy()"
-    [isPending]="isPending()"
+    appUseSearchBarPropsDir
+    [txtInputsAvailable]="useSearchBarProps.txtInputsAvailable()"
+    [form]="useSearchBarProps.form()"
+    [defState]="useSearchBarProps.defState()"
+    [filtersAvailable]="useSearchBarProps.filtersAvailable()"
+    [sortersAvailable]="useSearchBarProps.sortersAvailable()"
+    [useDebounce]="useDebounce"
+    appUseSearchBarStrategyPropsDir
+    [usePagination]="usePagination"
+    [triggerStrategy]="triggerStrategy"
   />
 
-  <app-hits-counter [nHits]="nHits()" />
+  <app-hits-counter [nHits]="useSearchBarPaginationProps.nHits()" />
 </div>
 <app-page-wrapper
   [waitClient]="true"
@@ -21,4 +23,11 @@
   <ng-template #contentRef></ng-template>
 </app-page-wrapper>
 
-<app-page-counter [totPages]="totPages()" [usePagination]="usePagination()" />
+<app-page-counter
+  appUseSearchBarPaginationPropsDir
+  [totPages]="useSearchBarPaginationProps.totPages()"
+  [nHits]="useSearchBarPaginationProps.nHits()"
+  appUseSearchBarStrategyPropsDir
+  [usePagination]="usePagination"
+  [triggerStrategy]="triggerStrategy"
+/>

@@ -6,7 +6,6 @@ import {
   SearchApplicationsFormMng,
   SearchApplicationsFormT,
 } from '@/features/applications/etc/forms/search_applications/etc/paperwork/form_mng';
-import { UsePaginationHk } from '@/layout/search_layout/search_bar/etc/hooks/use_pagination';
 import { SearchLayout } from '@/layout/search_layout/search-layout';
 import { SearchBarFilterT, SearchBarSorterT } from '@/layout/search_layout/search_bar/etc/ui_fkt';
 import { Observable, tap } from 'rxjs';
@@ -17,21 +16,24 @@ import { ErrApiT, ResApiT } from '@/core/store/api/etc/types';
 import { ApplicationT } from '@/features/applications/etc/types';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 import { LibSearchBar } from '@/layout/search_layout/search_bar/etc/lib';
+import {
+  UseSearchBarPropsDir,
+  UseSearchBarPaginationPropsDir,
+} from '@/layout/search_layout/search_bar/etc/directives/use_search_bar_props';
 
 @Component({
   selector: 'app-read-all-job-applications',
-  imports: [SearchLayout],
+  imports: [SearchLayout, UseSearchBarPropsDir, UseSearchBarPaginationPropsDir],
   templateUrl: './read-all-job-applications.html',
   styleUrl: './read-all-job-applications.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UsePaginationHk, UseApiTrackerHk],
+  providers: [UseApiTrackerHk],
 })
 export class ReadAllJobApplications extends UseInjCtxHk implements OnInit {
   // ? svc
   private readonly useApplicationsKit: UseApplicationsKitSvc = inject(UseApplicationsKitSvc);
 
   // ? hooks
-  public readonly usePagination: UsePaginationHk = inject(UsePaginationHk);
   public readonly useApiTracker: UseApiTrackerHk = inject(UseApiTrackerHk);
 
   // ? static

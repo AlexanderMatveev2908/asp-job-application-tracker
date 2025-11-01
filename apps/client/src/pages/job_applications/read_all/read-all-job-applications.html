@@ -1,12 +1,13 @@
 <app-search-layout
+  [strategy]="strategy"
+  [isPending]="useApiTracker.isPending()"
+  appUseSearchBarPropsDir
   [form]="form"
   [defState]="defState"
   [txtInputsAvailable]="txtInputsAvailable"
   [filtersAvailable]="filtersAvailable"
   [sortersAvailable]="sortersAvailable"
-  [usePagination]="usePagination"
-  [strategy]="strategy"
+  appUseSearchBarPaginationPropsDir
   [totPages]="50"
   [nHits]="100"
-  [isPending]="useApiTracker.isPending()"
 />

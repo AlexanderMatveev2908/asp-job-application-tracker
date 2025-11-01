@@ -1,5 +1,13 @@
 import { Nullable } from '@/common/types/etc';
-import { ChangeDetectionStrategy, Component, inject, OnInit, Signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  InputSignal,
+  OnInit,
+  Signal,
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormArray, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FormZodMng } from '@/core/paperwork/form_mng/form_zod_mng';
@@ -10,11 +18,12 @@ import { UseBarsHk } from './etc/hooks/use_bars';
 import { UseFiltersHk } from './etc/hooks/use_filters';
 import { v4 } from 'uuid';
 import { SearchBarSortBar } from './etc/fragments/sort_bar/search-bar-sort-bar';
-import { UseSearchbarPropsDir } from './etc/directives/use_search_bar_props';
+import {
+  UseSearchBarPropsDir,
+  UseSearchBarStrategyPropsDir,
+} from './etc/directives/use_search_bar_props';
 import { BaseSearchBarFormT } from './etc/paperwork';
 import { UseDebounceHk } from './etc/hooks/use_debounce';
-import { LibSearchBar } from './etc/lib';
-import { SearchQueryArgT } from './etc/types';
 
 @Component({
   selector: 'app-search-bar',
@@ -28,65 +37,60 @@ import { SearchQueryArgT } from './etc/types';
   templateUrl: './search-bar.html',
   styleUrl: './search-bar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UseBarsHk, UseFiltersHk, UseDebounceHk],
+  providers: [UseBarsHk, UseFiltersHk],
 })
-export class SearchBar<T> extends UseSearchbarPropsDir<T> implements OnInit {
+export class SearchBar<T> implements OnInit {
+  // ? directives
+  public readonly useSearchBarProps: UseSearchBarPropsDir<UseSearchBarPropsDir<T>> =
+    inject(UseSearchBarPropsDir);
+  public readonly useSearchBarStrategyProps: UseSearchBarStrategyPropsDir<T> = inject(
+    UseSearchBarStrategyPropsDir
+  );
+
+  // ? personal props
+  public readonly useDebounce: InputSignal<UseDebounceHk<T>> = input.required();
+
   // ? hooks
   public readonly useBars: UseBarsHk = inject(UseBarsHk);
   public readonly useFilters: UseFiltersHk = inject(UseFiltersHk);
-  public readonly useDebounce: UseDebounceHk<T> = inject(UseDebounceHk);
-
-  private readonly triggerStrategyDebounce: (data: BaseSearchBarFormT<T>) => void = (
-    data: BaseSearchBarFormT<T>
-  ) => {
-    const dataWithDefPagination: SearchQueryArgT = LibSearchBar.searchDataOf(data);
-
-    this.strategy()(dataWithDefPagination).subscribe();
-  };
-
-  private readonly triggerStrategyNoDebounce: () => void = () => {
-    const dataNow: BaseSearchBarFormT<T> = this.form().value;
-    this.useDebounce.forceSetPrevForm(dataNow);
-
-    this.triggerStrategyDebounce(dataNow);
-  };
 
   // ? listeners
   public onSubmit(): void {
-    if (!this.form().valid) {
-      FormZodMng.onSubmitFailed(this.form());
+    if (!this.useSearchBarProps.form().valid) {
+      FormZodMng.onSubmitFailed(this.useSearchBarProps.form());
       return;
     }
-
-    this.triggerStrategyNoDebounce();
+    this.useSearchBarStrategyProps.triggerStrategy()();
   }
 
   public readonly onErase: () => void = () => {
-    const { txtInputs, ...plainCtrlFields }: BaseSearchBarFormT<T> = this.defState();
+    const { txtInputs, ...plainCtrlFields } = this.useSearchBarProps.defState();
 
-    this.form().patchValue(plainCtrlFields);
-    const txtInputsFormArray: FormArray = this.form().get('txtInputs') as FormArray;
+    this.useSearchBarProps.form().patchValue(plainCtrlFields);
+    const txtInputsFormArray: FormArray = this.useSearchBarProps
+      .form()
+      .get('txtInputs') as FormArray;
     txtInputsFormArray.clear();
     for (const f of txtInputs!) txtInputsFormArray.push(new FormControl({ ...f, id: v4() }));
 
-    this.usePagination().reset();
-    this.triggerStrategyNoDebounce();
+    this.useSearchBarStrategyProps.usePagination().reset();
+    this.useSearchBarStrategyProps.triggerStrategy()();
   };
 
   // ? local state
   public formVal: Nullable<Signal<BaseSearchBarFormT<T>>> = null;
 
   ngOnInit(): void {
-    this.inCtx(() => {
-      this.formVal = toSignal(this.form().valueChanges, {
-        initialValue: this.form().value,
+    this.useSearchBarProps.inCtx(() => {
+      this.formVal = toSignal(this.useSearchBarProps.form().valueChanges, {
+        initialValue: this.useSearchBarProps.form().value,
       });
     });
 
-    this.useDebounce.main({
-      form: this.form(),
+    this.useDebounce().main({
+      form: this.useSearchBarProps.form(),
       formVal: this.formVal,
-      triggerStrategyDebounce: this.triggerStrategyDebounce,
+      triggerStrategy: this.useSearchBarStrategyProps.triggerStrategy(),
     });
   }
 }

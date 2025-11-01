@@ -1,8 +1,8 @@
-<form [formGroup]="form()" class="root" (ngSubmit)="onSubmit()">
+<form [formGroup]="useSearchBarProps.form()" class="root" (ngSubmit)="onSubmit()">
   <app-search-bar-txt-fields-row
-    [form]="form()"
+    [form]="useSearchBarProps.form()"
     [formVal]="formVal?.() ?? null"
-    [txtInputsAvailable]="txtInputsAvailable()"
+    [txtInputsAvailable]="useSearchBarProps.txtInputsAvailable()"
   />
 
   <app-search-bar-btns-row [onErase]="onErase" [useBars]="useBars" />
@@ -10,14 +10,14 @@
   <app-search-bar-filter-bar
     [useBars]="useBars"
     [useFilters]="useFilters"
-    [filtersAvailable]="filtersAvailable()"
-    [form]="form()"
+    [filtersAvailable]="useSearchBarProps.filtersAvailable()"
+    [form]="useSearchBarProps.form()"
     [onErase]="onErase"
   />
 
   <app-search-bar-sort-bar
     [useBars]="useBars"
-    [sortersAvailable]="sortersAvailable()"
-    [form]="form()"
+    [sortersAvailable]="useSearchBarProps.sortersAvailable()"
+    [form]="useSearchBarProps.form()"
   />
 </form>
