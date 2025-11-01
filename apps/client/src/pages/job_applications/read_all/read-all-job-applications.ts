@@ -62,18 +62,7 @@ export class ReadAllJobApplications extends UseInjCtxHk implements OnInit {
     data: SearchQueryArgT
   ) => this.triggerApi(data);
 
-  private dataNotPresentAndNotFetching(): boolean {
-    return (
-      !this.useApiTracker.isPending() && !this.useApplicationsKit.applicationsSlice.applications()
-    );
-  }
-
   ngOnInit(): void {
-    this.usePlatform.onClient(() => {
-      if (this.dataNotPresentAndNotFetching())
-        this.triggerApi(LibSearchBar.searchDataOf(null)).subscribe();
-    });
-
     this.useEffect(() => {
       void this.useApplicationsKit.applicationsSlice.keyRefresh();
 
