@@ -17,8 +17,8 @@ export class PageCounter<T> extends UsePageCounterPropsChildrenDir<T> implements
   ngOnInit(): void {
     this.usePlatform.onClient(() => {
       this.refreshPagesPerBlockLimit();
-      this.refreshItemsPerPage();
     });
+
     this.ifPageBiggerThanAvailable();
     this.ifBlockBiggerThanAvailable();
   }
