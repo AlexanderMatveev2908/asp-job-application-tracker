@@ -14,6 +14,7 @@ import { UseSearchbarPropsDir } from './etc/directives/use_search_bar_props';
 import { BaseSearchBarFormT } from './etc/paperwork';
 import { UseDebounceHk } from './etc/hooks/use_debounce';
 import { LibSearchBar } from './etc/lib';
+import { SearchQueryArgT } from './etc/types';
 
 @Component({
   selector: 'app-search-bar',
@@ -38,7 +39,9 @@ export class SearchBar<T> extends UseSearchbarPropsDir<T> implements OnInit {
   private readonly triggerStrategyDebounce: (data: BaseSearchBarFormT<T>) => void = (
     data: BaseSearchBarFormT<T>
   ) => {
-    this.strategy()(LibSearchBar.searchDataOf(data));
+    const dataWithDefPagination: SearchQueryArgT = LibSearchBar.searchDataOf(data);
+
+    this.strategy()(dataWithDefPagination).subscribe();
   };
 
   private readonly triggerStrategyNoDebounce: () => void = () => {

@@ -9,9 +9,9 @@ import {
 import { UsePaginationHk } from '@/layout/search_layout/search_bar/etc/hooks/use_pagination';
 import { SearchLayout } from '@/layout/search_layout/search-layout';
 import { SearchBarFilterT, SearchBarSorterT } from '@/layout/search_layout/search_bar/etc/ui_fkt';
-import { Observable, of } from 'rxjs';
-import { LibLog } from '@/core/lib/dev/log';
+import { Observable } from 'rxjs';
 import { SearchQueryArgT } from '@/layout/search_layout/search_bar/etc/types';
+import { ApplicationsApiSvc } from '@/features/applications/api';
 
 @Component({
   selector: 'app-read-all-job-applications',
@@ -22,6 +22,9 @@ import { SearchQueryArgT } from '@/layout/search_layout/search_bar/etc/types';
   providers: [UsePaginationHk],
 })
 export class ReadAllJobApplications {
+  // ? svc
+  private readonly applicationsApi: ApplicationsApiSvc = inject(ApplicationsApiSvc);
+
   // ? hooks
   public readonly usePagination: UsePaginationHk = inject(UsePaginationHk);
 
@@ -36,8 +39,5 @@ export class ReadAllJobApplications {
 
   public readonly strategy: (data: SearchQueryArgT) => Observable<unknown> = (
     data: SearchQueryArgT
-  ) => {
-    LibLog.logTtl('api', data);
-    return of(data);
-  };
+  ) => this.applicationsApi.get(data);
 }

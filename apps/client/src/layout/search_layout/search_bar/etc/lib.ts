@@ -5,17 +5,26 @@ import { PaginationArgT, SearchQueryArgT } from './types';
 import { LibShapeCheck } from '@/core/lib/data_structure/shape_check';
 
 export class LibSearchBar {
+  private static skipEmptyStuff(v: unknown): boolean {
+    return !LibShapeCheck.isStr(v) && typeof v !== 'number';
+  }
+
   public static flatSearchForm<T>(arg: Nullable<Partial<BaseSearchBarFormT<T>>>): SearchQueryArgT {
     const flatten: SearchQueryArgT = {} as SearchQueryArgT;
 
+    // ! beside flattening ignore empty strings
+
     for (const k in arg) {
+      const keyArg: keyof typeof arg = k as keyof typeof arg;
       if (k === 'txtInputs') continue;
-      flatten[k] = arg[k as keyof typeof arg];
+      if (this.skipEmptyStuff(arg[keyArg])) continue;
+
+      flatten[k] = arg[keyArg];
     }
 
     if (arg?.txtInputs?.length)
       for (const f of arg.txtInputs) {
-        if (!LibShapeCheck.isStr(f.val)) continue;
+        if (this.skipEmptyStuff(f.val)) continue;
 
         flatten[f.name] = f.val;
       }

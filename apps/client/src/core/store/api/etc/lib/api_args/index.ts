@@ -15,7 +15,7 @@ export class LibApiArgs<T> {
     this._url = url;
   }
 
-  private parseQuery(query: Record<string, unknown>): HttpParams {
+  private parseQuery<Q>(query: Q): HttpParams {
     if (!query) throw new ErrApp('invalid arg parseQuery');
     return new HttpParams({ fromString: LibFormPrs.genParamsURL(query) });
   }
@@ -31,7 +31,7 @@ export class LibApiArgs<T> {
     return new LibApiArgs(url);
   }
 
-  public query(query: Record<string, unknown>): LibApiArgs<T> {
+  public query<Q>(query: Q): LibApiArgs<T> {
     this._params = this.parseQuery(query);
     return this;
   }
