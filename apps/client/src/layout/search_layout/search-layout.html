@@ -13,7 +13,7 @@
     [isPending]="isPending()"
   />
 
-  <app-hits-counter [nHits]="useSearchBarPaginationProps.nHits()" />
+  @if(!isPending()){ <app-hits-counter [nHits]="useSearchBarPaginationProps.nHits()" />}
 </div>
 <app-page-wrapper
   [waitClient]="true"
@@ -24,7 +24,7 @@
   <ng-template #contentRef></ng-template>
 </app-page-wrapper>
 
-<app-page-counter
+@if(isPending() && useSearchBarPaginationProps.nHits()){<app-page-counter
   appUseSearchBarPaginationPropsDir
   [nHits]="useSearchBarPaginationProps.nHits()"
   [pages]="useSearchBarPaginationProps.pages()"
@@ -32,4 +32,4 @@
   [usePagination]="usePagination"
   [triggerStrategy]="triggerStrategy"
   [isPending]="isPending()"
-/>
+/>}

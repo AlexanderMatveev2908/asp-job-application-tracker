@@ -20,7 +20,7 @@ import { BaseSearchBarFormT } from './search_bar/etc/paperwork';
 import { PaginationArgT, SearchQueryArgT } from './search_bar/etc/types';
 import { LibSearchBar } from './search_bar/etc/lib';
 import { UsePaginationHk } from './search_bar/etc/hooks/use_pagination';
-import { Observable } from 'rxjs';
+import { finalize, Observable } from 'rxjs';
 import { Nullable } from '@/common/types/etc';
 import { FormGroup } from '@angular/forms';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
@@ -75,6 +75,9 @@ export class SearchLayout<T> extends UseInjCtxHk implements OnInit {
     return arg?.dataForm ?? (workingForm.valid ? workingForm.value : null);
   }
 
+  // ? local state
+  private firstRun: boolean = false;
+
   // ? listeners
   public readonly triggerStrategy: (arg?: TriggerStrategyArgT<T>) => void = (
     arg?: TriggerStrategyArgT<T>
@@ -88,7 +91,13 @@ export class SearchLayout<T> extends UseInjCtxHk implements OnInit {
       arg?.dataPagination
     );
 
-    this.strategy()(dataWithPagination).subscribe();
+    this.strategy()(dataWithPagination)
+      .pipe(
+        finalize(() => {
+          this.firstRun = true;
+        })
+      )
+      .subscribe();
   };
 
   ngOnInit(): void {
@@ -99,7 +108,7 @@ export class SearchLayout<T> extends UseInjCtxHk implements OnInit {
       // ! data does not need a retrigger and in every case
       // ! first call will be executed by page counter
       // ! when calculates first time his internal `blockPerPage` field
-      if (!keyRefresh) return;
+      if (!keyRefresh && this.firstRun) return;
 
       this.triggerStrategy();
     });
