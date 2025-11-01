@@ -89,20 +89,16 @@ export class PageCounter<T> extends UseInjCtxHk implements OnInit {
   };
 
   // ? listeners
-  private refreshPaginationUi(): void {
-    this.usePlatform.onClient(() => {
-      const newPagesPerBlock: number = LibPageCounter.paginationVals.get('pagePerBlock')!();
-      this.pagesPerBlock.set(newPagesPerBlock);
+  private refreshPaginationUi(): number {
+    const newPagesPerBlock: number = LibPageCounter.paginationVals.get('pagePerBlock')!();
+    this.pagesPerBlock.set(newPagesPerBlock);
 
-      const newLimitItemsPerPage: number = LibPageCounter.paginationVals.get('limit')!();
-      if (newLimitItemsPerPage === this.usePagination().limit()) return;
+    const newLimitItemsPerPage: number = LibPageCounter.paginationVals.get('limit')!();
+    if (newLimitItemsPerPage === this.usePagination().limit()) return newLimitItemsPerPage;
 
-      this.useSearchBarStrategyProps.triggerStrategy()({
-        dataForm: null,
-        dataPagination: { limit: newLimitItemsPerPage },
-      });
-      this.usePagination().limit.set(newLimitItemsPerPage);
-    });
+    this.usePagination().limit.set(newLimitItemsPerPage);
+
+    return newLimitItemsPerPage;
   }
 
   public changePage(p: PageT): void {
@@ -157,7 +153,9 @@ export class PageCounter<T> extends UseInjCtxHk implements OnInit {
   }
 
   ngOnInit(): void {
-    this.refreshPaginationUi();
+    this.usePlatform.onClient(() => {
+      this.refreshPaginationUi();
+    });
 
     this.ifPageBiggerThanAvailable();
     this.ifBlockBiggerThanAvailable();
@@ -165,6 +163,11 @@ export class PageCounter<T> extends UseInjCtxHk implements OnInit {
 
   @HostListener('window:resize')
   public onResize(): void {
-    this.refreshPaginationUi();
+    const newLimitItemsPerPage: number = this.refreshPaginationUi();
+
+    this.useSearchBarStrategyProps.triggerStrategy()({
+      dataForm: null,
+      dataPagination: { limit: newLimitItemsPerPage },
+    });
   }
 }
