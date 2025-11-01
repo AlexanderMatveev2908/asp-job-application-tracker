@@ -1,8 +1,11 @@
 import { createAction, props } from '@ngrx/store';
-import { ApplicationT } from '../etc/types';
+import { ApplicationsStateT } from './reducer';
 
 export const ApplicationsActT = {
-  SET_APPLICATIONS: createAction('SET_APPLICATIONS', props<{ applications: ApplicationT[] }>()),
+  SAVE_APPLICATIONS_DATA: createAction(
+    'SAVE_APPLICATIONS_DATA',
+    props<Omit<ApplicationsStateT, 'keyRefresh'>>()
+  ),
   TRIGGER_KEY_REFRESH: createAction('TRIGGER_KEY_REFRESH'),
-  RESET_APPLICATIONS: createAction('RESET_APPLICATIONS'),
+  RESET__APPLICATIONS_STATE: createAction('RESET__APPLICATIONS_STATE'),
 };

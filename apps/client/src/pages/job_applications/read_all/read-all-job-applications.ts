@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { TxtFieldArrayT } from '@/common/types/forms';
 import { SearchApplicationsUiFkt } from '@/features/applications/etc/forms/search_applications/etc/ui_fkt';
 import { FormGroup } from '@angular/forms';
@@ -14,8 +14,6 @@ import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { UseApplicationsKitSvc } from '@/features/applications/etc/hooks/use_applications_kit';
 import { ErrApiT, ResApiT } from '@/core/store/api/etc/types';
 import { ApplicationT } from '@/features/applications/etc/types';
-import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
-import { LibSearchBar } from '@/layout/search_layout/search_bar/etc/lib';
 import {
   UseSearchBarPropsDir,
   UseSearchBarPaginationPropsDir,
@@ -29,9 +27,9 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [UseApiTrackerHk],
 })
-export class ReadAllJobApplications extends UseInjCtxHk implements OnInit {
+export class ReadAllJobApplications {
   // ? svc
-  private readonly useApplicationsKit: UseApplicationsKitSvc = inject(UseApplicationsKitSvc);
+  public readonly useApplicationsKit: UseApplicationsKitSvc = inject(UseApplicationsKitSvc);
 
   // ? hooks
   public readonly useApiTracker: UseApiTrackerHk = inject(UseApiTrackerHk);
@@ -45,12 +43,17 @@ export class ReadAllJobApplications extends UseInjCtxHk implements OnInit {
   public readonly filtersAvailable: () => SearchBarFilterT[] = SearchApplicationsUiFkt.filters;
   public readonly sortersAvailable: () => SearchBarSorterT[] = SearchApplicationsUiFkt.sorters;
 
+  // ? listeners
   private triggerApi(data: SearchQueryArgT): Observable<unknown> {
     return this.useApiTracker.track(
       this.useApplicationsKit.applicationsApi.get(data).pipe(
         tap({
           next: (res: ResApiT<SearchQueryResT<{ jobApplications: ApplicationT[] }>>) => {
-            this.useApplicationsKit.applicationsSlice.saveApplications(res.jobApplications);
+            this.useApplicationsKit.applicationsSlice.saveApplications({
+              applications: res.jobApplications,
+              nHits: res.nHits,
+              pages: res.pages,
+            });
           },
           error: (_: ErrApiT<void>) => {
             this.useApplicationsKit.applicationsSlice.reset();
@@ -63,12 +66,4 @@ export class ReadAllJobApplications extends UseInjCtxHk implements OnInit {
   public readonly strategy: (data: SearchQueryArgT) => Observable<unknown> = (
     data: SearchQueryArgT
   ) => this.triggerApi(data);
-
-  ngOnInit(): void {
-    this.useEffect(() => {
-      void this.useApplicationsKit.applicationsSlice.keyRefresh();
-
-      this.triggerApi(LibSearchBar.searchDataOf(null)).subscribe();
-    });
-  }
 }

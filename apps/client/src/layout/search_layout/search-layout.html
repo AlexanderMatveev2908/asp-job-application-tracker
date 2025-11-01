@@ -10,6 +10,7 @@
     appUseSearchBarStrategyPropsDir
     [usePagination]="usePagination"
     [triggerStrategy]="triggerStrategy"
+    [isPending]="isPending()"
   />
 
   <app-hits-counter [nHits]="useSearchBarPaginationProps.nHits()" />
@@ -25,9 +26,10 @@
 
 <app-page-counter
   appUseSearchBarPaginationPropsDir
-  [totPages]="useSearchBarPaginationProps.totPages()"
   [nHits]="useSearchBarPaginationProps.nHits()"
+  [pages]="useSearchBarPaginationProps.pages()"
   appUseSearchBarStrategyPropsDir
   [usePagination]="usePagination"
   [triggerStrategy]="triggerStrategy"
+  [isPending]="isPending()"
 />

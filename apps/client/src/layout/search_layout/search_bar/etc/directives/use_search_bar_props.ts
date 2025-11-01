@@ -4,7 +4,6 @@ import { BaseSearchBarFormT } from '../paperwork';
 import { TxtFieldArrayT } from '@/common/types/forms';
 import { SearchBarFilterT, SearchBarSorterT } from '../ui_fkt';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
-import { Nullable } from '@/common/types/etc';
 import { TriggerStrategyArgT } from '@/layout/search_layout/search-layout';
 import { UsePaginationHk } from '../hooks/use_pagination';
 
@@ -27,6 +26,7 @@ export class UseSearchBarStrategyPropsDir<T> {
   public readonly triggerStrategy: InputSignal<(arg?: TriggerStrategyArgT<T>) => void> =
     input.required();
   public readonly usePagination: InputSignal<UsePaginationHk> = input.required();
+  public readonly isPending: InputSignal<boolean> = input.required();
 }
 
 @Directive({
@@ -34,6 +34,6 @@ export class UseSearchBarStrategyPropsDir<T> {
 })
 export class UseSearchBarPaginationPropsDir {
   // ? page related
-  public readonly totPages: InputSignal<Nullable<number>> = input.required();
-  public readonly nHits: InputSignal<Nullable<number>> = input.required();
+  public readonly nHits: InputSignal<number> = input.required();
+  public readonly pages: InputSignal<number> = input.required();
 }

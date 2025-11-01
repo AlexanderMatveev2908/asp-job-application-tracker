@@ -3,7 +3,6 @@ import { ApplicationsStateT } from './reducer/reducer';
 import { getApplicationsState } from './reducer/selectors';
 import { UseKitSliceHk } from '@/core/hooks/kits/use_kit_slice';
 import { ApplicationsActT } from './reducer/actions';
-import { ApplicationT } from './etc/types';
 
 @Injectable({
   providedIn: 'root',
@@ -19,8 +18,11 @@ export class ApplicationsSlice extends UseKitSliceHk {
 
   public keyRefresh: Signal<number> = computed(() => this.applicationsState().keyRefresh);
 
-  public saveApplications(applications: ApplicationT[]): void {
-    this.store.dispatch(ApplicationsActT.SET_APPLICATIONS({ applications }));
+  public nHits: Signal<number> = computed(() => this.applicationsState().nHits);
+  public pages: Signal<number> = computed(() => this.applicationsState().pages);
+
+  public saveApplications(data: Omit<ApplicationsStateT, 'keyRefresh'>): void {
+    this.store.dispatch(ApplicationsActT.SAVE_APPLICATIONS_DATA(data));
   }
 
   public triggerKeyRefresh(): void {
@@ -28,6 +30,6 @@ export class ApplicationsSlice extends UseKitSliceHk {
   }
 
   public reset(): void {
-    this.store.dispatch(ApplicationsActT.RESET_APPLICATIONS());
+    this.store.dispatch(ApplicationsActT.RESET__APPLICATIONS_STATE());
   }
 }
