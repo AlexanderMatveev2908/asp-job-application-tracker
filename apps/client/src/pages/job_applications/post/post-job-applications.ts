@@ -26,6 +26,7 @@ export class PostJobApplications {
   ) =>
     this.useApplicationsKit.applicationsApi.post(LibFormPrs.genFormData(data)).pipe(
       tap((_: ResApiT<ApplicationResT>) => {
+        this.useApplicationsKit.applicationsSlice.triggerKeyRefresh();
         void this.useNav.replace('/job-applications');
       })
     );

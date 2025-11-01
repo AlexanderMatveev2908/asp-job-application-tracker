@@ -28,7 +28,7 @@ import { LibSearchBar } from '@/layout/search_layout/search_bar/etc/lib';
 })
 export class ReadAllJobApplications extends UseInjCtxHk implements OnInit {
   // ? svc
-  private readonly applicationsKit: UseApplicationsKitSvc = inject(UseApplicationsKitSvc);
+  private readonly useApplicationsKit: UseApplicationsKitSvc = inject(UseApplicationsKitSvc);
 
   // ? hooks
   public readonly usePagination: UsePaginationHk = inject(UsePaginationHk);
@@ -45,13 +45,13 @@ export class ReadAllJobApplications extends UseInjCtxHk implements OnInit {
 
   private triggerApi(data: SearchQueryArgT): Observable<unknown> {
     return this.useApiTracker.track(
-      this.applicationsKit.applicationsApi.get(data).pipe(
+      this.useApplicationsKit.applicationsApi.get(data).pipe(
         tap({
           next: (res: ResApiT<SearchQueryResT<{ jobApplications: ApplicationT[] }>>) => {
-            this.applicationsKit.applicationsSlice.saveApplications(res.jobApplications);
+            this.useApplicationsKit.applicationsSlice.saveApplications(res.jobApplications);
           },
           error: (_: ErrApiT<void>) => {
-            this.applicationsKit.applicationsSlice.reset();
+            this.useApplicationsKit.applicationsSlice.reset();
           },
         })
       )
@@ -62,10 +62,22 @@ export class ReadAllJobApplications extends UseInjCtxHk implements OnInit {
     data: SearchQueryArgT
   ) => this.triggerApi(data);
 
+  private dataNotPresentAndNotFetching(): boolean {
+    return (
+      !this.useApiTracker.isPending() && !this.useApplicationsKit.applicationsSlice.applications()
+    );
+  }
+
   ngOnInit(): void {
     this.usePlatform.onClient(() => {
-      if (!this.useApiTracker.isPending() && !this.applicationsKit.applicationsSlice.applications())
+      if (this.dataNotPresentAndNotFetching())
         this.triggerApi(LibSearchBar.searchDataOf(null)).subscribe();
+    });
+
+    this.useEffect(() => {
+      void this.useApplicationsKit.applicationsSlice.keyRefresh();
+
+      this.triggerApi(LibSearchBar.searchDataOf(null)).subscribe();
     });
   }
 }

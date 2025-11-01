@@ -17,8 +17,14 @@ export class ApplicationsSlice extends UseKitSliceHk {
     () => this.applicationsState().applications
   );
 
+  public keyRefresh: Signal<number> = computed(() => this.applicationsState().keyRefresh);
+
   public saveApplications(applications: ApplicationT[]): void {
     this.store.dispatch(ApplicationsActT.SET_APPLICATIONS({ applications }));
+  }
+
+  public triggerKeyRefresh(): void {
+    this.store.dispatch(ApplicationsActT.TRIGGER_KEY_REFRESH());
   }
 
   public reset(): void {

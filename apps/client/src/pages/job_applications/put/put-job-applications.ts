@@ -16,11 +16,11 @@ import { Nullable } from '@/common/types/etc';
 import { Reg } from '@/core/paperwork/reg';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 import { ApplicationResT, ApplicationT } from '@/features/applications/etc/types';
-import { ApplicationsApiSvc } from '@/features/applications/api';
 import { ResApiT } from '@/core/store/api/etc/types';
 import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { ErrApp } from '@/core/lib/err';
 import { LibFormPrs } from '@/core/lib/data_structure/form_prs';
+import { UseApplicationsKitSvc } from '@/features/applications/etc/hooks/use_applications_kit';
 
 @Component({
   selector: 'app-put-job-applications',
@@ -38,7 +38,7 @@ export class PutJobApplications implements OnInit {
 
   // ? svc
   private readonly useNav: UseNavSvc = inject(UseNavSvc);
-  private readonly applicationsApi: ApplicationsApiSvc = inject(ApplicationsApiSvc);
+  private readonly useApplicationsKit: UseApplicationsKitSvc = inject(UseApplicationsKitSvc);
 
   // ? local state
   public readonly currApplication: WritableSignal<Nullable<ApplicationT>> = signal(null);
@@ -46,7 +46,7 @@ export class PutJobApplications implements OnInit {
   // ? listeners
 
   private setApplication(applicationID: string): Observable<unknown> {
-    return this.applicationsApi.getByID(applicationID).pipe(
+    return this.useApplicationsKit.applicationsApi.getByID(applicationID).pipe(
       tap((res: ResApiT<ApplicationResT>) => {
         this.currApplication.set(res.jobApplication);
       })
@@ -59,11 +59,14 @@ export class PutJobApplications implements OnInit {
     const applicationID: Nullable<string> = this.useNav.path_variables()?.['applicationID'];
     if (!applicationID) throw new ErrApp('bug => user supposed to be pushed out');
 
-    return this.applicationsApi.put(applicationID, LibFormPrs.genFormData(data)).pipe(
-      tap((_: ResApiT<ApplicationResT>) => {
-        void this.useNav.replace('/job-applications');
-      })
-    );
+    return this.useApplicationsKit.applicationsApi
+      .put(applicationID, LibFormPrs.genFormData(data))
+      .pipe(
+        tap((_: ResApiT<ApplicationResT>) => {
+          this.useApplicationsKit.applicationsSlice.triggerKeyRefresh();
+          void this.useNav.replace('/job-applications');
+        })
+      );
   };
 
   ngOnInit(): void {
