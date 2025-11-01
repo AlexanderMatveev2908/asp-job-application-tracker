@@ -15,7 +15,7 @@ import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { UseSpanDir } from '@/core/directives/use_span';
 import { BtnListenersT, BtnStatePropsT, Nullable } from '@/common/types/etc';
-import { UsePaginationHk } from '@/core/hooks/use_pagination';
+import { UsePaginationHk } from '@/layout/search_layout/search_bar/etc/hooks/use_pagination';
 import { PageT } from './etc/types';
 import { RootUiFkt } from '@/core/ui_fkt/root_ui';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';

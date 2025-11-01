@@ -27,12 +27,11 @@ export class SearchBarFormMng {
   });
 }
 
+export type SortSchemaT = ReturnType<typeof SearchBarFormMng.sortSchema>;
+
 export type BaseSearchBarSchemaT = ZodObject<{
   txtInputs: FormArraySchemaT;
   createdAtSort: SortSchemaT;
   updatedAtSort: SortSchemaT;
 }>;
-
 export type BaseSearchBarFormT<T> = z.infer<BaseSearchBarSchemaT> & T;
-
-export type SortSchemaT = ReturnType<typeof SearchBarFormMng.sortSchema>;

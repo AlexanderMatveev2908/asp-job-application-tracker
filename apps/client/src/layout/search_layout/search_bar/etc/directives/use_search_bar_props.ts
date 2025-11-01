@@ -5,7 +5,9 @@ import { TxtFieldArrayT } from '@/common/types/forms';
 import { SearchBarFilterT, SearchBarSorterT } from '../ui_fkt';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 import { Nullable } from '@/common/types/etc';
-import { UsePaginationHk } from '@/core/hooks/use_pagination';
+import { UsePaginationHk } from '@/layout/search_layout/search_bar/etc/hooks/use_pagination';
+import { Observable } from 'rxjs';
+import { SearchQueryArgT } from '../types';
 
 @Directive()
 export abstract class UseSearchbarPropsDir<T> extends UseInjCtxHk {
@@ -17,6 +19,9 @@ export abstract class UseSearchbarPropsDir<T> extends UseInjCtxHk {
   public readonly sortersAvailable: InputSignal<() => SearchBarSorterT[]> = input.required();
 
   public readonly usePagination: InputSignal<UsePaginationHk> = input.required();
+
+  public readonly strategy: InputSignal<(data: SearchQueryArgT) => Observable<unknown>> =
+    input.required();
 }
 
 @Directive()

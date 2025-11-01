@@ -1,4 +1,4 @@
-<app-page-wrapper [waitClient]="false">
+<app-page-wrapper [waitClient]="true">
   <ng-template #contentRef>
     <div class="root">
       <app-search-bar
@@ -8,6 +8,7 @@
         [filtersAvailable]="filtersAvailable()"
         [sortersAvailable]="sortersAvailable()"
         [usePagination]="usePagination()"
+        [strategy]="strategy()"
       />
 
       <app-hits-counter [nHits]="nHits()" />

@@ -24,6 +24,54 @@ export class LibMemoryMng {
     return obj as T;
   }
 
+  private static isSameSet<T>(a: Set<T>, b: Set<T>): boolean {
+    if (a.size !== b.size) return false;
+
+    for (const item of a) {
+      let found = false;
+      for (const other of b) {
+        if (LibMemoryMng.isSame(item, other)) {
+          found = true;
+          break;
+        }
+      }
+      if (!found) return false;
+    }
+    return true;
+  }
+
+  private static isSameMap<T, K>(a: Map<K, T>, b: Map<K, T>): boolean {
+    if (a.size !== b.size) return false;
+    for (const [key, valueA] of a.entries()) {
+      if (!b.has(key)) return false;
+      const valueB = b.get(key);
+      if (!LibMemoryMng.isSame(valueA, valueB)) return false;
+    }
+    return true;
+  }
+
+  private static isSameDict(a: Record<string, unknown>, b: Record<string, unknown>): boolean {
+    const keysA = Object.keys(a);
+    const keysB = Object.keys(b);
+    if (keysA.length !== keysB.length) return false;
+
+    for (const key of keysA) {
+      if (!Object.prototype.hasOwnProperty.call(b, key)) return false;
+      const valA = a[key];
+      const valB = b[key];
+      if (!LibMemoryMng.isSame(valA, valB)) return false;
+    }
+
+    return true;
+  }
+
+  private static isSameList<T>(a: T[], b: T[]): boolean {
+    if (a.length !== b.length) return false;
+    for (let i = 0; i < a.length; i++) if (!LibMemoryMng.isSame(a[i], b[i])) return false;
+
+    return true;
+  }
+
   // eslint-disable-next-line complexity
   public static isSame<T>(a: T, b: T): boolean {
     if (a === b) return true;
@@ -35,52 +83,12 @@ export class LibMemoryMng {
     if (a instanceof RegExp && b instanceof RegExp)
       return a.source === b.source && a.flags === b.flags;
 
-    if (Array.isArray(a) && Array.isArray(b)) {
-      if (a.length !== b.length) return false;
-      for (let i = 0; i < a.length; i++) if (!LibMemoryMng.isSame(a[i], b[i])) return false;
+    if (Array.isArray(a) && Array.isArray(b)) return this.isSameList(a, b);
 
-      return true;
-    }
+    if (a instanceof Set && b instanceof Set) return this.isSameSet(a, b);
+    if (a instanceof Map && b instanceof Map) return this.isSameMap(a, b);
 
-    if (a instanceof Set && b instanceof Set) {
-      if (a.size !== b.size) return false;
-
-      for (const item of a) {
-        let found = false;
-        for (const other of b) {
-          // eslint-disable-next-line max-depth
-          if (LibMemoryMng.isSame(item, other)) {
-            found = true;
-            break;
-          }
-        }
-        if (!found) return false;
-      }
-      return true;
-    }
-
-    if (a instanceof Map && b instanceof Map) {
-      if (a.size !== b.size) return false;
-      for (const [key, valueA] of a.entries()) {
-        if (!b.has(key)) return false;
-        const valueB = b.get(key);
-        if (!LibMemoryMng.isSame(valueA, valueB)) return false;
-      }
-      return true;
-    }
-
-    const keysA = Object.keys(a as object);
-    const keysB = Object.keys(b as object);
-    if (keysA.length !== keysB.length) return false;
-
-    for (const key of keysA) {
-      if (!Object.prototype.hasOwnProperty.call(b, key)) return false;
-      const valA = (a as Record<string, unknown>)[key];
-      const valB = (b as Record<string, unknown>)[key];
-      if (!LibMemoryMng.isSame(valA, valB)) return false;
-    }
-
-    return true;
+    return this.isSameDict(a as Record<string, unknown>, b as Record<string, unknown>);
   }
 
   public static freeze<T>(arg: T): T {
