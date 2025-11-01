@@ -22,13 +22,13 @@
   [eventT]="'INFO'"
 >
   <ng-template #contentRef>
-    <div class="grid_wrapper tb">
+    <div class="grid_wrapper">
       <ng-content />
     </div>
   </ng-template>
 </app-page-wrapper>
 
-@if(isPending() && useSearchBarPaginationProps.nHits()){<app-page-counter
+@if(!isPending() && useSearchBarPaginationProps.nHits()){<app-page-counter
   appUseSearchBarPaginationPropsDir
   [nHits]="useSearchBarPaginationProps.nHits()"
   [pages]="useSearchBarPaginationProps.pages()"
