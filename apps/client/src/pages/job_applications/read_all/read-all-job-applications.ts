@@ -6,24 +6,33 @@ import {
   SearchApplicationsFormMng,
   SearchApplicationsFormT,
 } from '@/features/applications/etc/forms/search_applications/etc/paperwork/form_mng';
-import { UsePaginationHk } from '@/layout/search_layout/search_bar/etc/hooks/use_pagination';
 import { SearchLayout } from '@/layout/search_layout/search-layout';
 import { SearchBarFilterT, SearchBarSorterT } from '@/layout/search_layout/search_bar/etc/ui_fkt';
-import { Observable, of } from 'rxjs';
-import { LibLog } from '@/core/lib/dev/log';
-import { SearchQueryArgT } from '@/layout/search_layout/search_bar/etc/types';
+import { Observable, tap } from 'rxjs';
+import { SearchQueryArgT, SearchQueryResT } from '@/layout/search_layout/search_bar/etc/types';
+import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
+import { UseApplicationsKitSvc } from '@/features/applications/etc/hooks/use_applications_kit';
+import { ErrApiT, ResApiT } from '@/core/store/api/etc/types';
+import { ApplicationT } from '@/features/applications/etc/types';
+import {
+  UseSearchBarPropsDir,
+  UseSearchBarPaginationPropsDir,
+} from '@/layout/search_layout/search_bar/etc/directives/use_search_bar_props';
 
 @Component({
   selector: 'app-read-all-job-applications',
-  imports: [SearchLayout],
+  imports: [SearchLayout, UseSearchBarPropsDir, UseSearchBarPaginationPropsDir],
   templateUrl: './read-all-job-applications.html',
   styleUrl: './read-all-job-applications.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UsePaginationHk],
+  providers: [UseApiTrackerHk],
 })
 export class ReadAllJobApplications {
+  // ? svc
+  public readonly useApplicationsKit: UseApplicationsKitSvc = inject(UseApplicationsKitSvc);
+
   // ? hooks
-  public readonly usePagination: UsePaginationHk = inject(UsePaginationHk);
+  public readonly useApiTracker: UseApiTrackerHk = inject(UseApiTrackerHk);
 
   // ? static
   public readonly form: FormGroup = SearchApplicationsFormMng.form();
@@ -34,10 +43,27 @@ export class ReadAllJobApplications {
   public readonly filtersAvailable: () => SearchBarFilterT[] = SearchApplicationsUiFkt.filters;
   public readonly sortersAvailable: () => SearchBarSorterT[] = SearchApplicationsUiFkt.sorters;
 
+  // ? listeners
+  private triggerApi(data: SearchQueryArgT): Observable<unknown> {
+    return this.useApiTracker.track(
+      this.useApplicationsKit.applicationsApi.get(data).pipe(
+        tap({
+          next: (res: ResApiT<SearchQueryResT<{ jobApplications: ApplicationT[] }>>) => {
+            this.useApplicationsKit.applicationsSlice.saveApplications({
+              applications: res.jobApplications,
+              nHits: res.nHits,
+              pages: res.pages,
+            });
+          },
+          error: (_: ErrApiT<void>) => {
+            this.useApplicationsKit.applicationsSlice.reset();
+          },
+        })
+      )
+    );
+  }
+
   public readonly strategy: (data: SearchQueryArgT) => Observable<unknown> = (
     data: SearchQueryArgT
-  ) => {
-    LibLog.logTtl('api', data);
-    return of(data);
-  };
+  ) => this.triggerApi(data);
 }

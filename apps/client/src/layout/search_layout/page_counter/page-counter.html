@@ -9,7 +9,7 @@
     />
   </div>
   <div class="root__pages">
-    @for(p of pages(); track p.id){
+    @for(p of pagesUi(); track p.id){
 
     <button type="button" class="pages__item" [ngClass]="twdPage(p)" (click)="changePage(p)">
       <span class="txt__xl">

@@ -9,11 +9,12 @@ import { LibMemoryMng } from '@/core/lib/data_structure/memory_mng';
 import { LibLog } from '@/core/lib/dev/log';
 import { LibSearchBar } from '../lib';
 import { SearchQueryArgT } from '../types';
+import { TriggerStrategyArgT } from '@/layout/search_layout/search-layout';
 
 export interface UseDebounceMainArgT<T> {
   form: FormGroup;
   formVal: Nullable<Signal<BaseSearchBarFormT<T>>>;
-  triggerStrategyDebounce: (data: BaseSearchBarFormT<T>) => void;
+  triggerStrategy: (arg: TriggerStrategyArgT<T>) => void;
 }
 
 @Injectable()
@@ -44,7 +45,7 @@ export class UseDebounceHk<T> extends UseInjCtxHk {
   public readonly main: (arg: UseDebounceMainArgT<T>) => void = ({
     form,
     formVal,
-    triggerStrategyDebounce,
+    triggerStrategy,
   }: UseDebounceMainArgT<T>) => {
     this.useEffect(() => {
       void formVal?.();
@@ -62,8 +63,7 @@ export class UseDebounceHk<T> extends UseInjCtxHk {
         if (this.isSameData(dataNow)) {
           LibLog.logTtl('skip same data');
         } else {
-          this.prevForm = dataNow;
-          triggerStrategyDebounce(dataNow);
+          triggerStrategy({ dataForm: dataNow });
         }
 
         this.timerID = LibEtc.clearTmrID(this.timerID);

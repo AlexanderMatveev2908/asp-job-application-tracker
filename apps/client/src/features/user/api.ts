@@ -46,9 +46,7 @@ export class UserApiSvc {
   public delAccount(data: UserFormArgT<void>): ObsOnOkT<void> {
     return this.api.delete(
       LibApiArgs.withURL(`${this.base}/delete-account`)
-        .query({
-          cbcHmacToken: data.cbcHmacToken,
-        })
+        .query(data)
         .toastOnFulfilled()
         .pushOnStatus([StatusT.UNAUTHORIZED])
     );

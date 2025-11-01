@@ -1,8 +1,9 @@
 import { ObsResT, StatusT } from '@/core/store/api/etc/types';
 import { UseApiSvc } from '@/core/store/api/use_api';
 import { inject, Injectable } from '@angular/core';
-import { ApplicationResT } from './etc/types';
+import { ApplicationResT, ApplicationT } from './etc/types';
 import { LibApiArgs } from '@/core/store/api/etc/lib/api_args';
+import { SearchQueryArgT, SearchQueryResT } from '@/layout/search_layout/search_bar/etc/types';
 
 @Injectable({
   providedIn: 'root',
@@ -24,5 +25,9 @@ export class ApplicationsApiSvc {
 
   public put(id: string, formData: FormData): ObsResT<ApplicationResT> {
     return this.api.put(LibApiArgs.withURL(`${this.base}/${id}`).body(formData).toastOnFulfilled());
+  }
+
+  public get(data: SearchQueryArgT): ObsResT<SearchQueryResT<{ jobApplications: ApplicationT[] }>> {
+    return this.api.get(LibApiArgs.withURL(this.base).query(data).toastOnFulfilled());
   }
 }

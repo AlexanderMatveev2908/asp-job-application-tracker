@@ -1,11 +1,14 @@
 <app-search-layout
+  [strategy]="strategy"
+  [isPending]="useApiTracker.isPending()"
+  [keyRefresh]="useApplicationsKit.applicationsSlice.keyRefresh()"
+  appUseSearchBarPropsDir
   [form]="form"
   [defState]="defState"
   [txtInputsAvailable]="txtInputsAvailable"
   [filtersAvailable]="filtersAvailable"
   [sortersAvailable]="sortersAvailable"
-  [usePagination]="usePagination"
-  [strategy]="strategy"
-  [totPages]="50"
-  [nHits]="100"
+  appUseSearchBarPaginationPropsDir
+  [nHits]="useApplicationsKit.applicationsSlice.nHits()"
+  [pages]="useApplicationsKit.applicationsSlice.pages()"
 />

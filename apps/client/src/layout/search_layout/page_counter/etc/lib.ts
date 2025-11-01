@@ -21,4 +21,8 @@ export class LibPageCounter {
       },
     ],
   ]);
+
+  public static lessOneButGteToZero(arg: number): number {
+    return Math.max(0, arg - 1);
+  }
 }

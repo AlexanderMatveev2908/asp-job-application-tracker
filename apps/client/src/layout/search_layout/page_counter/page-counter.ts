@@ -4,6 +4,7 @@ import {
   Component,
   computed,
   HostListener,
+  inject,
   input,
   InputSignal,
   OnInit,
@@ -14,7 +15,7 @@ import {
 import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { UseSpanDir } from '@/core/directives/use_span';
-import { BtnListenersT, BtnStatePropsT, Nullable } from '@/common/types/etc';
+import { BtnListenersT, BtnStatePropsT } from '@/common/types/etc';
 import { UsePaginationHk } from '@/layout/search_layout/search_bar/etc/hooks/use_pagination';
 import { PageT } from './etc/types';
 import { RootUiFkt } from '@/core/ui_fkt/root_ui';
@@ -22,6 +23,10 @@ import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
 import { PageCounterBlockChangeKeyT, PageCounterUiFkt } from './etc/ui_fkt';
 import { LibPageCounter } from './etc/lib';
 import { NgClass } from '@angular/common';
+import {
+  UseSearchBarPaginationPropsDir,
+  UseSearchBarStrategyPropsDir,
+} from '../search_bar/etc/directives/use_search_bar_props';
 
 export type ChangeBlockMarkT = '+' | '-';
 
@@ -32,9 +37,16 @@ export type ChangeBlockMarkT = '+' | '-';
   styleUrl: './page-counter.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PageCounter extends UseInjCtxHk implements OnInit {
+export class PageCounter<T> extends UseInjCtxHk implements OnInit {
+  // ? directives
+  public readonly useSearchBarStrategyProps: UseSearchBarStrategyPropsDir<T> = inject(
+    UseSearchBarStrategyPropsDir
+  );
+  public readonly useSearchbarPaginationPropsDir: UseSearchBarPaginationPropsDir = inject(
+    UseSearchBarPaginationPropsDir
+  );
+
   // ? personal props
-  public readonly totPages: InputSignal<Nullable<number>> = input.required();
   public readonly usePagination: InputSignal<UsePaginationHk> = input.required();
 
   // ? local state
@@ -45,21 +57,26 @@ export class PageCounter extends UseInjCtxHk implements OnInit {
     PageCounterUiFkt.btns;
 
   // ? derived
-  public readonly pages: Signal<PageT[]> = computed(() => {
+  public readonly pagesUi: Signal<PageT[]> = computed(() => {
     const len: number = this.pagesPerBlock();
     const start: number = len * this.usePagination().block();
 
-    return Array.from({ length: len }, (_: undefined, i: number) =>
+    const pagesLessOverflow: PageT[] = Array.from({ length: len }, (_: undefined, i: number) =>
       RootUiFkt.withID({
         label: start + 1 + i + '',
         val: start + i,
       })
-    ).filter((p: PageT) => p.val < (this.totPages() ?? 0));
+    ).filter((p: PageT) => p.val < (this.useSearchbarPaginationPropsDir.pages() ?? 0));
+
+    return pagesLessOverflow;
   });
 
-  public readonly maxBlocksAvailable: Signal<number> = computed(() =>
-    Math.ceil((this.totPages() ?? 0) / this.pagesPerBlock())
-  );
+  public readonly maxBlocksAvailable: Signal<number> = computed(() => {
+    const decimal: number =
+      (this.useSearchbarPaginationPropsDir.pages() ?? 0) / this.pagesPerBlock();
+
+    return Math.max(1, Math.ceil(decimal));
+  });
 
   // ? helpers
   public twdPage(p: PageT): string {
@@ -78,12 +95,24 @@ export class PageCounter extends UseInjCtxHk implements OnInit {
       this.pagesPerBlock.set(newPagesPerBlock);
 
       const newLimitItemsPerPage: number = LibPageCounter.paginationVals.get('limit')!();
+      if (newLimitItemsPerPage === this.usePagination().limit()) return;
+
+      this.useSearchBarStrategyProps.triggerStrategy()({
+        dataForm: null,
+        dataPagination: { limit: newLimitItemsPerPage },
+      });
       this.usePagination().limit.set(newLimitItemsPerPage);
     });
   }
 
   public changePage(p: PageT): void {
-    this.usePagination().page.set(p.val);
+    const newPage: number = p.val;
+    this.usePagination().page.set(newPage);
+
+    this.useSearchBarStrategyProps.triggerStrategy()({
+      dataForm: null,
+      dataPagination: { page: newPage },
+    });
   }
 
   // ? props btns
@@ -106,22 +135,24 @@ export class PageCounter extends UseInjCtxHk implements OnInit {
   private ifPageBiggerThanAvailable(): void {
     this.useEffect(() => {
       const pageSig: WritableSignal<number> = this.usePagination().page;
-      const maxAvailable: number = this.totPages() ?? 0;
+      const maxAvailable: number = LibPageCounter.lessOneButGteToZero(
+        this.useSearchbarPaginationPropsDir.pages() ?? 0
+      );
 
-      if (pageSig() <= maxAvailable - 1) return;
+      if (pageSig() <= maxAvailable) return;
 
-      pageSig.set(maxAvailable - 1);
+      pageSig.set(maxAvailable);
     });
   }
 
   private ifBlockBiggerThanAvailable(): void {
     this.useEffect(() => {
       const blockSig: WritableSignal<number> = this.usePagination().block;
-      const maxAvailable: number = this.maxBlocksAvailable();
+      const maxAvailable: number = LibPageCounter.lessOneButGteToZero(this.maxBlocksAvailable());
 
-      if (blockSig() <= maxAvailable - 1) return;
+      if (blockSig() <= maxAvailable) return;
 
-      blockSig.set(this.maxBlocksAvailable() - 1);
+      blockSig.set(maxAvailable);
     });
   }
 
