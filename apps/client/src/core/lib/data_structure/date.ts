@@ -31,4 +31,17 @@ export class LibDate {
 
     return this.fromTmspToPicker(someDay);
   }
+
+  public static fromTmspToPretty(arg: number): string {
+    const d: Date = new Date(arg);
+
+    return Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: '2-digit',
+      weekday: 'short',
+      hour: '2-digit',
+      minute: '2-digit',
+    }).format(d);
+  }
 }

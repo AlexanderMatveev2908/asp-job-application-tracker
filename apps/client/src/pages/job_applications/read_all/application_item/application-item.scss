@@ -1,4 +1,8 @@
 .root {
   border-color: var(--clr);
-  @apply w-full min-w-[300px] max-w-[350px] border-3 rounded-xl p-5;
+  @apply w-full max-w-[600px] border-3 rounded-xl p-5 mx-auto;
+
+  .root__content {
+    @apply flex flex-col gap-6;
+  }
 }

@@ -1,3 +1,7 @@
 <div class="root" [style.--clr]="cssTheme()">
-  <p>ApplicationItem generated 🎉</p>
+  <div class="root__content">
+    @for(s of pairsLabelSvg(); track s.id){
+    <app-span [spanProps]="s" />
+    }
+  </div>
 </div>
