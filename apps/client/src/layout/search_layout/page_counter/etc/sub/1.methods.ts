@@ -27,11 +27,11 @@ export abstract class UsePageCounterMethodsDir<T> extends UsePageCounterCollecto
     }, 0);
   }
 
-  protected readonly changeBlock: (v: ChangeBlockMarkT) => void = (v: ChangeBlockMarkT) => {
+  protected changeBlock(v: ChangeBlockMarkT): void {
     const blockSig: WritableSignal<number> = this.usePagination().block;
 
     blockSig.set(blockSig() + (v === '+' ? 1 : -1));
-  };
+  }
 
   protected refreshPagesPerBlockLimit(): void {
     const newPagesPerBlock: number = LibPageCounter.paginationVals.get('pagePerBlock')!();
@@ -79,10 +79,7 @@ export abstract class UsePageCounterMethodsDir<T> extends UsePageCounterCollecto
   protected ifBlockBiggerThanAvailable(): void {
     this.useEffect(() => {
       const blockSig: WritableSignal<number> = this.usePagination().block;
-      const maxAvailable: number = LibPageCounter.maxBlocksAvailable(
-        this.useSearchbarPaginationPropsDir.pages(),
-        this.pagesPerBlock()
-      );
+      const maxAvailable: number = this.maxBlockAvailable();
       const currVal: number = blockSig();
 
       if (currVal <= maxAvailable) return;

@@ -3,7 +3,6 @@ import { PageCounterBlockChangeKeyT, PageCounterUiFkt } from '../ui_fkt';
 import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
 import { UsePageCounterMethodsDir } from './1.methods';
 import { BtnListenersT, BtnStatePropsT } from '@/common/types/etc';
-import { LibPageCounter } from '../lib';
 import { PageT } from '../types';
 import { RootUiFkt } from '@/core/ui_fkt/root_ui';
 
@@ -46,11 +45,6 @@ export abstract class UsePageCounterPropsChildrenDir<T> extends UsePageCounterMe
   };
   public readonly nextState: Signal<BtnStatePropsT> = computed(() => ({
     isPending: false,
-    isDisabled:
-      this.usePagination().block() >=
-      LibPageCounter.maxBlocksAvailable(
-        this.useSearchbarPaginationPropsDir.pages(),
-        this.pagesPerBlock()
-      ),
+    isDisabled: this.usePagination().block() >= this.maxBlockAvailable(),
   }));
 }
