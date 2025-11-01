@@ -15,7 +15,7 @@ import {
 import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { UseSpanDir } from '@/core/directives/use_span';
-import { BtnListenersT, BtnStatePropsT } from '@/common/types/etc';
+import { BtnListenersT, BtnStatePropsT, ElDomT } from '@/common/types/etc';
 import { UsePaginationHk } from '@/layout/search_layout/search_bar/etc/hooks/use_pagination';
 import { PageT } from './etc/types';
 import { RootUiFkt } from '@/core/ui_fkt/root_ui';
@@ -29,6 +29,11 @@ import {
 } from '../search_bar/etc/directives/use_search_bar_props';
 
 export type ChangeBlockMarkT = '+' | '-';
+
+interface RefreshPaginationReturnT {
+  newLimitItemsPerPage: number;
+  wasDifferent: boolean;
+}
 
 @Component({
   selector: 'app-page-counter',
@@ -71,13 +76,6 @@ export class PageCounter<T> extends UseInjCtxHk implements OnInit {
     return pagesLessOverflow;
   });
 
-  public readonly maxBlocksAvailable: Signal<number> = computed(() => {
-    const decimal: number =
-      (this.useSearchbarPaginationPropsDir.pages() ?? 0) / this.pagesPerBlock();
-
-    return Math.max(1, Math.ceil(decimal));
-  });
-
   // ? helpers
   public twdPage(p: PageT): string {
     return p.val === this.usePagination().page() ? 'bg-gray-300 text-neutral-950 scale-[1.25]' : '';
@@ -85,20 +83,22 @@ export class PageCounter<T> extends UseInjCtxHk implements OnInit {
 
   private readonly changeBlock: (v: ChangeBlockMarkT) => void = (v: ChangeBlockMarkT) => {
     const blockSig: WritableSignal<number> = this.usePagination().block;
+
     blockSig.set(blockSig() + (v === '+' ? 1 : -1));
   };
 
   // ? listeners
-  private refreshPaginationUi(): number {
+  private refreshPaginationUi(): RefreshPaginationReturnT {
     const newPagesPerBlock: number = LibPageCounter.paginationVals.get('pagePerBlock')!();
     this.pagesPerBlock.set(newPagesPerBlock);
 
     const newLimitItemsPerPage: number = LibPageCounter.paginationVals.get('limit')!();
-    if (newLimitItemsPerPage === this.usePagination().limit()) return newLimitItemsPerPage;
+    if (newLimitItemsPerPage === this.usePagination().limit())
+      return { newLimitItemsPerPage, wasDifferent: true };
 
     this.usePagination().limit.set(newLimitItemsPerPage);
 
-    return newLimitItemsPerPage;
+    return { newLimitItemsPerPage, wasDifferent: false };
   }
 
   public changePage(p: PageT): void {
@@ -109,6 +109,18 @@ export class PageCounter<T> extends UseInjCtxHk implements OnInit {
       dataForm: null,
       dataPagination: { page: newPage },
     });
+
+    const hitsCounterDOM: ElDomT = document.getElementById('hits_counter');
+    if (!hitsCounterDOM) return;
+
+    const rect: DOMRect = hitsCounterDOM.getBoundingClientRect();
+
+    setTimeout(() => {
+      window.scroll({
+        top: rect.top,
+        behavior: 'smooth',
+      });
+    }, 0);
   }
 
   // ? props btns
@@ -124,7 +136,12 @@ export class PageCounter<T> extends UseInjCtxHk implements OnInit {
   };
   public readonly nextState: Signal<BtnStatePropsT> = computed(() => ({
     isPending: false,
-    isDisabled: this.usePagination().block() >= this.maxBlocksAvailable() - 1,
+    isDisabled:
+      this.usePagination().block() >=
+      LibPageCounter.maxBlocksAvailable(
+        this.useSearchbarPaginationPropsDir.pages(),
+        this.pagesPerBlock()
+      ),
   }));
 
   // ? edge cases
@@ -144,7 +161,10 @@ export class PageCounter<T> extends UseInjCtxHk implements OnInit {
   private ifBlockBiggerThanAvailable(): void {
     this.useEffect(() => {
       const blockSig: WritableSignal<number> = this.usePagination().block;
-      const maxAvailable: number = LibPageCounter.lessOneButGteToZero(this.maxBlocksAvailable());
+      const maxAvailable: number = LibPageCounter.maxBlocksAvailable(
+        this.useSearchbarPaginationPropsDir.pages(),
+        this.pagesPerBlock()
+      );
 
       if (blockSig() <= maxAvailable) return;
 
@@ -163,11 +183,13 @@ export class PageCounter<T> extends UseInjCtxHk implements OnInit {
 
   @HostListener('window:resize')
   public onResize(): void {
-    const newLimitItemsPerPage: number = this.refreshPaginationUi();
+    const result: RefreshPaginationReturnT = this.refreshPaginationUi();
+
+    if (result.wasDifferent) return;
 
     this.useSearchBarStrategyProps.triggerStrategy()({
       dataForm: null,
-      dataPagination: { limit: newLimitItemsPerPage },
+      dataPagination: { limit: result.newLimitItemsPerPage },
     });
   }
 }

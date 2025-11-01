@@ -25,4 +25,10 @@ export class LibPageCounter {
   public static lessOneButGteToZero(arg: number): number {
     return Math.max(0, arg - 1);
   }
+
+  public static maxBlocksAvailable(pages: number, pagesPerBlock: number): number {
+    const decimal: number = (pages ?? 0) / pagesPerBlock;
+
+    return this.lessOneButGteToZero(Math.max(1, Math.ceil(decimal)));
+  }
 }
