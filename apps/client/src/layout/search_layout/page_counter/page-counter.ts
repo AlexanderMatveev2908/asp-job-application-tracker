@@ -88,10 +88,13 @@ export class PageCounter<T> extends UseInjCtxHk implements OnInit {
   };
 
   // ? listeners
-  private refreshPaginationUi(): RefreshPaginationReturnT {
+  private refreshPagesPerBlockLimit(): void {
     const newPagesPerBlock: number = LibPageCounter.paginationVals.get('pagePerBlock')!();
-    this.pagesPerBlock.set(newPagesPerBlock);
 
+    this.pagesPerBlock.set(newPagesPerBlock);
+  }
+
+  private refreshItemsPerPage(): RefreshPaginationReturnT {
     const newLimitItemsPerPage: number = LibPageCounter.paginationVals.get('limit')!();
     if (newLimitItemsPerPage === this.usePagination().limit())
       return { newLimitItemsPerPage, wasDifferent: true };
@@ -101,15 +104,7 @@ export class PageCounter<T> extends UseInjCtxHk implements OnInit {
     return { newLimitItemsPerPage, wasDifferent: false };
   }
 
-  public changePage(p: PageT): void {
-    const newPage: number = p.val;
-    this.usePagination().page.set(newPage);
-
-    this.useSearchBarStrategyProps.triggerStrategy()({
-      dataForm: null,
-      dataPagination: { page: newPage },
-    });
-
+  private scrollOnPageChange(): void {
     const hitsCounterDOM: ElDomT = document.getElementById('hits_counter');
     if (!hitsCounterDOM) return;
 
@@ -121,6 +116,18 @@ export class PageCounter<T> extends UseInjCtxHk implements OnInit {
         behavior: 'smooth',
       });
     }, 0);
+  }
+
+  public changePage(p: PageT): void {
+    const newPage: number = p.val;
+    this.usePagination().page.set(newPage);
+
+    this.useSearchBarStrategyProps.triggerStrategy()({
+      dataForm: null,
+      dataPagination: { page: newPage },
+    });
+
+    this.scrollOnPageChange();
   }
 
   // ? props btns
@@ -174,16 +181,23 @@ export class PageCounter<T> extends UseInjCtxHk implements OnInit {
 
   ngOnInit(): void {
     this.usePlatform.onClient(() => {
-      this.refreshPaginationUi();
+      this.refreshItemsPerPage();
     });
-
     this.ifPageBiggerThanAvailable();
     this.ifBlockBiggerThanAvailable();
+
+    this.useEffect(() => {
+      void this.useSearchbarPaginationPropsDir.pages();
+
+      this.refreshPagesPerBlockLimit();
+    });
   }
 
   @HostListener('window:resize')
   public onResize(): void {
-    const result: RefreshPaginationReturnT = this.refreshPaginationUi();
+    this.refreshPagesPerBlockLimit();
+
+    const result: RefreshPaginationReturnT = this.refreshItemsPerPage();
 
     if (result.wasDifferent) return;
 
