@@ -4,29 +4,15 @@
     <app-span [spanProps]="s" />
     }
 
-    <div class="content__status_row">
-      <div class="status_row__notes">
-        <app-drop-abs
-          appUseIDsDir
-          [isOpen]="useDrop.isOpen()"
-          [setIsOpen]="useDrop.setIsOpen"
-          [closeOnMouseOut]="true"
-          [spanProps]="spanNotes"
-          [spanSizesProps]="{
-            svg: 'lg'
-          }"
-          [additionalTwd]="'translate-x-full max-h-[250px] overflow-y-scroll'"
-        >
-          <ng-template #dropContent>
-            <div class="w-[250px]">
-              {{ application().notes || 'N/A' }}
-            </div>
-          </ng-template>
-        </app-drop-abs>
+    <app-application-status-row [application]="application()" [cssTheme]="cssTheme()" />
+
+    <div class="content__btns">
+      <div class="btns__item">
+        <app-link-shadow appUseSpanDir [spanProps]="spanLink()" [path]="pathLink()" appUseIDsDir />
       </div>
 
-      <div class="status_row__status_span" [style.--clr]="cssTheme()">
-        <app-span [spanProps]="spanStatus()" />
+      <div class="btns__item">
+        <app-btn-shadow appUseSpanDir [spanProps]="deleteSpan()" appUseIDsDir />
       </div>
     </div>
   </div>
