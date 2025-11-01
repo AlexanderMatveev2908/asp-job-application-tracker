@@ -12,7 +12,12 @@
 
   <app-hits-counter [nHits]="nHits()" />
 </div>
-<app-page-wrapper [waitClient]="true" [isPending]="isPending()" [minH]="'min-h-[80vh]'">
+<app-page-wrapper
+  [waitClient]="true"
+  [isPending]="isPending()"
+  [minH]="'min-h-[80vh]'"
+  [eventT]="'INFO'"
+>
   <ng-template #contentRef> </ng-template>
 </app-page-wrapper>
 

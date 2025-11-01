@@ -1,6 +1,7 @@
 import { SpinPageSsr } from '@/common/components/spins/spin_page_ssr/spin-page-ssr';
 import { RefTemplateT } from '@/common/types/etc';
 import { UseInjCtxHk } from '@/core/hooks/use_inj_ctx';
+import { AppEventT } from '@/core/lib/dom/meta_event/etc/types';
 import { NgTemplateOutlet } from '@angular/common';
 import {
   AfterViewInit,
@@ -29,6 +30,7 @@ export class PageWrapper extends UseInjCtxHk implements AfterViewInit {
   public readonly waitClient: InputSignal<boolean> = input.required();
   public readonly isPending: InputSignal<boolean> = input(false);
   public readonly minH: InputSignal<string> = input('min-h-screen');
+  public readonly eventT: InputSignal<AppEventT> = input<AppEventT>('NONE');
 
   // ? children
   @ContentChild('contentRef', { read: TemplateRef })
