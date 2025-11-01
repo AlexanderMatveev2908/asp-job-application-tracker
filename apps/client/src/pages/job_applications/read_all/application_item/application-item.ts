@@ -17,6 +17,7 @@ import { DropAbs } from '@/common/components/drop/abs/drop-abs';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { UseDropHk } from '@/core/hooks/use_drop';
 import { SvgStrokeNotes } from '@/common/components/svgs/stroke/notes/notes';
+import { SvgFillStatus } from '@/common/components/svgs/fill/status/status';
 
 @Component({
   selector: 'app-application-item',
@@ -45,4 +46,9 @@ export class ApplicationItem {
     label: null,
     Svg: SvgStrokeNotes,
   };
+
+  public readonly spanStatus: Signal<SpanPropsT> = computed(() => ({
+    label: this.application().status,
+    Svg: SvgFillStatus,
+  }));
 }

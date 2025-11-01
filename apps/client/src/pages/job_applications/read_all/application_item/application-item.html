@@ -24,6 +24,10 @@
           </ng-template>
         </app-drop-abs>
       </div>
+
+      <div class="status_row__status_span" [style.--clr]="cssTheme()">
+        <app-span [spanProps]="spanStatus()" />
+      </div>
     </div>
   </div>
 </div>
