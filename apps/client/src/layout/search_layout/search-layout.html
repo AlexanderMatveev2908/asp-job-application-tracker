@@ -21,7 +21,11 @@
   [minH]="'min-h-[80vh]'"
   [eventT]="'INFO'"
 >
-  <ng-template #contentRef></ng-template>
+  <ng-template #contentRef>
+    <div class="grid_wrapper tb">
+      <ng-content />
+    </div>
+  </ng-template>
 </app-page-wrapper>
 
 @if(isPending() && useSearchBarPaginationProps.nHits()){<app-page-counter
