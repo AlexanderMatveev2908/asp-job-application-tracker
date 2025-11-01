@@ -61,17 +61,22 @@ export class PageCounter<T> extends UseInjCtxHk implements OnInit {
     const len: number = this.pagesPerBlock();
     const start: number = len * this.usePagination().block();
 
-    return Array.from({ length: len }, (_: undefined, i: number) =>
+    const pagesLessOverflow: PageT[] = Array.from({ length: len }, (_: undefined, i: number) =>
       RootUiFkt.withID({
         label: start + 1 + i + '',
         val: start + i,
       })
     ).filter((p: PageT) => p.val < (this.useSearchbarPaginationPropsDir.pages() ?? 0));
+
+    return pagesLessOverflow;
   });
 
-  public readonly maxBlocksAvailable: Signal<number> = computed(() =>
-    Math.ceil((this.useSearchbarPaginationPropsDir.pages() ?? 0) / this.pagesPerBlock())
-  );
+  public readonly maxBlocksAvailable: Signal<number> = computed(() => {
+    const decimal: number =
+      (this.useSearchbarPaginationPropsDir.pages() ?? 0) / this.pagesPerBlock();
+
+    return Math.max(1, Math.ceil(decimal));
+  });
 
   // ? helpers
   public twdPage(p: PageT): string {
@@ -130,22 +135,24 @@ export class PageCounter<T> extends UseInjCtxHk implements OnInit {
   private ifPageBiggerThanAvailable(): void {
     this.useEffect(() => {
       const pageSig: WritableSignal<number> = this.usePagination().page;
-      const maxAvailable: number = this.useSearchbarPaginationPropsDir.pages() ?? 0;
+      const maxAvailable: number = LibPageCounter.lessOneButGteToZero(
+        this.useSearchbarPaginationPropsDir.pages() ?? 0
+      );
 
-      if (pageSig() <= maxAvailable - 1) return;
+      if (pageSig() <= maxAvailable) return;
 
-      pageSig.set(maxAvailable - 1);
+      pageSig.set(maxAvailable);
     });
   }
 
   private ifBlockBiggerThanAvailable(): void {
     this.useEffect(() => {
       const blockSig: WritableSignal<number> = this.usePagination().block;
-      const maxAvailable: number = this.maxBlocksAvailable();
+      const maxAvailable: number = LibPageCounter.lessOneButGteToZero(this.maxBlocksAvailable());
 
-      if (blockSig() <= maxAvailable - 1) return;
+      if (blockSig() <= maxAvailable) return;
 
-      blockSig.set(this.maxBlocksAvailable() - 1);
+      blockSig.set(maxAvailable);
     });
   }
 
