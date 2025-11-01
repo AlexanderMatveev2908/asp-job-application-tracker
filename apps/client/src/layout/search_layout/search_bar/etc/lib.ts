@@ -12,10 +12,12 @@ export class LibSearchBar {
   public static flatSearchForm<T>(arg: Nullable<Partial<BaseSearchBarFormT<T>>>): SearchQueryArgT {
     const flatten: SearchQueryArgT = {} as SearchQueryArgT;
 
-    // ! beside flattening ignore empty strings
+    // ! beside flattening ignore empty strings or non-number values
+    // ! which would trigger api calls for non real need of data change
 
     for (const k in arg) {
       const keyArg: keyof typeof arg = k as keyof typeof arg;
+      // ! eventT are managed below
       if (k === 'txtInputs') continue;
       if (this.skipEmptyStuff(arg[keyArg])) continue;
 
