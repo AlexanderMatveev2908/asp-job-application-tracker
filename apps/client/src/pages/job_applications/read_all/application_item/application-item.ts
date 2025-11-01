@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   input,
   InputSignal,
   Signal,
@@ -12,16 +13,24 @@ import { SpanPropsT } from '@/common/components/els/span/etc/types';
 import { ApplicationItemUiFkt } from './etc/ui_fkt';
 import { WithIdT } from '@/common/types/etc';
 import { Span } from '@/common/components/els/span/span';
+import { DropAbs } from '@/common/components/drop/abs/drop-abs';
+import { UseIDsDir } from '@/core/directives/use_ids';
+import { UseDropHk } from '@/core/hooks/use_drop';
+import { SvgStrokeNotes } from '@/common/components/svgs/stroke/notes/notes';
 
 @Component({
   selector: 'app-application-item',
-  imports: [Span],
+  imports: [Span, DropAbs, UseIDsDir],
   templateUrl: './application-item.html',
   styleUrl: './application-item.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [UseDropHk],
 })
 export class ApplicationItem {
   public readonly application: InputSignal<ApplicationT> = input.required();
+
+  // ? hooks
+  public readonly useDrop: UseDropHk = inject(UseDropHk);
 
   // ? derived
   public readonly cssTheme: Signal<string> = computed(() =>
@@ -31,4 +40,9 @@ export class ApplicationItem {
   public readonly pairsLabelSvg: Signal<(SpanPropsT & WithIdT)[]> = computed(() =>
     ApplicationItemUiFkt.pairsLabelSvg(this.application())
   );
+
+  public readonly spanNotes: SpanPropsT = {
+    label: null,
+    Svg: SvgStrokeNotes,
+  };
 }

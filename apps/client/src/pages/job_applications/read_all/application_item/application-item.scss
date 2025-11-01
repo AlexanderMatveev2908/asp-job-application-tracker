@@ -4,5 +4,13 @@
 
   .root__content {
     @apply flex flex-col gap-6;
+
+    .content__status_row {
+      @apply w-full grid grid-cols-2 gap-8;
+
+      .status_row__notes {
+        @apply w-fit justify-self-start -ml-1;
+      }
+    }
   }
 }

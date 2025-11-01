@@ -3,7 +3,7 @@
     <app-span [spanProps]="spanProps()" [sizesProps]="spanSizesProps()" />
   </button>
 
-  <div class="root__content" [ngClass]="translation()">
+  <div class="root__content" [ngClass]="[translation(), additionalTwd()]">
     <ng-container *ngTemplateOutlet="dropContentRef" />
   </div>
 </div>
