@@ -7,8 +7,6 @@ import { ResApiT } from '@/core/store/api/etc/types';
 
 export abstract class LibApplicationsTests extends LibUserTests {
   public async postApplication(jwt: string): Promise<ApplicationT> {
-    await this.nav('/');
-
     const url: string = this.backUrl + '/job-applications';
     const payload: ApplicationFormT = TestPayload.application();
 

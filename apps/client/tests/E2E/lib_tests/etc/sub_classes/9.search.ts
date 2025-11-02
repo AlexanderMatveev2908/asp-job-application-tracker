@@ -4,7 +4,7 @@ import { Nullable } from '@/common/types/etc';
 import { LibShapeCheck } from '@/core/lib/data_structure/shape_check';
 
 export abstract class LibSearchTests extends LibApplicationsTests {
-  public async searchContent(): Promise<Locator> {
+  public async gridSearchWrapper(): Promise<Locator> {
     const wrapper: Locator = await this.byIdInPage('search__content');
 
     return wrapper;
@@ -16,7 +16,7 @@ export abstract class LibSearchTests extends LibApplicationsTests {
     const msgSpan: Locator = await this.byIdIn(hitsCounter, 'hits_counter__val');
     const msg: Nullable<string> = await msgSpan.textContent();
 
-    return LibShapeCheck.isStr(msg) ? +msg! : null;
+    return LibShapeCheck.isStr(msg) ? parseInt(msg!, 10) : null;
   }
 
   public async expectHitsToBe(v: number): Promise<void> {
