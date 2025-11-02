@@ -20,6 +20,7 @@ import { LibShapeCheck } from '@/core/lib/data_structure/shape_check';
 import { FocusDOM } from '@/core/lib/dom/focus';
 import { BaseSearchBarFormT } from '../../../paperwork';
 import { UseDropHk } from '@/core/hooks/closable/use_drop';
+import { LibPrs } from '@/core/lib/data_structure/prs';
 
 @Component({
   selector: 'app-search-bar-drop-add-field',
@@ -64,6 +65,10 @@ export class SearchBarDropAddField<T> {
       ? 'opacity-100 translate-y-[120%] pointer-events-auto'
       : 'opacity-0 translate-y-0 pointer-events-none'
   );
+
+  public itemDropTestID(f: TxtFieldArrayT): string {
+    return `drop_txt_inputs__${LibPrs.toSnake(f.name)}`;
+  }
 
   // ? props span drop-abs
   public readonly SvgDrop: Type<unknown> = SvgStrokeSearchPlus;

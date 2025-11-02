@@ -1,4 +1,10 @@
-<button [type]="btnType()" class="root" [style.--clr]="metaEvent().css" (click)="onClick()?.()">
+<button
+  [type]="btnType()"
+  class="root"
+  [style.--clr]="metaEvent().css"
+  (click)="onClick()?.()"
+  [attr.data-testid]="useIDsDir.testId()"
+>
   <app-wrap-txt-api
     [spinSizeT]="'xs'"
     appUseWrapApiDir

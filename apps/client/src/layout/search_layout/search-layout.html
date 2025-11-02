@@ -22,7 +22,7 @@
   [eventT]="'INFO'"
 >
   <ng-template #contentRef>
-    <div class="grid_wrapper">
+    <div class="grid_wrapper" [attr.data-testid]="'search__content'">
       <ng-content />
     </div>
   </ng-template>

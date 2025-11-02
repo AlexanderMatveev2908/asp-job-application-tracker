@@ -11,6 +11,7 @@
       [attr.data-field]="useDynamicField.fieldAttr()"
       class="input__field txt__md"
       [value]="useDynamicField.field?.()?.val"
+      [name]="useDynamicField.field?.()?.name"
       (input)="useDynamicField.onChange($event.target.value)"
       [type]="useDynamicField.field?.()?.type"
       [placeholder]="useDynamicField.field?.()?.place"

@@ -4,10 +4,11 @@ import { SearchBarBtnShape } from '../../components/btn_shape/search-bar-btn-sha
 import { UseSpanDir } from '@/core/directives/use_span';
 import { UseBarsHk } from '../../hooks/use_bars';
 import { SearchBarBtnKeyT, SearchBarUiFkt } from '../../ui_fkt';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-search-bar-btns-row',
-  imports: [SearchBarBtnShape, UseSpanDir],
+  imports: [SearchBarBtnShape, UseSpanDir, UseIDsDir],
   templateUrl: './search-bar-btns-row.html',
   styleUrl: './search-bar-btns-row.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

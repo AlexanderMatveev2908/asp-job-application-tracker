@@ -1,4 +1,8 @@
-<div class="root" [style.--clr]="cssTheme()">
+<div
+  class="root"
+  [style.--clr]="cssTheme()"
+  [attr.data-testid]="`application_item__${application().id}`"
+>
   <div class="root__content">
     @for(s of pairsLabelSvg(); track s.id){
     <app-span [spanProps]="s" />

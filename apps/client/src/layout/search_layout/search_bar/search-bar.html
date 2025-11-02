@@ -1,4 +1,9 @@
-<form [formGroup]="useSearchBarProps.form()" class="root" (ngSubmit)="onSubmit()">
+<form
+  [formGroup]="useSearchBarProps.form()"
+  class="root"
+  (ngSubmit)="onSubmit()"
+  [attr.data-testid]="'search_bar_form'"
+>
   <app-search-bar-txt-fields-row
     [form]="useSearchBarProps.form()"
     [formVal]="formVal?.() ?? null"

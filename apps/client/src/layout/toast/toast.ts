@@ -4,10 +4,11 @@ import { ChangeDetectionStrategy, Component, computed, Signal } from '@angular/c
 import { CloseBtn } from '@/common/components/btns/close_btn/close-btn';
 import { AppEventMetaT } from '@/core/lib/dom/meta_event/etc/types';
 import { ToastRender } from './etc/mng/3.render_toast';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-toast',
-  imports: [CloseBtn, NgTemplateOutlet, CloseBtn],
+  imports: [CloseBtn, NgTemplateOutlet, CloseBtn, UseIDsDir],
   templateUrl: './toast.html',
   styleUrl: './toast.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

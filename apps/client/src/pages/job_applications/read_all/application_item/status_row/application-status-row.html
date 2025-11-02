@@ -19,7 +19,7 @@
     </app-drop-abs>
   </div>
 
-  <div class="root__status" [style.--clr]="cssTheme()">
+  <div class="root__status" [style.--clr]="cssTheme()" [attr.data-testid]="'status_wrap'">
     <app-span [spanProps]="spanStatus()" />
   </div>
 </div>

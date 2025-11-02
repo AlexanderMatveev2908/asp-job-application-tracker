@@ -40,6 +40,15 @@ export abstract class LibFormTests extends LibRootTests {
     return field;
   }
 
+  public async fillByNameWith(data: DataFieldT): Promise<Locator> {
+    const field: Locator = this.page.locator(`[name="${data.field}"]`);
+    await this.exists(field);
+
+    await field.fill(data.val);
+
+    return field;
+  }
+
   public async errWhen(form: Locator, err: DataFieldT): Promise<FillReturnT> {
     const field: Locator = await this.fillWith(form, err);
 
