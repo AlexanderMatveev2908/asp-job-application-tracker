@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { TxtFieldArrayT } from '@/common/types/forms';
 import { SearchApplicationsUiFkt } from '@/features/applications/etc/forms/search_applications/etc/ui_fkt';
-import { FormGroup } from '@angular/forms';
 import {
   SearchApplicationsFormMng,
   SearchApplicationsFormT,
@@ -19,6 +18,7 @@ import {
   UseSearchBarPaginationPropsDir,
 } from '@/layout/search_layout/search_bar/etc/directives/use_search_bar_props';
 import { ApplicationItem } from './application_item/application-item';
+import { UseSearchApplicationsFormSvc } from '@/core/services/forms/use_search_applications';
 
 @Component({
   selector: 'app-read-all-job-applications',
@@ -31,12 +31,14 @@ import { ApplicationItem } from './application_item/application-item';
 export class ReadAllJobApplications {
   // ? svc
   public readonly useApplicationsKit: UseApplicationsKitSvc = inject(UseApplicationsKitSvc);
+  public readonly useSearchApplicationsForm: UseSearchApplicationsFormSvc = inject(
+    UseSearchApplicationsFormSvc
+  );
 
   // ? hooks
   public readonly useApiTracker: UseApiTrackerHk = inject(UseApiTrackerHk);
 
   // ? static
-  public readonly form: FormGroup = SearchApplicationsFormMng.form();
   public readonly defState: SearchApplicationsFormT = SearchApplicationsFormMng.defState();
 
   // ? ui & form_fkt

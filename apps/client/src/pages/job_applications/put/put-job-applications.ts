@@ -21,6 +21,7 @@ import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { ErrApp } from '@/core/lib/err';
 import { LibFormPrs } from '@/core/lib/data_structure/form_prs';
 import { UseApplicationsKitSvc } from '@/features/applications/etc/hooks/use_applications_kit';
+import { UseSearchApplicationsFormSvc } from '@/core/services/forms/use_search_applications';
 
 @Component({
   selector: 'app-put-job-applications',
@@ -39,6 +40,9 @@ export class PutJobApplications implements OnInit {
   // ? svc
   private readonly useNav: UseNavSvc = inject(UseNavSvc);
   private readonly useApplicationsKit: UseApplicationsKitSvc = inject(UseApplicationsKitSvc);
+  public readonly useSearchApplicationsForm: UseSearchApplicationsFormSvc = inject(
+    UseSearchApplicationsFormSvc
+  );
 
   // ? local state
   public readonly currApplication: WritableSignal<Nullable<ApplicationT>> = signal(null);
@@ -62,8 +66,16 @@ export class PutJobApplications implements OnInit {
     return this.useApplicationsKit.applicationsApi
       .put(applicationID, LibFormPrs.genFormData(data))
       .pipe(
-        tap((_: ResApiT<ApplicationResT>) => {
+        tap((res: ResApiT<ApplicationResT>) => {
           this.useApplicationsKit.applicationsSlice.triggerKeyRefresh();
+
+          const freshApplication: ApplicationT = res.jobApplication;
+
+          this.useSearchApplicationsForm.preFillFieldsWith(
+            freshApplication.companyName,
+            freshApplication.positionName
+          );
+
           void this.useNav.replace('/job-applications');
         })
       );
