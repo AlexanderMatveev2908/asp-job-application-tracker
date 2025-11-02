@@ -9,7 +9,6 @@ import { Popup } from '@/layout/popup/popup';
 import { Portal } from '@/layout/portal/portal';
 import { UsePortalDir } from '@/core/directives/use_portal/0.use_portal';
 import { BtnPopChoicePropsT, PopChoices } from '@/common/components/hoc/pop_choices/pop-choices';
-import { v4 } from 'uuid';
 import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { UseKitFormUserSvc } from '@/features/user/etc/services/use_kit_form_user';
 import { LibApiShape } from '@/core/store/api/etc/lib/shape';
@@ -79,11 +78,9 @@ export class DeleteAccount extends UsePortalDir {
   public readonly popChoiceA: Signal<Partial<BtnPopChoicePropsT>> = computed(() => ({
     onClick: this.delAcc,
     isPending: this.useApiTracker.isPending(),
-    id: v4(),
   }));
   public readonly popChoiceB: Partial<BtnPopChoicePropsT> = {
     onClick: this.useKitPop.closePop,
     isPending: false,
-    id: v4(),
   };
 }

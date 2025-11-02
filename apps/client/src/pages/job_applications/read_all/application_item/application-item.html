@@ -12,8 +12,23 @@
       </div>
 
       <div class="btns__item">
-        <app-btn-shadow appUseSpanDir [spanProps]="deleteSpan()" appUseIDsDir />
+        <app-btn-shadow
+          appUseSpanDir
+          [spanProps]="deleteSpan()"
+          appUseIDsDir
+          [listenersProps]="listenersBtnDelete"
+        />
       </div>
     </div>
   </div>
 </div>
+
+<app-popup [staticProps]="staticPopProps" [isPop]="usePopKit.isPop()" appUseIDsDir>
+  <ng-template #popContent>
+    <app-pop-choices
+      [txt]="mainPopTxt()"
+      [choiceA]="popChoiceA"
+      [choiceB]="popChoiceB"
+    ></app-pop-choices>
+  </ng-template>
+</app-popup>

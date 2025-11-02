@@ -4,6 +4,7 @@ import { UseSpanDir } from '@/core/directives/use_span';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { SpanEventPropsT } from '../../els/span/etc/types';
 import { BtnListenersT, BtnStatePropsT, WithIdT, WithTestIdT } from '@/common/types/etc';
+import { v4 } from 'uuid';
 
 export interface BtnPopChoicePropsT
   extends SpanEventPropsT,
@@ -39,6 +40,7 @@ export class PopChoices {
             label: 'Delete',
             isDisabled: someonePending,
             testId: `${this.useIDs.testId()}__popup__choice_${choice}`,
+            id: v4(),
           }
         : {
             ...base,
@@ -46,6 +48,7 @@ export class PopChoices {
             label: 'I change idea',
             isDisabled: someonePending,
             testId: `${this.useIDs.testId()}__popup__choice_${choice}`,
+            id: v4(),
           }
     ) as BtnPopChoicePropsT;
   }
