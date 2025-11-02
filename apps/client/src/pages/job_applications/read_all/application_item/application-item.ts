@@ -24,6 +24,10 @@ import { Popup } from '@/layout/popup/popup';
 import { PopupStaticPropsT } from '@/layout/popup/etc/types';
 import { BtnPopChoicePropsT, PopChoices } from '@/common/components/hoc/pop_choices/pop-choices';
 import { UsePopHk } from '@/core/hooks/closable/use_pop';
+import { UseApplicationsKitSvc } from '@/features/applications/etc/hooks/use_applications_kit';
+import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
+import { finalize, tap } from 'rxjs';
+import { ResApiT } from '@/core/store/api/etc/types';
 
 @Component({
   selector: 'app-application-item',
@@ -40,14 +44,18 @@ import { UsePopHk } from '@/core/hooks/closable/use_pop';
   templateUrl: './application-item.html',
   styleUrl: './application-item.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UsePopHk],
+  providers: [UsePopHk, UseApiTrackerHk],
 })
 export class ApplicationItem {
+  // ? services
+  private readonly useApplicationsKit: UseApplicationsKitSvc = inject(UseApplicationsKitSvc);
+
   // ? props
   public readonly application: InputSignal<ApplicationT> = input.required();
 
   // ? hooks
   public readonly usePopKit: UsePopHk = inject(UsePopHk);
+  public readonly useApiTracker: UseApiTrackerHk = inject(UseApiTrackerHk);
 
   // ? derived
   public readonly cssTheme: Signal<string> = computed(() =>
@@ -80,6 +88,19 @@ export class ApplicationItem {
     onClick: () => this.usePopKit.isPop.set(true),
   };
 
+  // ? listeners
+  public readonly deleteApplication: () => void = () => {
+    this.useApiTracker
+      .track(this.useApplicationsKit.applicationsApi.delete(this.application().id))
+      .pipe(
+        tap((_: ResApiT<void>) => {
+          this.useApplicationsKit.applicationsSlice.triggerKeyRefresh();
+        }),
+        finalize(() => this.usePopKit.isPop.set(false))
+      )
+      .subscribe();
+  };
+
   // ? app-popup
   public readonly staticPopProps: PopupStaticPropsT = {
     closeOnMouseOut: true,
@@ -93,7 +114,10 @@ export class ApplicationItem {
     () => `Are you sure to delete application for ${this.application().companyName} company ?`
   );
 
-  public readonly popChoiceA: Partial<BtnPopChoicePropsT> = {};
+  public readonly popChoiceA: Signal<Partial<BtnPopChoicePropsT>> = computed(() => ({
+    isPending: this.useApiTracker.isPending(),
+    onClick: this.deleteApplication,
+  }));
   public readonly popChoiceB: Partial<BtnPopChoicePropsT> = {
     onClick: this.usePopKit.closePop,
   };

@@ -30,4 +30,10 @@ export class ApplicationsApiSvc {
   public get(data: SearchQueryArgT): ObsResT<SearchQueryResT<{ jobApplications: ApplicationT[] }>> {
     return this.api.get(LibApiArgs.withURL(this.base).query(data).toastOnErr());
   }
+
+  public delete(id: string): ObsResT<void> {
+    return this.api.delete(
+      LibApiArgs.withURL(`${this.base}/${id}`).toastOnFulfilled().pushOnStatus([StatusT.NOT_FOUND])
+    );
+  }
 }
