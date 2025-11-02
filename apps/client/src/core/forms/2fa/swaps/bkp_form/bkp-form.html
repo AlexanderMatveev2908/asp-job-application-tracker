@@ -3,7 +3,7 @@
     [formGroup]="form"
     (ngSubmit)="onSubmit()"
     class="root"
-    [attr.data-testid]="useIDsDir.form2faVarID('bkp')()"
+    [attr.data-testid]="useIDsDir.form2faVarID('bkp')"
   >
     <div class="root__wrap">
       <div class="wrap__content">
@@ -19,7 +19,7 @@
       <app-form-submit
         [isPending]="apiTracker.isPending()"
         appUseIDsDir
-        [testId]="useIDsDir.form2faVarID('bkp')()"
+        [testId]="useIDsDir.form2faVarID('bkp')"
       />
     </div>
   </form>
