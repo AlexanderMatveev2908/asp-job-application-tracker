@@ -47,4 +47,6 @@ test('ok', async ({ browser }: { browser: Browser }) => {
 
   await lib.waitPushTo('/job-applications');
   await lib.isToastOk();
+
+  await lib.expectHitsToBe(1);
 });
