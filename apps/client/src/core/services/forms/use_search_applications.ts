@@ -2,6 +2,7 @@ import { Nullable } from '@/common/types/etc';
 import { TxtFieldArrayT } from '@/common/types/forms';
 import { SearchApplicationsFormMng } from '@/features/applications/etc/forms/search_applications/etc/paperwork/form_mng';
 import { SearchApplicationsUiFkt } from '@/features/applications/etc/forms/search_applications/etc/ui_fkt';
+import { ApplicationT } from '@/features/applications/etc/types';
 import { Injectable } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
@@ -44,8 +45,8 @@ export class UseSearchApplicationsFormSvc {
     });
   }
 
-  public preFillFieldsWith(companyName: string, positionName: string): void {
-    this.setTxtInput('companyName', companyName);
-    this.setTxtInput('positionName', positionName);
+  public preFillFieldsWith(application: ApplicationT): void {
+    this.setTxtInput('companyName', application.companyName);
+    this.setTxtInput('positionName', application.positionName);
   }
 }

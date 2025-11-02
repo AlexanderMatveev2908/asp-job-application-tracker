@@ -9,6 +9,7 @@ import { ResApiT } from '@/core/store/api/etc/types';
 import { ApplicationResT } from '@/features/applications/etc/types';
 import { UseNavSvc } from '@/core/services/use_nav/use_nav';
 import { UseIDsDir } from '@/core/directives/use_ids';
+import { UseSearchApplicationsFormSvc } from '@/core/services/forms/use_search_applications';
 
 @Component({
   selector: 'app-post-job-applications',
@@ -20,13 +21,19 @@ import { UseIDsDir } from '@/core/directives/use_ids';
 export class PostJobApplications {
   private readonly useApplicationsKit: UseApplicationsKitSvc = inject(UseApplicationsKitSvc);
   private readonly useNav: UseNavSvc = inject(UseNavSvc);
+  private readonly useSearchApplicationsForm: UseSearchApplicationsFormSvc = inject(
+    UseSearchApplicationsFormSvc
+  );
 
   public readonly strategy: (data: ApplicationFormT) => Observable<unknown> = (
     data: ApplicationFormT
   ) =>
     this.useApplicationsKit.applicationsApi.post(LibFormPrs.genFormData(data)).pipe(
-      tap((_: ResApiT<ApplicationResT>) => {
+      tap((res: ResApiT<ApplicationResT>) => {
         this.useApplicationsKit.applicationsSlice.triggerKeyRefresh();
+
+        this.useSearchApplicationsForm.preFillFieldsWith(res.jobApplication);
+
         void this.useNav.replace('/job-applications');
       })
     );

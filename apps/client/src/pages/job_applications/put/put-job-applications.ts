@@ -40,7 +40,7 @@ export class PutJobApplications implements OnInit {
   // ? svc
   private readonly useNav: UseNavSvc = inject(UseNavSvc);
   private readonly useApplicationsKit: UseApplicationsKitSvc = inject(UseApplicationsKitSvc);
-  public readonly useSearchApplicationsForm: UseSearchApplicationsFormSvc = inject(
+  private readonly useSearchApplicationsForm: UseSearchApplicationsFormSvc = inject(
     UseSearchApplicationsFormSvc
   );
 
@@ -48,7 +48,6 @@ export class PutJobApplications implements OnInit {
   public readonly currApplication: WritableSignal<Nullable<ApplicationT>> = signal(null);
 
   // ? listeners
-
   private setApplication(applicationID: string): Observable<unknown> {
     return this.useApplicationsKit.applicationsApi.getByID(applicationID).pipe(
       tap((res: ResApiT<ApplicationResT>) => {
@@ -69,12 +68,7 @@ export class PutJobApplications implements OnInit {
         tap((res: ResApiT<ApplicationResT>) => {
           this.useApplicationsKit.applicationsSlice.triggerKeyRefresh();
 
-          const freshApplication: ApplicationT = res.jobApplication;
-
-          this.useSearchApplicationsForm.preFillFieldsWith(
-            freshApplication.companyName,
-            freshApplication.positionName
-          );
+          this.useSearchApplicationsForm.preFillFieldsWith(res.jobApplication);
 
           void this.useNav.replace('/job-applications');
         })
