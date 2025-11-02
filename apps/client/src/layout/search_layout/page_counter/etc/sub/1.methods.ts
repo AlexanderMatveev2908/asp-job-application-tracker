@@ -63,28 +63,29 @@ export abstract class UsePageCounterMethodsDir<T> extends UsePageCounterCollecto
 
   // ? edge cases
   protected ifPageBiggerThanAvailable(): void {
-    this.useEffect(() => {
-      const pageSig: WritableSignal<number> = this.usePagination().page;
-      const maxAvailable: number = LibPageCounter.lessOneButGteToZero(
-        this.useSearchbarPaginationPropsDir.pages() ?? 0
-      );
-      const currVal: number = pageSig();
+    const pageSig: WritableSignal<number> = this.usePagination().page;
+    const maxAvailable: number = LibPageCounter.lessOneButGteToZero(
+      this.useSearchbarPaginationPropsDir.pages() ?? 0
+    );
+    const currVal: number = untracked(() => pageSig());
 
-      if (currVal <= maxAvailable) return;
+    if (currVal <= maxAvailable) return;
 
-      untracked(() => pageSig.set(maxAvailable));
-    });
+    pageSig.set(maxAvailable);
   }
 
   protected ifBlockBiggerThanAvailable(): void {
-    this.useEffect(() => {
-      const blockSig: WritableSignal<number> = this.usePagination().block;
-      const maxAvailable: number = this.maxBlockAvailable();
-      const currVal: number = blockSig();
+    const blockSig: WritableSignal<number> = this.usePagination().block;
+    const maxAvailable: number = this.maxBlockAvailable();
+    const currVal: number = untracked(() => blockSig());
 
-      if (currVal <= maxAvailable) return;
+    console.log('-'.repeat(10));
+    console.log(currVal);
+    console.log(maxAvailable);
+    console.log('-'.repeat(10));
 
-      untracked(() => blockSig.set(maxAvailable));
-    });
+    if (currVal <= maxAvailable) return;
+
+    blockSig.set(maxAvailable);
   }
 }

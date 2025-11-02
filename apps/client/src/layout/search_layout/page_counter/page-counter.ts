@@ -19,8 +19,13 @@ export class PageCounter<T> extends UsePageCounterPropsChildrenDir<T> implements
       this.refreshPagesPerBlockLimit();
     });
 
-    this.ifPageBiggerThanAvailable();
-    this.ifBlockBiggerThanAvailable();
+    this.useEffect(() => {
+      this.ifPageBiggerThanAvailable();
+    });
+
+    this.useEffect(() => {
+      this.ifBlockBiggerThanAvailable();
+    });
   }
 
   @HostListener('window:resize')
@@ -35,5 +40,8 @@ export class PageCounter<T> extends UsePageCounterPropsChildrenDir<T> implements
       dataForm: null,
       dataPagination: { limit: result.newLimitItemsPerPage },
     });
+
+    this.ifPageBiggerThanAvailable();
+    this.ifBlockBiggerThanAvailable();
   }
 }
