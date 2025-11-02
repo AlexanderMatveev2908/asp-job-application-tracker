@@ -12,7 +12,7 @@ import { ErrApiT, ResApiT } from '@/core/store/api/etc/types';
 import { finalize } from 'rxjs';
 import { Nullable } from '@/common/types/etc';
 import { UseMetaEventDir } from '@/core/directives/use_meta_event';
-import { UseKitPopHk } from '@/core/hooks/kits/use_kit_pop';
+import { UsePopHk } from '@/core/hooks/closable/use_pop';
 import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
@@ -21,7 +21,7 @@ import { UseIDsDir } from '@/core/directives/use_ids';
   templateUrl: './wake-up.html',
   styleUrl: './wake-up.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UseKitPopHk],
+  providers: [UsePopHk],
 })
 export class WakeUp implements AfterViewInit {
   // ? svc
@@ -30,7 +30,7 @@ export class WakeUp implements AfterViewInit {
   private readonly usePlatform: UsePlatformSvc = inject(UsePlatformSvc);
   private readonly toastSlice: ToastSlice = inject(ToastSlice);
   private readonly useStorage: UseStorageSvc = inject(UseStorageSvc);
-  public readonly useKitPop: UseKitPopHk = inject(UseKitPopHk);
+  public readonly useKitPop: UsePopHk = inject(UsePopHk);
 
   // ? popup props
   public readonly popupStaticProps: PopupStaticPropsT = {

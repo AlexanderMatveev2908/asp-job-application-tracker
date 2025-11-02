@@ -14,7 +14,7 @@ import { SvgStrokeNotes } from '@/common/components/svgs/stroke/notes/notes';
 import { SvgFillStatus } from '@/common/components/svgs/fill/status/status';
 import { ApplicationT } from '@/features/applications/etc/types';
 import { Span } from '@/common/components/els/span/span';
-import { UseDropHk } from '@/core/hooks/use_drop';
+import { UseDropHk } from '@/core/hooks/closable/use_drop';
 
 @Component({
   selector: 'app-application-status-row',

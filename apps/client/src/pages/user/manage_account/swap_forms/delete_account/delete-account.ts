@@ -3,7 +3,7 @@ import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
 import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
 import { UseSpanDir } from '@/core/directives/use_span';
 import { UseIDsDir } from '@/core/directives/use_ids';
-import { UseKitPopHk } from '@/core/hooks/kits/use_kit_pop';
+import { UsePopHk } from '@/core/hooks/closable/use_pop';
 import { PopupStaticPropsT } from '@/layout/popup/etc/types';
 import { Popup } from '@/layout/popup/popup';
 import { Portal } from '@/layout/portal/portal';
@@ -23,14 +23,14 @@ import { UseResetStateSvc } from '@/core/services/use_reset_state';
   templateUrl: './delete-account.html',
   styleUrl: './delete-account.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UseKitPopHk, UseApiTrackerHk],
+  providers: [UsePopHk, UseApiTrackerHk],
 })
 export class DeleteAccount extends UsePortalDir {
   private readonly useApiTracker: UseApiTrackerHk = inject(UseApiTrackerHk);
   private readonly useReset: UseResetStateSvc = inject(UseResetStateSvc);
   private readonly useKitUserForm: UseKitFormUserSvc = inject(UseKitFormUserSvc);
 
-  public readonly useKitPop: UseKitPopHk = inject(UseKitPopHk);
+  public readonly useKitPop: UsePopHk = inject(UsePopHk);
 
   private readonly delAcc: () => void = () => {
     const cbcHmacToken: Nullable<string> = this.useKitUserForm.cbcHmacSlice.cbcHmac();

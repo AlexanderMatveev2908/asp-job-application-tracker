@@ -5,13 +5,12 @@ import {
   Component,
   computed,
   HostListener,
+  inject,
   input,
   InputSignal,
   Signal,
-  signal,
   Type,
   ViewChild,
-  WritableSignal,
 } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { SvgStrokeSearchPlus } from '@/common/components/svgs/stroke/search_plus/search-plus';
@@ -20,6 +19,7 @@ import { v4 } from 'uuid';
 import { LibShapeCheck } from '@/core/lib/data_structure/shape_check';
 import { FocusDOM } from '@/core/lib/dom/focus';
 import { BaseSearchBarFormT } from '../../../paperwork';
+import { UseDropHk } from '@/core/hooks/closable/use_drop';
 
 @Component({
   selector: 'app-search-bar-drop-add-field',
@@ -27,6 +27,7 @@ import { BaseSearchBarFormT } from '../../../paperwork';
   templateUrl: './search-bar-drop-add-field.html',
   styleUrl: './search-bar-drop-add-field.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [UseDropHk],
 })
 export class SearchBarDropAddField<T> {
   // ? props
@@ -45,13 +46,12 @@ export class SearchBarDropAddField<T> {
     return this.txtInputsAvailable()().filter((f: TxtFieldArrayT) => !namesIn.has(f.name));
   });
 
-  // ? local state
-  public readonly isOpen: WritableSignal<boolean> = signal(false);
+  // ? hooks
+  public readonly useDrop: UseDropHk = inject(UseDropHk);
 
   // ? helpers
-  public readonly setIsOpen: (v: boolean) => void = (v: boolean) => this.isOpen.set(v);
   public toggle(): void {
-    this.isOpen.set(!this.isOpen());
+    this.useDrop.isOpen.set(!this.useDrop.isOpen());
   }
 
   // ? children
@@ -60,7 +60,7 @@ export class SearchBarDropAddField<T> {
 
   // ? derived
   public readonly twd: Signal<string> = computed(() =>
-    this.isOpen()
+    this.useDrop.isOpen()
       ? 'opacity-100 translate-y-[120%] pointer-events-auto'
       : 'opacity-0 translate-y-0 pointer-events-none'
   );
@@ -80,7 +80,7 @@ export class SearchBarDropAddField<T> {
       })
     );
 
-    this.setIsOpen(false);
+    this.useDrop.setIsOpen(false);
 
     setTimeout(() => {
       FocusDOM.byDataField(`txtInputs.${txtInputs.length - 1}`);
@@ -96,7 +96,7 @@ export class SearchBarDropAddField<T> {
 
     if ([drop, dropBtn, target].some((el: ElDomT | HTMLElement) => !el)) return;
 
-    if (this.isOpen() && ![drop, dropBtn].some((el: ElDomT) => el!.contains(target)))
-      this.isOpen.set(false);
+    if (this.useDrop.isOpen() && ![drop, dropBtn].some((el: ElDomT) => el!.contains(target)))
+      this.useDrop.isOpen.set(false);
   }
 }

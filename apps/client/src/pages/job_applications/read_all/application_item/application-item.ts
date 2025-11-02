@@ -23,7 +23,7 @@ import { SvgStrokeTrash } from '@/common/components/svgs/stroke/trash/trash';
 import { Popup } from '@/layout/popup/popup';
 import { PopupStaticPropsT } from '@/layout/popup/etc/types';
 import { BtnPopChoicePropsT, PopChoices } from '@/common/components/hoc/pop_choices/pop-choices';
-import { UseKitPopHk } from '@/core/hooks/kits/use_kit_pop';
+import { UsePopHk } from '@/core/hooks/closable/use_pop';
 
 @Component({
   selector: 'app-application-item',
@@ -40,14 +40,14 @@ import { UseKitPopHk } from '@/core/hooks/kits/use_kit_pop';
   templateUrl: './application-item.html',
   styleUrl: './application-item.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UseKitPopHk],
+  providers: [UsePopHk],
 })
 export class ApplicationItem {
   // ? props
   public readonly application: InputSignal<ApplicationT> = input.required();
 
   // ? hooks
-  public readonly usePopKit: UseKitPopHk = inject(UseKitPopHk);
+  public readonly usePopKit: UsePopHk = inject(UsePopHk);
 
   // ? derived
   public readonly cssTheme: Signal<string> = computed(() =>
