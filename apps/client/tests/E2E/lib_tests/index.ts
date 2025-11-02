@@ -1,9 +1,9 @@
 import { Browser, BrowserContext, Locator, Page } from '@playwright/test';
 import { GetTokensArgT } from './etc/sub_classes/5.api';
 import { PreTestResT, TkResT } from './etc/types';
-import { LibUserTests } from './etc/sub_classes/7.user';
+import { LibApplicationsTests } from './etc/sub_classes/8.applications';
 
-export class LibTests extends LibUserTests {
+export class LibTests extends LibApplicationsTests {
   public static async fromBrowser(browser: Browser): Promise<LibTests> {
     const newCtx: BrowserContext = await browser.newContext();
     const page: Page = await newCtx.newPage();
