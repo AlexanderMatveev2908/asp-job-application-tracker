@@ -3,13 +3,12 @@ import { BtnShadow } from '@/common/components/btns/btn_shadow/btn-shadow';
 import { SpanEventPropsT } from '@/common/components/els/span/etc/types';
 import { UseSpanDir } from '@/core/directives/use_span';
 import { UseIDsDir } from '@/core/directives/use_ids';
-import { UseKitPopHk } from '@/core/hooks/kits/use_kit_pop';
+import { UsePopHk } from '@/core/hooks/closable/use_pop';
 import { PopupStaticPropsT } from '@/layout/popup/etc/types';
 import { Popup } from '@/layout/popup/popup';
 import { Portal } from '@/layout/portal/portal';
 import { UsePortalDir } from '@/core/directives/use_portal/0.use_portal';
 import { BtnPopChoicePropsT, PopChoices } from '@/common/components/hoc/pop_choices/pop-choices';
-import { v4 } from 'uuid';
 import { UseApiTrackerHk } from '@/core/store/api/etc/hooks/use_tracker';
 import { UseKitFormUserSvc } from '@/features/user/etc/services/use_kit_form_user';
 import { LibApiShape } from '@/core/store/api/etc/lib/shape';
@@ -24,14 +23,14 @@ import { UseResetStateSvc } from '@/core/services/use_reset_state';
   templateUrl: './delete-account.html',
   styleUrl: './delete-account.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [UseKitPopHk, UseApiTrackerHk],
+  providers: [UsePopHk, UseApiTrackerHk],
 })
 export class DeleteAccount extends UsePortalDir {
   private readonly useApiTracker: UseApiTrackerHk = inject(UseApiTrackerHk);
   private readonly useReset: UseResetStateSvc = inject(UseResetStateSvc);
   private readonly useKitUserForm: UseKitFormUserSvc = inject(UseKitFormUserSvc);
 
-  public readonly useKitPop: UseKitPopHk = inject(UseKitPopHk);
+  public readonly useKitPop: UsePopHk = inject(UsePopHk);
 
   private readonly delAcc: () => void = () => {
     const cbcHmacToken: Nullable<string> = this.useKitUserForm.cbcHmacSlice.cbcHmac();
@@ -79,11 +78,9 @@ export class DeleteAccount extends UsePortalDir {
   public readonly popChoiceA: Signal<Partial<BtnPopChoicePropsT>> = computed(() => ({
     onClick: this.delAcc,
     isPending: this.useApiTracker.isPending(),
-    id: v4(),
   }));
   public readonly popChoiceB: Partial<BtnPopChoicePropsT> = {
     onClick: this.useKitPop.closePop,
     isPending: false,
-    id: v4(),
   };
 }

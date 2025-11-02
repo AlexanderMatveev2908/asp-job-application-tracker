@@ -1,12 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  signal,
-  Signal,
-  WritableSignal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SvgFillGhost } from '@/common/components/svgs/fill/ghost/ghost';
 import { SvgStrokeUserWrite } from '@/common/components/svgs/stroke/user_write/user-write';
@@ -32,6 +24,7 @@ import { LogoutBtn } from '@/features/auth/components/logout_btn/logout-btn';
 import { UseIDsDir } from '@/core/directives/use_ids';
 import { UseSpanDir } from '@/core/directives/use_span';
 import { UseWrapApiDir } from '@/core/directives/use_wrap_api';
+import { UseDropHk } from '@/core/hooks/closable/use_drop';
 
 @Component({
   selector: 'app-header',
@@ -52,6 +45,7 @@ import { UseWrapApiDir } from '@/core/directives/use_wrap_api';
   templateUrl: './header.html',
   styleUrl: './header.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [UseDropHk],
 })
 export class Header {
   // ? svc
@@ -77,11 +71,8 @@ export class Header {
     this.sideSlice.toggle();
   };
 
-  // ? local state
-  public readonly isDropOpen: WritableSignal<boolean> = signal(false);
-  public readonly setIsDropOpen: (val: boolean) => void = (val: boolean) => {
-    this.isDropOpen.set(val);
-  };
+  // ? hooks
+  public readonly useDrop: UseDropHk = inject(UseDropHk);
 
   // ? static fields
   public readonly dropLinks: Signal<SpanLinkPropsT[]> = computed(() =>

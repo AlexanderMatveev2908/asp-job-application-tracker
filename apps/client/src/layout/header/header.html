@@ -15,9 +15,9 @@
       <app-drop-abs
         [spanProps]="spanDropProps()"
         [spanSizesProps]="spanDropSizesProps"
-        [isOpen]="isDropOpen()"
+        [isOpen]="useDrop.isOpen()"
         [closeOnMouseOut]="true"
-        [setIsOpen]="setIsDropOpen"
+        [setIsOpen]="useDrop.setIsOpen"
         appUseIDsDir
         [testId]="'header__drop'"
       >
@@ -29,12 +29,12 @@
               [spanProps]="lk"
               [path]="lk.path"
               [currPath]="currPath()"
-              [setIsDropOpen]="setIsDropOpen"
+              [setIsDropOpen]="useDrop.setIsOpen"
               appUseIDsDir
               [testId]="testIdFromPath(lk.path)"
             />
             } @if(user()){
-            <app-logout-btn [closeSomethingCb]="setIsDropOpen.bind(this, false)" />
+            <app-logout-btn [closeSomethingCb]="useDrop.setIsOpen.bind(this, false)" />
             }
           </div>
         </ng-template>
