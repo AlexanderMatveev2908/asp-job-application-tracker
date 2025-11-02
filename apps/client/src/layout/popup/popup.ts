@@ -26,7 +26,7 @@ import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-popup',
-  imports: [BlackBg, NgClass, CloseBtn, NgTemplateOutlet],
+  imports: [BlackBg, NgClass, CloseBtn, NgTemplateOutlet, UseIDsDir],
   templateUrl: './popup.html',
   styleUrl: './popup.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

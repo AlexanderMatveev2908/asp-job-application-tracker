@@ -1,6 +1,6 @@
 <app-black-bg [props]="blackBgProps()" />
 
-<div #barRef class="root z__filter_bar" [ngClass]="twd()">
+<div #barRef class="root z__filter_bar" [ngClass]="twd()" [attr.data-testid]="'filter_bar'">
   <app-search-bar-filter-bar-header [useBars]="useBars()" />
 
   <div class="root__body" [style.--less]="HEIGHT_LESS">

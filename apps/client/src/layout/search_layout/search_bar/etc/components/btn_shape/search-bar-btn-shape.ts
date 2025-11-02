@@ -14,6 +14,7 @@ import {
 import { WrapTxtApi } from '@/common/components/hoc/txt/wrap_txt_api/wrap-txt-api';
 import { UseWrapApiDir } from '@/core/directives/use_wrap_api';
 import { BtnT, Nullable } from '@/common/types/etc';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-search-bar-btn-shape',
@@ -25,6 +26,7 @@ import { BtnT, Nullable } from '@/common/types/etc';
 export class SearchBarBtnShape {
   // ? directives
   public readonly useSpanDir: UseSpanDir = inject(UseSpanDir);
+  public readonly useIDsDir: UseIDsDir = inject(UseIDsDir);
 
   // ? props
   public readonly isPending: InputSignal<boolean> = input(false);

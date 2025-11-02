@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, input, InputSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, InputSignal } from '@angular/core';
 import { SvgFillClose } from '../../svgs/fill/close/close';
-import { Nullable } from '@/common/types/etc';
+import { UseIDsDir } from '@/core/directives/use_ids';
 
 @Component({
   selector: 'app-close-btn',
@@ -10,7 +10,9 @@ import { Nullable } from '@/common/types/etc';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CloseBtn {
+  // ? directives
+  public readonly useIDs: UseIDsDir = inject(UseIDsDir);
+
   public readonly closeClick: InputSignal<() => void> = input.required();
   public readonly disabled: InputSignal<boolean> = input(false);
-  public readonly testId: InputSignal<Nullable<string>> = input<Nullable<string>>(null);
 }
