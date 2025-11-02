@@ -1,5 +1,5 @@
 # ? ignore server stuff
-/apps/client
+/apps/server
 
 # ? yarn
 .yarn/*
