@@ -17,6 +17,6 @@
   @let label =spanProps().label;
   <!--  -->
   @if(label){
-  <span [class]="txtCls()">{{ label }}</span>
+  <span [class]="txtCls()" [attr.data-testid]="'span_label'">{{ label }}</span>
   }
 </div>

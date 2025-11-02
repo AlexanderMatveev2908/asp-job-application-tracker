@@ -25,4 +25,13 @@ export abstract class LibSearchTests extends LibApplicationsTests {
     await expect(valHits).not.toBeNull();
     await expect(valHits).toBe(v);
   }
+
+  public async addAllTxtInputs(): Promise<void> {
+    const btnDropTxtInputs: Locator = await this.byIdInPage('toggle_drop_txt_inputs');
+    await btnDropTxtInputs.click();
+
+    const fieldToAddToSearchBar: Locator = await this.byIdInPage('drop_txt_inputs__position_name');
+
+    await fieldToAddToSearchBar.click();
+  }
 }
